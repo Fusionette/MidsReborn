@@ -54,7 +54,7 @@ public partial class ZStatus : Form
         this.lblTitle.TabIndex = 3;
         this.lblTitle.Text = "Please Wait...";
         this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-        this.AutoScaleDimensions = new System.Drawing.SizeF(6f, 14f);
+        this.AutoScaleDimensions = new System.Drawing.SizeF(7f, 15f);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.BackColor = System.Drawing.Color.FromArgb(0, 0, 32);
         this.ClientSize = new System.Drawing.Size(488, 72);

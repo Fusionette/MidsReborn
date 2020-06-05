@@ -72,18 +72,16 @@ namespace Hero_Designer
 
             var objWebRequest = (HttpWebRequest)WebRequest.Create(url);
             objWebRequest.Method = "GET";
-            using (var objWebResponse = (HttpWebResponse)objWebRequest.GetResponse())
-            {
-                var srReader = new StreamReader(objWebResponse.GetResponseStream() ?? throw new InvalidOperationException());
+            using var objWebResponse = (HttpWebResponse)objWebRequest.GetResponse();
+            var srReader = new StreamReader(objWebResponse.GetResponseStream() ?? throw new InvalidOperationException());
 
-                var strHtml = srReader.ReadToEnd();
+            var strHtml = srReader.ReadToEnd();
 
-                srReader.Close();
-                objWebResponse.Close();
-                objWebRequest.Abort();
+            srReader.Close();
+            objWebResponse.Close();
+            objWebRequest.Abort();
 
-                return (strHtml);
-            }
+            return (strHtml);
         }
 
         public object this[string propertyName] => GetType().GetProperty(propertyName)?.GetValue(this, null);

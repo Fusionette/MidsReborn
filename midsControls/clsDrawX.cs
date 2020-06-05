@@ -63,7 +63,7 @@ namespace midsControls
         public clsDrawX(Control iTarget)
         {
             InterfaceMode = 0;
-            //VillainColor = false;
+            VillainColor = false;
             ScaleValue = 2f;
             Scaling = true;
             vcCols = 4;
@@ -85,7 +85,7 @@ namespace midsControls
                 szBuffer = GetMaxDrawingArea();
                 Size size = new Size(szBuffer.Width, szBuffer.Height);
                 bxBuffer = new ExtendedBitmap(size);
-                bxBuffer.Graphics.TextRenderingHint = TextRenderingHint.SystemDefault;
+                bxBuffer.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
                 bxBuffer.Graphics.CompositingQuality = CompositingQuality.HighQuality;
                 bxBuffer.Graphics.SmoothingMode = SmoothingMode.HighQuality;
                 bxBuffer.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
@@ -850,7 +850,7 @@ namespace midsControls
             }
             else
             {
-                bxBuffer.Graphics.TextRenderingHint = TextRenderingHint.SystemDefault;
+                bxBuffer.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
                 ScaleValue = 1f;
                 ResetTarget();
                 Scaling = false;
@@ -863,7 +863,7 @@ namespace midsControls
 
         void ResetTarget()
         {
-            bxBuffer.Graphics.TextRenderingHint = ScaleValue > 1.125 ? TextRenderingHint.SystemDefault : TextRenderingHint.SystemDefault;
+            bxBuffer.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             gTarget.Dispose();
             gTarget = cTarget.CreateGraphics();
             gTarget.CompositingQuality = CompositingQuality.HighQuality;
@@ -1015,13 +1015,13 @@ namespace midsControls
 
         public void ColourSwitch()
         {
-            /*bool useHeroColors = true;
+            bool useHeroColors = true;
             if (MidsContext.Character != null)
                 useHeroColors = MidsContext.Character.IsHero();
             if (MidsContext.Config.DisableVillainColours)
                 useHeroColors = true;
 
-            VillainColor = !useHeroColors;*/
+            VillainColor = !useHeroColors;
             pColorMatrix = new ColorMatrix(heroMatrix);
             if (pImageAttributes == null)
                 pImageAttributes = new ImageAttributes();
@@ -3908,7 +3908,7 @@ namespace midsControls
                 Size result;
                 if (maxX > -1 & maxY > -1)
                 {
-                    Size size = new Size(maxX + SzPower.Width, maxY + SzPower.Height + 20);
+                    Size size = new Size(maxX + SzPower.Width, maxY + SzPower.Height + 80);
                     result = size;
                 }
                 else
@@ -3966,7 +3966,7 @@ namespace midsControls
 
         public ImageAttributes pImageAttributes;
 
-        //bool VillainColor;
+        bool VillainColor;
 
         float ScaleValue;
 

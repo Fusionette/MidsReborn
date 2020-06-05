@@ -86,7 +86,7 @@ namespace Hero_Designer
 
         public Rectangle SnapLocation;
         public int TabPage;
-        //bool VillainColour;
+        bool VillainColour;
 
         public event FloatChangeEventHandler FloatChange;
 
@@ -102,7 +102,7 @@ namespace Hero_Designer
 
         public event Unlock_ClickEventHandler Unlock_Click;
 
-        /*public bool DrawVillain
+        public bool DrawVillain
         {
             get => VillainColour;
             set
@@ -113,7 +113,7 @@ namespace Hero_Designer
                 pnlInfo.BackColor = VillainColour ? Color.Maroon : Color.Navy;
                 DoPaint();
             }
-        }*/
+        }
 
         public bool Floating
         {

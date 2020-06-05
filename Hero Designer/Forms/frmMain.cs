@@ -192,7 +192,7 @@ namespace Hero_Designer
             dvAnchored = new DataView();
             Controls.Add(dvAnchored);
             dvAnchored.BackColor = Color.Black;
-            //dvAnchored.DrawVillain = false;
+            dvAnchored.DrawVillain = false;
             dvAnchored.Floating = false;
             dvAnchored.Font = new Font("Arial", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
 
@@ -393,7 +393,9 @@ namespace Hero_Designer
         }
 
         internal void ChildRequestedRedraw()
-            => DoRedraw();
+        {
+            DoRedraw();
+        }
 
         void accoladeButton_ButtonClicked() => PowerModified(markModified: false);
 
@@ -580,10 +582,7 @@ namespace Hero_Designer
             GetBestDamageValues();
         }
 
-        static void cbDrawItem(
-            ComboBoxT<string> target,
-            Enums.ePowerSetType SetType,
-            DrawItemEventArgs e)
+        static void cbDrawItem(ComboBoxT<string> target, Enums.ePowerSetType SetType, DrawItemEventArgs e)
         {
             if (!MainModule.MidsController.IsAppInitialized)
                 return;
@@ -1205,7 +1204,7 @@ namespace Hero_Designer
             SetTitleBar();
             Application.DoEvents();
             GetBestDamageValues();
-            //UpdateColours();
+            UpdateColours();
             FloatUpdate(true);
             return true;
         }
@@ -1253,9 +1252,9 @@ namespace Hero_Designer
                 pnlGFX = (PictureBox) pnlGfx;
                 pnlGFX.Image = drawing.bxBuffer.Bitmap;
             }
-
             NoResizeEvent = true;
-            drawing.SetScaling(scale < 1.0 ? pnlGFX.Size : drawing.bxBuffer.Size);
+            //drawing.SetScaling(scale < 1.0 ? pnlGFX.Size : drawing.bxBuffer.Size);
+            drawing.SetScaling(new Size(784, 709));
             NoResizeEvent = false;
             ReArrange(false);
         }
@@ -1339,7 +1338,7 @@ namespace Hero_Designer
             FloatingDataForm.dvFloat.Init();
             FloatingDataForm.dvFloat.SetFontData();
             myDataView.BackColor = BackColor;
-            //myDataView.DrawVillain = !MainModule.MidsController.Toon.IsHero();
+            myDataView.DrawVillain = !MainModule.MidsController.Toon.IsHero();
             dvAnchored.Visible = false;
             pnlGFX.Select();
             FloatingDataForm.Show();
@@ -3941,7 +3940,7 @@ namespace Hero_Designer
         {
             MidsContext.Config.Columns = columns;
             drawing.Columns = columns;
-            DoResize();
+            //DoResize();
             DoRedraw();
             SetFormWidth();
         }
@@ -4060,7 +4059,7 @@ namespace Hero_Designer
             }
 
             NoResizeEvent = false;
-            DoResize();
+            //DoResize();
         }
 
         internal void SetMiniList(PopUp.PopupData iData, string iTitle, int bxHeight = 2048)
@@ -4213,7 +4212,7 @@ namespace Hero_Designer
             myDataView = dvAnchored;
             myDataView.Init();
             myDataView.BackColor = BackColor;
-            //myDataView.DrawVillain = !MainModule.MidsController.Toon.IsHero();
+            myDataView.DrawVillain = !MainModule.MidsController.Toon.IsHero();
             dvAnchored.Visible = true;
             NoResizeEvent = true;
             OnResizeEnd(new EventArgs());
@@ -5096,7 +5095,7 @@ namespace Hero_Designer
 
         void UpdateColours(bool skipDraw = false)
         {
-            //myDataView.DrawVillain = !MidsContext.Character.IsHero();
+            myDataView.DrawVillain = !MidsContext.Character.IsHero();
             bool draw;
             draw = I9Picker.ForeColor.R != 96;
                 BackColor = Color.FromArgb(0, 0, 0);

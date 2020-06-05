@@ -173,7 +173,7 @@ namespace Hero_Designer
             this.TemporaryPowersWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbDynMode = new System.Windows.Forms.PictureBox();
             this.pnlGFX = new System.Windows.Forms.PictureBox();
-            this.pnlGFXFlow = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlGFXFlow = new System.Windows.Forms.Panel();
             this.llAncillary = new midsControls.ListLabelV2();
             this.lblName = new midsControls.GFXLabel();
             this.lblOrigin = new midsControls.GFXLabel();
@@ -202,6 +202,8 @@ namespace Hero_Designer
             this.ibRecipe = new midsControls.ImageButton();
             this.ibPopup = new midsControls.ImageButton();
             this.MenuBar.SuspendLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7f, 15f);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ((System.ComponentModel.ISupportInitialize)this.pbDynMode).BeginInit();
             ((System.ComponentModel.ISupportInitialize)this.pnlGFX).BeginInit();
             this.pnlGFXFlow.SuspendLayout();
@@ -1463,9 +1465,12 @@ namespace Hero_Designer
             this.pnlGFX.BackColor = System.Drawing.Color.Black;
             this.pnlGFX.Location = new System.Drawing.Point(3, 3);
             this.pnlGFX.Name = "pnlGFX";
-            this.pnlGFX.Size = new System.Drawing.Size(584, 709);
+            this.pnlGFX.Size = new System.Drawing.Size(784, 709);
             this.pnlGFX.TabIndex = 103;
             this.pnlGFX.TabStop = false;
+            this.pnlGFX.Dock = DockStyle.Fill;
+            this.pnlGFX.AutoSize = true;
+            this.pnlGFX.Anchor = AnchorStyles.Left | AnchorStyles.Top;
             this.pnlGFX.MouseEnter += new System.EventHandler(pnlGFX_MouseEnter);
             this.pnlGFX.MouseLeave += new System.EventHandler(pnlGFX_MouseLeave);
             this.pnlGFX.MouseMove += new System.Windows.Forms.MouseEventHandler(pnlGFX_MouseMove);
@@ -1475,6 +1480,8 @@ namespace Hero_Designer
             this.pnlGFX.DragOver += new System.Windows.Forms.DragEventHandler(pnlGFX_DragOver);
             this.pnlGFX.DragEnter += new System.Windows.Forms.DragEventHandler(pnlGFX_DragEnter);
             this.pnlGFX.DragDrop += new System.Windows.Forms.DragEventHandler(pnlGFX_DragDrop);
+
+
             // 
             // pnlGFXFlow
             // 
@@ -1482,7 +1489,9 @@ namespace Hero_Designer
             this.pnlGFXFlow.Controls.Add(this.pnlGFX);
             this.pnlGFXFlow.Location = new System.Drawing.Point(472, 78);
             this.pnlGFXFlow.Name = "pnlGFXFlow";
-            this.pnlGFXFlow.Size = new System.Drawing.Size(584, 629);
+            this.pnlGFXFlow.Size = new System.Drawing.Size(784, 629);
+            this.pnlGFXFlow.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.pnlGFXFlow.AutoSize = true;
             this.pnlGFXFlow.TabIndex = 112;
             this.pnlGFXFlow.MouseEnter += new System.EventHandler(pnlGFXFlow_MouseEnter);
             // 
@@ -1940,9 +1949,12 @@ namespace Hero_Designer
             this.ibPopup.TextOn = "Pop-Up: On";
             this.ibPopup.Toggle = true;
             this.ibPopup.ButtonClicked += new midsControls.ImageButton.ButtonClickedEventHandler(ibPopup_ButtonClicked);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1156, 772);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7f, 15f);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1100, 850);
+            // this.MinimumSize = new System.Drawing.Size(1024, 768);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.Add(this.heroVillain);
             this.Controls.Add(this.petsButton);
             this.Controls.Add(this.tempPowersButton);
@@ -2002,15 +2014,12 @@ namespace Hero_Designer
             this.ForeColor = System.Drawing.Color.White;
             this.KeyPreview = true;
             this.MainMenuStrip = this.MenuBar;
-
-            this.MinimumSize = new System.Drawing.Size(640, 480);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             //this.Location = new Point(10, 10);
             this.Text = "Hero Designer";
             this.MenuBar.ResumeLayout(false);
             this.MenuBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)this.pbDynMode).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.pnlGFX).EndInit();
+            //((System.ComponentModel.ISupportInitialize)this.pnlGFX).EndInit();
             this.pnlGFXFlow.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -2147,7 +2156,7 @@ namespace Hero_Designer
         ToolStripMenuItem OptionsToolStripMenuItem;
         PictureBox pbDynMode;
         PictureBox pnlGFX;
-        FlowLayoutPanel pnlGFXFlow;
+        Panel pnlGFXFlow;
         ToolStripMenuItem SetAllIOsToDefault35ToolStripMenuItem;
         ToolStripMenuItem SlotsToolStripMenuItem;
         ToolStripMenuItem TemporaryPowersWindowToolStripMenuItem;
