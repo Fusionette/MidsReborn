@@ -114,6 +114,12 @@
     <Compile Include="ctlPowerList.Designer.cs">
       <DependentUpon>ctlPowerList.cs</DependentUpon>
     </Compile>
+    <Compile Include="ctlPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ctlPanel.Designer.cs">
+      <DependentUpon>ctlPanel.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ctlDamageDisplay.resources" />
@@ -133,6 +139,9 @@
     <EmbeddedResource Include="Resources.resources" />
     <EmbeddedResource Include="ctlCombo.resx">
       <DependentUpon>ctlCombo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlPanel.resx">
+      <DependentUpon>ctlPanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
