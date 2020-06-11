@@ -120,6 +120,18 @@
     <Compile Include="ctlPanel.Designer.cs">
       <DependentUpon>ctlPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ctlPowerButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctlPowerButton.Designer.cs">
+      <DependentUpon>ctlPowerButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlTablePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ctlTablePanel.Designer.cs">
+      <DependentUpon>ctlTablePanel.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ctlDamageDisplay.resources" />
@@ -142,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ctlPanel.resx">
       <DependentUpon>ctlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlPowerButton.resx">
+      <DependentUpon>ctlPowerButton.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

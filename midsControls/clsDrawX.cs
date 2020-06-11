@@ -237,7 +237,7 @@ namespace midsControls
             int slotChk = MidsContext.Character.SlotCheck(iSlot);
             Enums.ePowerState ePowerState = iSlot.State;
             bool canPlaceSlot = MidsContext.Character.CanPlaceSlot;
-            bool drawNewSlot = iSlot.Power != null && (iSlot.State != Enums.ePowerState.Empty && canPlaceSlot) && iSlot.Slots.Length < 6 &&
+            bool drawNewSlot = iSlot.Power != null && iSlot.State != Enums.ePowerState.Empty && canPlaceSlot && iSlot.Slots.Length < 6 &&
                                singleDraw && iSlot.Power.Slottable & InterfaceMode != Enums.eInterfaceMode.PowerToggle;
             Point result = PowerPosition(iSlot);
             Point point = default;

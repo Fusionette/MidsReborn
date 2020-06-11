@@ -69,5 +69,15 @@ namespace Hero_Designer {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reborn_wicon {
+            get {
+                object obj = ResourceManager.GetObject("reborn_wicon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
