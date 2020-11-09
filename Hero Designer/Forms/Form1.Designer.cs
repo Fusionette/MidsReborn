@@ -47,6 +47,21 @@ namespace Hero_Designer.Forms
             this.SlidePanel = new midsControls.ctlPanel();
             this.MenuGrip = new FontAwesome.Sharp.IconButton();
             this.MainPanel = new midsControls.ctlPanel();
+            this.ctlPowerList7 = new midsControls.ctlPowerList();
+            this.ctlCombo9 = new midsControls.ctlCombo();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ctlPowerList6 = new midsControls.ctlPowerList();
+            this.ctlCombo8 = new midsControls.ctlCombo();
+            this.label10 = new System.Windows.Forms.Label();
+            this.ctlPowerList5 = new midsControls.ctlPowerList();
+            this.ctlCombo7 = new midsControls.ctlCombo();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ctlPowerList4 = new midsControls.ctlPowerList();
+            this.ctlCombo6 = new midsControls.ctlCombo();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ctlPowerList3 = new midsControls.ctlPowerList();
+            this.ctlCombo5 = new midsControls.ctlCombo();
+            this.label7 = new System.Windows.Forms.Label();
             this.ctlPowerList2 = new midsControls.ctlPowerList();
             this.ctlPowerList1 = new midsControls.ctlPowerList();
             this.ctlCombo4 = new midsControls.ctlCombo();
@@ -59,34 +74,16 @@ namespace Hero_Designer.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ctlPanel2 = new midsControls.ctlPanel();
-            this.InherentTable = new midsControls.ctlTablePanel();
             this.ctlPanel1 = new midsControls.ctlPanel();
-            this.PowerTable = new midsControls.ctlTablePanel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.ctlCombo5 = new midsControls.ctlCombo();
-            this.ctlPowerList3 = new midsControls.ctlPowerList();
-            this.label8 = new System.Windows.Forms.Label();
-            this.ctlCombo6 = new midsControls.ctlCombo();
-            this.ctlPowerList4 = new midsControls.ctlPowerList();
-            this.label9 = new System.Windows.Forms.Label();
-            this.ctlCombo7 = new midsControls.ctlCombo();
-            this.ctlPowerList5 = new midsControls.ctlPowerList();
-            this.label10 = new System.Windows.Forms.Label();
-            this.ctlCombo8 = new midsControls.ctlCombo();
-            this.ctlPowerList6 = new midsControls.ctlPowerList();
-            this.label11 = new System.Windows.Forms.Label();
-            this.ctlCombo9 = new midsControls.ctlCombo();
-            this.ctlPowerList7 = new midsControls.ctlPowerList();
+            this.pnlGFX = new System.Windows.Forms.PictureBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.BGImage)).BeginInit();
             this.TopPanel.SuspendLayout();
             this.ExitPanel.SuspendLayout();
             this.SlidePanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.ctlPanel2.SuspendLayout();
-            this.ctlPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlGFX)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuSlideTimer
@@ -228,6 +225,8 @@ namespace Hero_Designer.Forms
             // MainPanel
             // 
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.MainPanel.Controls.Add(this.flowLayoutPanel1);
+            this.MainPanel.Controls.Add(this.ctlPanel1);
             this.MainPanel.Controls.Add(this.ctlPowerList7);
             this.MainPanel.Controls.Add(this.ctlCombo9);
             this.MainPanel.Controls.Add(this.label11);
@@ -255,14 +254,231 @@ namespace Hero_Designer.Forms
             this.MainPanel.Controls.Add(this.label3);
             this.MainPanel.Controls.Add(this.textBox1);
             this.MainPanel.Controls.Add(this.label2);
-            this.MainPanel.Controls.Add(this.pictureBox2);
-            this.MainPanel.Controls.Add(this.ctlPanel2);
-            this.MainPanel.Controls.Add(this.ctlPanel1);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(50, 41);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(1325, 809);
             this.MainPanel.TabIndex = 3;
+            // 
+            // ctlPowerList7
+            // 
+            this.ctlPowerList7.BackColor = System.Drawing.Color.Transparent;
+            this.ctlPowerList7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ctlPowerList7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ctlPowerList7.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlPowerList7.ForeColor = System.Drawing.Color.White;
+            this.ctlPowerList7.FormattingEnabled = true;
+            this.ctlPowerList7.Items.AddRange(new object[] {
+            "Pool Power 1",
+            "Pool Power 2",
+            "Pool Power 3",
+            "Pool Power 4",
+            "Pool Power 5"});
+            this.ctlPowerList7.Location = new System.Drawing.Point(383, 675);
+            this.ctlPowerList7.Name = "ctlPowerList7";
+            this.ctlPowerList7.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            this.ctlPowerList7.SelectionColor = System.Drawing.Color.Empty;
+            this.ctlPowerList7.Size = new System.Drawing.Size(146, 78);
+            this.ctlPowerList7.TabIndex = 33;
+            // 
+            // ctlCombo9
+            // 
+            this.ctlCombo9.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ctlCombo9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ctlCombo9.FormattingEnabled = true;
+            this.ctlCombo9.ImageList = null;
+            this.ctlCombo9.Location = new System.Drawing.Point(383, 646);
+            this.ctlCombo9.Name = "ctlCombo9";
+            this.ctlCombo9.Size = new System.Drawing.Size(146, 23);
+            this.ctlCombo9.TabIndex = 32;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(425, 630);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(61, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Epic Pool";
+            // 
+            // ctlPowerList6
+            // 
+            this.ctlPowerList6.BackColor = System.Drawing.Color.Transparent;
+            this.ctlPowerList6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ctlPowerList6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ctlPowerList6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlPowerList6.ForeColor = System.Drawing.Color.White;
+            this.ctlPowerList6.FormattingEnabled = true;
+            this.ctlPowerList6.Items.AddRange(new object[] {
+            "Pool Power 1",
+            "Pool Power 2",
+            "Pool Power 3",
+            "Pool Power 4",
+            "Pool Power 5"});
+            this.ctlPowerList6.Location = new System.Drawing.Point(383, 549);
+            this.ctlPowerList6.Name = "ctlPowerList6";
+            this.ctlPowerList6.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            this.ctlPowerList6.SelectionColor = System.Drawing.Color.Empty;
+            this.ctlPowerList6.Size = new System.Drawing.Size(146, 78);
+            this.ctlPowerList6.TabIndex = 30;
+            // 
+            // ctlCombo8
+            // 
+            this.ctlCombo8.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ctlCombo8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ctlCombo8.FormattingEnabled = true;
+            this.ctlCombo8.ImageList = null;
+            this.ctlCombo8.Location = new System.Drawing.Point(383, 520);
+            this.ctlCombo8.Name = "ctlCombo8";
+            this.ctlCombo8.Size = new System.Drawing.Size(146, 23);
+            this.ctlCombo8.TabIndex = 29;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(434, 504);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Pool 4";
+            // 
+            // ctlPowerList5
+            // 
+            this.ctlPowerList5.BackColor = System.Drawing.Color.Transparent;
+            this.ctlPowerList5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ctlPowerList5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ctlPowerList5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlPowerList5.ForeColor = System.Drawing.Color.White;
+            this.ctlPowerList5.FormattingEnabled = true;
+            this.ctlPowerList5.Items.AddRange(new object[] {
+            "Pool Power 1",
+            "Pool Power 2",
+            "Pool Power 3",
+            "Pool Power 4",
+            "Pool Power 5"});
+            this.ctlPowerList5.Location = new System.Drawing.Point(383, 423);
+            this.ctlPowerList5.Name = "ctlPowerList5";
+            this.ctlPowerList5.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            this.ctlPowerList5.SelectionColor = System.Drawing.Color.Empty;
+            this.ctlPowerList5.Size = new System.Drawing.Size(146, 78);
+            this.ctlPowerList5.TabIndex = 27;
+            // 
+            // ctlCombo7
+            // 
+            this.ctlCombo7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ctlCombo7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ctlCombo7.FormattingEnabled = true;
+            this.ctlCombo7.ImageList = null;
+            this.ctlCombo7.Location = new System.Drawing.Point(383, 394);
+            this.ctlCombo7.Name = "ctlCombo7";
+            this.ctlCombo7.Size = new System.Drawing.Size(146, 23);
+            this.ctlCombo7.TabIndex = 26;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(434, 378);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Pool 3";
+            // 
+            // ctlPowerList4
+            // 
+            this.ctlPowerList4.BackColor = System.Drawing.Color.Transparent;
+            this.ctlPowerList4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ctlPowerList4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ctlPowerList4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlPowerList4.ForeColor = System.Drawing.Color.White;
+            this.ctlPowerList4.FormattingEnabled = true;
+            this.ctlPowerList4.Items.AddRange(new object[] {
+            "Pool Power 1",
+            "Pool Power 2",
+            "Pool Power 3",
+            "Pool Power 4",
+            "Pool Power 5"});
+            this.ctlPowerList4.Location = new System.Drawing.Point(383, 297);
+            this.ctlPowerList4.Name = "ctlPowerList4";
+            this.ctlPowerList4.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            this.ctlPowerList4.SelectionColor = System.Drawing.Color.Empty;
+            this.ctlPowerList4.Size = new System.Drawing.Size(146, 78);
+            this.ctlPowerList4.TabIndex = 24;
+            // 
+            // ctlCombo6
+            // 
+            this.ctlCombo6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ctlCombo6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ctlCombo6.FormattingEnabled = true;
+            this.ctlCombo6.ImageList = null;
+            this.ctlCombo6.Location = new System.Drawing.Point(383, 268);
+            this.ctlCombo6.Name = "ctlCombo6";
+            this.ctlCombo6.Size = new System.Drawing.Size(146, 23);
+            this.ctlCombo6.TabIndex = 23;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(434, 252);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Pool 2";
+            // 
+            // ctlPowerList3
+            // 
+            this.ctlPowerList3.BackColor = System.Drawing.Color.Transparent;
+            this.ctlPowerList3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ctlPowerList3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ctlPowerList3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlPowerList3.ForeColor = System.Drawing.Color.White;
+            this.ctlPowerList3.FormattingEnabled = true;
+            this.ctlPowerList3.Items.AddRange(new object[] {
+            "Pool Power 1",
+            "Pool Power 2",
+            "Pool Power 3",
+            "Pool Power 4",
+            "Pool Power 5"});
+            this.ctlPowerList3.Location = new System.Drawing.Point(383, 171);
+            this.ctlPowerList3.Name = "ctlPowerList3";
+            this.ctlPowerList3.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            this.ctlPowerList3.SelectionColor = System.Drawing.Color.Empty;
+            this.ctlPowerList3.Size = new System.Drawing.Size(146, 78);
+            this.ctlPowerList3.TabIndex = 21;
+            // 
+            // ctlCombo5
+            // 
+            this.ctlCombo5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ctlCombo5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ctlCombo5.FormattingEnabled = true;
+            this.ctlCombo5.ImageList = null;
+            this.ctlCombo5.Location = new System.Drawing.Point(383, 142);
+            this.ctlCombo5.Name = "ctlCombo5";
+            this.ctlCombo5.Size = new System.Drawing.Size(146, 23);
+            this.ctlCombo5.TabIndex = 20;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(434, 126);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Pool 1";
             // 
             // ctlPowerList2
             // 
@@ -425,281 +641,30 @@ namespace Hero_Designer.Forms
             this.label2.TabIndex = 7;
             this.label2.Text = "Name:";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(535, 331);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(0, 3, 10, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(780, 5);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
-            // 
-            // ctlPanel2
-            // 
-            this.ctlPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctlPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPanel2.Controls.Add(this.InherentTable);
-            this.ctlPanel2.Location = new System.Drawing.Point(535, 342);
-            this.ctlPanel2.Name = "ctlPanel2";
-            this.ctlPanel2.Size = new System.Drawing.Size(778, 455);
-            this.ctlPanel2.TabIndex = 4;
-            // 
-            // InherentTable
-            // 
-            this.InherentTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.InherentTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InherentTable.Location = new System.Drawing.Point(0, 0);
-            this.InherentTable.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.InherentTable.Name = "InherentTable";
-            this.InherentTable.Size = new System.Drawing.Size(778, 455);
-            this.InherentTable.TabIndex = 2;
-            // 
             // ctlPanel1
             // 
-            this.ctlPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ctlPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPanel1.Controls.Add(this.PowerTable);
-            this.ctlPanel1.Location = new System.Drawing.Point(535, 6);
+            this.ctlPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ctlPanel1.Location = new System.Drawing.Point(6, 339);
             this.ctlPanel1.Name = "ctlPanel1";
-            this.ctlPanel1.Size = new System.Drawing.Size(778, 319);
-            this.ctlPanel1.TabIndex = 3;
+            this.ctlPanel1.Size = new System.Drawing.Size(371, 445);
+            this.ctlPanel1.TabIndex = 34;
             // 
-            // PowerTable
+            // pnlGFX
             // 
-            this.PowerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.PowerTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PowerTable.Location = new System.Drawing.Point(0, 0);
-            this.PowerTable.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.PowerTable.Name = "PowerTable";
-            this.PowerTable.Size = new System.Drawing.Size(778, 319);
-            this.PowerTable.TabIndex = 1;
+            this.pnlGFX.BackColor = System.Drawing.Color.Black;
+            this.pnlGFX.Location = new System.Drawing.Point(3, 3);
+            this.pnlGFX.Name = "pnlGFX";
+            this.pnlGFX.Size = new System.Drawing.Size(718, 256);
+            this.pnlGFX.TabIndex = 104;
+            this.pnlGFX.TabStop = false;
             // 
-            // label7
+            // flowLayoutPanel1
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(434, 126);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "Pool 1";
-            // 
-            // ctlCombo5
-            // 
-            this.ctlCombo5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo5.FormattingEnabled = true;
-            this.ctlCombo5.ImageList = null;
-            this.ctlCombo5.Location = new System.Drawing.Point(383, 142);
-            this.ctlCombo5.Name = "ctlCombo5";
-            this.ctlCombo5.Size = new System.Drawing.Size(146, 23);
-            this.ctlCombo5.TabIndex = 20;
-            // 
-            // ctlPowerList3
-            // 
-            this.ctlPowerList3.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPowerList3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ctlPowerList3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ctlPowerList3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlPowerList3.ForeColor = System.Drawing.Color.White;
-            this.ctlPowerList3.FormattingEnabled = true;
-            this.ctlPowerList3.Items.AddRange(new object[] {
-            "Pool Power 1",
-            "Pool Power 2",
-            "Pool Power 3",
-            "Pool Power 4",
-            "Pool Power 5"});
-            this.ctlPowerList3.Location = new System.Drawing.Point(383, 171);
-            this.ctlPowerList3.Name = "ctlPowerList3";
-            this.ctlPowerList3.SelectionBackColor = System.Drawing.Color.DarkOrange;
-            this.ctlPowerList3.SelectionColor = System.Drawing.Color.Empty;
-            this.ctlPowerList3.Size = new System.Drawing.Size(146, 78);
-            this.ctlPowerList3.TabIndex = 21;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(434, 252);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 22;
-            this.label8.Text = "Pool 2";
-            // 
-            // ctlCombo6
-            // 
-            this.ctlCombo6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo6.FormattingEnabled = true;
-            this.ctlCombo6.ImageList = null;
-            this.ctlCombo6.Location = new System.Drawing.Point(383, 268);
-            this.ctlCombo6.Name = "ctlCombo6";
-            this.ctlCombo6.Size = new System.Drawing.Size(146, 23);
-            this.ctlCombo6.TabIndex = 23;
-            // 
-            // ctlPowerList4
-            // 
-            this.ctlPowerList4.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPowerList4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ctlPowerList4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ctlPowerList4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlPowerList4.ForeColor = System.Drawing.Color.White;
-            this.ctlPowerList4.FormattingEnabled = true;
-            this.ctlPowerList4.Items.AddRange(new object[] {
-            "Pool Power 1",
-            "Pool Power 2",
-            "Pool Power 3",
-            "Pool Power 4",
-            "Pool Power 5"});
-            this.ctlPowerList4.Location = new System.Drawing.Point(383, 297);
-            this.ctlPowerList4.Name = "ctlPowerList4";
-            this.ctlPowerList4.SelectionBackColor = System.Drawing.Color.DarkOrange;
-            this.ctlPowerList4.SelectionColor = System.Drawing.Color.Empty;
-            this.ctlPowerList4.Size = new System.Drawing.Size(146, 78);
-            this.ctlPowerList4.TabIndex = 24;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(434, 378);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 13);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "Pool 3";
-            // 
-            // ctlCombo7
-            // 
-            this.ctlCombo7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo7.FormattingEnabled = true;
-            this.ctlCombo7.ImageList = null;
-            this.ctlCombo7.Location = new System.Drawing.Point(383, 394);
-            this.ctlCombo7.Name = "ctlCombo7";
-            this.ctlCombo7.Size = new System.Drawing.Size(146, 23);
-            this.ctlCombo7.TabIndex = 26;
-            // 
-            // ctlPowerList5
-            // 
-            this.ctlPowerList5.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPowerList5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ctlPowerList5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ctlPowerList5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlPowerList5.ForeColor = System.Drawing.Color.White;
-            this.ctlPowerList5.FormattingEnabled = true;
-            this.ctlPowerList5.Items.AddRange(new object[] {
-            "Pool Power 1",
-            "Pool Power 2",
-            "Pool Power 3",
-            "Pool Power 4",
-            "Pool Power 5"});
-            this.ctlPowerList5.Location = new System.Drawing.Point(383, 423);
-            this.ctlPowerList5.Name = "ctlPowerList5";
-            this.ctlPowerList5.SelectionBackColor = System.Drawing.Color.DarkOrange;
-            this.ctlPowerList5.SelectionColor = System.Drawing.Color.Empty;
-            this.ctlPowerList5.Size = new System.Drawing.Size(146, 78);
-            this.ctlPowerList5.TabIndex = 27;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(434, 504);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
-            this.label10.TabIndex = 28;
-            this.label10.Text = "Pool 4";
-            // 
-            // ctlCombo8
-            // 
-            this.ctlCombo8.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo8.FormattingEnabled = true;
-            this.ctlCombo8.ImageList = null;
-            this.ctlCombo8.Location = new System.Drawing.Point(383, 520);
-            this.ctlCombo8.Name = "ctlCombo8";
-            this.ctlCombo8.Size = new System.Drawing.Size(146, 23);
-            this.ctlCombo8.TabIndex = 29;
-            // 
-            // ctlPowerList6
-            // 
-            this.ctlPowerList6.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPowerList6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ctlPowerList6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ctlPowerList6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlPowerList6.ForeColor = System.Drawing.Color.White;
-            this.ctlPowerList6.FormattingEnabled = true;
-            this.ctlPowerList6.Items.AddRange(new object[] {
-            "Pool Power 1",
-            "Pool Power 2",
-            "Pool Power 3",
-            "Pool Power 4",
-            "Pool Power 5"});
-            this.ctlPowerList6.Location = new System.Drawing.Point(383, 549);
-            this.ctlPowerList6.Name = "ctlPowerList6";
-            this.ctlPowerList6.SelectionBackColor = System.Drawing.Color.DarkOrange;
-            this.ctlPowerList6.SelectionColor = System.Drawing.Color.Empty;
-            this.ctlPowerList6.Size = new System.Drawing.Size(146, 78);
-            this.ctlPowerList6.TabIndex = 30;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(425, 630);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 13);
-            this.label11.TabIndex = 31;
-            this.label11.Text = "Epic Pool";
-            // 
-            // ctlCombo9
-            // 
-            this.ctlCombo9.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo9.FormattingEnabled = true;
-            this.ctlCombo9.ImageList = null;
-            this.ctlCombo9.Location = new System.Drawing.Point(383, 646);
-            this.ctlCombo9.Name = "ctlCombo9";
-            this.ctlCombo9.Size = new System.Drawing.Size(146, 23);
-            this.ctlCombo9.TabIndex = 32;
-            // 
-            // ctlPowerList7
-            // 
-            this.ctlPowerList7.BackColor = System.Drawing.Color.Transparent;
-            this.ctlPowerList7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ctlPowerList7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ctlPowerList7.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlPowerList7.ForeColor = System.Drawing.Color.White;
-            this.ctlPowerList7.FormattingEnabled = true;
-            this.ctlPowerList7.Items.AddRange(new object[] {
-            "Pool Power 1",
-            "Pool Power 2",
-            "Pool Power 3",
-            "Pool Power 4",
-            "Pool Power 5"});
-            this.ctlPowerList7.Location = new System.Drawing.Point(383, 675);
-            this.ctlPowerList7.Name = "ctlPowerList7";
-            this.ctlPowerList7.SelectionBackColor = System.Drawing.Color.DarkOrange;
-            this.ctlPowerList7.SelectionColor = System.Drawing.Color.Empty;
-            this.ctlPowerList7.Size = new System.Drawing.Size(146, 78);
-            this.ctlPowerList7.TabIndex = 33;
+            this.flowLayoutPanel1.Controls.Add(this.pnlGFX);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(535, 6);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(782, 778);
+            this.flowLayoutPanel1.TabIndex = 105;
             // 
             // Form1
             // 
@@ -728,9 +693,8 @@ namespace Hero_Designer.Forms
             this.SlidePanel.ResumeLayout(false);
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.ctlPanel2.ResumeLayout(false);
-            this.ctlPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlGFX)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -745,11 +709,6 @@ namespace Hero_Designer.Forms
         private FontAwesome.Sharp.IconButton CloseButton;
         private FontAwesome.Sharp.IconButton MinimizeButton;
         private FontAwesome.Sharp.IconButton MenuGrip;
-        private ctlTablePanel InherentTable;
-        private ctlTablePanel PowerTable;
-        private ctlPanel ctlPanel1;
-        private ctlPanel ctlPanel2;
-        private PictureBox pictureBox2;
         private Button button1;
         private Label label1;
         private TextBox textBox1;
@@ -779,5 +738,8 @@ namespace Hero_Designer.Forms
         private ctlPowerList ctlPowerList7;
         private ctlCombo ctlCombo9;
         private Label label11;
+        private ctlPanel ctlPanel1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private PictureBox pnlGFX;
     }
 }
