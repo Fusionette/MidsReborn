@@ -25,39 +25,81 @@ namespace Hero_Designer.Forms
 {
     public partial class Form1 : Form
     {
+        private readonly string _path = $"{Application.StartupPath}\\Images\\OriginAT";
+        public List<string> Alignment = new List<string> { "Hero", "Vigilante", "Villain", "Rogue" };
+        public List<Color> ListSelectionColor = new List<Color> { Color.DodgerBlue, Color.Goldenrod, Color.Red, Color.Silver };
+
+        bool GetPlayableClasses(Archetype a) => a.Playable;
+        private frmLoading _frmLoading;
+        private bool Loading { get; set; }
+
+        Lazy<ComboBoxT<Archetype>> CbtAT => new Lazy<ComboBoxT<Archetype>>(() => new ComboBoxT<Archetype>(cbAT));
+
         private readonly int _panelWidth;
         private bool PanelHidden { get; set; }
         public Form1()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint|ControlStyles.OptimizedDoubleBuffer|ControlStyles.ResizeRedraw, true);
-            InitializeComponent();
-            SlidePanel.Width = 50;
-            _panelWidth = 50;
-            PanelHidden = true;
+            ConfigData.Initialize(MyApplication.GetSerializer());
             Load += Form1_Load;
+            InitializeComponent();
+            menuPanel.Width = 0;
+            _panelWidth = 350;
+            PanelHidden = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Fill_Grids();
+            Loading = true;
+            try
+            {
+                if (MidsContext.Config.I9.DefaultIOLevel == 27)
+                {
+                    MidsContext.Config.I9.DefaultIOLevel = 49;
+                }
+
+                using frmLoading iFrm = new frmLoading();
+                _frmLoading = iFrm;
+                _frmLoading.Show();
+                if (!this.IsInDesignMode() && !MidsContext.Config.IsInitialized)
+                {
+                    MidsContext.Config.CheckForUpdates = false;
+                    MidsContext.Config.DefaultSaveFolderOverride = null;
+                    MidsContext.Config.CreateDefaultSaveFolder();
+                    MidsContext.Config.IsInitialized = true;
+                }
+                MainModule.MidsController.LoadData(ref _frmLoading);
+                _frmLoading?.SetMessage("Setting up UI...");
+                Show();
+                _frmLoading.Hide();
+                _frmLoading.Close();
+                Refresh();
+                Loading = false;
+                FillArchetypeCombo();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"{exception.Message}\r\n\n{exception.StackTrace}");
+            }
+            Loading = false;
         }
 
         private void MenuSlideTimer_Tick(object sender, EventArgs e)
         {
             if (PanelHidden)
             {
-                SlidePanel.Width += 10;
+                menuPanel.Width += 10;
                 MenuGrip.Left += 0;
-                if (SlidePanel.Width < _panelWidth) return;
+                if (menuPanel.Width < _panelWidth) return;
                 menuSlideTimer.Stop();
                 PanelHidden = false;
                 Refresh();
             }
             else
             {
-                SlidePanel.Width -= 10;
+                menuPanel.Width -= 10;
                 MenuGrip.Left -= 0;
-                if (SlidePanel.Width > 0) return;
+                if (menuPanel.Width > 0) return;
                 menuSlideTimer.Stop();
                 PanelHidden = true;
                 Refresh();
@@ -98,6 +140,7 @@ namespace Hero_Designer.Forms
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            //Add confirmation of save event?
             Application.Exit();
         }
 
@@ -163,7 +206,156 @@ namespace Hero_Designer.Forms
             //g.DrawEllipse(pen, rectangle);
         }
 
-        private void Fill_Grids()
+        private void Fill_Combos()
+        {
+            //fill archetypes
+
+        }
+        private void FillOriginCombo()
+        {
+            var pathList = new List<string>
+            {
+                $"{_path}\\Magic.png",
+                $"{_path}\\Mutation.png",
+                $"{_path}\\Natural.png",
+                $"{_path}\\Science.png",
+                $"{_path}\\Technology.png"
+            };
+            ImageList imageList = new ImageList
+            {
+                ImageSize = new Size(16, 16)
+            };
+            foreach (var imgPath in pathList)
+            {
+                imageList.Images.Add(Image.FromFile(imgPath));
+                //comboBox2.Items.Add(Path.GetFileNameWithoutExtension(imgPath));
+                var imgOriginName = Path.GetFileNameWithoutExtension(imgPath);
+                try
+                {
+                    var originIndex = DatabaseAPI.GetOriginIDByName(imgOriginName);
+                    var origin = DatabaseAPI.Database.Origins[originIndex];
+                    cbOrigin.Items.Add(origin.Name);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}\r\n\n{ex.StackTrace}");
+                }
+            }
+            cbOrigin.ImageList = imageList;
+            cbOrigin.SelectedIndex = 0;
+        }
+
+        private void FillArchetypeCombo()
+        {
+            var cbAT = new ComboBoxT<Archetype>(this.cbAT);
+            var pathList = new List<string>
+            {
+                $"{_path}\\Class_Blaster.png",
+                $"{_path}\\Class_Controller.png",
+                $"{_path}\\Class_Defender.png",
+                $"{_path}\\Class_Scrapper.png",
+                $"{_path}\\Class_Tanker.png",
+                $"{_path}\\Class_Peacebringer.png",
+                $"{_path}\\Class_Warshade.png",
+                $"{_path}\\Class_Brute.png",
+                $"{_path}\\Class_Corruptor.png",
+                $"{_path}\\Class_Dominator.png",
+                $"{_path}\\Class_Mastermind.png",
+                $"{_path}\\Class_Sentinel.png",
+                $"{_path}\\Class_Stalker.png",
+                $"{_path}\\Class_Arachnos_Soldier.png",
+                $"{_path}\\Class_Arachnos_Widow.png"
+            };
+            ImageList imageList = new ImageList
+            {
+                ImageSize = new Size(16, 16)
+            };
+            foreach (var imgPath in pathList)
+            {
+                imageList.Images.Add(Image.FromFile(imgPath));
+                var imgAtName = Path.GetFileNameWithoutExtension(imgPath.Replace("Class_", "").Replace("_", " "));
+                try
+                {
+                    Archetype[] all = Array.FindAll(DatabaseAPI.Database.Classes, GetPlayableClasses);
+                    if (ComboCheckAT(all))
+                    {
+                        cbAT.BeginUpdate();
+                        cbAT.Clear();
+                        cbAT.AddRange(all);
+                        cbAT.EndUpdate();
+                    }
+
+                    if (cbAT.SelectedItem == null)
+                    {
+                        cbAT.SelectedItem = MidsContext.Character.Archetype;
+                    }
+                    //else if (Operators.ConditionalCompareObjectNotEqual(NewLateBinding.LateGet(cbAT.SelectedItem, null, "Idx", new object[0], null, (System.Type[])null, null), MidsContext.Character.Archetype.Idx, false))
+                    else if (cbAT.SelectedItem.Idx != MidsContext.Character.Archetype.Idx)
+                    {
+                        cbAT.SelectedItem = MidsContext.Character.Archetype;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}\r\n\n{ex.StackTrace}");
+                }
+            }
+            //cbAT.ImageList = imageList;
+            //cbAT.SelectedIndex = 0;
+        }
+
+        bool ComboCheckAT(Archetype[] playableClasses)
+        {
+            var cbtAT = CbtAT.Value;
+            if (cbtAT.Count != playableClasses.Length)
+            {
+                return true;
+            }
+
+            int num = playableClasses.Length - 1;
+            for (int index = 0; index <= num; ++index)
+            {
+                if (cbtAT[index].Idx != playableClasses[index].Idx)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public void FillPowerCombos()
+        {
+            try
+            {
+                /*foreach (var set in DatabaseAPI.Database.Powersets)
+                {
+                    MessageBox.Show(set.DisplayName);
+                }*/
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"{e.Message}\r\n\n{e.StackTrace}");
+            }
+        }
+
+        private void cbAT_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var index = cbAT.SelectedIndex;
+            if (index < 0) return;
+            var selText = cbAT.GetItemText(cbAT.SelectedItem);
+        }
+
+        private void cbOrigin_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ctlCombo comboBox = (ctlCombo)sender;
+            var index = comboBox.SelectedIndex;
+            if (index < 0) return;
+            var selText = cbOrigin.GetItemText(cbOrigin.SelectedItem);
+            if (selText != null)
+            {
+                MidsContext.Character.Archetype = DatabaseAPI.GetArchetypeByName(selText);
+            }
+        }
+        /*private void Fill_Grids()
         {
             var powerCol = 4;
             var powerRow = 6;
@@ -201,6 +393,6 @@ namespace Hero_Designer.Forms
                     InherentTable.ResumeLayout();
                 }
             }
-        }
+        }*/
     }
 }

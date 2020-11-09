@@ -47,6 +47,9 @@ namespace Hero_Designer.Forms
             this.SlidePanel = new midsControls.ctlPanel();
             this.MenuGrip = new FontAwesome.Sharp.IconButton();
             this.MainPanel = new midsControls.ctlPanel();
+            this.pnlGFXFlow = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlGFX = new System.Windows.Forms.PictureBox();
+            this.menuPanel = new midsControls.ctlPanel();
             this.ctlPowerList7 = new midsControls.ctlPowerList();
             this.ctlCombo9 = new midsControls.ctlCombo();
             this.label11 = new System.Windows.Forms.Label();
@@ -68,22 +71,19 @@ namespace Hero_Designer.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.ctlCombo3 = new midsControls.ctlCombo();
             this.label5 = new System.Windows.Forms.Label();
-            this.ctlCombo2 = new midsControls.ctlCombo();
+            this.cbOrigin = new midsControls.ctlCombo();
             this.label4 = new System.Windows.Forms.Label();
-            this.ctlCombo1 = new midsControls.ctlCombo();
+            this.cbAT = new midsControls.ctlCombo();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.ctlPanel1 = new midsControls.ctlPanel();
-            this.pnlGFX = new System.Windows.Forms.PictureBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.BGImage)).BeginInit();
             this.TopPanel.SuspendLayout();
             this.ExitPanel.SuspendLayout();
             this.SlidePanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
+            this.pnlGFXFlow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGFX)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuSlideTimer
@@ -121,13 +121,13 @@ namespace Hero_Designer.Forms
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Showcard Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Showcard Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label1.Location = new System.Drawing.Point(47, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(209, 17);
+            this.label1.Size = new System.Drawing.Size(130, 20);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Mids Reborn : Hero Designer";
+            this.label1.Text = "Mids Reborn";
             // 
             // button1
             // 
@@ -195,6 +195,7 @@ namespace Hero_Designer.Forms
             // 
             this.SlidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.SlidePanel.Controls.Add(this.MenuGrip);
+            this.SlidePanel.Controls.Add(this.menuPanel);
             this.SlidePanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.SlidePanel.Location = new System.Drawing.Point(0, 41);
             this.SlidePanel.Name = "SlidePanel";
@@ -225,8 +226,7 @@ namespace Hero_Designer.Forms
             // MainPanel
             // 
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.MainPanel.Controls.Add(this.flowLayoutPanel1);
-            this.MainPanel.Controls.Add(this.ctlPanel1);
+            this.MainPanel.Controls.Add(this.pnlGFXFlow);
             this.MainPanel.Controls.Add(this.ctlPowerList7);
             this.MainPanel.Controls.Add(this.ctlCombo9);
             this.MainPanel.Controls.Add(this.label11);
@@ -248,9 +248,9 @@ namespace Hero_Designer.Forms
             this.MainPanel.Controls.Add(this.label6);
             this.MainPanel.Controls.Add(this.ctlCombo3);
             this.MainPanel.Controls.Add(this.label5);
-            this.MainPanel.Controls.Add(this.ctlCombo2);
+            this.MainPanel.Controls.Add(this.cbOrigin);
             this.MainPanel.Controls.Add(this.label4);
-            this.MainPanel.Controls.Add(this.ctlCombo1);
+            this.MainPanel.Controls.Add(this.cbAT);
             this.MainPanel.Controls.Add(this.label3);
             this.MainPanel.Controls.Add(this.textBox1);
             this.MainPanel.Controls.Add(this.label2);
@@ -259,6 +259,31 @@ namespace Hero_Designer.Forms
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(1325, 809);
             this.MainPanel.TabIndex = 3;
+            // 
+            // pnlGFXFlow
+            // 
+            this.pnlGFXFlow.Controls.Add(this.pnlGFX);
+            this.pnlGFXFlow.Location = new System.Drawing.Point(535, 6);
+            this.pnlGFXFlow.Name = "pnlGFXFlow";
+            this.pnlGFXFlow.Size = new System.Drawing.Size(782, 800);
+            this.pnlGFXFlow.TabIndex = 105;
+            // 
+            // pnlGFX
+            // 
+            this.pnlGFX.BackColor = System.Drawing.Color.Transparent;
+            this.pnlGFX.Location = new System.Drawing.Point(3, 3);
+            this.pnlGFX.Name = "pnlGFX";
+            this.pnlGFX.Size = new System.Drawing.Size(775, 797);
+            this.pnlGFX.TabIndex = 104;
+            this.pnlGFX.TabStop = false;
+            // 
+            // menuPanel
+            // 
+            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menuPanel.Location = new System.Drawing.Point(0, 0);
+            this.menuPanel.Name = "menuPanel";
+            this.menuPanel.Size = new System.Drawing.Size(350, 750);
+            this.menuPanel.TabIndex = 34;
             // 
             // ctlPowerList7
             // 
@@ -576,16 +601,17 @@ namespace Hero_Designer.Forms
             this.label5.TabIndex = 13;
             this.label5.Text = "Primary Power Set";
             // 
-            // ctlCombo2
+            // cbOrigin
             // 
-            this.ctlCombo2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo2.FormattingEnabled = true;
-            this.ctlCombo2.ImageList = null;
-            this.ctlCombo2.Location = new System.Drawing.Point(109, 72);
-            this.ctlCombo2.Name = "ctlCombo2";
-            this.ctlCombo2.Size = new System.Drawing.Size(177, 23);
-            this.ctlCombo2.TabIndex = 12;
+            this.cbOrigin.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbOrigin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOrigin.FormattingEnabled = true;
+            this.cbOrigin.ImageList = null;
+            this.cbOrigin.Location = new System.Drawing.Point(109, 72);
+            this.cbOrigin.Name = "cbOrigin";
+            this.cbOrigin.Size = new System.Drawing.Size(177, 23);
+            this.cbOrigin.TabIndex = 12;
+            this.cbOrigin.SelectedIndexChanged += new EventHandler(cbOrigin_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -599,16 +625,17 @@ namespace Hero_Designer.Forms
             this.label4.TabIndex = 11;
             this.label4.Text = "Origin:";
             // 
-            // ctlCombo1
+            // cbAT
             // 
-            this.ctlCombo1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ctlCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctlCombo1.FormattingEnabled = true;
-            this.ctlCombo1.ImageList = null;
-            this.ctlCombo1.Location = new System.Drawing.Point(109, 42);
-            this.ctlCombo1.Name = "ctlCombo1";
-            this.ctlCombo1.Size = new System.Drawing.Size(177, 23);
-            this.ctlCombo1.TabIndex = 10;
+            this.cbAT.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbAT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAT.FormattingEnabled = true;
+            this.cbAT.ImageList = null;
+            this.cbAT.Location = new System.Drawing.Point(109, 42);
+            this.cbAT.Name = "cbAT";
+            this.cbAT.Size = new System.Drawing.Size(177, 23);
+            this.cbAT.TabIndex = 10;
+            this.cbAT.SelectedIndexChanged += new EventHandler(cbAT_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -641,31 +668,6 @@ namespace Hero_Designer.Forms
             this.label2.TabIndex = 7;
             this.label2.Text = "Name:";
             // 
-            // ctlPanel1
-            // 
-            this.ctlPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ctlPanel1.Location = new System.Drawing.Point(6, 339);
-            this.ctlPanel1.Name = "ctlPanel1";
-            this.ctlPanel1.Size = new System.Drawing.Size(371, 445);
-            this.ctlPanel1.TabIndex = 34;
-            // 
-            // pnlGFX
-            // 
-            this.pnlGFX.BackColor = System.Drawing.Color.Black;
-            this.pnlGFX.Location = new System.Drawing.Point(3, 3);
-            this.pnlGFX.Name = "pnlGFX";
-            this.pnlGFX.Size = new System.Drawing.Size(718, 256);
-            this.pnlGFX.TabIndex = 104;
-            this.pnlGFX.TabStop = false;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.pnlGFX);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(535, 6);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(782, 778);
-            this.flowLayoutPanel1.TabIndex = 105;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -693,8 +695,8 @@ namespace Hero_Designer.Forms
             this.SlidePanel.ResumeLayout(false);
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
+            this.pnlGFXFlow.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlGFX)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -713,9 +715,9 @@ namespace Hero_Designer.Forms
         private Label label1;
         private TextBox textBox1;
         private Label label2;
-        private ctlCombo ctlCombo1;
+        private ctlCombo cbAT;
         private Label label3;
-        private ctlCombo ctlCombo2;
+        private ctlCombo cbOrigin;
         private Label label4;
         private ctlCombo ctlCombo4;
         private Label label6;
@@ -738,8 +740,8 @@ namespace Hero_Designer.Forms
         private ctlPowerList ctlPowerList7;
         private ctlCombo ctlCombo9;
         private Label label11;
-        private ctlPanel ctlPanel1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private ctlPanel menuPanel;
+        private FlowLayoutPanel pnlGFXFlow;
         private PictureBox pnlGFX;
     }
 }
