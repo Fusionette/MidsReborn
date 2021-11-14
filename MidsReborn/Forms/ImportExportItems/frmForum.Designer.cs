@@ -1,7 +1,7 @@
 using System.ComponentModel;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.ImportExportItems
+namespace MidsReborn.Forms.ImportExportItems
 {
     public partial class frmForum
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using mrbBase.Base.Master_Classes;
+﻿using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmBuildSalvageHud : Form
     {
@@ -14,7 +11,7 @@ namespace Mids_Reborn.Forms
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Load += frmBuildSalvageHud_Load;
             Closed += frmBuildSalvageHud_Closed;
             myParent = iParent;

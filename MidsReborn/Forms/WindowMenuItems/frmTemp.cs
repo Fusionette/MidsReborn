@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmTemp : Form
     {
@@ -42,7 +37,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             _locked = false;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmTemp));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmTemp);
             _myParent = iParent;
             _myPowers = iPowers;
@@ -191,6 +186,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
                 llLeft.Refresh();
                 _myParent.PowerModified(false);
+                _myParent.DoRefresh();
             }
         }
 
@@ -233,6 +229,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
                 llRight.Refresh();
                 _myParent.PowerModified(false);
+                _myParent.DoRefresh();
             }
         }
 

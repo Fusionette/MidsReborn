@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace Mids_Reborn.Forms.UpdateSystem
+﻿namespace MidsReborn.Forms.UpdateSystem
 {
     public partial class PatchQuery : Form
     {

@@ -1,16 +1,13 @@
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmSetListing : Form
     {
@@ -20,12 +17,12 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmSetListing);
             var componentResourceManager = new ComponentResourceManager(typeof(frmSetListing));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void AddListItem(int Index)
         {
-            var items = new string[6];
+            var items = new string[7];
             var enhancementSet = DatabaseAPI.Database.EnhancementSets[Index];
             items[0] = enhancementSet.DisplayName + " (" + enhancementSet.ShortName + ")";
             items[1] = Enum.GetName(enhancementSet.SetType.GetType(), enhancementSet.SetType);
@@ -38,6 +35,23 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
                 if (enhancementSet.Bonus[index].Index.Length > 0)
                     ++num1;
             items[5] = Convert.ToString(num1);
+
+            var setContainsPvPFX = false;
+            for (var i = 0; i < enhancementSet.Bonus.Length; i++)
+            {
+                foreach (var b in enhancementSet.Bonus[i].Index)
+                {
+                    var p = DatabaseAPI.Database.Power[b];
+                    if (!p.FullName.ToLowerInvariant().Contains("pvp")) continue;
+
+                    setContainsPvPFX = true;
+                    break;
+                }
+
+                if (setContainsPvPFX) break;
+            }
+
+            items[6] = setContainsPvPFX ? "X" : "";
             lvSets.Items.Add(new ListViewItem(items, Index));
             lvSets.Items[lvSets.Items.Count - 1].Selected = true;
             lvSets.Items[lvSets.Items.Count - 1].EnsureVisible();
@@ -222,7 +236,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             for (var index = 0; index <= num; ++index)
                 if (DatabaseAPI.Database.EnhancementSets[index].ImageIdx > -1)
                 {
-                    extendedBitmap.Graphics.Clear(Color.White);
+                    extendedBitmap.Graphics.Clear(Color.Transparent);
                     var graphics = extendedBitmap.Graphics;
                     I9Gfx.DrawEnhancementSet(ref graphics, DatabaseAPI.Database.EnhancementSets[index].ImageIdx);
                     ilSets.Images.Add(extendedBitmap.Bitmap);
@@ -282,7 +296,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
 
         private void UpdateListItem(int Index)
         {
-            var strArray = new string[6];
+            var strArray = new string[7];
             var enhancementSet = DatabaseAPI.Database.EnhancementSets[Index];
             strArray[0] = enhancementSet.DisplayName + " (" + enhancementSet.ShortName + ")";
             strArray[1] = Enum.GetName(enhancementSet.SetType.GetType(), enhancementSet.SetType);
@@ -295,6 +309,23 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
                 if (enhancementSet.Bonus[index].Index.Length > 0)
                     ++num1;
             strArray[5] = Convert.ToString(num1);
+            
+            var setContainsPvPFX = false;
+            for (var i = 0; i < enhancementSet.Bonus.Length; i++)
+            {
+                foreach (var b in enhancementSet.Bonus[i].Index)
+                {
+                    var p = DatabaseAPI.Database.Power[b];
+                    if (!p.FullName.ToLowerInvariant().Contains("pvp")) continue;
+
+                    setContainsPvPFX = true;
+                    break;
+                }
+
+                if (setContainsPvPFX) break;
+            }
+
+            strArray[6] = setContainsPvPFX ? "X" : "";
             var num3 = strArray.Length - 1;
             for (var index = 0; index <= num3; ++index) lvSets.Items[Index].SubItems[index].Text = strArray[index];
             lvSets.Items[Index].ImageIndex = Index;

@@ -1,8 +1,8 @@
 using System.ComponentModel;
-using Mids_Reborn.Forms.Controls;
-using mrbBase;
+using MidsReborn.Base;
+using MidsReborn.Forms.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmFloatingStats
     {

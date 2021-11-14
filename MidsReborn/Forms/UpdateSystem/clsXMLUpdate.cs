@@ -1,13 +1,7 @@
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
-using System.Windows.Forms;
-using System.Xml;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
 
-namespace Mids_Reborn.Forms.UpdateSystem
+namespace MidsReborn.Forms.UpdateSystem
 {
     public class clsXMLUpdate
     {
@@ -74,7 +68,7 @@ namespace Mids_Reborn.Forms.UpdateSystem
 
         public static void Update(Enum type, string updateVersion, frmMain parent)
         {
-            try
+            /*try
             {
                 using var updateForm = new Updater(parent)
                 {
@@ -86,7 +80,7 @@ namespace Mids_Reborn.Forms.UpdateSystem
             catch
             {
                 // Ignored
-            }
+            }*/
         }
 
         public enum UpdateType

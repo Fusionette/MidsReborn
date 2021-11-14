@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.My;
 using Newtonsoft.Json;
 
-namespace Mids_Reborn.Forms.JsonImport
+namespace MidsReborn.Forms.JsonImport
 {
     public partial class frmJsonImportMain : Form
     {

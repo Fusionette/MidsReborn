@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmEntityListing
     {

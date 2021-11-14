@@ -1,22 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmPowerBrowser : Form
     {
@@ -44,7 +38,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmPowerBrowser);
             var componentResourceManager = new ComponentResourceManager(typeof(frmPowerBrowser));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -258,6 +252,13 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             var serializer = MyApplication.GetSerializer();
             DatabaseAPI.AssignStaticIndexValues(serializer, false);
             DatabaseAPI.MatchAllIDs();
+
+            // Uncomment below to update AT modifier columns if necessary
+            // for (var index = 0; index < DatabaseAPI.Database.Classes.Length - 1; index++)
+            // {
+            //     DatabaseAPI.Database.Classes[index].Column = index;
+            // }
+
             DatabaseAPI.SaveMainDatabase(serializer, MidsContext.Config.DataPath);
             BusyHide();
             DialogResult = DialogResult.OK;

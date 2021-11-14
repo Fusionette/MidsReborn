@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
-using System.Windows.Forms;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     partial class frmColorOptions
     {
@@ -74,7 +73,7 @@ namespace Mids_Reborn.Forms
             this.ButtonDefault = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonOkay = new System.Windows.Forms.Button();
-            this.ctlColorList1 = new mrbControls.ctlColorList();
+            this.ctlColorList1 = new ctlColorList();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();

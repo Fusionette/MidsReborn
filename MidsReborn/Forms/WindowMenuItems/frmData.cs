@@ -1,15 +1,12 @@
-using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmData : Form
     {
@@ -24,7 +21,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             InitializeComponent();
             Name = nameof(frmData);
             var componentResourceManager = new ComponentResourceManager(typeof(frmData));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             _onClosing = onClosing;
         }
 

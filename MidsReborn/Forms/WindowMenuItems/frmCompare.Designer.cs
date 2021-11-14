@@ -1,9 +1,8 @@
-
 using System.ComponentModel;
-using mrbBase;
-using mrbControls;
+using MidsReborn.Controls;
+using MidsReborn.Base;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmCompare
     {

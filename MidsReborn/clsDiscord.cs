@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.Controls;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+﻿using System.Net;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Forms.Controls;
 using Newtonsoft.Json;
-using RandomString4Net;
 using RestSharp;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     public class Toon
     {
@@ -307,9 +302,9 @@ namespace Mids_Reborn
                 var client = new RestClient(BOT_API_ENDPOINT);
                 var request = new RestRequest("v2/users/register", Method.POST);
                 var regName = $"{MidsContext.GetCryptedValue("User", "username")}#{MidsContext.GetCryptedValue("User", "discriminator")}";
-                var pass = RandomString.GetString(Types.ALPHABET_LOWERCASE_WITH_SYMBOLS, 25, false);
+                //var pass = RandomString.GetString(Types.ALPHABET_LOWERCASE_WITH_SYMBOLS, 25, false);
                 request.AddParameter("username", regName);
-                request.AddParameter("pass_token", pass);
+                //request.AddParameter("pass_token", pass);
                 var response = client.Execute(request);
                 if (response.Content == "Bad Request" || response.Content == "User already exists")
                 {
@@ -317,14 +312,14 @@ namespace Mids_Reborn
                     return;
                 }
 
-                var MBObject = new MidsBotUser { username = regName, pass_token = pass };
-                var MBObjectSerialized = JsonConvert.SerializeObject(MBObject);
-                var jMBObject = JsonConvert.DeserializeObject<MidsBotUser>(MBObjectSerialized);
+                //var MBObject = new MidsBotUser { username = regName, pass_token = pass };
+                //var MBObjectSerialized = JsonConvert.SerializeObject(MBObject);
+                //var jMBObject = JsonConvert.DeserializeObject<MidsBotUser>(MBObjectSerialized);
                 var mbDict = new Dictionary<string, object>();
                 var properties = typeof(MidsBotUser).GetProperties();
                 foreach (var property in properties)
                 {
-                    mbDict.Add(property.Name, property.GetValue(jMBObject, null));
+                    //mbDict.Add(property.Name, property.GetValue(jMBObject, null));
                 }
 
                 MidsContext.ConfigSp.BotUser = mbDict;

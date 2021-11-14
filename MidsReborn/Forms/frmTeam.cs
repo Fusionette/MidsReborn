@@ -1,13 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using Mids_Reborn.My;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+﻿using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class FrmTeam : Form
     {

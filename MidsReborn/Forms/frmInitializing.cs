@@ -1,9 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using mrbBase.Base.IO_Classes;
+﻿using MidsReborn.Base.Base.IO_Classes;
+using Timer = System.Windows.Forms.Timer;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmInitializing : Form, IMessager
     {

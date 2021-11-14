@@ -1,14 +1,9 @@
 ﻿#nullable enable
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     /***********************
     ** Helpers
@@ -326,15 +321,17 @@ namespace Mids_Reborn
                 else if (m3.Success)
                 {
                     // Enhancement: internal name, level, (dummy), boosters
-                    e = new RawEnhData();
-                    e.InternalName = DatabaseAPI.GetEnhancementBaseUIDName(m3.Groups[1].Value);
-                    e.Level = Convert.ToInt32(m3.Groups[2].Value, null);
-                    e.Boosters = (m3.Groups.Count > 3) & !string.IsNullOrWhiteSpace(m3.Groups[4].Value)
-                        ? Convert.ToInt32(m3.Groups[4].Value, null)
-                        : 0;
-                    e.HasCatalyst = DatabaseAPI.EnhHasCatalyst(m3.Groups[1].Value);
+                    e = new RawEnhData
+                    {
+                        InternalName = DatabaseAPI.GetEnhancementBaseUIDName(m3.Groups[1].Value),
+                        Level = Convert.ToInt32(m3.Groups[2].Value, null),
+                        Boosters = (m3.Groups.Count > 3) & !string.IsNullOrWhiteSpace(m3.Groups[4].Value)
+                            ? Convert.ToInt32(m3.Groups[4].Value, null)
+                            : 0,
+                        HasCatalyst = DatabaseAPI.EnhHasCatalyst(m3.Groups[1].Value)
+                    };
                     e.eData = DatabaseAPI.GetEnhancementByUIDName(e.InternalName);
-                    
+
                     p.Slots.Add(e);
                 }
             }

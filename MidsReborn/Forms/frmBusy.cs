@@ -1,8 +1,6 @@
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Forms;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmBusy : Form
     {
@@ -10,7 +8,7 @@ namespace Mids_Reborn.Forms
         {
             Closing += Busy_Closing;
             InitializeComponent();
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         public void SetMessage(string iMsg)

@@ -1,22 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmSetFind : Form
     {
@@ -34,7 +28,7 @@ namespace Mids_Reborn.Forms
             setBonusList = new int[0];
             InitializeComponent();
             //var componentResourceManager = new ComponentResourceManager(typeof(frmSetFind));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmSetFind);
             ibClose.ButtonClicked += ibClose_ButtonClicked;
             ibTopmost.ButtonClicked += ibTopmost_ButtonClicked;

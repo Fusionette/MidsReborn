@@ -1,16 +1,12 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
-using Mids_Reborn.Forms.WindowMenuItems;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Extensions;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Forms.WindowMenuItems;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmRecipeEdit : Form
     {
@@ -81,7 +77,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             _noUpdate = true;
             InitializeComponent();
             //var componentResourceManager = new ComponentResourceManager(typeof(frmRecipeEdit));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             _tempRecipes = (Recipe[])DatabaseAPI.Database.Recipes.Clone();
             _tempEnhancements = (IEnhancement[])DatabaseAPI.Database.Enhancements.Clone();
             FillList();

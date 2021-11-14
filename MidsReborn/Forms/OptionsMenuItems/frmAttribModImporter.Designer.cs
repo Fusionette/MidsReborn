@@ -1,9 +1,6 @@
-﻿
-using System;
-using System.Windows.Forms;
-using midsControls;
+﻿using MidsReborn.Controls;
 
-namespace Hero_Designer.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems
 {
     partial class FrmAttribModImporter
 	{

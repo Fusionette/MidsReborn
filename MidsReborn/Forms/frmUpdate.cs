@@ -1,22 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Threading;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.UpdateSystem;
-using mrbBase.Base.Master_Classes;
-
-namespace Mids_Reborn.Forms
+﻿namespace MidsReborn.Forms
 {
     public partial class frmUpdate : Form
     {
-        private bool DLComplete;
+        /*private bool DLComplete;
 
         private BackgroundWorker zipExtractor;
 
@@ -88,7 +74,7 @@ namespace Mids_Reborn.Forms
         }
 
         // https://stackoverflow.com/a/1281638
-        private bool HasWritePermissionOnDir(string path)
+        /*private bool HasWritePermissionOnDir(string path)
         {
             var writeAllow = false;
             var writeDeny = false;
@@ -112,7 +98,7 @@ namespace Mids_Reborn.Forms
             }
 
             return writeAllow && !writeDeny;
-        }
+        }#1#
 
         private (int returnCode, string msg) SafeCreateBackup(string filename, bool overwrite=true)
         {
@@ -246,7 +232,7 @@ namespace Mids_Reborn.Forms
                 {
                     var subPath = $"{destinationPath}\\{parentDir}\\{fileInfo.Name}";
                     File.Copy(fileInfo.FullName, subPath, true);
-                }*/
+                }#1#
             }
         }
 
@@ -267,6 +253,6 @@ namespace Mids_Reborn.Forms
                 File.Delete($"{dirLOC}\\{VersionText}.zip");
                 Application.Restart();
             }
-        }
+        }*/
     }
 }

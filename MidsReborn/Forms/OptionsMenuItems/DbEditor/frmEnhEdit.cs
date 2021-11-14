@@ -1,20 +1,14 @@
-using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmEnhEdit : Form
     {
@@ -26,7 +20,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmEnhEdit);
             var componentResourceManager = new ComponentResourceManager(typeof(frmEnhEdit));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void AddListItem(int Index)

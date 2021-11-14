@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.Controls;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbControls;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Controls;
+using MidsReborn.Forms.Controls;
 using Newtonsoft.Json;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class FrmGCMEditor : Form
     {
@@ -33,7 +28,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
             Load += frmGCMEditor_Load;
             InitializeComponent();
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             _myParent = iParent;
             _bFrm = new frmBusy();
         }

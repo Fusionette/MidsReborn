@@ -1,16 +1,12 @@
-using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
 using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmTotals : Form
     {

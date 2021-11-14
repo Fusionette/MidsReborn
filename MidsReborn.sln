@@ -1,20 +1,13 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.202
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidsReborn", "MidsReborn\MidsReborn.csproj", "{27BD82DA-4B3E-4D6B-BAEA-BE59A28A96EB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC} = {78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn", "MidsReborn\MidsReborn.csproj", "{45CB95D6-2FF8-4450-9000-3769DF02D9CB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B74A58C-28FC-49DC-800B-32DDFC69AAE1}"
-	ProjectSection(SolutionItems) = preProject
-		LICENSE.txt = LICENSE.txt
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Controls", "MidsReborn.Controls\MidsReborn.Controls.csproj", "{9FF87007-5242-49D0-BEF0-33AADD0A6924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mrbControls", "mrbControls\mrbControls.csproj", "{8B762616-CA1E-428A-A62D-E17DD738712D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mrbBase", "mrbBase\mrbBase.csproj", "{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidsReborn.Base", "MidsReborn.Base\MidsReborn.Base.csproj", "{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,23 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{27BD82DA-4B3E-4D6B-BAEA-BE59A28A96EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27BD82DA-4B3E-4D6B-BAEA-BE59A28A96EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27BD82DA-4B3E-4D6B-BAEA-BE59A28A96EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27BD82DA-4B3E-4D6B-BAEA-BE59A28A96EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B762616-CA1E-428A-A62D-E17DD738712D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B762616-CA1E-428A-A62D-E17DD738712D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B762616-CA1E-428A-A62D-E17DD738712D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B762616-CA1E-428A-A62D-E17DD738712D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CB95D6-2FF8-4450-9000-3769DF02D9CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CB95D6-2FF8-4450-9000-3769DF02D9CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CB95D6-2FF8-4450-9000-3769DF02D9CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CB95D6-2FF8-4450-9000-3769DF02D9CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF87007-5242-49D0-BEF0-33AADD0A6924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF87007-5242-49D0-BEF0-33AADD0A6924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF87007-5242-49D0-BEF0-33AADD0A6924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF87007-5242-49D0-BEF0-33AADD0A6924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2E69499F-C81A-4A1F-A991-6E30D7EAF7A3}
+		SolutionGuid = {9BFBED20-8DB9-41AF-A1A2-34D408C2860B}
 	EndGlobalSection
 EndGlobal

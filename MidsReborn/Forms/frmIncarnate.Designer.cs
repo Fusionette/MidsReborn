@@ -1,7 +1,7 @@
 using System.ComponentModel;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmIncarnate
     {

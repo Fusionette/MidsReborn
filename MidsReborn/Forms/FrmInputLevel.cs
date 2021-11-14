@@ -1,9 +1,7 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class FrmInputLevel : Form
     {
@@ -18,7 +16,7 @@ namespace Mids_Reborn.Forms
             InitializeComponent();
             Name = nameof(FrmInputLevel);
             var componentResourceManager = new ComponentResourceManager(typeof(FrmInputLevel));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             myparent = iParent;
             longFormat = iLF;
             mode2 = iMode2;

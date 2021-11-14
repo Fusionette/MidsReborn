@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
+using MidsReborn.Properties;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmRecipeViewer : Form
     {
@@ -39,7 +35,7 @@ namespace Mids_Reborn.Forms
             InitializeComponent();
             Name = nameof(frmRecipeViewer);
             //var componentResourceManager = new ComponentResourceManager(typeof(frmRecipeViewer));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             RecipeInfo.MouseWheel += RecipeInfo_MouseWheel;
             RecipeInfo.MouseEnter += RecipeInfo_MouseEnter;
             lvPower.MouseEnter += lvPower_MouseEnter;
@@ -117,7 +113,9 @@ namespace Mids_Reborn.Forms
         {
             var linkedEnhIdx = Convert.ToInt32(lvItem.Tag);
             var lvPowerName = lvItem.SubItems[2].Text;
-            var powerEntry = MidsContext.Character.CurrentBuild.Powers.First(p => p.Power.DisplayName == lvPowerName);
+            var powerEntry = MidsContext.Character.CurrentBuild.Powers
+                .Where(p => p.Power != null)
+                .First(p => p.Power.DisplayName == lvPowerName);
             //var linkedEnh = DatabaseAPI.Database.Enhancements[linkedEnhIdx];
             var powerSlot = powerEntry.Slots.First(ps => ps.Enhancement.Enh == linkedEnhIdx);
             var numBoosters = powerSlot.Enhancement.RelativeLevel switch

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using mrbBase;
+using MidsReborn.Base;
 
-namespace Mids_Reborn.UIv2.v2Controls
+namespace MidsReborn.UIv2.v2Controls
 {
     public partial class PowersControl : PictureBox
     {
@@ -56,6 +49,7 @@ namespace Mids_Reborn.UIv2.v2Controls
         public int Rows { get; set; }
 
         private List<PowerItem> Items { get; set; }
+
         public PowersControl()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
@@ -84,7 +78,8 @@ namespace Mids_Reborn.UIv2.v2Controls
 
         private void DrawPowers()
         {
-
+            var powerWidth = this.Width / Columns;
+            var powerHeight = this.Height / Rows;
         }
     }
 
@@ -102,5 +97,11 @@ namespace Mids_Reborn.UIv2.v2Controls
         public Font Font { get; set; }
         public Color Color { get; set; }
         public Image ButtonImage { get; set; }
+
+        public class GridPosition
+        {
+            public int Column { get; set; }
+            public int Row { get; set; }
+        }
     }
 }

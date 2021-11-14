@@ -1,12 +1,10 @@
-using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmEditArchetype : Form
     {
@@ -83,7 +81,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             ONDuplicate = false;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmEditArchetype));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmEditArchetype);
             MyAT = new Archetype(iAT);
             OriginalName = MyAT.ClassName;

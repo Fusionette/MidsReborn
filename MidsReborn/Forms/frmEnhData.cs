@@ -1,17 +1,12 @@
-using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.OptionsMenuItems.DbEditor;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Forms.OptionsMenuItems.DbEditor;
+using MidsReborn.Properties;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmEnhData : Form
     {
@@ -43,7 +38,7 @@ namespace Mids_Reborn.Forms
             typeIO.Image = Resources.enhData;
             typeRegular.Image = Resources.enhData;
             typeHO.Image = Resources.enhData;
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmEnhData);
             myEnh = new Enhancement(iEnh);
             if (newStaticIndex > 0)
@@ -409,12 +404,27 @@ namespace Mids_Reborn.Forms
             if (Loading)
                 return;
             myEnh.Superior = chkSuperior.Checked;
-            if (chkSuperior.Checked)
+            if (txtInternal.Text.Contains("Attuned"))
             {
-                myEnh.LevelMin = 49;
+                myEnh.LevelMin = 0;
+                myEnh.LevelMax = 0;
+                udMinLevel.Minimum = 1;
+                udMinLevel.Maximum = 53;
+                udMinLevel.Value = 1;
+                udMaxLevel.Minimum = 1;
+                udMaxLevel.Maximum = 53;
+                udMaxLevel.Value = 1;
+            }
+            else
+            {
+                myEnh.LevelMin = 9;
                 myEnh.LevelMax = 49;
-                udMinLevel.Value = new decimal(50);
-                udMaxLevel.Value = new decimal(50);
+                udMinLevel.Minimum = 1;
+                udMinLevel.Maximum = 53;
+                udMinLevel.Value = 10;
+                udMaxLevel.Minimum = 1;
+                udMaxLevel.Maximum = 53;
+                udMaxLevel.Value = 50;
             }
 
             chkUnique.Checked = true;
@@ -1330,7 +1340,7 @@ namespace Mids_Reborn.Forms
 
         {
             SetMaxLevel(Convert.ToInt32(udMaxLevel.Text));
-            myEnh.LevelMax = Convert.ToInt32(decimal.Subtract(udMaxLevel.Value, new decimal(1)));
+            myEnh.LevelMax = Convert.ToInt32(udMaxLevel.Value) - 1;
         }
 
         private void udMaxLevel_ValueChanged(object sender, EventArgs e)
@@ -1338,7 +1348,7 @@ namespace Mids_Reborn.Forms
         {
             if (Loading)
                 return;
-            myEnh.LevelMax = Convert.ToInt32(decimal.Subtract(udMaxLevel.Value, new decimal(1)));
+            myEnh.LevelMax = Convert.ToInt32(udMaxLevel.Value) - 1;
             udMinLevel.Maximum = udMaxLevel.Value;
         }
 
@@ -1346,7 +1356,7 @@ namespace Mids_Reborn.Forms
 
         {
             SetMinLevel(Convert.ToInt32(udMinLevel.Text));
-            myEnh.LevelMin = Convert.ToInt32(decimal.Subtract(udMinLevel.Value, new decimal(1)));
+            myEnh.LevelMin = Convert.ToInt32(udMinLevel.Value) - 1;
         }
 
         private void udMinLevel_ValueChanged(object sender, EventArgs e)
@@ -1354,7 +1364,7 @@ namespace Mids_Reborn.Forms
         {
             if (Loading)
                 return;
-            myEnh.LevelMin = Convert.ToInt32(decimal.Subtract(udMinLevel.Value, new decimal(1)));
+            myEnh.LevelMin = Convert.ToInt32(udMinLevel.Value) - 1;
             udMaxLevel.Minimum = udMinLevel.Value;
         }
 

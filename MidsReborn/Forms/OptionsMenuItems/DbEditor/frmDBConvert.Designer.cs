@@ -1,17 +1,10 @@
-﻿
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+﻿using System.ComponentModel;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     partial class frmDBConvert
     {
-        /// <summary>
+      /*  /// <summary>
         /// Required designer variable.
         /// </summary>
         private IContainer components = null;
@@ -166,6 +159,6 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
         private Button destBrowse;
         private Button convertBtn;
         private Label label3;
-        private ListBox statusText;
-    }
+        private ListBox statusText; */
+    }  
 }

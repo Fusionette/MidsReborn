@@ -1,13 +1,9 @@
-using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Display;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Display;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmEditPowerset : Form
     {
@@ -21,7 +17,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             Loading = true;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmEditPowerset));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmEditPowerset);
             myPS = new Powerset(iSet);
         }

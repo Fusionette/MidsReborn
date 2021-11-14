@@ -1,8 +1,6 @@
 using System.ComponentModel;
-using System.Windows.Forms;
-using mrbControls;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmRecipeEdit
     {

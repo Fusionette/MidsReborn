@@ -1,9 +1,7 @@
-using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using mrbBase;
+using MidsReborn.Base;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmEnhMiniPick : Form
     {

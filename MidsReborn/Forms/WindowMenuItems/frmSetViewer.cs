@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
+using Timer = System.Windows.Forms.Timer;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmSetViewer : Form
     {
@@ -471,7 +466,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             Load += frmSetViewer_Load;
             InitializeComponent();
             //var componentResourceManager = new ComponentResourceManager(typeof(frmSetViewer));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmSetViewer);
             myParent = iParent;
             BarsFX = new Dictionary<string, FXIdentifierKey>();
@@ -833,7 +828,8 @@ namespace Mids_Reborn.Forms.WindowMenuItems
         private void FillEffectView(bool getDetails = false)
         {
             var str1 = "";
-            var numArray = new int[DatabaseAPI.NidPowers("set_bonus").Length];
+            var countDict = new Dictionary<int, int>();
+
             var hasOvercap = false;
             EnhancementSet enhancementSet = null;
             foreach (var s in MidsContext.Character.CurrentBuild.SetBonus)
@@ -875,8 +871,16 @@ namespace Mids_Reborn.Forms.WindowMenuItems
                         {
                             if (esb <= -1) continue;
 
-                            numArray[esb]++;
-                            if (numArray[esb] > 5)
+                            if (!countDict.ContainsKey(esb))
+                            {
+                                countDict.Add(esb, 1);
+                            }
+                            else
+                            {
+                                countDict[esb]++;
+                            }
+                            
+                            if (countDict[esb] > 5)
                             {
                                 localOverCap = true;
                             }
@@ -884,8 +888,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
                         if (localOverCap)
                         {
-                            str5 = RTF.Italic(RTF.Color(RTF.ElementID.Warning) + str5 + " >Cap" +
-                                              RTF.Color(RTF.ElementID.Text));
+                            str5 = RTF.Italic(RTF.Color(RTF.ElementID.Warning) + str5 + " >Cap" + RTF.Color(RTF.ElementID.Text));
                             hasOvercap = true;
                         }
 
@@ -904,8 +907,16 @@ namespace Mids_Reborn.Forms.WindowMenuItems
                         foreach (var sb in DatabaseAPI.Database.EnhancementSets[s.SetInfo[index2].SetIDX].SpecialBonus[index5].Index)
                         {
                             if (sb <= -1) continue;
-                            numArray[sb]++;
-                            if (numArray[sb] > 5)
+                            if (!countDict.ContainsKey(sb))
+                            {
+                                countDict.Add(sb, 1);
+                            }
+                            else
+                            {
+                                countDict[sb]++;
+                            }
+
+                            if (countDict[sb] > 5)
                             {
                                 localOverCap = true;
                             }

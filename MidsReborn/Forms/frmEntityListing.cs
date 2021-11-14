@@ -1,16 +1,14 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.OptionsMenuItems.DbEditor;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Extensions;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.Forms.OptionsMenuItems.DbEditor;
+using MidsReborn.My;
 
 //using Microsoft.VisualBasic;
 //using Microsoft.VisualBasic.CompilerServices;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmEntityListing : Form
     {
@@ -33,7 +31,7 @@ namespace Mids_Reborn.Forms
             Load += frmEntityListing_Load;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmEntityListing));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmEntityListing);
         }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace Mids_Reborn.UIv2.v2Controls
+namespace MidsReborn.UIv2.v2Controls
 {
     partial class PowersControl
     {

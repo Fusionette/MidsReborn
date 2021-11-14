@@ -1,8 +1,7 @@
 using System.ComponentModel;
-using System.Windows.Forms;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmRecipeViewer
     {
@@ -45,18 +44,18 @@ namespace Mids_Reborn.Forms
             this.lblHeader = new System.Windows.Forms.Label();
             this.Panel1 = new System.Windows.Forms.Panel();
             this.VScrollBar1 = new System.Windows.Forms.VScrollBar();
-            this.RecipeInfo = new mrbControls.ctlPopUp();
+            this.RecipeInfo = new ctlPopUp();
             this.Panel2 = new System.Windows.Forms.Panel();
             this.chkRecipe = new System.Windows.Forms.CheckBox();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.ibMiniList = new mrbControls.ImageButton();
-            this.ibClipboard = new mrbControls.ImageButton();
-            this.ibTopmost = new mrbControls.ImageButton();
-            this.ibClose = new mrbControls.ImageButton();
-            this.ibEnhCheckMode = new mrbControls.ImageButton();
+            this.ibMiniList = new ImageButton();
+            this.ibClipboard = new ImageButton();
+            this.ibTopmost = new ImageButton();
+            this.ibClose = new ImageButton();
+            this.ibEnhCheckMode = new ImageButton();
             this.pSalvageSummary = new System.Windows.Forms.Panel();
             this.lblCatalysts = new System.Windows.Forms.Label();
             this.lblBoosters = new System.Windows.Forms.Label();
@@ -64,13 +63,13 @@ namespace Mids_Reborn.Forms
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
-            this.ctlPopUp1 = new mrbControls.ctlPopUp();
+            this.ctlPopUp1 = new ctlPopUp();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblRewardMerits = new System.Windows.Forms.Label();
-            this.imageButton1 = new mrbControls.ImageButton();
+            this.imageButton1 = new ImageButton();
             ((System.ComponentModel.ISupportInitialize)(this.pbRecipe)).BeginInit();
             this.Panel1.SuspendLayout();
             this.Panel2.SuspendLayout();
@@ -230,7 +229,7 @@ namespace Mids_Reborn.Forms
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Mids_Reborn.Resources.AncientScroll;
+            this.pictureBox1.Image = global::MidsReborn.Properties.Resources.AncientScroll;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
@@ -241,7 +240,7 @@ namespace Mids_Reborn.Forms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::Mids_Reborn.Resources.EnhancementCatalyst;
+            this.pictureBox2.Image = global::MidsReborn.Properties.Resources.EnhancementCatalyst;
             this.pictureBox2.Location = new System.Drawing.Point(222, 0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(32, 32);
@@ -252,7 +251,7 @@ namespace Mids_Reborn.Forms
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::Mids_Reborn.Resources.EnhancementBooster;
+            this.pictureBox3.Image = global::MidsReborn.Properties.Resources.EnhancementBooster;
             this.pictureBox3.Location = new System.Drawing.Point(370, 0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);

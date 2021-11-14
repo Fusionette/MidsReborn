@@ -1,18 +1,13 @@
 #nullable enable
-using System;
-using System.Collections.Generic;
-using System.Drawing;
+using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmPowerEffect : Form
     {
@@ -32,7 +27,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Load += frmPowerEffect_Load;
             //var componentResourceManager = new ComponentResourceManager(typeof(frmPowerEffect));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             ConditionalTypes = new List<string> { "Power Active", "Power Taken", "Stacks", "Team Members" };
             ConditionalOps = new List<string> { "Equal To", "Greater Than", "Less Than" };
             if (iFX != null) myFX = (IEffect) iFX.Clone();
@@ -45,7 +40,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Load += frmPowerEffect_Load;
             //var componentResourceManager = new ComponentResourceManager(typeof(frmPowerEffect));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             ConditionalTypes = new List<string> { "Power Active", "Power Taken", "Stacks", "Team Members" };
             ConditionalOps = new List<string> { "Equal To", "Greater Than", "Less Than" };
             if (iFX != null) myFX = (IEffect) iFX.Clone();
@@ -1039,8 +1034,16 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
 
         private void ListView_Leave(object sender, EventArgs e)
         {
-            var lvControl = (ctlListViewColored) sender;
-            lvControl.LostFocusItem = lvControl.FocusedItem.Index;
+            try
+            {
+                var lvControl = (ctlListViewColored)sender;
+                lvControl.LostFocusItem = lvControl.FocusedItem.Index;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("frmPowerEffect.ListView_Leave(): null sender object");
+                Debug.WriteLine($"Exception: {ex.Message}");
+            }
         }
 
         private void ListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)

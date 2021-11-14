@@ -1,5 +1,5 @@
 ﻿
-namespace Mids_Reborn.Forms.UpdateSystem
+namespace MidsReborn.Forms.UpdateSystem
 {
     partial class PatchNotes
     {

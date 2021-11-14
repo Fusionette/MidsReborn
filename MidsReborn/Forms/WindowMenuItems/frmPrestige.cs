@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmPrestige : Form
     {
@@ -42,7 +37,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             _locked = false;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmPrestige));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmPrestige);
             _myParent = iParent;
             _myPowers = iPowers;
@@ -193,12 +188,28 @@ namespace Mids_Reborn.Forms.WindowMenuItems
                 }
                 else
                 {
-                    MidsContext.Character.CurrentBuild.AddPower(_myPowers[pIDX]).StatInclude = true;
+                    // Toggle on if (any):
+                    // - Toggle default is ON
+                    // - Is a click buff
+                    // - Is an auto
+                    var pToggled =
+                        (_myPowers[pIDX].AlwaysToggle & _myPowers[pIDX].PowerType == Enums.ePowerType.Toggle) |
+                        _myPowers[pIDX].ClickBuff |
+                        _myPowers[pIDX].PowerType == Enums.ePowerType.Auto_;
+                    var p = MidsContext.Character.CurrentBuild.AddPower(_myPowers[pIDX]);
+                    
+                    // Get power index in build powers' list
+                    var hIDPower = MidsContext.Character.CurrentBuild.Powers.FindIndex(e => e.Power != null && e.Power.StaticIndex == p.Power.StaticIndex);
+                    // Check for mutexes
+                    var eMutex = MainModule.MidsController.Toon.CurrentBuild.MutexV2(hIDPower);
+                    MidsContext.Character.CurrentBuild.Powers[hIDPower].StatInclude = (eMutex == Enums.eMutex.NoConflict) | (eMutex == Enums.eMutex.NoGroup) && pToggled;
+                    
                     Item.ItemState = ListLabelV3.LLItemState.Selected;
                 }
 
                 llLeft.Refresh();
                 _myParent.PowerModified(true);
+                _myParent.DoRefresh();
             }
         }
 
@@ -241,6 +252,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
                 llRight.Refresh();
                 _myParent.PowerModified(false);
+                _myParent.DoRefresh();
             }
         }
 

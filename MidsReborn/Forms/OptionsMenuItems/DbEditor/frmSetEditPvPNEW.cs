@@ -1,16 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Properties;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmSetEditPvPNEW : Form
     {
@@ -27,7 +23,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmSetEditPvPNEW);
             var componentResourceManager = new ComponentResourceManager(typeof(frmSetEditPvPNEW));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             btnImage.Image = Resources.enhData;
             mySet = new EnhancementSet(iSet);
         }

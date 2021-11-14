@@ -1,5 +1,5 @@
 ﻿
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     partial class frmProgress
     {

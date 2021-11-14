@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 
-namespace Mids_Reborn.Forms.UpdateSystem
+namespace MidsReborn.Forms.UpdateSystem
 {
     public class ZipProgress
     {

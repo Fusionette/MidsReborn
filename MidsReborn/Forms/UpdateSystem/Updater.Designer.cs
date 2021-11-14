@@ -1,7 +1,7 @@
 ﻿
-namespace Mids_Reborn.Forms.UpdateSystem
+namespace MidsReborn.Forms.UpdateSystem
 {
-    partial class Updater
+    /*partial class Updater
     {
         /// <summary>
         /// Required designer variable.
@@ -104,5 +104,5 @@ namespace Mids_Reborn.Forms.UpdateSystem
 
         private CircularProgressBar.CircularProgressBar circularProgressBar1;
         private System.Windows.Forms.Label label1;
-    }
+    }*/
 }

@@ -1,15 +1,12 @@
-using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmCompare : Form
     {
@@ -87,7 +84,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             Name = nameof(frmCompare);
             myParent = iFrm;
             var componentResourceManager = new ComponentResourceManager(typeof(frmCompare));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void btnClose_ButtonClicked()

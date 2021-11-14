@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Base.Data_Classes;
-using Hero_Designer.Forms.Controls;
-using Hero_Designer.My;
-using midsControls;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Controls;
+using MidsReborn.My;
 using Newtonsoft.Json;
 
-namespace Hero_Designer.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems
 {
     public partial class FrmAttribModImporter : Form
     {
@@ -142,8 +132,7 @@ namespace Hero_Designer.Forms.OptionsMenuItems.DbEditor
 			BusyHide();
 			if (DatabaseAPI.Database.AttribMods != null)
 			{
-				MessageBox.Show(
-					@$"{DatabaseAPI.Database.AttribMods.Modifier.Length} modifier tables imported.",
+				MessageBox.Show(@$"{DatabaseAPI.Database.AttribMods.Modifier.Count} modifier tables imported.",
 					@"Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
         }

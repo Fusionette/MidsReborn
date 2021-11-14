@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using mrbBase.Base.Master_Classes;
+﻿using System.Text.RegularExpressions;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     static class clsShoppingCheckList
     {

@@ -1,10 +1,7 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     public class clsOutput
     {

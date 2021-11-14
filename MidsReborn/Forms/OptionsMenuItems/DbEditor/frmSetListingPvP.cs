@@ -1,16 +1,13 @@
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Display;
-using mrbBase.Base.Extensions;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmSetListingPvP : Form
     {
@@ -20,7 +17,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmSetListingPvP);
             var componentResourceManager = new ComponentResourceManager(typeof(frmSetListingPvP));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void AddListItem(int Index)

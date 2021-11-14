@@ -1,9 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     // 2 possibilities, the actual direct association, and the open with list options
     public static class FileAssociation

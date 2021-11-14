@@ -1,14 +1,12 @@
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Extensions;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Extensions;
+using MidsReborn.My;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmSalvageEdit : Form
     {
@@ -21,7 +19,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmSalvageEdit);
             var componentResourceManager = new ComponentResourceManager(typeof(frmSalvageEdit));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void AddListItem(int Index)

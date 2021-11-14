@@ -1,8 +1,6 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmEnhData
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     partial class frmConditionalAttributeSearch
     {

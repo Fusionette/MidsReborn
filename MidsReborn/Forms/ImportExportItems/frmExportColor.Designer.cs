@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Mids_Reborn.Forms.ImportExportItems
+namespace MidsReborn.Forms.ImportExportItems
 {
     public partial class frmExportColor
     {

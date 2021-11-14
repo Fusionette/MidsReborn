@@ -1,10 +1,8 @@
-﻿using System.Drawing;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Master_Classes;
-using System.Windows.Forms;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     public static class BuildSalvageSummary
     {

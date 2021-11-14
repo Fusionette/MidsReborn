@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmConditionalAttributeSearch : Form
     {
@@ -19,7 +17,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
 
             IgnoredClasses = Archetype.GetNpcClasses();
         }

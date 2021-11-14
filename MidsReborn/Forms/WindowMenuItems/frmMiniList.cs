@@ -1,9 +1,7 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmMiniList : Form
     {
@@ -21,7 +19,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             PInfo.MouseEnter += pInfo_MouseEnter;
             Name = nameof(frmMiniList);
             var componentResourceManager = new ComponentResourceManager(typeof(frmMiniList));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             myParent = iParent;
         }
 

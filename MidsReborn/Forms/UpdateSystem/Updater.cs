@@ -1,23 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using mrbBase.Base.Master_Classes;
-
-namespace Mids_Reborn.Forms.UpdateSystem
+﻿namespace MidsReborn.Forms.UpdateSystem
 {
-    public partial class Updater : Form
+    /*public partial class Updater : Form
     {
         private BackgroundWorker _zipExtractor;
 
@@ -155,5 +138,5 @@ namespace Mids_Reborn.Forms.UpdateSystem
                 }
             }
         }
-    }
+    }*/
 }

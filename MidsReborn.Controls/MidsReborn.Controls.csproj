@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Licensing" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Tools.Windows" Version="19.3.0.48" />
+    <PackageReference Include="Zstandard2.Net" Version="1.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MidsReborn.Base\MidsReborn.Base.csproj" />
+  </ItemGroup>
+
+</Project>

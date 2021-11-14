@@ -1,33 +1,26 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Drawing.Text;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using Mids_Reborn.Forms.Controls;
-using Mids_Reborn.Forms.ImportExportItems;
-using Mids_Reborn.Forms.OptionsMenuItems;
-using Mids_Reborn.Forms.OptionsMenuItems.DbEditor;
-using Mids_Reborn.Forms.UpdateSystem;
-using Mids_Reborn.Forms.WindowMenuItems;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
+using MidsReborn.Forms.Controls;
+using MidsReborn.Forms.ImportExportItems;
+using MidsReborn.Forms.OptionsMenuItems;
+using MidsReborn.Forms.OptionsMenuItems.DbEditor;
+using MidsReborn.Forms.UpdateSystem;
+using MidsReborn.Forms.WindowMenuItems;
+using MidsReborn.My;
 using Timer = System.Windows.Forms.Timer;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmMain : Form
     {
@@ -42,6 +35,8 @@ namespace Mids_Reborn.Forms
         private bool exportDiscordInProgress;
 
         private bool loading;
+
+        private bool gfxDrawing;
 
         public bool DbChangeRequested { get; set; }
 
@@ -149,13 +144,13 @@ namespace Mids_Reborn.Forms
             dvAnchored.TabChanged += dvAnchored_TabChanged;
 
             var componentResourceManager = new ComponentResourceManager(typeof(frmMain));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmMain);
         }
 
         public bool petWindowFlag { get; set; }
 
-        private List<string> MMPets { get; } = new List<string>();
+        private List<string> MMPets { get; set; } = new List<string>();
 
         // store the instance for reuse, as these things are called per draw/redraw
         private Lazy<ComboBoxT<Archetype>> CbtAT =>
@@ -210,7 +205,7 @@ namespace Mids_Reborn.Forms
         // [Zed 06/01/20]
         // Input: argv: string[] Command line parameters, value: argument value to look for, caseSensitive: bool, perform case (in)sensitive lookup
         // Output: bool, target value has (not) been found
-        private bool findCommandLineParameter(string[] argv, string value, bool caseSensitive = true)
+        private bool FindCommandLineParameter(string[] argv, string value, bool caseSensitive = true)
         {
             // Only inspect first 10 arguments,
             // skip first argument (aka %0), since it is the executable path.
@@ -221,7 +216,7 @@ namespace Mids_Reborn.Forms
                 }
                 else
                 {
-                    if (argv[i].ToLower() == value.ToLower()) return true;
+                    if (string.Equals(argv[i], value, StringComparison.CurrentCultureIgnoreCase)) return true;
                 }
 
             return false;
@@ -232,7 +227,7 @@ namespace Mids_Reborn.Forms
         // Output: Usable filename (trimmed out of quotes)
         // Note: not checked here, but a valid file name should be either a local path name (X:\...) or a UNC resource name (\\server\share\...)
         // Integrate Environment.GetCommandLineArgs().Skip(1); directly here?
-        private string formatFilenameFromParameter(string clFilename)
+        private string FormatFilenameFromParameter(string clFilename)
         {
             return clFilename.Replace("\"", string.Empty);
         }
@@ -294,7 +289,7 @@ namespace Mids_Reborn.Forms
                 }
 
                 var args = Environment.GetCommandLineArgs();
-                if (findCommandLineParameter(args, "RECOVERY"))
+                if (FindCommandLineParameter(args, "RECOVERY"))
                 {
                     MessageBox.Show(
                         "As recovery mode has been invoked, you will be redirected to the download site for the most recent full install package.",
@@ -304,7 +299,7 @@ namespace Mids_Reborn.Forms
                     return;
                 }
 
-                if (findCommandLineParameter(args, "MASTERMODE=YES"))
+                if (FindCommandLineParameter(args, "MASTERMODE=YES"))
                 {
                     MidsContext.Config.MasterMode = true;
                 }
@@ -314,13 +309,20 @@ namespace Mids_Reborn.Forms
                 dvAnchored.VisibleSize = MidsContext.Config.DvState;
                 SetTitleBar();
                 var loadedFromArgs = false;
+                var prevLastFileNameCfg = MidsContext.Config.LastFileName;
+                var prevLoadLastCfg = MidsContext.Config.DisableLoadLastFileOnStart;
                 if (args.Length > 1)
                 {
-                    var clFilename = formatFilenameFromParameter(args[1]).Trim();
-                    if (File.Exists(clFilename) && !DoOpen(clFilename))
+                    // [Zed 08/26/21]
+                    // Instead of directly trying to load a build when an argument is passed from command line,
+                    // set the build full path into the config and pretend it's going to be loaded
+                    // like it is build you had open on previous run.
+                    var clFilename = FormatFilenameFromParameter(args[1]).Trim();
+                    if (File.Exists(clFilename))
                     {
                         loadedFromArgs = true;
-                        PowerModified(false);
+                        MidsContext.Config.DisableLoadLastFileOnStart = false;
+                        MidsContext.Config.LastFileName = clFilename;
                     }
                 }
 
@@ -336,6 +338,14 @@ namespace Mids_Reborn.Forms
 
                 if (!loadedFromArgs && !MidsContext.Config.DisableLoadLastFileOnStart && !toonLoaded)
                     PowerModified(true);
+
+                // Build loaded from a file set as argument from the command line: done
+                // Restore config variables to their original values.
+                if (loadedFromArgs)
+                {
+                    MidsContext.Config.LastFileName = prevLastFileNameCfg;
+                    MidsContext.Config.DisableLoadLastFileOnStart = prevLoadLastCfg;
+                }
 
                 dvAnchored.Init();
                 cbAT.SelectedItem = MidsContext.Character.Archetype;
@@ -1360,15 +1370,17 @@ namespace Mids_Reborn.Forms
             UpdateColors();
             FloatUpdate(true);
 
-            
-
             return true;
         }
 
         public void DoRedraw()
         {
             if (drawing == null) return;
-            
+            if (gfxDrawing) return;
+
+            gfxDrawing = true;
+            var t = Stopwatch.StartNew();
+
             NoResizeEvent = true;
             var width = pnlGFXFlow.Width;
             var scale = 1.0;
@@ -1381,10 +1393,13 @@ namespace Mids_Reborn.Forms
             // Prevent horizontal scrollbar to appear
             pnlGFX.Width = flowWidth - 26; // - 10;
             pnlGFX.Height = (int)Math.Round(drawingArea.Height * scale);
-            pnlGFX.Update();
-            pnlGFXFlow.Update();
             NoResizeEvent = false;
             drawing.FullRedraw();
+            pnlGFXFlow.Invalidate();
+            gfxDrawing = false;
+
+            t.Stop();
+            Debug.WriteLine($"frmMain.DoRedraw(): {t.ElapsedMilliseconds:####.##} ms");
         }
 
         private void DoResize(bool forceResize = false)
@@ -1392,7 +1407,7 @@ namespace Mids_Reborn.Forms
             //lblHero.Width = ibRecipe.Left - 4;
             if (drawing == null) return;
 
-            var prevDrawingWidth = pnlGFX.Width;
+            /*var prevDrawingWidth = pnlGFX.Width;
             var clientWidth = ClientSize.Width - pnlGFXFlow.Left;
             var clientHeight = ClientSize.Height - pnlGFXFlow.Top;
             pnlGFXFlow.Width = clientWidth;
@@ -1412,14 +1427,20 @@ namespace Mids_Reborn.Forms
             drawing.bxBuffer.Size = pnlGFX.Size;
             Control pnlGfx = pnlGFX;
             drawing.ReInit(pnlGfx);
-            pnlGFX = (PictureBox)pnlGfx;
+            pnlGFX = (pnlGFX)pnlGfx;
             pnlGFX.Image = drawing.bxBuffer.Bitmap;
             drawing.SetScaling(scale < 1 ? pnlGFX.Size : drawing.bxBuffer.Size);
             ReArrange(false);
-            pnlGFX.Update();
-            pnlGFX.Refresh();
-            NoResizeEvent = true;
+            //pnlGFX.Update();
+            //pnlGFX.Refresh();
+            NoResizeEvent = true;*/
             DoRedraw();
+        }
+
+        public void DoRefresh()
+        {
+            pnlGFX.Invalidate();
+            //pnlGFX.Update(); // Invalidate + Update force synchronous update
         }
 
         private bool doSave()
@@ -2438,8 +2459,13 @@ namespace Mids_Reborn.Forms
                 var iParent = this;
                 var iPowers = new List<IPower>();
                 foreach (var power in DatabaseAPI.Database.Power)
+                {
                     if (power.InherentType == Enums.eGridType.Prestige && power.PowerType == Enums.ePowerType.Toggle)
+                    {
                         iPowers.Add(power);
+                    }
+                }
+
                 fPrestige = new frmPrestige(iParent, iPowers);
             }
 
@@ -2655,6 +2681,11 @@ namespace Mids_Reborn.Forms
             HidePopup();
         }
 
+        private void llALL_ItemClick_RefreshGfx()
+        {
+            DoRefresh();
+        }
+
         private void llAncillary_ItemClick(ListLabelV3.ListLabelItemV3 Item, MouseButtons Button)
         {
             if (Item.ItemState == ListLabelV3.LLItemState.Heading)
@@ -2669,6 +2700,8 @@ namespace Mids_Reborn.Forms
                     Info_Power(Item.nIDPower, -1, false, true);
                     break;
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llAncillary_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -2703,6 +2736,8 @@ namespace Mids_Reborn.Forms
                     return;
                 Info_Power(Item.nIDPower, -1, false, true);
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llPool0_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -2730,6 +2765,8 @@ namespace Mids_Reborn.Forms
                     return;
                 Info_Power(Item.nIDPower, -1, false, true);
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llPool1_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -2757,6 +2794,8 @@ namespace Mids_Reborn.Forms
                     return;
                 Info_Power(Item.nIDPower, -1, false, true);
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llPool2_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -2784,6 +2823,8 @@ namespace Mids_Reborn.Forms
                     return;
                 Info_Power(Item.nIDPower, -1, false, true);
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llPool3_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -2812,6 +2853,8 @@ namespace Mids_Reborn.Forms
                     Info_Power(Item.nIDPower, -1, false, true);
                     break;
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llPrimary_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -2842,6 +2885,8 @@ namespace Mids_Reborn.Forms
                     Info_Power(Item.nIDPower, -1, false, true);
                     break;
             }
+
+            llALL_ItemClick_RefreshGfx();
         }
 
         private void llSecondary_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -5171,15 +5216,19 @@ namespace Mids_Reborn.Forms
             }
             else
             {
-                MMPets.Clear();
-                var CurrentPowers = MidsContext.Character.CurrentBuild.Powers;
-                foreach (var item in CurrentPowers)
-                {
-                    var PetExists = Enum.GetNames(typeof(Enums.eMMpets)).Contains(item.Name.Replace(" ", "_"));
-                    if (PetExists) MMPets.Add(item.Name);
-                }
+                // Zed: added check on level so hidden Henchmen powers (*_H) don't get in,
+                // leading to duplicates.
+                MMPets = MidsContext.Character.CurrentBuild.Powers == null
+                    ? new List<string>()
+                    : MidsContext.Character.CurrentBuild.Powers
+                    .Where(e =>
+                        e is { Power: { } } &&
+                        Enum.GetNames(typeof(Enums.eMMpets)).Contains(e.Name.Replace(" ", "_")) &
+                        e.Power.Level > 0)
+                    .Select(e => e.Name)
+                    .ToList();
 
-                var isEmpty = !MMPets.Any();
+                var isEmpty = MMPets.Count <= 0;
                 if (!isEmpty)
                 {
                     fMMPets = new frmMMPowers(this, MMPets)

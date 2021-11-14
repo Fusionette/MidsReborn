@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+﻿using System.ComponentModel;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmColorOptions : Form
     {
@@ -21,7 +17,7 @@ namespace Mids_Reborn.Forms
                 true);
             Name = nameof(frmColorOptions);
             var componentResourceManager = new ComponentResourceManager(typeof(frmColorOptions));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             _myFs.Assign(MidsContext.Config.RtFont);
         }
 

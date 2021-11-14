@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
-namespace Mids_Reborn.Forms.Controls
+namespace MidsReborn.Forms.Controls
 {
     public class InputBox : Form
     {

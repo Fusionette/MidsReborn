@@ -1,13 +1,10 @@
-using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing.Printing;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Document_Classes;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Document_Classes;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmPrint : Form
     {
@@ -18,7 +15,7 @@ namespace Mids_Reborn.Forms
             Load += frmPrint_Load;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmPrint));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmPrint);
         }
 

@@ -1,8 +1,6 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems
+namespace MidsReborn.Forms.OptionsMenuItems
 {
     public partial class frmCalcOpt
     {

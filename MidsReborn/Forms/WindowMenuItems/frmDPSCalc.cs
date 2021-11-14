@@ -1,17 +1,12 @@
-using System;
-using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
-using System.Threading;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmDPSCalc : Form
     {
@@ -68,7 +63,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             InitializeComponent();
             Name = nameof(frmDPSCalc);
             //var componentResourceManager = new ComponentResourceManager(typeof(frmDPSCalc));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             myParent = iParent;
             bxRecipe = new ExtendedBitmap(I9Gfx.GetRecipeName());
             GlobalPowerList = new PowerList[0];
@@ -484,10 +479,17 @@ namespace Mids_Reborn.Forms.WindowMenuItems
                         var basePower =
                             MainModule.MidsController.Toon.GetBasePower(
                                 int.Parse(lvPower.Items[index].SubItems[8].Text));
-                        array[length].HidenDPA = basePower.FXGetDamageValue();
-                        array[length].HidenDPA =
-                            array[length].HidenDPA * (array[length].DamageBuff / array[length].Recharge) /
-                            array[length].Animation;
+                        if (basePower != null)
+                        {
+                            array[length].HidenDPA = basePower.FXGetDamageValue();
+                            array[length].HidenDPA =
+                                array[length].HidenDPA * (array[length].DamageBuff / array[length].Recharge) /
+                                array[length].Animation;
+                        }
+                        else
+                        {
+                            array[length].HidenDPA = 0;
+                        }
                     }
 
                     ++length;

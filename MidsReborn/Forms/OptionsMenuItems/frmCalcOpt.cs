@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.ImportExportItems;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
-using WK.Libraries.BetterFolderBrowserNS;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Forms.ImportExportItems;
+using MidsReborn.Properties;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems
+namespace MidsReborn.Forms.OptionsMenuItems
 {
     public partial class frmCalcOpt : Form
     {
@@ -55,7 +51,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems
                 + " at maximum possible (as thought the extra damage always happens), or at minimum (as though it never happens).\r\n"
                 + "Note that this also affects how Scrapper damage is displayed with Critical Hit is toggled on.\r\n"
                 + "Where an attack has a chance to do additional damage:";
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             myParent = iParent;
         }
 
@@ -865,17 +861,17 @@ namespace Mids_Reborn.Forms.OptionsMenuItems
 
         private void btnDatabaseLoc_Click(object sender, EventArgs e)
         {
-            using var fBrowse = new BetterFolderBrowser
-            {
-                Multiselect = false,
-                RootFolder = Path.Combine(Files.GetAssemblyLoc(), Files.RoamingFolder),
-                Title = @"Select the location of the database files"
-            };
-            if (fBrowse.ShowDialog(this) == DialogResult.OK)
-            {
-                myParent.DbChangeRequested = true;
-                lblDatabaseLoc.Text = fBrowse.SelectedPath;
-            }
+            // using var fBrowse = new BetterFolderBrowser
+            // {
+            //     Multiselect = false,
+            //     RootFolder = Path.Combine(Files.GetAssemblyLoc(), Files.RoamingFolder),
+            //     Title = @"Select the location of the database files"
+            // };
+            // if (fBrowse.ShowDialog(this) == DialogResult.OK)
+            // {
+            //     myParent.DbChangeRequested = true;
+            //     lblDatabaseLoc.Text = fBrowse.SelectedPath;
+            // }
 
         }
 

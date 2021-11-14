@@ -1,8 +1,7 @@
 using System.ComponentModel;
-using System.Windows.Forms;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmSetFind
     {
@@ -50,9 +49,9 @@ namespace Mids_Reborn.Forms
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.cbArchetype = new System.Windows.Forms.ComboBox();
-            this.ibClose = new mrbControls.ImageButton();
-            this.ibTopmost = new mrbControls.ImageButton();
-            this.SetInfo = new mrbControls.ctlPopUp();
+            this.ibClose = new ImageButton();
+            this.ibTopmost = new ImageButton();
+            this.SetInfo = new ctlPopUp();
             this.Panel1.SuspendLayout();
             this.SuspendLayout();
             // 

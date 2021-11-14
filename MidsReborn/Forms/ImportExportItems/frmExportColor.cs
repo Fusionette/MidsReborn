@@ -1,9 +1,7 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using mrbBase;
+using MidsReborn.Base;
 
-namespace Mids_Reborn.Forms.ImportExportItems
+namespace MidsReborn.Forms.ImportExportItems
 {
     public partial class frmExportColor : Form
     {
@@ -14,7 +12,7 @@ namespace Mids_Reborn.Forms.ImportExportItems
             Load += frmExportColor_Load;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmExportColor));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmExportColor);
             myScheme.Assign(iScheme);
         }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Extensions;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Extensions;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmRestoreHidden : Form
     {
@@ -16,7 +12,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void frmRestoreHidden_Load(object sender, EventArgs e)

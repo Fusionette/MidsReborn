@@ -1,10 +1,9 @@
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using Mids_Reborn.Forms.Controls;
-using mrbControls;
+using MidsReborn.Controls;
+using MidsReborn.Forms.Controls;
+using Timer = System.Windows.Forms.Timer;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmMain
     {
@@ -189,7 +188,7 @@ namespace Mids_Reborn.Forms
             this.tsBuildRcv = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
             this.pbDynMode = new System.Windows.Forms.PictureBox();
-            this.pnlGFX = new System.Windows.Forms.PictureBox();
+            this.pnlGFX = new pnlGFX();
             this.pnlGFXFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.lblName = new GFXLabel();
             this.lblOrigin = new GFXLabel();
@@ -2231,7 +2230,7 @@ namespace Mids_Reborn.Forms
         MenuStrip MenuBar;
         ToolStripMenuItem OptionsToolStripMenuItem;
         PictureBox pbDynMode;
-        public PictureBox pnlGFX;
+        public pnlGFX pnlGFX;
         public FlowLayoutPanel pnlGFXFlow;
         ToolStripMenuItem SetAllIOsToDefault35ToolStripMenuItem;
         ToolStripMenuItem SlotsToolStripMenuItem;

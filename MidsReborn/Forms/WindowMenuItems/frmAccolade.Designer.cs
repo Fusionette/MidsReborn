@@ -1,7 +1,7 @@
 using System.ComponentModel;
-using mrbControls;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     public partial class frmAccolade
     {

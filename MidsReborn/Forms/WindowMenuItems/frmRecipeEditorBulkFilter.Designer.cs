@@ -1,5 +1,5 @@
 ﻿
-namespace Mids_Reborn.Forms.WindowMenuItems
+namespace MidsReborn.Forms.WindowMenuItems
 {
     partial class frmRecipeEditorBulkFilter
     {

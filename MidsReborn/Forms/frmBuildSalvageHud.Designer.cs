@@ -1,5 +1,6 @@
-﻿
-namespace Mids_Reborn.Forms
+﻿using MidsReborn.Controls;
+
+namespace MidsReborn.Forms
 {
     partial class frmBuildSalvageHud
     {
@@ -36,7 +37,7 @@ namespace Mids_Reborn.Forms
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblEnhObtained = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ibClose = new mrbControls.ImageButton();
+            this.ibClose = new ImageButton();
             this.pSalvageSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -82,7 +83,7 @@ namespace Mids_Reborn.Forms
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::Mids_Reborn.Resources.EnhancementBooster;
+            this.pictureBox3.Image = global::MidsReborn.Properties.Resources.EnhancementBooster;
             this.pictureBox3.Location = new System.Drawing.Point(370, 0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);
@@ -92,7 +93,7 @@ namespace Mids_Reborn.Forms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::Mids_Reborn.Resources.EnhancementCatalyst;
+            this.pictureBox2.Image = global::MidsReborn.Properties.Resources.EnhancementCatalyst;
             this.pictureBox2.Location = new System.Drawing.Point(222, 0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(32, 32);
@@ -113,7 +114,7 @@ namespace Mids_Reborn.Forms
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Mids_Reborn.Resources.AncientScroll;
+            this.pictureBox1.Image = global::MidsReborn.Properties.Resources.AncientScroll;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
@@ -133,7 +134,7 @@ namespace Mids_Reborn.Forms
             this.ibClose.TextOff = "Exit check mode";
             this.ibClose.TextOn = "Alt Text";
             this.ibClose.Toggle = false;
-            this.ibClose.ButtonClicked += new mrbControls.ImageButton.ButtonClickedEventHandler(this.ibClose_ButtonClicked);
+            this.ibClose.ButtonClicked += new ImageButton.ButtonClickedEventHandler(this.ibClose_ButtonClicked);
             // 
             // frmBuildSalvageHud
             // 
@@ -163,6 +164,6 @@ namespace Mids_Reborn.Forms
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblEnhObtained;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private mrbControls.ImageButton ibClose;
+        private ImageButton ibClose;
     }
 }

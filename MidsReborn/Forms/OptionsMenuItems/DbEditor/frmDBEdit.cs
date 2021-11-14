@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
-using Mids_Reborn.Forms.JsonImport;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Forms.JsonImport;
+using MidsReborn.My;
 using Newtonsoft.Json;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmDBEdit : Form
     {
@@ -69,7 +65,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             Initialized = false;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmDBEdit));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             Name = nameof(frmDBEdit);
         }
 
@@ -262,11 +258,11 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             MessageBox.Show(@"Entities should now be restored. Verify via Entity editor then open and save Main DB.");
         }
 
-        private void btnDBConverter_Click(object sender, EventArgs e)
-        {
-            var iParent = _frmMain;
-            frmDBConvert dbConvert = new frmDBConvert(ref iParent);
-            dbConvert.ShowDialog();
-        }
+        // private void btnDBConverter_Click(object sender, EventArgs e)
+        // {
+        //     var iParent = _frmMain;
+        //     frmDBConvert dbConvert = new frmDBConvert(ref iParent);
+        //     dbConvert.ShowDialog();
+        // }
     }
 }

@@ -1,6 +1,6 @@
-﻿using mrbControls;
+﻿using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     partial class frmDiscord
     {
@@ -35,7 +35,7 @@ namespace Mids_Reborn.Forms
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblDiscriminator = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ctlAvatar1 = new mrbControls.ctlAvatar();
+            this.ctlAvatar1 = new ctlAvatar();
             this.authNotice = new System.Windows.Forms.RichTextBox();
             this.authButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -93,7 +93,7 @@ namespace Mids_Reborn.Forms
             // ctlAvatar1
             // 
             this.ctlAvatar1.BackColor = System.Drawing.Color.White;
-            this.ctlAvatar1.Image = global::Mids_Reborn.Resources.defaultAvatar;
+            //this.ctlAvatar1.Image = global::MidsReborn.Properties.Resources.defaultAvatar;
             this.ctlAvatar1.Location = new System.Drawing.Point(6, 3);
             this.ctlAvatar1.Name = "ctlAvatar1";
             this.ctlAvatar1.Size = new System.Drawing.Size(64, 64);

@@ -1,15 +1,8 @@
-using System;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Mids_Reborn.Forms;
-using Mids_Reborn.Forms.OptionsMenuItems;
-using Mids_Reborn.Forms.OptionsMenuItems.DbEditor;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Forms;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     public sealed class MainModule
     {

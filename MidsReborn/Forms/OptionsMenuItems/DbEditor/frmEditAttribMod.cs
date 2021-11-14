@@ -1,20 +1,14 @@
 ﻿#nullable enable
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using FastDeepCloner;
-using Mids_Reborn.My;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Controls;
+using MidsReborn.My;
 using Newtonsoft.Json;
 using ContentAlignment = System.Drawing.ContentAlignment;
 
-namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmEditAttribMod : Form
     {

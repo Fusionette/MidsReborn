@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml;
-using mrbBase.Base.Master_Classes;
+﻿using System.Xml;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn.Forms.UpdateSystem
+namespace MidsReborn.Forms.UpdateSystem
 {
     public class AppUpdate
     {

@@ -1,12 +1,10 @@
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows.Forms;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmTweakMatching : Form
     {
@@ -19,7 +17,7 @@ namespace Mids_Reborn.Forms
             InitializeComponent();
             Name = nameof(frmTweakMatching);
             var componentResourceManager = new ComponentResourceManager(typeof(frmTweakMatching));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

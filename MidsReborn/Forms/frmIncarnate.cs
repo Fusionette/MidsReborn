@@ -1,19 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Display;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Display;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmIncarnate : Form
     {
@@ -95,7 +90,7 @@ namespace Mids_Reborn.Forms
             loreBtn.ButtonClicked += loreBtn_ButtonClicked;
             Name = nameof(frmIncarnate);
             var componentResourceManager = new ComponentResourceManager(typeof(frmIncarnate));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             myParent = iParent;
             myPowers = DatabaseAPI.GetPowersetByName("Alpha", Enums.ePowerSetType.Incarnate).Powers;
             FormClosing += FrmIncarnate_FormClosing;
@@ -445,6 +440,7 @@ namespace Mids_Reborn.Forms
             LLLeft.Refresh();
             LLRight.Refresh();
             myParent.PowerModified(true);
+            myParent.DoRefresh();
         }
 
         private void llLeft_ItemHover(ListLabelV3.ListLabelItemV3 Item)
@@ -504,6 +500,7 @@ namespace Mids_Reborn.Forms
                 LLLeft.Refresh();
                 LLRight.Refresh();
                 myParent.PowerModified(unused || hasChanges);
+                myParent.DoRefresh();
             }
         }
 

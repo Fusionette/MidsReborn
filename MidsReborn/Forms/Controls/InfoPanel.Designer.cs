@@ -1,4 +1,4 @@
-﻿namespace Mids_Reborn.Forms.Controls
+﻿namespace MidsReborn.Forms.Controls
 {
 	partial class InfoPanel
 	{

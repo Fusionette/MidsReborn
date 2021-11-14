@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Windows.Forms;
-using Mids_Reborn.Forms;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
+﻿using System.Net;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Forms;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     public class clsOAuth
     {

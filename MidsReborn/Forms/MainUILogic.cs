@@ -1,8 +1,7 @@
-﻿using System;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     // non-mutating OR low var count methods OR anything easily liftable
     // avoid mutation and the service location pattern

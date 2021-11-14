@@ -1,17 +1,14 @@
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbBase;
-using mrbBase.Base.Data_Classes;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Data_Classes;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmStats : Form
     {
@@ -59,7 +56,7 @@ namespace Mids_Reborn.Forms
             chkOnTop.ButtonClicked += chkOnTop_CheckedChanged;
             Name = nameof(frmStats);
             var componentResourceManager = new ComponentResourceManager(typeof(frmStats));
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
             myParent = iParent;
         }
 

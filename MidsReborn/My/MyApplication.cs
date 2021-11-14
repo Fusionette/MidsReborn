@@ -1,8 +1,7 @@
-using System;
-using mrbBase;
+using MidsReborn.Base;
 using Newtonsoft.Json;
 
-namespace Mids_Reborn.My
+namespace MidsReborn.My
 {
     internal class MyApplication
     {

@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace Mids_Reborn.Forms.Controls
+﻿namespace MidsReborn.Forms.Controls
 {
 	public partial class InfoPanel : UserControl
 	{

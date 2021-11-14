@@ -1,13 +1,10 @@
-using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
-using mrbBase;
-using mrbBase.Base.Master_Classes;
-using mrbControls;
+using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Controls;
 
-namespace Mids_Reborn.Forms.ImportExportItems
+namespace MidsReborn.Forms.ImportExportItems
 {
     public partial class frmForum : Form
     {
@@ -24,7 +21,7 @@ namespace Mids_Reborn.Forms.ImportExportItems
             Name = nameof(frmForum);
             var componentResourceManager = new ComponentResourceManager(typeof(frmForum));
             pbTitle.Image = (Image) componentResourceManager.GetObject("pbTitle.Image");
-            Icon = Resources.reborn;
+            //Icon = Resources.reborn;
         }
 
         internal ImageButton IBCancel { get; private set; }

@@ -1,8 +1,8 @@
 using System.ComponentModel;
-using mrbBase;
-using mrbControls;
+using MidsReborn.Controls;
+using MidsReborn.Base;
 
-namespace Mids_Reborn.Forms
+namespace MidsReborn.Forms
 {
     public partial class frmStats
     {

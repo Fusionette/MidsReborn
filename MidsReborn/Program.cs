@@ -1,29 +1,25 @@
-﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Windows.Forms;
-using Mids_Reborn.Forms;
-using Mids_Reborn.UIv2;
-using mrbBase.Base.Master_Classes;
+using MidsReborn.Base.Base.Master_Classes;
+using MidsReborn.Forms;
+using MidsReborn.UIv2;
 
-namespace Mids_Reborn
+namespace MidsReborn
 {
     internal static class Program
     {
         /// <summary>
-        ///     The main entry point for the application.
+        ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main()
+        static void Main()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzczMTM1QDMxMzgyZTM0MmUzME9URGZHeHFrdFFwZlhxQnZITjlreGZGek96bldQRGpPSmFDd3VWQ1lBaUU9");
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            ApplicationConfiguration.Initialize();
             MidsContext.AssertVersioning();
             if (Debugger.IsAttached || Process.GetCurrentProcess().ProcessName.ToLowerInvariant().Contains("devenv"))
             {
                 using frmMain f = new frmMain();
-                //using Form1 f1 = new Form1();
+                //using Form1 f = new Form1();
                 Application.Run(f);
             }
             else
