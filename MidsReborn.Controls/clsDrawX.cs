@@ -139,7 +139,6 @@ namespace MidsReborn.Controls
                 DirectoryInfo directoryInfo = new(filePath);
                 foreach (var file in directoryInfo.GetFiles($"pSlot*"))
                 {
-                    Debug.WriteLine(file);
                     bxPower.Add(new ExtendedBitmap(file.FullName));
                 }
 
