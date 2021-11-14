@@ -394,12 +394,33 @@
     <Compile Include="UIv2\Form1.designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIv2\v2Controls\MultiButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIv2\v2Controls\MultiButton.Designer.cs">
+      <DependentUpon>MultiButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIv2\v2Controls\PowerListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIv2\v2Controls\PowerListBox.Designer.cs">
+      <DependentUpon>PowerListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIv2\v2Controls\PowerListCombo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIv2\v2Controls\PowerListCombo.Designer.cs">
+      <DependentUpon>PowerListCombo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIv2\v2Controls\PowersControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UIv2\v2Controls\PowersControl.Designer.cs">
       <DependentUpon>PowersControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UIv2\v2Controls\PowerListCombo.resx">
+      <DependentUpon>PowerListCombo.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Images\Classes\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

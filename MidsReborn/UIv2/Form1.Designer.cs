@@ -388,7 +388,7 @@ namespace Mids_Reborn.UIv2
             "Sec Power 9"});
             this.Secondary_Powers.Location = new System.Drawing.Point(216, 161);
             this.Secondary_Powers.Name = "Secondary_Powers";
-            this.Secondary_Powers.SelectionBackColor = System.Drawing.Color.DarkOrange;
+            this.Secondary_Powers.SelectionBackColor = System.Drawing.Color.Bisque;
             this.Secondary_Powers.SelectionColor = System.Drawing.Color.DodgerBlue;
             this.Secondary_Powers.Size = new System.Drawing.Size(200, 320);
             this.Secondary_Powers.TabIndex = 18;
@@ -496,7 +496,7 @@ namespace Mids_Reborn.UIv2
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(50, 75);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 16);
+            this.label4.Size = new System.Drawing.Size(52, 16);
             this.label4.TabIndex = 11;
             this.label4.Text = "Origin:";
             // 
@@ -523,7 +523,7 @@ namespace Mids_Reborn.UIv2
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(21, 45);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 16);
+            this.label3.Size = new System.Drawing.Size(81, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Archetype:";
             // 
@@ -542,7 +542,7 @@ namespace Mids_Reborn.UIv2
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(50, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 16);
+            this.label2.Size = new System.Drawing.Size(52, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Name:";
             // 
@@ -598,8 +598,9 @@ namespace Mids_Reborn.UIv2
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -610,6 +611,7 @@ namespace Mids_Reborn.UIv2
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mids` Reborn : Hero Designer";

@@ -22,8 +22,8 @@ namespace Mids_Reborn
             MidsContext.AssertVersioning();
             if (Debugger.IsAttached || Process.GetCurrentProcess().ProcessName.ToLowerInvariant().Contains("devenv"))
             {
-                using frmMain f = new frmMain();
-                //using Form1 f1 = new Form1();
+                //using frmMain f = new frmMain();
+                using Form1 f = new Form1();
                 Application.Run(f);
             }
             else
@@ -31,7 +31,7 @@ namespace Mids_Reborn
                 try
                 {
                     using frmMain f = new frmMain();
-                    //using Form1 f1 = new Form1();
+                    //using Form1 f = new Form1();
                     Application.Run(f);
                 }
                 catch (Exception ex)
