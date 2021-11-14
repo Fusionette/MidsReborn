@@ -47,7 +47,14 @@ namespace MidsReborn.Base
 
         public static string FNamePowersRepl => Path.Combine(FPathAppData, MxdbPowersReplTable);
 
-        private static string FPathAppData => MidsContext.Config.DataPath;
+        private static string FPathAppData => AppPathData();
+
+        private static string AppPathData()
+        {
+            var pathString = MidsContext.Config is null ? Path.Combine(Path.Combine(GetAssemblyLoc(), RoamingFolder), "Homecoming\\") : MidsContext.Config.DataPath;
+
+            return pathString;
+        }
 
         internal static string SearchUp(string folder, string fn)
         {
