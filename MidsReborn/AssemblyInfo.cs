@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using static mrbBase.Base.Master_Classes.MidsContext;
+using static MidsReborn.Base.Base.Master_Classes.MidsContext;
 
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyCompany("RebornTeam")]
-[assembly: AssemblyCopyright("Copyright ©2019-2020 Midsreborn.com")]
+[assembly: AssemblyCompany("LoadedCamel")]
+[assembly: AssemblyCopyright("Copyright ©2019-2022 midsreborn.com")]
 [assembly: AssemblyDescription("Character build planner for City of Heroes")]
 [assembly: AssemblyFileVersion(AppAssemblyVersion)]
 [assembly: AssemblyProduct(AppName)]
