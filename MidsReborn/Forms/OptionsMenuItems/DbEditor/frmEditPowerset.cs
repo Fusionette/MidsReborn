@@ -17,7 +17,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             Loading = true;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmEditPowerset));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Name = nameof(frmEditPowerset);
             myPS = new Powerset(iSet);
         }

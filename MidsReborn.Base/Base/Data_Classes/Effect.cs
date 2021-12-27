@@ -10,6 +10,24 @@ namespace MidsReborn.Base.Base.Data_Classes
 
         private IPower power;
 
+        public static readonly List<string> ExprCommandsList = new()
+        {
+            "",
+            "power.base>activatetime",
+            "power.base>areafactor",
+            "power.base>rechargetime",
+            "power.base>endcost",
+            "effect>scale",
+            "@StdResult",
+            "if target>enttype eq 'critter'",
+            "if target>enttype eq 'player'",
+            "modifier>current",
+            "rand()",
+            "source.ownPower?(",
+            ">stacks",
+            "modifier>",
+            "minmax(",
+        };
 
         public Effect()
         {
@@ -303,33 +321,41 @@ namespace MidsReborn.Base.Base.Data_Classes
         {
             get
             {
-                var num1 = BaseProbability;
-                if (ProcsPerMinute > 0.0 && num1 < 0.01 && power != null)
+                var probability = BaseProbability;
+                if (ExpressionParser.HasSeparator(this) & AttribType == Enums.eAttribType.Expression)
                 {
-                    var num2 = (float)(power.AoEModifier * 0.75 + 0.25);
+                    var chunks = ExpressionParser.SplitExpression(this, out _);
+                    if (chunks.Count <= 1) return 0;
+
+                    var ret = ExpressionParser.ParseExpression2Inner(ExpressionParser.SubExpressionToFx(chunks[1], this), 0, out var parseError);
+
+                    return parseError.ErrorFound ? 0 : Math.Max(0, Math.Min(1, ret));
+
+                }
+
+                if (ProcsPerMinute > 0.0 && probability < 0.01 && power != null)
+                {
+                    var areaFactor = (float)(power.AoEModifier * 0.75 + 0.25);
                     var procsPerMinute = ProcsPerMinute;
-                    var Global_Recharge = (MidsContext.Character.DisplayStats.BuffHaste(false) - 100) / 100;
-                    var rechargeval = power.BaseRechargeTime /
-                                      (power.BaseRechargeTime / power.RechargeTime - Global_Recharge);
-                    if (power.PowerType == Enums.ePowerType.Click)
-                        num1 = Math.Min(
-                            Math.Max(procsPerMinute * (rechargeval + power.CastTimeReal) / (60f * num2),
-                                (float)(0.0500000007450581 + 0.0149999996647239 * ProcsPerMinute)), 0.9f);
-                    else
-                        num1 = Math.Min(
-                            Math.Max(procsPerMinute * 10 / (60f * num2),
+                    var globalRecharge = (MidsContext.Character.DisplayStats.BuffHaste(false) - 100) / 100;
+                    var rechargeVal = Math.Abs(power.RechargeTime) < float.Epsilon
+                        ? 0
+                        : power.BaseRechargeTime / (power.BaseRechargeTime / power.RechargeTime - globalRecharge);
+                    probability = power.PowerType == Enums.ePowerType.Click
+                        ? Math.Min(
+                            Math.Max(procsPerMinute * (rechargeVal + power.CastTimeReal) / (60f * areaFactor),
+                                (float)(0.0500000007450581 + 0.0149999996647239 * ProcsPerMinute)), 0.9f)
+                        : Math.Min(
+                            Math.Max(procsPerMinute * 10 / (60f * areaFactor),
                                 (float)(0.0500000007450581 + 0.0149999996647239 * ProcsPerMinute)), 0.9f);
                 }
 
-                //num1 = Math.Min(Math.Max((power.PowerType != Enums.ePowerType.Click ? procsPerMinute * 10 : procsPerMinute * (rechargeval + power.CastTimeReal)) / (60f * num2), (float)(0.0500000007450581 + 0.0149999996647239 * ProcsPerMinute)), 0.9f);
+                //probability = Math.Min(Math.Max((power.PowerType != Enums.ePowerType.Click ? procsPerMinute * 10 : procsPerMinute * (rechargeval + power.CastTimeReal)) / (60f * num2), (float)(0.0500000007450581 + 0.0149999996647239 * ProcsPerMinute)), 0.9f);
                 if (MidsContext.Character != null && !string.IsNullOrEmpty(EffectId) &&
                     MidsContext.Character.ModifyEffects.ContainsKey(EffectId))
-                    num1 += MidsContext.Character.ModifyEffects[EffectId];
-                if (num1 > 1.0)
-                    num1 = 1f;
-                if (num1 < 0.0)
-                    num1 = 0.0f;
-                return num1;
+                    probability += MidsContext.Character.ModifyEffects[EffectId];
+
+                return Math.Max(0, Math.Min(1, probability));
             }
             set => BaseProbability = value;
         }
@@ -338,40 +364,17 @@ namespace MidsReborn.Base.Base.Data_Classes
         {
             get
             {
-                switch (AttribType)
+                return (EffectType == Enums.eEffectType.Damage ? -1 : 1) * AttribType switch
                 {
-                    case Enums.eAttribType.Magnitude:
-                        /*if (Math.Abs(Math_Mag) > 0.01)
-                        {
-                            return Math_Mag;
-                        }*/
-
-                        return Scale * nMagnitude
-                                     * (EffectType == Enums.eEffectType.Damage ? -1 : 1)
-                                     * DatabaseAPI.GetModifier(this);
-                    
-                    case Enums.eAttribType.Duration:
-                        /*if (Math.Abs(Math_Mag) > 0.01)
-                        {
-                            return Math_Mag;
-                        }*/
-
-                        return nMagnitude * (EffectType == Enums.eEffectType.Damage ? -1 : 1);
-                    
-                    case Enums.eAttribType.Expression:
-                        return ParseMagnitudeExpression()
-                               * DatabaseAPI.GetModifier(this)
-                               * (EffectType == Enums.eEffectType.Damage ? -1 : 1);
-                    default:
-                        return 0;
-                }
+                    Enums.eAttribType.Magnitude => Scale * nMagnitude * DatabaseAPI.GetModifier(this),
+                    Enums.eAttribType.Duration => nMagnitude,
+                    Enums.eAttribType.Expression => ExpressionParser.ParseExpression(this, out _),
+                    _ => 0
+                };
             }
         }
 
-        public float BuffedMag
-        {
-            get => Math.Abs(Math_Mag) > 0.01 ? Math_Mag : Mag;
-        }
+        public float BuffedMag => Math.Abs(Math_Mag) > 0.01 & AttribType != Enums.eAttribType.Expression ? Math_Mag : Mag;
 
         public float MagPercent => !DisplayPercentage ? BuffedMag : BuffedMag * 100f;
 
@@ -463,21 +466,17 @@ namespace MidsReborn.Base.Base.Data_Classes
                             if (!DatabaseAPI.Database.Classes[ps.nArchetype].Playable)
                                 return false;
                         }
-                        else if (ps.SetType == Enums.ePowerSetType.None
-                                 || ps.SetType == Enums.ePowerSetType.Accolade
-                                 //|| ps.SetType == Enums.ePowerSetType.Pet
-                                 || ps.SetType == Enums.ePowerSetType.SetBonus
-                                 || ps.SetType == Enums.ePowerSetType.Temp)
+                        else if (ps.SetType is Enums.ePowerSetType.None or Enums.ePowerSetType.Accolade or Enums.ePowerSetType.Pet or Enums.ePowerSetType.SetBonus or Enums.ePowerSetType.Temp)
                         {
                             return false;
                         }
                     }
 
-                    if ((EffectType == Enums.eEffectType.EntCreate) & (ToWho == Enums.eToWho.Target | ToWho == Enums.eToWho.Ally) & (Stacking == Enums.eStacking.Yes) & !IgnoreScaling)
+                    if ((EffectType == Enums.eEffectType.EntCreate) & (ToWho == Enums.eToWho.Target) & (Stacking == Enums.eStacking.Yes) & !IgnoreScaling)
                     {
                         flag = true;
                     }
-                    else if ((EffectType == Enums.eEffectType.DamageBuff) & (ToWho == Enums.eToWho.Target | ToWho == Enums.eToWho.Ally) & (Stacking == Enums.eStacking.Yes) & !IgnoreScaling)
+                    else if ((EffectType == Enums.eEffectType.DamageBuff) & (ToWho == Enums.eToWho.Target) & (Stacking == Enums.eStacking.Yes) & !IgnoreScaling)
                     {
                         flag = true;
                     }
@@ -487,7 +486,7 @@ namespace MidsReborn.Base.Base.Data_Classes
                         {
                             for (var index = 0; index <= power.Effects.Length - 1; ++index)
                             {
-                                if ((power.Effects[index].EffectType == Enums.eEffectType.EntCreate) & (power.Effects[index].ToWho == Enums.eToWho.Target | power.Effects[index].ToWho == Enums.eToWho.Ally) & (power.Effects[index].Stacking == Enums.eStacking.Yes))
+                                if ((power.Effects[index].EffectType == Enums.eEffectType.EntCreate) & (power.Effects[index].ToWho == Enums.eToWho.Target) & (power.Effects[index].Stacking == Enums.eStacking.Yes))
                                 {
                                     return false;
                                 }
@@ -503,13 +502,7 @@ namespace MidsReborn.Base.Base.Data_Classes
             set { }
         }
 
-        public bool InherentSpecial => SpecialCase == Enums.eSpecialCase.Assassination ||
-                                       SpecialCase == Enums.eSpecialCase.Hidden ||
-                                       SpecialCase == Enums.eSpecialCase.Containment ||
-                                       SpecialCase == Enums.eSpecialCase.CriticalHit ||
-                                       SpecialCase == Enums.eSpecialCase.Domination ||
-                                       SpecialCase == Enums.eSpecialCase.Scourge ||
-                                       SpecialCase == Enums.eSpecialCase.Supremacy;
+        public bool InherentSpecial => SpecialCase is Enums.eSpecialCase.Assassination or Enums.eSpecialCase.Hidden or Enums.eSpecialCase.Containment or Enums.eSpecialCase.CriticalHit or Enums.eSpecialCase.Domination or Enums.eSpecialCase.Scourge or Enums.eSpecialCase.Supremacy;
 
         public bool InherentSpecial2 => ValidateConditional("active", "Assassination") ||
                                         ValidateConditional("active", "Containment") ||
@@ -687,9 +680,7 @@ namespace MidsReborn.Base.Base.Data_Classes
 
         public bool isDamage()
         {
-            return EffectType == Enums.eEffectType.Defense || EffectType == Enums.eEffectType.DamageBuff ||
-                   EffectType == Enums.eEffectType.Resistance || EffectType == Enums.eEffectType.Damage ||
-                   EffectType == Enums.eEffectType.Elusivity;
+            return EffectType is Enums.eEffectType.Defense or Enums.eEffectType.DamageBuff or Enums.eEffectType.Resistance or Enums.eEffectType.Damage or Enums.eEffectType.Elusivity;
         }
 
         public string BuildEffectStringShort(bool noMag = false, bool simple = false, bool useBaseProbability = false)
@@ -708,7 +699,6 @@ namespace MidsReborn.Base.Base.Data_Classes
                 {
                     Enums.eToWho.Target => " to Tgt",
                     Enums.eToWho.Self => " to Slf",
-                    Enums.eToWho.Ally => " to Ally",
                     _ => str3
                 },
                 _ => str3
@@ -886,7 +876,7 @@ namespace MidsReborn.Base.Base.Data_Classes
         }
 
 
-        public string BuildEffectString(bool simple = false, string specialCat = "", bool noMag = false, bool grouped = false, bool useBaseProbability = false, bool fromPopup = false)
+        public string BuildEffectString(bool simple = false, string specialCat = "", bool noMag = false, bool grouped = false, bool useBaseProbability = false, bool fromPopup = false, bool editorDisplay = false, bool dvDisplay = false)
         {
             var sBuild = string.Empty;
             var sSubEffect = string.Empty;
@@ -908,6 +898,8 @@ namespace MidsReborn.Base.Base.Data_Classes
             var sSuppressShort = string.Empty;
             var sConditional = string.Empty;
             var sNearGround = string.Empty;
+            var sMagExp = string.Empty;
+            var sProbExp = string.Empty;
 
             // Some variable effect may not show that they are,
             // e.g. Kinetics Fulcrum Shift self buff effect.
@@ -929,7 +921,6 @@ namespace MidsReborn.Base.Base.Data_Classes
                 {
                     Enums.eToWho.Target => " to Target",
                     Enums.eToWho.Self => " to Self",
-                    Enums.eToWho.Ally => " to Ally",
                     _ => sTarget
                 };
                 if (RequiresToHitCheck)
@@ -938,70 +929,90 @@ namespace MidsReborn.Base.Base.Data_Classes
                 }
             }
 
-            if (ProcsPerMinute > 0 && Probability < 0.01)
+            if (MagnitudeExpression != "" & AttribType == Enums.eAttribType.Expression)
             {
-                sChance = $"{ProcsPerMinute}PPM";
-            }
-            else if (useBaseProbability)
-            {
-                if (BaseProbability < 1)
+                var chunks = ExpressionParser.SplitExpression(this, out _);
+                if (chunks.Count == 2)
                 {
-                    if (BaseProbability >= 0.01)
+                    if (editorDisplay)
                     {
-                        sChance = BaseProbability >= 0.975f
-                            ? $"{BaseProbability * 100:#0.0}% chance"
-                            : $"{BaseProbability * 100:#0}% chance";
-
-                        sChance += EffectId == "" | EffectId == "Ones" ? "" : " ";
+                        sChance = $"{decimal.Round((decimal)Math.Max(0, Math.Min(100, ExpressionParser.ParseExpression(this, out _, 1) * 100)))}% Variable Chance";
+                        sProbExp = $"Probability Expression: {chunks[1]}";
                     }
-                    
-                    if (EffectId != "" & EffectId != "Ones")
+                    else
                     {
-                        sChance += $"when {EffectId}";
-                    }
-
-                    if (CancelOnMiss)
-                    {
-                        sChance += ", Cancels on Miss";
+                        sChance = $"{decimal.Round((decimal)Math.Max(0, Math.Min(100, ExpressionParser.ParseExpression(this, out _, 1) * 100)))}% chance";
                     }
                 }
-                /*else if (EffectId != "" & EffectId != "Ones")
-                {
-                    sChance = $"when {EffectId}";
-                }*/
             }
-            else
+
+            if (sChance == "")
             {
-                if (Probability < 1)
+                if (ProcsPerMinute > 0 && Probability < 0.01)
                 {
-                    if (Probability >= 0.01)
-                    {
-                        sChance = Probability >= 0.975f
-                            ? $"{Probability * 100:#0.0}% chance"
-                            : $"{Probability * 100:#0}% chance";
-
-                        sChance += EffectId == "" | EffectId == "Ones" ? "" : " ";
-                    }
-
-                    if (EffectId != "" & EffectId != "Ones")
-                    {
-                        sChance += $"when {EffectId}";
-                    }
-
-                    if (CancelOnMiss)
-                    {
-                        sChance += ", Cancels on Miss";
-                    }
-
-                    if (ProcsPerMinute > 0 && fromPopup)
-                    {
-                        sChance = $"{ProcsPerMinute} PPM";
-                    }
+                    sChance = $"{ProcsPerMinute} PPM";
                 }
-                /*else if (EffectId != "" & EffectId != "Ones")
+                else if (useBaseProbability)
                 {
-                    sChance = $"when {EffectId}";
-                }*/
+                    if (BaseProbability < 1)
+                    {
+                        if (BaseProbability >= 0.01)
+                        {
+                            sChance = BaseProbability >= 0.975f
+                                ? $"{BaseProbability * 100:#0.0}% chance"
+                                : $"{BaseProbability * 100:#0}% chance";
+
+                            sChance += EffectId == "" | EffectId == "Ones" ? "" : " ";
+                        }
+
+                        if (EffectId != "" & EffectId != "Ones")
+                        {
+                            sChance += $"when {EffectId}";
+                        }
+
+                        if (CancelOnMiss)
+                        {
+                            sChance += ", Cancels on Miss";
+                        }
+                    }
+                    /*else if (EffectId != "" & EffectId != "Ones")
+                    {
+                        sChance = $"when {EffectId}";
+                    }*/
+                }
+                else
+                {
+                    if (Probability < 1)
+                    {
+                        if (Probability >= 0.01)
+                        {
+                            sChance = Probability >= 0.975f
+                                ? $"{Probability * 100:#0.0}% chance"
+                                : $"{Probability * 100:#0}% chance";
+
+                            sChance += EffectId == "" | EffectId == "Ones" ? "" : " ";
+                        }
+
+                        if (EffectId != "" & EffectId != "Ones")
+                        {
+                            sChance += $"when {EffectId}";
+                        }
+
+                        if (CancelOnMiss)
+                        {
+                            sChance += ", Cancels on Miss";
+                        }
+
+                        if (ProcsPerMinute > 0 && fromPopup)
+                        {
+                            sChance = $"{ProcsPerMinute} PPM";
+                        }
+                    }
+                    /*else if (EffectId != "" & EffectId != "Ones")
+                    {
+                        sChance = $"when {EffectId}";
+                    }*/
+                }
             }
 
             var resistPresent = false;
@@ -1023,8 +1034,7 @@ namespace MidsReborn.Base.Base.Data_Classes
             {
                 case Enums.ePvX.PvE:
                     sPvx = resistPresent ? "by Mobs" : "to Mobs";
-                    if (EffectType == Enums.eEffectType.Heal & Aspect == Enums.eAspect.Abs & Mag > 0 &
-                        PvMode == Enums.ePvX.PvE)
+                    if (EffectType == Enums.eEffectType.Heal & Aspect == Enums.eAspect.Abs & Mag > 0 & PvMode == Enums.ePvX.PvE)
                     {
                         sPvx = "in PvE";
                     }
@@ -1038,6 +1048,12 @@ namespace MidsReborn.Base.Base.Data_Classes
                     if (ToWho == Enums.eToWho.Self)
                     {
                         sPvx = "in PvP";
+                    }
+                    break;
+                case Enums.ePvX.Any:
+                    if (ToWho == Enums.eToWho.Self & MidsContext.Config.ShowSelfBuffsAny)
+                    {
+                        sPvx = "in PvE/PvP";
                     }
                     break;
             }
@@ -1082,19 +1098,19 @@ namespace MidsReborn.Base.Base.Data_Classes
 
                     if (!condition.Equals("Stacks") && !condition.Equals("Team"))
                     {
-                        conList.Add($"{conditionPower} {conditionOperator}{condition}");
+                        conList.Add($"{(MidsContext.Config.CoDEffectFormat ? conditionPower.FullName : conditionPower.DisplayName)} {conditionOperator}{condition}");
                     }
                     else if (condition.Equals("Stacks"))
                     {
-                        conList.Add($"{conditionPower} {condition} {cVp.Value}");
+                        conList.Add($"{(MidsContext.Config.CoDEffectFormat ? conditionPower.FullName : conditionPower.DisplayName)} {condition} {cVp.Value}");
                     }
                     else if (condition.Equals("Team"))
                     {
                         conList.Add($"{conditionItemName}s on {condition} {cVp.Value}");
                     }
                     /*conList.Add(!condition.Equals("Stacks")
-                        ? $"{conditionPower} {conditionOperator}{condition}"
-                        : $"{conditionPower} {condition} {cVp.Value}");*/
+                        ? $"{conditionPower.DisplayName} {conditionOperator}{condition}"
+                        : $"{conditionPower.DisplayName} {condition} {cVp.Value}");*/
                     sConditional = string.Join(" AND ", conList);
                 }
             }
@@ -1125,7 +1141,7 @@ namespace MidsReborn.Base.Base.Data_Classes
                 {
                     sDuration += " ";
                 }
-                // If .Absorbed_Interval > 0 Then
+
                 if (Absorbed_Interval > 0 & Absorbed_Interval < 900)
                 {
                     sDuration += $" every {Utilities.FixDP(Absorbed_Interval)} seconds";
@@ -1134,11 +1150,59 @@ namespace MidsReborn.Base.Base.Data_Classes
 
             if (!noMag & EffectType != Enums.eEffectType.SilentKill)
             {
-                sMag = MidsContext.Config.CoDEffectFormat & EffectType != Enums.eEffectType.Mez & !fromPopup
-                    ? $"({Scale * (AttribType == Enums.eAttribType.Magnitude ? nMagnitude : 1)} x {ModifierTable}){(DisplayPercentage ? "%" : "")}"
-                    : DisplayPercentage
-                        ? $"{(EffectType == Enums.eEffectType.Enhancement & ETModifies != Enums.eEffectType.EnduranceDiscount ? BuffedMag > 0 ? "+" : "-" : "")}{Utilities.FixDP(BuffedMag * 100)}%"
-                        : $"{(EffectType == Enums.eEffectType.Enhancement & ETModifies != Enums.eEffectType.EnduranceDiscount ? BuffedMag > 0 ? "+" : "-" : "")}{Utilities.FixDP(BuffedMag)}";
+                if (MagnitudeExpression != "" & AttribType == Enums.eAttribType.Expression)
+                {
+                    var chunks = ExpressionParser.SplitExpression(this, out var forcedMagDefault);
+                    if (forcedMagDefault)
+                    {
+                        chunks[0] = $@"{Convert.ToSingle(chunks[0]) * DatabaseAPI.GetModifier(this) * (EffectType == Enums.eEffectType.Damage ? -1 : 1)}";
+                    }
+
+                    var mag = Math.Abs(ExpressionParser.ParseExpression(this, out _));
+                    var absAllowed = new List<Enums.eEffectType>
+                    {
+                        Enums.eEffectType.Damage,
+                        Enums.eEffectType.DamageBuff,
+                        Enums.eEffectType.Defense,
+                        Enums.eEffectType.Resistance
+                    };
+
+                    if (editorDisplay)
+                    {
+                        if (mag > float.Epsilon && absAllowed.Any(x => x == EffectType))
+                        {
+                            sMag = $"{decimal.Round((decimal)Math.Abs(ExpressionParser.ParseExpression(this, out _)), 2)} Variable";
+                        }
+                        else
+                        {
+                            sMag = $"{decimal.Round((decimal)ExpressionParser.ParseExpression(this, out _), 2)} Variable";
+                        }
+
+                        sMagExp = $"Mag Expression: {chunks[0].Replace("modifier>current", ModifierTable)}";
+                    }
+                    else
+                    {
+                        if (mag > float.Epsilon && absAllowed.Any(x => x == EffectType)) 
+                            sMag = $"{decimal.Round((decimal)Math.Abs(ExpressionParser.ParseExpression(this, out _)), 2)}";
+                        else
+                            sMag = $"{decimal.Round((decimal)ExpressionParser.ParseExpression(this, out _), 2)}";
+                    }
+                }
+                else if (EffectType == Enums.eEffectType.PerceptionRadius)
+                {
+                    var perceptionDistance = Statistics.BasePerception * BuffedMag;
+                    sMag = MidsContext.Config.CoDEffectFormat & !fromPopup
+                        ? $"({Scale * (AttribType == Enums.eAttribType.Magnitude ? nMagnitude : 1)} x {ModifierTable}){(DisplayPercentage ? "%" : "")} ({perceptionDistance}ft)"
+                        : DisplayPercentage
+                            ? $"{Utilities.FixDP(BuffedMag * 100)}% ({perceptionDistance}ft)"
+                            : $"{perceptionDistance}ft";
+                }
+                else
+                {
+                    sMag = MidsContext.Config.CoDEffectFormat & EffectType != Enums.eEffectType.Mez & !fromPopup
+                        ? $"({Scale * (AttribType == Enums.eAttribType.Magnitude ? nMagnitude : 1)} x {ModifierTable}){(DisplayPercentage ? "%" : "")}"
+                        : $"{(EffectType == Enums.eEffectType.Enhancement & ETModifies != Enums.eEffectType.EnduranceDiscount ? BuffedMag > 0 ? "+" : "-" : "")}{Utilities.FixDP(BuffedMag * (DisplayPercentage ? 100 : 1))}{(DisplayPercentage ? "%" : "")}";
+                }
             }
 
             if (!simple)
@@ -1378,13 +1442,22 @@ namespace MidsReborn.Base.Base.Data_Classes
                     };
                     break;
                 case Enums.eEffectType.PowerRedirect:
-                    sBuild = $"{sEffect}{sTarget} ({Override})";
+                {
+                    if (!string.IsNullOrWhiteSpace(Override))
+                    {
+                        sBuild = $"{sEffect}{sTarget} ({DatabaseAPI.GetPowerByFullName(Override).DisplayName})";
+                    }
+                    else
+                    {
+                        sBuild = $"{sEffect}{sTarget} ({Override})";
+                    }
+
                     break;
+                }
                 default:
                     sBuild = $"{sMag} {sEffect}{sTarget}{sDuration}";
                     break;
             }
-
             var sExtra = string.Empty;
             var sExtra2 = string.Empty;
             //(20% chance, non-resistible if target = player)
@@ -1414,15 +1487,32 @@ namespace MidsReborn.Base.Base.Data_Classes
                 sExtra = " (" + sExtra + ")";
                 sExtra2 = BuildCs(sToHit, sExtra2);
                 sExtra2 = " (" + sExtra2 + ")";
+                if (AttribType == Enums.eAttribType.Expression)
+                {
+                    if (!editorDisplay && !dvDisplay)
+                    {
+                        const string sType = " [Expression Based]";
+                        sExtra += sType;
+                        sExtra2 += sType;
+                    }
+                }
             }
 
             sExtra = BuildCs(sNearGround, sExtra);
 
             if (sExtra.Equals(" ()")) { sExtra = ""; }
 
-            return (sEnh + sBuild + (sConditional != "" ? sExtra2 : sExtra) + sBuff + sVariable + sStack + sSuppress)
-                .Replace("--", "-")
-                .Trim();
+            var sFinal = string.Empty;
+            if (AttribType == Enums.eAttribType.Expression && editorDisplay)
+            {
+                sFinal = $"{(sEnh + sBuild + (sConditional != "" ? sExtra2 : sExtra) + sBuff + sVariable + sStack + sSuppress).Replace("--", "-").Trim()}\r\n{sMagExp}\n{sProbExp}";
+            }
+            else
+            {
+                sFinal = (sEnh + sBuild + (sConditional != "" ? sExtra2 : sExtra) + sBuff + sVariable + sStack + sSuppress).Replace("--", "-").Trim();
+            }
+
+            return sFinal;
         }
 
         public void StoreTo(ref BinaryWriter writer)
@@ -1465,7 +1555,6 @@ namespace MidsReborn.Base.Base.Data_Classes
             writer.Write(IgnoreED);
             writer.Write(Override);
             writer.Write(ProcsPerMinute);
-
             writer.Write((int)PowerAttribs);
             writer.Write(AtrOrigAccuracy);
             writer.Write(AtrOrigActivatePeriod);
@@ -1479,7 +1568,6 @@ namespace MidsReborn.Base.Base.Data_Classes
             writer.Write(AtrOrigRange);
             writer.Write(AtrOrigRechargeTime);
             writer.Write(AtrOrigSecondaryRange);
-
             writer.Write(AtrModAccuracy);
             writer.Write(AtrModActivatePeriod);
             writer.Write(AtrModArc);
@@ -1660,8 +1748,7 @@ namespace MidsReborn.Base.Base.Data_Classes
                 {
                     cVp.Validated = MidsContext.Character.CurrentBuild.PowerUsed(conditionPower).Equals(Convert.ToBoolean(cVp.Value));
                 }
-                else if (string.Equals(cType, condition, StringComparison.CurrentCultureIgnoreCase) &&
-                         condition == "Stacks")
+                else if (string.Equals(cType, condition, StringComparison.CurrentCultureIgnoreCase) && condition == "Stacks")
                 {
                     switch (cVal[0])
                     {
@@ -2670,7 +2757,7 @@ namespace MidsReborn.Base.Base.Data_Classes
                    (nIDClassName == -1 || nIDClassName == MidsContext.Archetype.Idx);
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             //Less than zero This instance is less than obj. 
             //Zero This instance is equal to obj. 
@@ -2809,7 +2896,6 @@ namespace MidsReborn.Base.Base.Data_Classes
         }
 
         private static string BuildCs(string iValue, string iStr, bool noComma = false)
-
         {
             if (string.IsNullOrEmpty(iValue))
                 return iStr;
@@ -2822,32 +2908,42 @@ namespace MidsReborn.Base.Base.Data_Classes
             return iStr;
         }
 
-        private float ParseMagnitudeExpression()
+        private string _summonedEntName;
 
+        public string SummonedEntityName
         {
-            float num1;
-            if (MagnitudeExpression.IndexOf(".8 rechargetime power.base> 1 30 minmax * 1.8 + 2 * @StdResult * 10 / areafactor power.base> /", StringComparison.OrdinalIgnoreCase) > -1)
+            get
             {
-                var num2 = (float)((Math.Max(Math.Min(power.RechargeTime, 30f), 0.0f) * 0.800000011920929 + 1.79999995231628) / 5.0) / power.AoEModifier * Scale;
-                if (MagnitudeExpression.Length > ".8 rechargetime power.base> 1 30 minmax * 1.8 + 2 * @StdResult * 10 / areafactor power.base> /".Length + 2)
+                if (nSummon <= -1)
                 {
-                    num2 *= float.Parse(MagnitudeExpression.Substring(".8 rechargetime power.base> 1 30 minmax * 1.8 + 2 * @StdResult * 10 / areafactor power.base> /".Length + 1).Substring(0, 2));
+                    _summonedEntName = Summon;
+                }
+                else if (nSummon > -1 && nSummon <= DatabaseAPI.Database.Entities.Length)
+                {
+                    _summonedEntName = DatabaseAPI.Database.Entities[nSummon].DisplayName;
+                }
+                else
+                {
+                    _summonedEntName = "";
                 }
 
-                num1 = num2;
+                return _summonedEntName;
             }
-            else
+            /*set
             {
-                num1 = 0.0f;
-            }
-
-            return num1;
+                _summonedEntName = value;
+                if (nSummon <= -1)
+                {
+                    _summonedEntName = Summon;
+                }
+                else
+                {
+                    _summonedEntName = DatabaseAPI.Database.Entities[nSummon].DisplayName;
+                }
+            }*/
         }
-
-        public string SummonedEntityName => nSummon <= -1
-        ? Summon
-        : DatabaseAPI.Database.Entities[nSummon].DisplayName;
     }
+
     public class KeyValue<TKey, TValue>
     {
         public TKey Key { get; set; }

@@ -1,6 +1,4 @@
 using System.Globalization;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Display;
 using MidsReborn.Base.Base.Master_Classes;
@@ -63,7 +61,7 @@ namespace MidsReborn.Forms.WindowMenuItems
             InitializeComponent();
             Name = nameof(frmDPSCalc);
             //var componentResourceManager = new ComponentResourceManager(typeof(frmDPSCalc));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myParent = iParent;
             bxRecipe = new ExtendedBitmap(I9Gfx.GetRecipeName());
             GlobalPowerList = new PowerList[0];
@@ -141,9 +139,11 @@ namespace MidsReborn.Forms.WindowMenuItems
                     var text = DatabaseAPI.Database
                         .Power[MidsContext.Character.CurrentBuild.Powers[powerLocation].NIDPower].DisplayName;
                     if (chkSortByLevel.Checked)
-                        text =
-                            Strings.Format(MidsContext.Character.CurrentBuild.Powers[powerLocation].Level + 1, "00") +
-                            " - " + text;
+                    {
+                        text = $"{MidsContext.Character.CurrentBuild.Powers[powerLocation].Level + 100} - {text}";
+                        //text = Strings.Format(MidsContext.Character.CurrentBuild.Powers[powerLocation].Level + 1, "00") + " - " + text;
+                    }
+
                     var damageData = GetDamageData(powerLocation);
                     lvPower.Items.Add(text).SubItems.AddRange(damageData);
                     GlobalDamageBuff += float.Parse(damageData[5]) *
@@ -263,12 +263,12 @@ namespace MidsReborn.Forms.WindowMenuItems
         {
             if (e.Item.Index == 0)
             {
-                if (Operators.ConditionalCompareObjectLess(e.Item.Tag, 0, false) && e.Item.Checked)
-                {
-                    var num = lvPower.Items.Count - 1;
-                    for (var index = 1; index <= num; ++index)
-                        lvPower.Items[index].Checked = false;
-                }
+                // if (Operators.ConditionalCompareObjectLess(e.Item.Tag, 0, false) && e.Item.Checked)
+                // {
+                //     var num = lvPower.Items.Count - 1;
+                //     for (var index = 1; index <= num; ++index)
+                //         lvPower.Items[index].Checked = false;
+                // }
             }
             else if (e.Item.Checked)
             {
@@ -328,7 +328,8 @@ namespace MidsReborn.Forms.WindowMenuItems
                 return;
             }
 
-            tl = (CountingList[]) Utils.CopyArray(tl, new CountingList[tl.Length + 1]);
+            Array.Resize(ref tl, tl.Length+1);
+            //tl = (CountingList[]) Utils.CopyArray(tl, new CountingList[tl.Length + 1]);
             tl[tl.Length - 1].Count = 1;
             tl[tl.Length - 1].Text = item;
         }
@@ -389,12 +390,8 @@ namespace MidsReborn.Forms.WindowMenuItems
             var endCost = enhancedPower.EndCost;
             var effectMag1 = enhancedPower.GetEffectMag(Enums.eEffectType.DamageBuff, Enums.eToWho.Self);
             var effectMag2 = enhancedPower.GetEffectMag(Enums.eEffectType.Resistance, Enums.eToWho.Target);
-            var effectMag3 = enhancedPower.GetEffectMag(Enums.eEffectType.DamageBuff, Enums.eToWho.Ally);
-            var effectMag4 = enhancedPower.GetEffectMag(Enums.eEffectType.Resistance, Enums.eToWho.Ally);
             effectMag1.Multiply();
             effectMag2.Multiply();
-            effectMag3.Multiply();
-            effectMag4.Multiply();
             var num2 = damageValue / num1;
             string[] strArray;
             if (Math.Abs(damageValue) > float.Epsilon)
@@ -405,8 +402,6 @@ namespace MidsReborn.Forms.WindowMenuItems
                     endCost.ToString(CultureInfo.InvariantCulture),
                     effectMag1.Sum.ToString(CultureInfo.InvariantCulture),
                     effectMag2.Sum.ToString(CultureInfo.InvariantCulture),
-                    effectMag3.Sum.ToString(CultureInfo.InvariantCulture),
-                    effectMag4.Sum.ToString(CultureInfo.InvariantCulture),
                     powerLocation.ToString()
                 };
             else
@@ -417,8 +412,6 @@ namespace MidsReborn.Forms.WindowMenuItems
                     endCost.ToString(CultureInfo.InvariantCulture),
                     effectMag1.Sum.ToString(CultureInfo.InvariantCulture),
                     effectMag2.Sum.ToString(CultureInfo.InvariantCulture),
-                    effectMag3.Sum.ToString(CultureInfo.InvariantCulture),
-                    effectMag4.Sum.ToString(CultureInfo.InvariantCulture),
                     powerLocation.ToString()
                 };
             return strArray;

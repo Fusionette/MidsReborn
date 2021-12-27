@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using Microsoft.VisualBasic;
 
 namespace MidsReborn.Forms
 {
@@ -16,7 +15,7 @@ namespace MidsReborn.Forms
             InitializeComponent();
             Name = nameof(FrmInputLevel);
             var componentResourceManager = new ComponentResourceManager(typeof(FrmInputLevel));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myparent = iParent;
             longFormat = iLF;
             mode2 = iMode2;
@@ -25,9 +24,9 @@ namespace MidsReborn.Forms
         private void btnOK_Click(object sender, EventArgs e)
         {
             int num;
-            if (Math.Abs(Conversion.Val(udLevel.Text) - Convert.ToDouble(udLevel.Value)) > float.Epsilon)
+            if (Math.Abs(int.Parse(udLevel.Text) - Convert.ToDouble(udLevel.Value)) > float.Epsilon)
             {
-                num = (int) Math.Round(Conversion.Val(udLevel.Text));
+                num = (int) Math.Round(Convert.ToDecimal(udLevel.Text));
                 if (decimal.Compare(new decimal(num), udLevel.Minimum) < 0)
                     num = Convert.ToInt32(udLevel.Minimum);
                 if (decimal.Compare(new decimal(num), udLevel.Maximum) > 0)

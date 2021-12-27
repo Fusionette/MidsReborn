@@ -1,5 +1,4 @@
-﻿using MidsReborn.UIv2.v2Controls;
-using MidsReborn.Controls;
+﻿using MidsReborn.Controls;
 
 namespace MidsReborn.UIv2
 {
@@ -32,45 +31,41 @@ namespace MidsReborn.UIv2
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            MidsReborn.Controls.MultiButton.TextOutline textOutline1 = new MidsReborn.Controls.MultiButton.TextOutline();
-            MidsReborn.Controls.MultiButton.ToggleButtonImages toggleButtonImages1 = new MidsReborn.Controls.MultiButton.ToggleButtonImages();
-            MidsReborn.Controls.MultiButton.ToggleButtonText toggleButtonText1 = new MidsReborn.Controls.MultiButton.ToggleButtonText();
             this.BGImage = new System.Windows.Forms.PictureBox();
-            this.MainPanel = new MidsReborn.Controls.ctlPanel();
-            this.multiButton2 = new MidsReborn.Controls.MultiButton();
-            this.button3 = new System.Windows.Forms.Button();
+            this.MainPanel = new ctlPanel();
+            this.label12 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.Ancillary_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.cbAncillary = new MidsReborn.Controls.ctlCombo();
+            this.Ancillary_Powers = new ctlPowerList();
+            this.cbAncillary = new ctlCombo();
             this.label11 = new System.Windows.Forms.Label();
-            this.Pool3_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.cbPool3 = new MidsReborn.Controls.ctlCombo();
+            this.Pool3_Powers = new ctlPowerList();
+            this.cbPool3 = new ctlCombo();
             this.label10 = new System.Windows.Forms.Label();
-            this.Pool2_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.cbPool2 = new MidsReborn.Controls.ctlCombo();
+            this.Pool2_Powers = new ctlPowerList();
+            this.cbPool2 = new ctlCombo();
             this.label9 = new System.Windows.Forms.Label();
-            this.Pool1_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.cbPool1 = new MidsReborn.Controls.ctlCombo();
+            this.Pool1_Powers = new ctlPowerList();
+            this.cbPool1 = new ctlCombo();
             this.label8 = new System.Windows.Forms.Label();
-            this.Pool0_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.cbPool0 = new MidsReborn.Controls.ctlCombo();
+            this.Pool0_Powers = new ctlPowerList();
+            this.cbPool0 = new ctlCombo();
             this.label7 = new System.Windows.Forms.Label();
-            this.Secondary_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.Primary_Powers = new MidsReborn.Controls.ctlPowerList();
-            this.cbSecondary = new MidsReborn.Controls.ctlCombo();
+            this.Secondary_Powers = new ctlPowerList();
+            this.Primary_Powers = new ctlPowerList();
+            this.cbSecondary = new ctlCombo();
             this.label6 = new System.Windows.Forms.Label();
-            this.cbPrimary = new MidsReborn.Controls.ctlCombo();
+            this.cbPrimary = new ctlCombo();
             this.label5 = new System.Windows.Forms.Label();
-            this.cbOrigin = new MidsReborn.Controls.ctlCombo();
+            this.cbOrigin = new ctlCombo();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbAT = new MidsReborn.Controls.ctlCombo();
+            this.cbAT = new ctlCombo();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.TopPanel = new MidsReborn.Controls.ctlPanel();
+            this.TopPanel = new ctlPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.ExitPanel = new MidsReborn.Controls.ctlPanel();
+            this.ExitPanel = new ctlPanel();
             ((System.ComponentModel.ISupportInitialize)(this.BGImage)).BeginInit();
             this.MainPanel.SuspendLayout();
             this.TopPanel.SuspendLayout();
@@ -90,8 +85,7 @@ namespace MidsReborn.UIv2
             // MainPanel
             // 
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.MainPanel.Controls.Add(this.multiButton2);
-            this.MainPanel.Controls.Add(this.button3);
+            this.MainPanel.Controls.Add(this.label12);
             this.MainPanel.Controls.Add(this.button2);
             this.MainPanel.Controls.Add(this.Ancillary_Powers);
             this.MainPanel.Controls.Add(this.cbAncillary);
@@ -126,41 +120,15 @@ namespace MidsReborn.UIv2
             this.MainPanel.Size = new System.Drawing.Size(1375, 976);
             this.MainPanel.TabIndex = 3;
             // 
-            // multiButton2
+            // label12
             // 
-            this.multiButton2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("multiButton2.BackgroundImage")));
-            this.multiButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.multiButton2.DisplayText = "multiButton2";
-            this.multiButton2.FlatAppearance.BorderSize = 0;
-            this.multiButton2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.multiButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.multiButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.multiButton2.ForeColor = System.Drawing.Color.White;
-            this.multiButton2.Location = new System.Drawing.Point(716, 31);
-            this.multiButton2.Name = "multiButton2";
-            textOutline1.Color = System.Drawing.Color.Black;
-            textOutline1.Enabled = true;
-            textOutline1.Width = 3;
-            this.multiButton2.Outline = textOutline1;
-            this.multiButton2.Size = new System.Drawing.Size(385, 160);
-            this.multiButton2.Style = MidsReborn.Controls.MultiButton.ButtonStyle.Toggle;
-            this.multiButton2.TabIndex = 38;
-            toggleButtonImages1.ToggleOff = ((System.Drawing.Image)(resources.GetObject("toggleButtonImages1.ToggleOff")));
-            toggleButtonImages1.ToggleOn = ((System.Drawing.Image)(resources.GetObject("toggleButtonImages1.ToggleOn")));
-            this.multiButton2.ToggleImages = toggleButtonImages1;
-            toggleButtonText1.ToggleOff = "ToggleOff";
-            toggleButtonText1.ToggleOn = "ToggleOn";
-            this.multiButton2.ToggleText = toggleButtonText1;
-            this.multiButton2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(948, 827);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 37;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Silver;
+            this.label12.Location = new System.Drawing.Point(770, 381);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 16);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "label12";
             // 
             // button2
             // 
@@ -176,7 +144,7 @@ namespace MidsReborn.UIv2
             this.Ancillary_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Ancillary_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Ancillary_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Ancillary_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Ancillary_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Ancillary_Powers.FormattingEnabled = true;
             this.Ancillary_Powers.ItemHeight = 16;
             this.Ancillary_Powers.Items.AddRange(new object[] {
@@ -194,11 +162,11 @@ namespace MidsReborn.UIv2
             // 
             // cbAncillary
             // 
-            this.cbAncillary.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Ancillary;
+            this.cbAncillary.ComboType = ctlCombo.ComboBoxType.Ancillary;
             this.cbAncillary.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbAncillary.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAncillary.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbAncillary.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbAncillary.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAncillary.FormattingEnabled = true;
             this.cbAncillary.HighlightColor = System.Drawing.Color.Empty;
             this.cbAncillary.Location = new System.Drawing.Point(424, 820);
@@ -211,7 +179,7 @@ namespace MidsReborn.UIv2
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(421, 804);
             this.label11.Name = "label11";
@@ -224,7 +192,7 @@ namespace MidsReborn.UIv2
             this.Pool3_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Pool3_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Pool3_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Pool3_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Pool3_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pool3_Powers.FormattingEnabled = true;
             this.Pool3_Powers.ItemHeight = 16;
             this.Pool3_Powers.Items.AddRange(new object[] {
@@ -242,11 +210,11 @@ namespace MidsReborn.UIv2
             // 
             // cbPool3
             // 
-            this.cbPool3.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Pool;
+            this.cbPool3.ComboType = ctlCombo.ComboBoxType.Pool;
             this.cbPool3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbPool3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPool3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbPool3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbPool3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPool3.FormattingEnabled = true;
             this.cbPool3.HighlightColor = System.Drawing.Color.Empty;
             this.cbPool3.Location = new System.Drawing.Point(424, 648);
@@ -259,7 +227,7 @@ namespace MidsReborn.UIv2
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(421, 632);
             this.label10.Name = "label10";
@@ -272,7 +240,7 @@ namespace MidsReborn.UIv2
             this.Pool2_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Pool2_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Pool2_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Pool2_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Pool2_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pool2_Powers.FormattingEnabled = true;
             this.Pool2_Powers.ItemHeight = 16;
             this.Pool2_Powers.Items.AddRange(new object[] {
@@ -290,11 +258,11 @@ namespace MidsReborn.UIv2
             // 
             // cbPool2
             // 
-            this.cbPool2.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Pool;
+            this.cbPool2.ComboType = ctlCombo.ComboBoxType.Pool;
             this.cbPool2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbPool2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPool2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbPool2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbPool2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPool2.FormattingEnabled = true;
             this.cbPool2.HighlightColor = System.Drawing.Color.Empty;
             this.cbPool2.Location = new System.Drawing.Point(424, 476);
@@ -307,7 +275,7 @@ namespace MidsReborn.UIv2
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(421, 460);
             this.label9.Name = "label9";
@@ -320,7 +288,7 @@ namespace MidsReborn.UIv2
             this.Pool1_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Pool1_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Pool1_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Pool1_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Pool1_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pool1_Powers.FormattingEnabled = true;
             this.Pool1_Powers.ItemHeight = 16;
             this.Pool1_Powers.Items.AddRange(new object[] {
@@ -338,11 +306,11 @@ namespace MidsReborn.UIv2
             // 
             // cbPool1
             // 
-            this.cbPool1.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Pool;
+            this.cbPool1.ComboType = ctlCombo.ComboBoxType.Pool;
             this.cbPool1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbPool1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPool1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbPool1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbPool1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPool1.FormattingEnabled = true;
             this.cbPool1.HighlightColor = System.Drawing.Color.Empty;
             this.cbPool1.Location = new System.Drawing.Point(424, 304);
@@ -355,7 +323,7 @@ namespace MidsReborn.UIv2
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(421, 288);
             this.label8.Name = "label8";
@@ -368,7 +336,7 @@ namespace MidsReborn.UIv2
             this.Pool0_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Pool0_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Pool0_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Pool0_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Pool0_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Pool0_Powers.FormattingEnabled = true;
             this.Pool0_Powers.ItemHeight = 16;
             this.Pool0_Powers.Items.AddRange(new object[] {
@@ -386,11 +354,11 @@ namespace MidsReborn.UIv2
             // 
             // cbPool0
             // 
-            this.cbPool0.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Pool;
+            this.cbPool0.ComboType = ctlCombo.ComboBoxType.Pool;
             this.cbPool0.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbPool0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPool0.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbPool0.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbPool0.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPool0.FormattingEnabled = true;
             this.cbPool0.HighlightColor = System.Drawing.Color.Empty;
             this.cbPool0.Location = new System.Drawing.Point(424, 132);
@@ -403,7 +371,7 @@ namespace MidsReborn.UIv2
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(421, 116);
             this.label7.Name = "label7";
@@ -416,7 +384,7 @@ namespace MidsReborn.UIv2
             this.Secondary_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Secondary_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Secondary_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Secondary_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Secondary_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Secondary_Powers.FormattingEnabled = true;
             this.Secondary_Powers.ItemHeight = 16;
             this.Secondary_Powers.Items.AddRange(new object[] {
@@ -441,7 +409,7 @@ namespace MidsReborn.UIv2
             this.Primary_Powers.BackColor = System.Drawing.Color.Transparent;
             this.Primary_Powers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Primary_Powers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.Primary_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Primary_Powers.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Primary_Powers.FormattingEnabled = true;
             this.Primary_Powers.ItemHeight = 16;
             this.Primary_Powers.Items.AddRange(new object[] {
@@ -464,11 +432,11 @@ namespace MidsReborn.UIv2
             // 
             // cbSecondary
             // 
-            this.cbSecondary.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Secondary;
+            this.cbSecondary.ComboType = ctlCombo.ComboBoxType.Secondary;
             this.cbSecondary.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbSecondary.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSecondary.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbSecondary.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbSecondary.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSecondary.FormattingEnabled = true;
             this.cbSecondary.HighlightColor = System.Drawing.Color.Empty;
             this.cbSecondary.Location = new System.Drawing.Point(216, 132);
@@ -481,7 +449,7 @@ namespace MidsReborn.UIv2
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(213, 116);
             this.label6.Name = "label6";
@@ -491,11 +459,11 @@ namespace MidsReborn.UIv2
             // 
             // cbPrimary
             // 
-            this.cbPrimary.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Primary;
+            this.cbPrimary.ComboType = ctlCombo.ComboBoxType.Primary;
             this.cbPrimary.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbPrimary.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPrimary.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbPrimary.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbPrimary.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPrimary.FormattingEnabled = true;
             this.cbPrimary.HighlightColor = System.Drawing.Color.Empty;
             this.cbPrimary.Location = new System.Drawing.Point(9, 132);
@@ -508,7 +476,7 @@ namespace MidsReborn.UIv2
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(6, 116);
             this.label5.Name = "label5";
@@ -518,11 +486,11 @@ namespace MidsReborn.UIv2
             // 
             // cbOrigin
             // 
-            this.cbOrigin.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Origin;
+            this.cbOrigin.ComboType = ctlCombo.ComboBoxType.Origin;
             this.cbOrigin.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbOrigin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrigin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbOrigin.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbOrigin.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbOrigin.FormattingEnabled = true;
             this.cbOrigin.HighlightColor = System.Drawing.Color.Crimson;
             this.cbOrigin.Location = new System.Drawing.Point(109, 72);
@@ -535,7 +503,7 @@ namespace MidsReborn.UIv2
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(50, 75);
             this.label4.Name = "label4";
@@ -545,11 +513,11 @@ namespace MidsReborn.UIv2
             // 
             // cbAT
             // 
-            this.cbAT.ComboType = MidsReborn.Controls.ctlCombo.ComboBoxType.Archetype;
+            this.cbAT.ComboType = ctlCombo.ComboBoxType.Archetype;
             this.cbAT.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbAT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAT.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbAT.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cbAT.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAT.FormattingEnabled = true;
             this.cbAT.HighlightColor = System.Drawing.Color.Empty;
             this.cbAT.Location = new System.Drawing.Point(109, 42);
@@ -562,7 +530,7 @@ namespace MidsReborn.UIv2
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(21, 45);
             this.label3.Name = "label3";
@@ -581,7 +549,7 @@ namespace MidsReborn.UIv2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(50, 17);
             this.label2.Name = "label2";
@@ -608,7 +576,7 @@ namespace MidsReborn.UIv2
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label1.Location = new System.Drawing.Point(47, 12);
             this.label1.Name = "label1";
@@ -651,7 +619,7 @@ namespace MidsReborn.UIv2
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.BGImage);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -700,8 +668,6 @@ namespace MidsReborn.UIv2
         private ctlCombo cbAncillary;
         private Label label11;
         private Button button2;
-        private Button button3;
-        private MultiButton multiButton1;
-        private MultiButton multiButton2;
+        private Label label12;
     }
 }

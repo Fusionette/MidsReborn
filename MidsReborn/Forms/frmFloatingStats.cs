@@ -13,7 +13,7 @@ namespace MidsReborn.Forms
             Closed += frmFloatingStats_Closed;
             Name = nameof(frmFloatingStats);
             var componentResourceManager = new ComponentResourceManager(typeof(frmFloatingStats));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myOwner = iOwner;
         }
 

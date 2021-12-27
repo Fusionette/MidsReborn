@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Globalization;
-using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Extensions;
 using MidsReborn.Forms.WindowMenuItems;
-using MidsReborn.My;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
@@ -77,7 +75,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             _noUpdate = true;
             InitializeComponent();
             //var componentResourceManager = new ComponentResourceManager(typeof(frmRecipeEdit));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             _tempRecipes = (Recipe[])DatabaseAPI.Database.Recipes.Clone();
             _tempEnhancements = (IEnhancement[])DatabaseAPI.Database.Enhancements.Clone();
             FillList();
@@ -291,9 +289,8 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
         {
             if (RecipeID() < 0 || (_tempRecipes[RecipeID()].Item.Length < 1) | (_tempRecipes[RecipeID()].Item.Length > 53))
                 return;
-            _tempRecipes[RecipeID()].Item = (Recipe.RecipeEntry[]) Utils.CopyArray(
-                _tempRecipes[RecipeID()].Item,
-                new Recipe.RecipeEntry[_tempRecipes[RecipeID()].Item.Length + 1]);
+            Array.Resize(ref _tempRecipes[RecipeID()].Item, _tempRecipes[RecipeID()].Item.Length + 1);
+            //_tempRecipes[RecipeID()].Item = (Recipe.RecipeEntry[]) Utils.CopyArray(_tempRecipes[RecipeID()].Item, new Recipe.RecipeEntry[_tempRecipes[RecipeID()].Item.Length + 1]);
             _tempRecipes[RecipeID()].Item[_tempRecipes[RecipeID()].Item.Length - 1] = new Recipe.RecipeEntry(_tempRecipes[RecipeID()]
                     .Item[_tempRecipes[RecipeID()].Item.Length - 2]);
             ++_tempRecipes[RecipeID()].Item[_tempRecipes[RecipeID()].Item.Length - 1].Level;
@@ -314,7 +311,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             DatabaseAPI.Database.Enhancements = (IEnhancement[]) _tempEnhancements.Clone();
             DatabaseAPI.AssignRecipeSalvageIDs();
             DatabaseAPI.AssignRecipeIDs();
-            var serializer = MyApplication.GetSerializer();
+            var serializer = Serializer.GetSerializer();
             DatabaseAPI.SaveRecipes(serializer);
             DatabaseAPI.SaveEnhancementDb(serializer);
             Close();

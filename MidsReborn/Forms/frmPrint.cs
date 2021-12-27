@@ -15,7 +15,7 @@ namespace MidsReborn.Forms
             Load += frmPrint_Load;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmPrint));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Name = nameof(frmPrint);
         }
 

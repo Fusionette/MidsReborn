@@ -2,7 +2,7 @@ using System.CodeDom.Compiler;
 using System.Configuration;
 using System.Runtime.CompilerServices;
 
-namespace Mids_Reborn.Properties
+namespace MidsReborn.Properties
 {
     [CompilerGenerated]
     [GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0")]

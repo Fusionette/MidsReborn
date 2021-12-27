@@ -10,16 +10,16 @@ namespace MidsReborn.Controls
     public class GFXLabel : UserControl
     {
         // Token: 0x04000092 RID: 146
-        private ExtendedBitmap bxBuffer;
+        private ExtendedBitmap? bxBuffer;
 
         // Token: 0x04000094 RID: 148
         private ContentAlignment myAlign;
 
         // Token: 0x04000093 RID: 147
-        private Graphics myGFX;
+        private Graphics? myGFX;
 
         // Token: 0x04000091 RID: 145
-        private string myText;
+        private string? myText;
 
         // Token: 0x06000134 RID: 308 RVA: 0x0000AFFC File Offset: 0x000091FC
         public GFXLabel()
@@ -36,7 +36,7 @@ namespace MidsReborn.Controls
         // Token: 0x17000050 RID: 80
         // (get) Token: 0x0600012E RID: 302 RVA: 0x0000AF38 File Offset: 0x00009138
         // (set) Token: 0x0600012F RID: 303 RVA: 0x0000AF50 File Offset: 0x00009150
-        public override string Text
+        public override string? Text
         {
             get => myText;
             set
@@ -51,7 +51,7 @@ namespace MidsReborn.Controls
         // Token: 0x17000051 RID: 81
         // (get) Token: 0x06000130 RID: 304 RVA: 0x0000AF84 File Offset: 0x00009184
         // (set) Token: 0x06000131 RID: 305 RVA: 0x0000AF9C File Offset: 0x0000919C
-        public string InitialText
+        public string? InitialText
         {
             get => myText;
             set
@@ -77,7 +77,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x04000090 RID: 144
-        private IContainer Components { get; }
+        private IContainer? Components { get; }
 
         // Token: 0x06000135 RID: 309 RVA: 0x0000B08C File Offset: 0x0000928C
         protected override void Dispose(bool disposing)
@@ -97,7 +97,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000137 RID: 311 RVA: 0x0000B0F5 File Offset: 0x000092F5
-        private void GFXLabel_Load(object sender, EventArgs e)
+        private void GFXLabel_Load(object? sender, EventArgs e)
         {
             myGFX = CreateGraphics();
             bxBuffer = new ExtendedBitmap(Width, Height);
@@ -184,7 +184,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000139 RID: 313 RVA: 0x0000B4F8 File Offset: 0x000096F8
-        private void GFXlabel_Paint(object sender, PaintEventArgs e)
+        private void GFXlabel_Paint(object? sender, PaintEventArgs e)
         {
             if (bxBuffer != null)
                 myGFX.DrawImage(bxBuffer.Bitmap, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel);
@@ -209,19 +209,19 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x0600013D RID: 317 RVA: 0x0000B55B File Offset: 0x0000975B
-        private void GFXLabel_BackColorChanged(object sender, EventArgs e)
+        private void GFXLabel_BackColorChanged(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x0600013E RID: 318 RVA: 0x0000B565 File Offset: 0x00009765
-        private void GFXLabel_FontChanged(object sender, EventArgs e)
+        private void GFXLabel_FontChanged(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x0600013F RID: 319 RVA: 0x0000B56F File Offset: 0x0000976F
-        private void GFXLabel_SizeChanged(object sender, EventArgs e)
+        private void GFXLabel_SizeChanged(object? sender, EventArgs e)
         {
             myGFX = CreateGraphics();
             bxBuffer = new ExtendedBitmap(Width, Height);
@@ -229,7 +229,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000140 RID: 320 RVA: 0x0000B59C File Offset: 0x0000979C
-        private void GFXLabel_Resize(object sender, EventArgs e)
+        private void GFXLabel_Resize(object? sender, EventArgs e)
         {
             myGFX = CreateGraphics();
             bxBuffer = new ExtendedBitmap(Width, Height);

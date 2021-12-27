@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Diagnostics;
-using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Master_Classes;
 
@@ -17,7 +16,7 @@ namespace MidsReborn.Forms
             InitializeComponent();
             Name = nameof(frmTweakMatching);
             var componentResourceManager = new ComponentResourceManager(typeof(frmTweakMatching));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -44,9 +43,9 @@ namespace MidsReborn.Forms
             {
                 if ((txtAddOvr.Text != txtAddActual.Text) & (txtAddOvr.Text != ""))
                 {
-                    MidsContext.Config.CompOverride = (Enums.CompOverride[]) Utils.CopyArray(
-                        MidsContext.Config.CompOverride,
-                        new Enums.CompOverride[MidsContext.Config.CompOverride.Length + 1]);
+                    var configCompOverride = MidsContext.Config.CompOverride;
+                    Array.Resize(ref configCompOverride, MidsContext.Config.CompOverride.Length + 1);
+                    //MidsContext.Config.CompOverride = (Enums.CompOverride[]) Utils.CopyArray(MidsContext.Config.CompOverride, new Enums.CompOverride[MidsContext.Config.CompOverride.Length + 1]);
                     var compOverride = MidsContext.Config.CompOverride;
                     var index = MidsContext.Config.CompOverride.Length - 1;
                     compOverride[index].Power = Convert.ToString(cbPower.SelectedItem);

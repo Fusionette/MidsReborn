@@ -21,19 +21,19 @@ namespace MidsReborn.Controls
         private ExtendedBitmap? bxAltImage;
 
         // Token: 0x040000CB RID: 203
-        private ExtendedBitmap? bxImage;
+        private ExtendedBitmap bxImage;
 
         // Token: 0x040000CD RID: 205
-        private ExtendedBitmap? bxOut;
+        private ExtendedBitmap bxOut;
 
         // Token: 0x040000D4 RID: 212
-        private PictureBox? Knockout;
+        private PictureBox Knockout;
 
         // Token: 0x040000D5 RID: 213
         private Point KnockoutLocation;
 
         // Token: 0x040000D3 RID: 211
-        private ImageAttributes? myIA;
+        private ImageAttributes myIA;
 
         // Token: 0x040000D1 RID: 209
         private bool pAltState;
@@ -135,7 +135,7 @@ namespace MidsReborn.Controls
 
         // Token: 0x1700005E RID: 94
         // (set) Token: 0x060001B2 RID: 434 RVA: 0x00010654 File Offset: 0x0000E854
-        public Bitmap ImageOff
+        public Bitmap? ImageOff
         {
             set
             {
@@ -148,12 +148,12 @@ namespace MidsReborn.Controls
 
         // Token: 0x1700005F RID: 95
         // (set) Token: 0x060001B3 RID: 435 RVA: 0x000106CC File Offset: 0x0000E8CC
-        public Bitmap ImageOn
+        public Bitmap? ImageOn
         {
             set
             {
                 bxAltImage = new ExtendedBitmap(Width, Height);
-                if (bxImage != null) bxImage.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+                bxImage.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
                 bxAltImage.Graphics.DrawImage(value, 0, 0, bxAltImage.Size.Width, bxAltImage.Size.Height);
                 Redraw();
             }
@@ -223,11 +223,11 @@ namespace MidsReborn.Controls
             if (IsDisposed) return;
 
             Draw();
-            if (bxOut?.Bitmap != null) CreateGraphics().DrawImage(bxOut.Bitmap, 0, 0);
+            if (bxOut.Bitmap != null) CreateGraphics().DrawImage(bxOut.Bitmap, 0, 0);
         }
 
         // Token: 0x060001BB RID: 443 RVA: 0x0001097A File Offset: 0x0000EB7A
-        public void SetImages(ImageAttributes? ia, Bitmap imageOff, Bitmap imageOn)
+        public void SetImages(ImageAttributes? ia, Bitmap? imageOff, Bitmap? imageOn)
         {
             IA = ia;
             ImageOff = imageOff;
@@ -236,13 +236,13 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060001BC RID: 444 RVA: 0x0001099C File Offset: 0x0000EB9C
-        private void ImageButton_BackColorChanged(object sender, EventArgs e)
+        private void ImageButton_BackColorChanged(object? sender, EventArgs e)
         {
             Redraw();
         }
 
         // Token: 0x060001BD RID: 445 RVA: 0x000109A6 File Offset: 0x0000EBA6
-        private void ImageButton_FontChanged(object sender, EventArgs e)
+        private void ImageButton_FontChanged(object? sender, EventArgs e)
         {
             Redraw();
         }
@@ -283,31 +283,25 @@ namespace MidsReborn.Controls
                 {
                     if (pAltState | (pToggle & pTogState))
                     {
-                        if (bxAltImage != null) bxOut.Graphics.DrawImageUnscaled(bxAltImage.Bitmap, 0, 0);
+                        bxOut.Graphics.DrawImageUnscaled(bxAltImage.Bitmap, 0, 0);
                     }
                     else if (myIA != null)
                     {
                         var graphics2 = bxOut.Graphics;
-                        if (bxImage != null)
-                        {
-                            Image bitmap = bxImage.Bitmap;
-                            var location = new Point(0, 0);
-                            var bounds = new Rectangle(location, bxOut.Size);
-                            graphics2.DrawImage(bitmap, bounds, 0, 0, bxOut.Size.Width, bxOut.Size.Height,
-                                GraphicsUnit.Pixel, myIA);
-                        }
+                        Image? bitmap = bxImage.Bitmap;
+                        var location = new Point(0, 0);
+                        var bounds = new Rectangle(location, bxOut.Size);
+                        graphics2.DrawImage(bitmap, bounds, 0, 0, bxOut.Size.Width, bxOut.Size.Height,
+                            GraphicsUnit.Pixel, myIA);
                     }
                     else
                     {
                         var graphics3 = bxOut.Graphics;
-                        if (bxImage != null)
-                        {
-                            Image bitmap2 = bxImage.Bitmap;
-                            var location = new Point(0, 0);
-                            var bounds = new Rectangle(location, bxOut.Size);
-                            graphics3.DrawImage(bitmap2, bounds, 0, 0, bxOut.Size.Width, bxOut.Size.Height,
-                                GraphicsUnit.Pixel);
-                        }
+                        Image? bitmap2 = bxImage.Bitmap;
+                        var location = new Point(0, 0);
+                        var bounds = new Rectangle(location, bxOut.Size);
+                        graphics3.DrawImage(bitmap2, bounds, 0, 0, bxOut.Size.Width, bxOut.Size.Height,
+                            GraphicsUnit.Pixel);
                     }
                 }
                 else if (pAltState | (pToggle & pTogState))
@@ -354,7 +348,7 @@ namespace MidsReborn.Controls
 
         // Token: 0x060001BF RID: 447 RVA: 0x00010E10 File Offset: 0x0000F010
         private void DrawOutlineText(string iStr, RectangleF bounds, Color text, Color outline, Font bFont,
-            float outlineSpace, ref Graphics target, bool smallMode = false, bool leftAlign = false)
+            float outlineSpace, ref Graphics? target, bool smallMode = false, bool leftAlign = false)
         {
             var stringFormat = new StringFormat(StringFormatFlags.NoWrap)
             {
@@ -388,7 +382,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060001C0 RID: 448 RVA: 0x00010FEC File Offset: 0x0000F1EC
-        private void ImageButton_MouseDown(object sender, MouseEventArgs e)
+        private void ImageButton_MouseDown(object? sender, MouseEventArgs e)
         {
             if (!pToggle)
             {
@@ -403,7 +397,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060001C1 RID: 449 RVA: 0x00011028 File Offset: 0x0000F228
-        private void ImageButton_MouseLeave(object sender, EventArgs e)
+        private void ImageButton_MouseLeave(object? sender, EventArgs e)
         {
             if (!pToggle)
             {
@@ -418,7 +412,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060001C2 RID: 450 RVA: 0x00011064 File Offset: 0x0000F264
-        private void ImageButton_MouseUp(object sender, MouseEventArgs e)
+        private void ImageButton_MouseUp(object? sender, MouseEventArgs e)
         {
             if (!pToggle)
             {
@@ -436,14 +430,14 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060001C3 RID: 451 RVA: 0x00011168 File Offset: 0x0000F368
-        private void ImageButton_Paint(object sender, PaintEventArgs e)
+        private void ImageButton_Paint(object? sender, PaintEventArgs e)
         {
             if (bxOut == null) Draw();
             if (bxOut != null) e.Graphics.DrawImage(bxOut.Bitmap, 0, 0);
         }
 
         // Token: 0x060001C4 RID: 452 RVA: 0x000111BC File Offset: 0x0000F3BC
-        private void ImageButton_SizeChanged(object sender, EventArgs e)
+        private void ImageButton_SizeChanged(object? sender, EventArgs e)
         {
             if ((Size.Width != 105) | (Size.Height != 22))
             {

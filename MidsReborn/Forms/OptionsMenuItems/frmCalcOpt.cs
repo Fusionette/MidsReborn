@@ -3,7 +3,6 @@ using System.Diagnostics;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Forms.ImportExportItems;
-using MidsReborn.Properties;
 
 namespace MidsReborn.Forms.OptionsMenuItems
 {
@@ -51,7 +50,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
                 + " at maximum possible (as thought the extra damage always happens), or at minimum (as though it never happens).\r\n"
                 + "Note that this also affects how Scrapper damage is displayed with Critical Hit is toggled on.\r\n"
                 + "Where an attack has a chance to do additional damage:";
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myParent = iParent;
         }
 
@@ -619,6 +618,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             }
 
             cbCurrency.SelectedIndex = (int) config.PreferredCurrency;
+            chkShowSelfBuffsAny.Checked = MidsContext.Config.ShowSelfBuffsAny;
 
             ResumeLayout();
         }
@@ -878,6 +878,11 @@ namespace MidsReborn.Forms.OptionsMenuItems
         private void btnResetDatabaseLoc_Click(object sender, EventArgs e)
         {
             lblDatabaseLoc.Text = Files.FDefaultPath;
+        }
+
+        private void chkShowSelfBuffsAny_CheckedChanged(object sender, EventArgs e)
+        {
+            MidsContext.Config.ShowSelfBuffsAny = chkShowSelfBuffsAny.Checked;
         }
     }
 }

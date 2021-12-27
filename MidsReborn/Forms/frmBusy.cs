@@ -8,7 +8,7 @@ namespace MidsReborn.Forms
         {
             Closing += Busy_Closing;
             InitializeComponent();
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
         }
 
         public void SetMessage(string iMsg)

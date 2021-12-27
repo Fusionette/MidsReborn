@@ -32,6 +32,7 @@ namespace MidsReborn.Base
             RecipeIDX = -1;
             UID = string.Empty;
             IsProc = false;
+            IsScalable = false;
         }
 
         public Enhancement(IEnhancement iEnh)
@@ -71,6 +72,7 @@ namespace MidsReborn.Base
 
             UID = iEnh.UID;
             IsProc = iEnh.IsProc;
+            IsScalable = iEnh.IsScalable;
             RecipeName = iEnh.RecipeName;
             RecipeIDX = iEnh.RecipeIDX;
             Superior = iEnh.Superior;
@@ -115,12 +117,16 @@ namespace MidsReborn.Base
                     ref var local = ref Effect[index];
                     Effect effect;
                     if (!reader.ReadBoolean())
+                    {
                         effect = null;
+                    }
                     else
+                    {
                         effect = new Effect(reader)
                         {
-                            isEnhancementEffect = true
+                            isEnhancementEffect = true,
                         };
+                    }
                     local.FX = effect;
                 }
 
@@ -128,6 +134,7 @@ namespace MidsReborn.Base
                 RecipeName = reader.ReadString();
                 Superior = reader.ReadBoolean();
                 IsProc = reader.ReadBoolean();
+                IsScalable = reader.ReadBoolean();
             }
             else
             {
@@ -207,6 +214,8 @@ namespace MidsReborn.Base
         public string UIDSet { get; set; }
 
         public bool IsProc { get; set; }
+
+        public bool IsScalable { get; set; }
 
         public IPower GetPower()
         {
@@ -373,6 +382,7 @@ namespace MidsReborn.Base
             writer.Write(RecipeName);
             writer.Write(Superior);
             writer.Write(IsProc);
+            writer.Write(IsScalable);
         }
 
         public int CheckAndFixIOLevel(int level)

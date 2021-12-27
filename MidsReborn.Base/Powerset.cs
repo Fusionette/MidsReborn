@@ -195,9 +195,9 @@ namespace MidsReborn.Base
             }
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
-            if (!(obj is IPowerset powerset))
+            if (obj is not IPowerset powerset)
                 throw new ArgumentException("Comparison failed - Passed object was not a Powerset Class!");
             var num = string.Compare(GroupName, powerset.GroupName, StringComparison.OrdinalIgnoreCase);
             if (num == 0)

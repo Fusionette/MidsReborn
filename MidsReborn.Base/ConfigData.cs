@@ -49,8 +49,8 @@ namespace MidsReborn.Base
             3, 0, 5, 0, 3, 5, 0, 0, 5, 0, 2, 3, 0, 2, 2, 0, 0, 0, 0, 0
         };
 
-        private string _defaultSaveFolderOverride;
-        private Size _lastSize = new Size(1072, 760);
+        private string? _defaultSaveFolderOverride;
+        private Size _lastSize = new(1342, 1001);
         public Enums.eSpeedMeasure SpeedFormat = Enums.eSpeedMeasure.MilesPerHour;
         public string UpdatePath = "https://midsreborn.com/mids_updates/app/update_manifest.xml";
         public string DbUpdatePath = "https://midsreborn.com/mids_updates/db/update_manifest.xml";
@@ -71,6 +71,7 @@ namespace MidsReborn.Base
             DiscordEnabled = false;
             Registered = 0;
             DiscordAuthorized = false;
+            ShowSelfBuffsAny = false;
             InitializeComponent();
         }
 
@@ -185,7 +186,9 @@ namespace MidsReborn.Base
 
         public Enums.RewardCurrency PreferredCurrency = Enums.RewardCurrency.RewardMerit;
 
-        public string DefaultSaveFolderOverride
+        public bool ShowSelfBuffsAny { get; set; }
+
+        public string? DefaultSaveFolderOverride
         {
             get => _defaultSaveFolderOverride;
             set
@@ -527,11 +530,11 @@ namespace MidsReborn.Base
                         DefaultSaveFolderOverride = null;
                         if (FileIO.CopyFolder(defaultSaveFolder, GetSaveFolder()))
                         {
-                            MessageBox.Show(@"Save folder was moved!", "All Done", MessageBoxButtons.OK);
+                            MessageBox.Show(@"Save folder was moved!", @"All Done", MessageBoxButtons.OK);
                         }
                         else
                         {
-                            MessageBox.Show(@"Save folder couldn't be moved! Using old save folder instead.", "Whoops",
+                            MessageBox.Show(@"Save folder couldn't be moved! Using old save folder instead.", @"Whoops",
                                 MessageBoxButtons.OK);
                             DefaultSaveFolderOverride = defaultSaveFolder;
                         }
@@ -794,8 +797,8 @@ namespace MidsReborn.Base
                     Enums.eColorSetting.ColorPowerTakenVillain => Color.FromArgb(191, 74, 56),
                     Enums.eColorSetting.ColorPowerTakenDarkVillain => Color.Maroon,
                     Enums.eColorSetting.ColorPowerHighlightVillain => Color.FromArgb(96, 64, 64),
-                    Enums.eColorSetting.ColorDamageBarBase => Color.FromArgb(0, 0, 32),
-                    Enums.eColorSetting.ColorDamageBarEnh => Color.FromArgb(0, 0, 32),
+                    Enums.eColorSetting.ColorDamageBarBase => Color.FromArgb(255,194,194),
+                    Enums.eColorSetting.ColorDamageBarEnh => Color.FromArgb(181, 0, 0),
                     _ => Color.FromArgb(0, 0, 0)
                 };
             }

@@ -21,7 +21,7 @@ namespace MidsReborn.Forms.ImportExportItems
             Name = nameof(frmForum);
             var componentResourceManager = new ComponentResourceManager(typeof(frmForum));
             pbTitle.Image = (Image) componentResourceManager.GetObject("pbTitle.Image");
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
         }
 
         internal ImageButton IBCancel { get; private set; }

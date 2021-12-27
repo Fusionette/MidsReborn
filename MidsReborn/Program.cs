@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Forms;
-using MidsReborn.UIv2;
 
 namespace MidsReborn
 {
@@ -11,7 +10,7 @@ namespace MidsReborn
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzczMTM1QDMxMzgyZTM0MmUzME9URGZHeHFrdFFwZlhxQnZITjlreGZGek96bldQRGpPSmFDd3VWQ1lBaUU9");
             ApplicationConfiguration.Initialize();

@@ -32,6 +32,18 @@ namespace MidsReborn.Controls
             ShowInTaskbar = false;
         }
 
+        public sealed override Size MinimumSize
+        {
+            get => base.MinimumSize;
+            set => base.MinimumSize = value;
+        }
+
+        public sealed override bool AutoSize
+        {
+            get => base.AutoSize;
+            set => base.AutoSize = value;
+        }
+
         public override string Text
         {
             get
@@ -55,7 +67,7 @@ namespace MidsReborn.Controls
             Size = size;
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object? sender, KeyEventArgs e)
         {
             switch (e.KeyData)
             {

@@ -4,7 +4,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     partial class frmDBConvert
     {
-      /*  /// <summary>
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private IContainer components = null;
@@ -159,6 +159,6 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
         private Button destBrowse;
         private Button convertBtn;
         private Label label3;
-        private ListBox statusText; */
-    }  
+        private ListBox statusText;
+    }
 }

@@ -1,8 +1,11 @@
-﻿namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
+﻿using MidsReborn.Base;
+using MidsReborn.Base.Base.Master_Classes;
+
+namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmDBConvert : Form
     {
-      /*  private frmMain _myParent;
+        private frmMain _myParent;
         private string SourcePath { get; set; }
         private string DestinationPath { get; set; }
         private List<string> SourceFiles { get; set; }
@@ -31,7 +34,7 @@
 
         private void srcBrowse_Click(object sender, EventArgs e)
         {
-            using var sourceDialog = new BetterFolderBrowser
+            /*using var sourceDialog = new BetterFolderBrowser
             {
                 Multiselect = false,
                 RootFolder = Path.Combine(Files.GetAssemblyLoc(), Files.RoamingFolder),
@@ -42,12 +45,12 @@
                 SourcePath = sourceDialog.SelectedPath;
                 sourceFolder.Text = SourcePath;
                 MidsContext.Config.SourceDataPath = SourcePath;
-            }
+            }*/
         }
 
         private void destBrowse_Click(object sender, EventArgs e)
         {
-            using var destinationDialog = new BetterFolderBrowser
+            /*using var destinationDialog = new BetterFolderBrowser
             {
                 Multiselect = false,
                 RootFolder = Path.Combine(Files.GetAssemblyLoc(), Files.RoamingFolder),
@@ -58,7 +61,7 @@
                 DestinationPath = destinationDialog.SelectedPath;
                 destinationFolder.Text = DestinationPath;
                 MidsContext.Config.ConversionDataPath = DestinationPath;
-            }
+            }*/
         }
 
         private async void convertBtn_Click(object sender, EventArgs e)
@@ -198,7 +201,7 @@
             await Task.Delay(500);
             foreach (var power in DatabaseAPI.Database.Power) power.BaseRechargeTime = power.RechargeTime;
             Array.Sort(DatabaseAPI.Database.Power);
-            var serializer = MyApplication.GetSerializer();
+            var serializer = Serializer.GetSerializer();
             statusText.Items.Add("Assigning static indexes...");
             DatabaseAPI.AssignStaticIndexValues(serializer, false);
             DatabaseAPI.MatchAllIDs();
@@ -236,6 +239,5 @@
             await Task.Delay(500);
             ResetData(MidsContext.Config.DataPath);
         }
-    }*/
     }
 }

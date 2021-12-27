@@ -39,6 +39,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             this.ColumnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClone = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -48,7 +49,6 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             this.btnDown = new System.Windows.Forms.Button();
             this.btnUp = new System.Windows.Forms.Button();
             this.NoReload = new System.Windows.Forms.CheckBox();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // ilSets
@@ -111,6 +111,11 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             // 
             this.ColumnHeader6.Text = "FX";
             this.ColumnHeader6.Width = 53;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Has PvP FX";
+            this.columnHeader7.Width = 76;
             // 
             // btnClone
             // 
@@ -220,11 +225,6 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             this.NoReload.Text = "Disable Image Reload";
             this.NoReload.CheckedChanged += new System.EventHandler(this.NoReload_CheckedChanged);
             // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Has PvP FX";
-            this.columnHeader7.Width = 76;
-            // 
             // frmSetListing
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -246,7 +246,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             this.Name = "frmSetListing";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "PvE Invention Set Editor";
+            this.Text = "Invention Sets";
             this.ResumeLayout(false);
 
         }

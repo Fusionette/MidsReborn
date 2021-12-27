@@ -169,12 +169,12 @@ namespace MidsReborn.Base.Base.Data_Classes
 
         public bool Epic => ClassType == Enums.eClassType.HeroEpic || ClassType == Enums.eClassType.VillainEpic;
 
-        int IComparable.CompareTo(object? obj)
+        public int CompareTo(object? obj)
         {
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));
 
-            if (obj is not Archetype archetype)
+            if (!(obj is Archetype archetype))
                 throw new ArgumentException("Comparison failed - Passed object was not an Archetype Class!");
             if (Playable & !archetype.Playable)
                 return -1;
@@ -226,11 +226,11 @@ namespace MidsReborn.Base.Base.Data_Classes
         {
             var popupData = new PopUp.PopupData();
             var index1 = popupData.Add();
-            popupData.Sections?[index1].Add(DisplayName, PopUp.Colors.Title, 1.25f);
-            popupData.Sections?[index1].Add(DescShort, PopUp.Colors.Effect);
-            popupData.Sections?[index1].Add(DescLong, PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
+            popupData.Sections[index1].Add(DisplayName, PopUp.Colors.Title, 1.25f);
+            popupData.Sections[index1].Add(DescShort, PopUp.Colors.Effect);
+            popupData.Sections[index1].Add(DescLong, PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
             var index2 = popupData.Add();
-            popupData.Sections?[index2]
+            popupData.Sections[index2]
                 .Add(
                     "You can't change archetype once a build has been started.\nIf you want to pick a different archetype, you need to clear the current build and start a new one.",
                     PopUp.Colors.Effect, 0.9f);

@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Extensions;
 using MidsReborn.Forms.OptionsMenuItems.DbEditor;
-using MidsReborn.My;
 
 //using Microsoft.VisualBasic;
 //using Microsoft.VisualBasic.CompilerServices;
@@ -31,7 +30,7 @@ namespace MidsReborn.Forms
             Load += frmEntityListing_Load;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmEntityListing));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Name = nameof(frmEntityListing);
         }
 
@@ -140,7 +139,7 @@ namespace MidsReborn.Forms
         private void btnOK_Click(object sender, EventArgs e)
         {
             DatabaseAPI.MatchSummonIDs();
-            var serializer = MyApplication.GetSerializer();
+            var serializer = Serializer.GetSerializer();
             DatabaseAPI.SaveMainDatabase(serializer);
             Hide();
         }

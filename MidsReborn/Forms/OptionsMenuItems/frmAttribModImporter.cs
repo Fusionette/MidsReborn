@@ -1,7 +1,6 @@
 ﻿using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Controls;
-using MidsReborn.My;
 using Newtonsoft.Json;
 
 namespace MidsReborn.Forms.OptionsMenuItems
@@ -132,7 +131,8 @@ namespace MidsReborn.Forms.OptionsMenuItems
 			BusyHide();
 			if (DatabaseAPI.Database.AttribMods != null)
 			{
-				MessageBox.Show(@$"{DatabaseAPI.Database.AttribMods.Modifier.Count} modifier tables imported.",
+				MessageBox.Show(
+					@$"{DatabaseAPI.Database.AttribMods.Modifier.Count} modifier tables imported.",
 					@"Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
         }
@@ -156,7 +156,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
 		private void btnSave_Click(object sender, EventArgs e)
 		{
 			BusyMsg("Saving newly imported Attribute Modifiers...");
-			DatabaseAPI.Database.AttribMods?.Store(MyApplication.GetSerializer());
+			DatabaseAPI.Database.AttribMods?.Store(Serializer.GetSerializer());
 			BusyHide();
 			MessageBox.Show($@"Attribute Modifiers have been saved.", @"Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			DialogResult = DialogResult.OK;

@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Display;
 using MidsReborn.Base.Base.Extensions;
-using MidsReborn.My;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
@@ -153,7 +152,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var serializer = MyApplication.GetSerializer();
+            var serializer = Serializer.GetSerializer();
             DatabaseAPI.SaveEnhancementDb(serializer);
             Hide();
         }

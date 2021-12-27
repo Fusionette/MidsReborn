@@ -1,4 +1,5 @@
-﻿using System.Drawing.Drawing2D;
+﻿using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Display;
@@ -9,17 +10,17 @@ namespace MidsReborn.Controls
     {
         public delegate void ItemClickEventHandler(int index, MouseButtons button);
         public delegate void ItemHoverEventHandler(object sender, int index, Enums.ShortFX tagId, string tooltip = "");
-        public event ItemClickEventHandler ItemClick;
-        public event ItemHoverEventHandler ItemHover;
+        public event ItemClickEventHandler? ItemClick;
+        public event ItemHoverEventHandler? ItemHover;
         private readonly int _linePadding;
-        private ExtendedBitmap _bxBuffer;
+        private ExtendedBitmap? _bxBuffer;
         private int _currentHighlight;
         private bool _highlightable;
         private int _lineHeight;
         private int _myColumns;
         private bool _myForceBold;
-        private Graphics _myGfx;
-        private List<ItemPair> _myItems;
+        private Graphics? _myGfx;
+        private List<ItemPair>? _myItems;
         private int _myValueWidth;
         public Color ValueColorD;
 
@@ -85,7 +86,7 @@ namespace MidsReborn.Controls
             _myForceBold = false;
             InitializeComponent();
         }
-        private void ctlPairedList_Load(object sender, EventArgs e)
+        private void ctlPairedList_Load(object? sender, EventArgs e)
         {
             SetLineHeight();
             _currentHighlight = -1;
@@ -112,7 +113,7 @@ namespace MidsReborn.Controls
         {
             return _myItems[_myItems.Count - 1].VerySpecialColour;
         }
-        private void ctlPairedList_FontChanged(object sender, EventArgs e)
+        private void ctlPairedList_FontChanged(object? sender, EventArgs e)
         {
             Draw();
         }
@@ -258,7 +259,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void ctlPairedList_Paint(object sender, PaintEventArgs e)
+        private void ctlPairedList_Paint(object? sender, PaintEventArgs e)
         {
             if (_bxBuffer != null)
                 _myGfx.DrawImage(_bxBuffer.Bitmap, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel);
@@ -288,7 +289,14 @@ namespace MidsReborn.Controls
 
         public void AddItem(ItemPair iItem)
         {
-            _myItems.Add(new ItemPair(iItem));
+            try
+            {
+                _myItems.Add(new ItemPair(iItem));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("PairedList.AddItem(): Illegal item add call");
+            }
         }
 
         public void Clear(bool Redraw = false)
@@ -297,7 +305,7 @@ namespace MidsReborn.Controls
             if (Redraw) Draw();
         }
 
-        private void Listlabel_MouseDown(object sender, MouseEventArgs e)
+        private void Listlabel_MouseDown(object? sender, MouseEventArgs e)
         {
             var num = 0;
             var num2 = 0;
@@ -336,7 +344,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void Listlabel_MouseMove(object sender, MouseEventArgs e)
+        private void Listlabel_MouseMove(object? sender, MouseEventArgs e)
         {
             var num = 0;
             var num2 = 0;
@@ -377,7 +385,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void Listlabel_MouseLeave(object sender, EventArgs e)
+        private void Listlabel_MouseLeave(object? sender, EventArgs e)
         {
             _currentHighlight = -1;
             if (_highlightable) Draw();
@@ -390,7 +398,7 @@ namespace MidsReborn.Controls
             myTip.SetToolTip(this, iTip);
         }
 
-        private void ctlPairedList_BackColorChanged(object sender, EventArgs e)
+        private void ctlPairedList_BackColorChanged(object? sender, EventArgs e)
         {
             Draw();
         }

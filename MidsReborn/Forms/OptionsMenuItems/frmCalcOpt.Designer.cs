@@ -190,6 +190,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             this.cPicker = new System.Windows.Forms.ColorDialog();
             this.fbdSave = new System.Windows.Forms.FolderBrowserDialog();
             this.chkDiscordEnabled = new System.Windows.Forms.CheckBox();
+            this.chkShowSelfBuffsAny = new System.Windows.Forms.CheckBox();
             this.TabControl1.SuspendLayout();
             this.TabPage3.SuspendLayout();
             this.groupBox18.SuspendLayout();
@@ -231,7 +232,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(504, 360);
+            this.btnOK.Location = new System.Drawing.Point(504, 380);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 28);
             this.btnOK.TabIndex = 59;
@@ -241,7 +242,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(408, 360);
+            this.btnCancel.Location = new System.Drawing.Point(408, 380);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 28);
             this.btnCancel.TabIndex = 60;
@@ -259,11 +260,12 @@ namespace MidsReborn.Forms.OptionsMenuItems
             this.TabControl1.Location = new System.Drawing.Point(0, 0);
             this.TabControl1.Name = "TabControl1";
             this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(757, 352);
+            this.TabControl1.Size = new System.Drawing.Size(757, 372);
             this.TabControl1.TabIndex = 0;
             // 
             // TabPage3
             // 
+            this.TabPage3.Controls.Add(this.chkShowSelfBuffsAny);
             this.TabPage3.Controls.Add(this.groupBox18);
             this.TabPage3.Controls.Add(this.chkNoTips);
             this.TabPage3.Controls.Add(this.chkMiddle);
@@ -274,7 +276,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             this.TabPage3.Controls.Add(this.GroupBox3);
             this.TabPage3.Location = new System.Drawing.Point(4, 23);
             this.TabPage3.Name = "TabPage3";
-            this.TabPage3.Size = new System.Drawing.Size(749, 325);
+            this.TabPage3.Size = new System.Drawing.Size(749, 345);
             this.TabPage3.TabIndex = 2;
             this.TabPage3.Text = "Enhancements & View";
             this.TabPage3.UseVisualStyleBackColor = true;
@@ -724,7 +726,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             this.GroupBox3.Controls.Add(this.Label4);
             this.GroupBox3.Location = new System.Drawing.Point(4, 4);
             this.GroupBox3.Name = "GroupBox3";
-            this.GroupBox3.Size = new System.Drawing.Size(184, 318);
+            this.GroupBox3.Size = new System.Drawing.Size(184, 338);
             this.GroupBox3.TabIndex = 62;
             this.GroupBox3.TabStop = false;
             this.GroupBox3.Text = "Regular Enhancements:";
@@ -1960,7 +1962,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             // 
             // chkColorPrint
             // 
-            this.chkColorPrint.Location = new System.Drawing.Point(246, 367);
+            this.chkColorPrint.Location = new System.Drawing.Point(246, 387);
             this.chkColorPrint.Name = "chkColorPrint";
             this.chkColorPrint.Size = new System.Drawing.Size(156, 16);
             this.chkColorPrint.TabIndex = 2;
@@ -1980,12 +1982,22 @@ namespace MidsReborn.Forms.OptionsMenuItems
             // chkDiscordEnabled
             // 
             this.chkDiscordEnabled.AutoSize = true;
-            this.chkDiscordEnabled.Location = new System.Drawing.Point(12, 366);
+            this.chkDiscordEnabled.Location = new System.Drawing.Point(12, 386);
             this.chkDiscordEnabled.Name = "chkDiscordEnabled";
             this.chkDiscordEnabled.Size = new System.Drawing.Size(129, 18);
             this.chkDiscordEnabled.TabIndex = 61;
             this.chkDiscordEnabled.Text = "Enable DiscordExport";
             this.chkDiscordEnabled.UseVisualStyleBackColor = true;
+            // 
+            // chkShowSelfBuffsAny
+            // 
+            this.chkShowSelfBuffsAny.Location = new System.Drawing.Point(194, 324);
+            this.chkShowSelfBuffsAny.Name = "chkShowSelfBuffsAny";
+            this.chkShowSelfBuffsAny.Size = new System.Drawing.Size(190, 18);
+            this.chkShowSelfBuffsAny.TabIndex = 80;
+            this.chkShowSelfBuffsAny.Text = "Show \"in PvE/PvP\" for self buffs";
+            this.chkShowSelfBuffsAny.Visible = false;
+            this.chkShowSelfBuffsAny.CheckedChanged += new System.EventHandler(this.chkShowSelfBuffsAny_CheckedChanged);
             // 
             // frmCalcOpt
             // 
@@ -1993,7 +2005,7 @@ namespace MidsReborn.Forms.OptionsMenuItems
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(757, 392);
+            this.ClientSize = new System.Drawing.Size(757, 412);
             this.Controls.Add(this.chkDiscordEnabled);
             this.Controls.Add(this.chkColorPrint);
             this.Controls.Add(this.TabControl1);
@@ -2218,5 +2230,6 @@ namespace MidsReborn.Forms.OptionsMenuItems
         private ComboBox cbCurrency;
         private Label label19;
         private CheckBox chkDiscordEnabled;
+        private CheckBox chkShowSelfBuffsAny;
     }
 }

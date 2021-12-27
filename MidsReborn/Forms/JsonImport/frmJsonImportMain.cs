@@ -1,6 +1,5 @@
 ﻿using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.My;
 using Newtonsoft.Json;
 
 namespace MidsReborn.Forms.JsonImport
@@ -51,8 +50,8 @@ namespace MidsReborn.Forms.JsonImport
                 }
             }
 
-            DatabaseAPI.Database.AttribMods.Store(MyApplication.GetSerializer());
-            DatabaseAPI.SaveJsonDatabase(MyApplication.GetSerializer());
+            DatabaseAPI.Database.AttribMods.Store(Serializer.GetSerializer());
+            DatabaseAPI.SaveJsonDatabase(Serializer.GetSerializer());
             _ = MessageBox.Show(@"Import completed");
         }
     }

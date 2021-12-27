@@ -93,7 +93,7 @@ namespace MidsReborn.Forms
             // ctlAvatar1
             // 
             this.ctlAvatar1.BackColor = System.Drawing.Color.White;
-            //this.ctlAvatar1.Image = global::MidsReborn.Properties.Resources.defaultAvatar;
+            this.ctlAvatar1.Image = global::MidsReborn.Resources.defaultAvatar;
             this.ctlAvatar1.Location = new System.Drawing.Point(6, 3);
             this.ctlAvatar1.Name = "ctlAvatar1";
             this.ctlAvatar1.Size = new System.Drawing.Size(64, 64);

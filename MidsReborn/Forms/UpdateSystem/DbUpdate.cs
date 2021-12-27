@@ -8,7 +8,7 @@ namespace MidsReborn.Forms.UpdateSystem
     public class DbUpdate
     {
         private static bool Mandatory { get; set; }
-        private static float Version { get; set; }
+        private static double Version { get; set; }
         public static string ChangeLog { get; set; }
 
         public static bool IsAvailable
@@ -29,7 +29,7 @@ namespace MidsReborn.Forms.UpdateSystem
                         {
                             case "version":
                             {
-                                Version = xmlReader.ReadElementContentAsFloat();
+                                Version = xmlReader.ReadElementContentAsDouble();
                                 break;
                             }
                             case "changelog":
@@ -45,10 +45,9 @@ namespace MidsReborn.Forms.UpdateSystem
                             }
                         }
                     }
-                    catch (XmlException e)
+                    catch (XmlException)
                     {
                         MessageBox.Show(@"An error occurred while attempting to read from the manifest.", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine($"{e.Message}\r\n{e.StackTrace}");
                         return false;
                     }
                 }
@@ -65,6 +64,7 @@ namespace MidsReborn.Forms.UpdateSystem
                 {
                     Type = clsXMLUpdate.UpdateType.Database.ToString()
                 };
+                dbResult.ShowDialog();
                 switch (dbResult.DialogResult)
                 {
                     case DialogResult.Yes:
@@ -81,13 +81,13 @@ namespace MidsReborn.Forms.UpdateSystem
                         dbResult.Close();
                         break;
                     case DialogResult.OK:
-                        clsXMLUpdate.Update(clsXMLUpdate.UpdateType.Database, Version.ToString(CultureInfo.InvariantCulture), parent);
+                        clsXMLUpdate.Update(MidsContext.Config.DbUpdatePath, Version.ToString(CultureInfo.InvariantCulture));
                         break;
                 }
             }
             else
             {
-                clsXMLUpdate.Update(clsXMLUpdate.UpdateType.Database, Version.ToString(CultureInfo.InvariantCulture), parent);
+                clsXMLUpdate.Update(MidsContext.Config.DbUpdatePath, Version.ToString(CultureInfo.InvariantCulture));
             }
         }
     }

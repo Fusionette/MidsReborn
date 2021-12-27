@@ -3,9 +3,13 @@ namespace MidsReborn.Base.Base.Data_Classes
     public sealed class Database : IDatabase
     {
         public static Database Instance { get; } = new Database();
-        public float Version { get; set; }
+        public double Version { get; set; }
 
         public int Issue { get; set; }
+
+        public int PageVol { get; set; }
+
+        public string PageVolText { get; set; }
 
         public DateTime Date { get; set; }
 

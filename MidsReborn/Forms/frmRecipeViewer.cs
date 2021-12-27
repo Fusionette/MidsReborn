@@ -1,13 +1,11 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Display;
 using MidsReborn.Base.Base.Extensions;
 using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Controls;
-using MidsReborn.Properties;
 
 namespace MidsReborn.Forms
 {
@@ -35,7 +33,7 @@ namespace MidsReborn.Forms
             InitializeComponent();
             Name = nameof(frmRecipeViewer);
             //var componentResourceManager = new ComponentResourceManager(typeof(frmRecipeViewer));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             RecipeInfo.MouseWheel += RecipeInfo_MouseWheel;
             RecipeInfo.MouseEnter += RecipeInfo_MouseEnter;
             lvPower.MouseEnter += lvPower_MouseEnter;
@@ -74,7 +72,7 @@ namespace MidsReborn.Forms
             var enhancement = DatabaseAPI.Database.Enhancements[eIDX];
             if (enhancement.ImageIdx > -1)
             {
-                extendedBitmap.Graphics.Clear(Color.White);
+                extendedBitmap.Graphics.Clear(Color.Transparent);
                 var graphics = extendedBitmap.Graphics;
                 I9Gfx.DrawEnhancement(ref graphics, enhancement.ImageIdx, Origin.Grade.IO);
                 ilSets.Images.Add(extendedBitmap.Bitmap);
@@ -147,7 +145,7 @@ namespace MidsReborn.Forms
         {
             var iIndent = 1;
             var popupData = new PopUp.PopupData();
-            var tl = new CountingList[0];
+            var tl = Array.Empty<CountingList>();
             if (lvDPA.SelectedIndices.Count < 1)
             {
                 ChangeVScrollBarState(popupData);
@@ -847,9 +845,13 @@ namespace MidsReborn.Forms
         [DebuggerStepThrough]
         private void lvPower_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
+            if (e.Item == null) return;
             if (e.Item.Index == 0)
             {
-                if (Operators.ConditionalCompareObjectLess(e.Item.Tag, 0, false) && e.Item.Checked)
+                if (lvPower.Items.Count > 0 &&
+                    e.Item.Tag != null &&
+                    !e.Item.Tag.Equals(0)
+                    && e.Item.Checked)
                 {
                     foreach (var o in lvPower.Items)
                     {
@@ -895,7 +897,8 @@ namespace MidsReborn.Forms
                 return;
             }
 
-            tl = (CountingList[]) Utils.CopyArray(tl, new CountingList[tl.Length + 1]);
+            Array.Resize(ref tl, tl.Length + 1);
+            //tl = (CountingList[]) Utils.CopyArray(tl, new CountingList[tl.Length + 1]);
             tl[tl.Length - 1].Count = 1;
             tl[tl.Length - 1].Text = item;
         }

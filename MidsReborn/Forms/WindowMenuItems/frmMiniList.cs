@@ -19,7 +19,7 @@ namespace MidsReborn.Forms.WindowMenuItems
             PInfo.MouseEnter += pInfo_MouseEnter;
             Name = nameof(frmMiniList);
             var componentResourceManager = new ComponentResourceManager(typeof(frmMiniList));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myParent = iParent;
         }
 

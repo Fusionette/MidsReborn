@@ -1,4 +1,3 @@
-#nullable enable
 using System.Globalization;
 using System.IO.Compression;
 using System.Text;
@@ -197,8 +196,7 @@ namespace MidsReborn.Base
 
         private static int[] NidSets(PowersetGroup? group, int nIDClass, Enums.ePowerSetType nType) // clsI12Lookup.vb
         {
-            if ((nType == Enums.ePowerSetType.Inherent || nType == Enums.ePowerSetType.Pool) && nIDClass > -1 &&
-                !Database.Classes[nIDClass].Playable)
+            if ((nType == Enums.ePowerSetType.Inherent || nType == Enums.ePowerSetType.Pool) && nIDClass > -1 && !Database.Classes[nIDClass].Playable)
                 return Array.Empty<int>();
 
 
@@ -752,6 +750,13 @@ namespace MidsReborn.Base
             ).Select(e => e.UID).ToArray();
         }
 
+        public static EnhancementSet? GetEnhancementSetFromEnhUid(string uid)
+        {
+            return Database.EnhancementSets.FirstOrDefault(x => x.Uid == uid);
+        }
+
+        
+
         private static string[] GetATOSetsEnhUIDList()
         {
             return Database.Enhancements.Where(e =>
@@ -890,7 +895,7 @@ namespace MidsReborn.Base
             return retList;
         }
 
-        public static List<IPowerset> GetEpicPowersets(Archetype atClass)
+        public static List<IPowerset?> GetEpicPowersets(Archetype atClass)
         {
             if (atClass.DisplayName != "Peacebringer" && atClass.DisplayName != "Warshade")
             {
@@ -899,18 +904,18 @@ namespace MidsReborn.Base
                     .ToList();
             }
 
-            return new List<IPowerset>();
+            return new List<IPowerset?>();
         }
 
-        public static List<IPowerset> GetEpicPowersets(string atClass)
+        public static List<IPowerset?> GetEpicPowersets(string atClass)
         {
             if (string.IsNullOrWhiteSpace(atClass) | atClass == "Class_Peacebringer" | atClass == "Class_Warshade")
             {
-                return new List<IPowerset>();
+                return new List<IPowerset?>();
             }
 
             var archetype = GetArchetypeByClassName(atClass);
-            if (archetype == null) return new List<IPowerset>();
+            if (archetype == null) return new List<IPowerset?>();
 
             return archetype.Ancillary
                 .Select(t => Database.Powersets.FirstOrDefault(p => p.SetType == Enums.ePowerSetType.Ancillary && p.nID.Equals(t)))
@@ -1309,17 +1314,17 @@ namespace MidsReborn.Base
         {
             foreach (var power in Database.Power)
             {
-                if (power.GetPowerSet().SetType == Enums.ePowerSetType.Primary || power.GetPowerSet().SetType == Enums.ePowerSetType.Secondary || power.GetPowerSet().SetType == Enums.ePowerSetType.Pool || power.GetPowerSet().SetType == Enums.ePowerSetType.Ancillary)
+                if (power.GetPowerSet().SetType is Enums.ePowerSetType.Primary or Enums.ePowerSetType.Secondary or Enums.ePowerSetType.Pool or Enums.ePowerSetType.Ancillary)
                 {
-                    var Boosts = new List<string>();
+                    var boosts = new List<string?>();
                     if (power.BoostsAllowed.Length <= 0 && power.Enhancements.Length > 0)
                     {
                         foreach (var enh in power.Enhancements)
                         {
-                            Boosts.Add(Enum.GetName(typeof(Enums.eBoosts), enh));
+                            boosts.Add(Enum.GetName(typeof(Enums.eBoosts), enh));
                         }
 
-                        power.BoostsAllowed = Boosts.ToArray();
+                        power.BoostsAllowed = boosts.ToArray();
                     }
                 }
             }
@@ -1327,8 +1332,6 @@ namespace MidsReborn.Base
 
         public static void SaveMainDatabase(ISerialize serializer, string iPath = "")
         {
-            //MergeDatabaseFile();
-            //Task.Delay(1500);
             string path;
             if (string.IsNullOrWhiteSpace(iPath))
             {
@@ -1340,7 +1343,6 @@ namespace MidsReborn.Base
                 CheckEhcBoosts();
                 path = Files.SelectDataFileSave(Files.MxdbFileDB, iPath);
             }
-
             FileStream fileStream;
             BinaryWriter writer;
             try
@@ -1356,11 +1358,14 @@ namespace MidsReborn.Base
 
             try
             {
+                UpdateDbModified();
                 writer.Write(MainDbName);
                 writer.Write(Database.Version);
                 writer.Write(-1);
                 writer.Write(Database.Date.ToBinary());
                 writer.Write(Database.Issue);
+                writer.Write(Database.PageVol);
+                writer.Write(Database.PageVolText);
                 writer.Write("BEGIN:ARCHETYPES");
                 Database.ArchetypeVersion.StoreTo(writer);
                 //Console.WriteLine(Database.ArchetypeVersion);
@@ -1409,6 +1414,16 @@ namespace MidsReborn.Base
             }
         }
 
+        private static void UpdateDbModified()
+        {
+            Database.Date = DateTime.Now;
+            var dbVerString = $"{Database.Version}";
+            var revString = $"{dbVerString.Substring(dbVerString.Length - 2)}";
+            var incRev = $"{int.Parse(revString) + 1:D2}";
+            var verString = $"{Database.Date:yy.MM}{incRev}";
+            Database.Version = double.Parse(verString);
+        }
+
         private static void saveEnts()
         {
             var serialized = JsonConvert.SerializeObject(Database.Entities, Formatting.Indented);
@@ -1446,7 +1461,7 @@ namespace MidsReborn.Base
                     MessageBox.Show(@"Expected MHD header, got something else!", @"Eeeeee!");
                 }
 
-                Database.Version = reader.ReadSingle();
+                Database.Version = reader.ReadDouble();
                 var year = reader.ReadInt32();
                 if (year > 0)
                 {
@@ -1460,6 +1475,8 @@ namespace MidsReborn.Base
                 }
 
                 Database.Issue = reader.ReadInt32();
+                Database.PageVol = reader.ReadInt32();
+                Database.PageVolText = reader.ReadString();
                 if (reader.ReadString() != "BEGIN:ARCHETYPES")
                 {
                     MessageBox.Show(@"Expected Archetype Data, got something else!", @"Eeeeee!");
@@ -1578,11 +1595,11 @@ namespace MidsReborn.Base
             }
         }
 
-        private static float GetDatabaseVersion(string fp)
+        private static double GetDatabaseVersion(string fp)
         {
             var fName = fp;
-            var num1 = -1f;
-            float num2;
+            double num1 = -1;
+            double num2;
             if (!File.Exists(fName))
             {
                 num2 = num1;
@@ -1596,8 +1613,11 @@ namespace MidsReborn.Base
                         try
                         {
                             if (binaryReader.ReadString() != "Mids' Hero Designer Database MK II")
+                            {
                                 MessageBox.Show("Expected MHD header, got something else!");
-                            num1 = binaryReader.ReadSingle();
+                            }
+
+                            num1 = binaryReader.ReadDouble();
                         }
                         catch (Exception ex)
                         {
@@ -2352,7 +2372,7 @@ namespace MidsReborn.Base
             }
 
             using var streamReader = new StreamReader(path);
-            Database.EnhancementClasses = new Enums.sEnhClass[0];
+            Database.EnhancementClasses = Array.Empty<Enums.sEnhClass>();
             try
             {
                 if (string.IsNullOrEmpty(FileIO.IOSeekReturn(streamReader, "Version:")))
@@ -2462,12 +2482,14 @@ namespace MidsReborn.Base
                 Database.SpecialEnhStringLong[1] = "Hamidon Origin";
                 Database.SpecialEnhStringLong[2] = "Hydra Origin";
                 Database.SpecialEnhStringLong[3] = "Titan Origin";
-                Database.SpecialEnhStringLong[4] = "Yin's Talisman";
+                Database.SpecialEnhStringLong[4] = "D-Sync Origin";
+                //Database.SpecialEnhStringLong[5] = "Yin's Talisman";
                 Database.SpecialEnhStringShort[0] = "None";
                 Database.SpecialEnhStringShort[1] = "HO";
                 Database.SpecialEnhStringShort[2] = "TnO";
                 Database.SpecialEnhStringShort[3] = "HyO";
-                Database.SpecialEnhStringShort[4] = "YinO";
+                Database.SpecialEnhStringShort[4] = "DSyncO";
+                //Database.SpecialEnhStringShort[5] = "YinO";
             }
             catch (Exception ex)
             {

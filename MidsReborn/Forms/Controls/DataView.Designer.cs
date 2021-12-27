@@ -154,7 +154,7 @@ namespace MidsReborn.Forms.Controls
             // 
             this.lblDmg.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDmg.ForeColor = System.Drawing.Color.White;
-            this.lblDmg.Location = new System.Drawing.Point(4, 272);
+            this.lblDmg.Location = new System.Drawing.Point(3, 289);
             this.lblDmg.Name = "lblDmg";
             this.lblDmg.Size = new System.Drawing.Size(292, 15);
             this.lblDmg.TabIndex = 15;
@@ -172,7 +172,7 @@ namespace MidsReborn.Forms.Controls
             this.Info_Damage.ColorEnhStart = System.Drawing.Color.Yellow;
             this.Info_Damage.Font = new System.Drawing.Font("Arial", 11.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.Info_Damage.GraphType = Enums.eDDGraph.Enhanced;
-            this.Info_Damage.Location = new System.Drawing.Point(2, 284);
+            this.Info_Damage.Location = new System.Drawing.Point(2, 307);
             this.Info_Damage.Name = "Info_Damage";
             this.Info_Damage.nBaseVal = 100F;
             this.Info_Damage.nEnhVal = 150F;
@@ -181,7 +181,7 @@ namespace MidsReborn.Forms.Controls
             this.Info_Damage.nMaxEnhVal = 207F;
             this.Info_Damage.PaddingH = 1;
             this.Info_Damage.PaddingV = 1;
-            this.Info_Damage.Size = new System.Drawing.Size(295, 110);
+            this.Info_Damage.Size = new System.Drawing.Size(295, 114);
             this.Info_Damage.Style = Enums.eDDStyle.Text;
             this.Info_Damage.TabIndex = 20;
             this.Info_Damage.TextAlign = Enums.eDDAlign.Left;
@@ -189,6 +189,8 @@ namespace MidsReborn.Forms.Controls
             // 
             // info_DataList
             // 
+            this.info_DataList.AutoScroll = true;
+            this.info_DataList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.info_DataList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(32)))));
             this.info_DataList.Columns = 2;
             this.info_DataList.DoHighlight = true;
@@ -203,7 +205,7 @@ namespace MidsReborn.Forms.Controls
             this.info_DataList.Location = new System.Drawing.Point(4, 164);
             this.info_DataList.Name = "info_DataList";
             this.info_DataList.NameColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.info_DataList.Size = new System.Drawing.Size(292, 104);
+            this.info_DataList.Size = new System.Drawing.Size(292, 122);
             this.info_DataList.TabIndex = 19;
             this.info_DataList.ValueWidth = 55;
             this.info_DataList.ItemHover += new PairedList.ItemHoverEventHandler(this.PairedList_Hover);
@@ -758,7 +760,7 @@ namespace MidsReborn.Forms.Controls
 
         #endregion
 
-        private ToolTip dbTip;
+        public ToolTip dbTip;
         private GFXLabel Enh_Title;
         private PairedList enhListing;
         private GFXLabel enhNameDisp;

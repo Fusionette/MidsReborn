@@ -11,7 +11,7 @@ namespace MidsReborn.Forms
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Load += frmBuildSalvageHud_Load;
             Closed += frmBuildSalvageHud_Closed;
             myParent = iParent;

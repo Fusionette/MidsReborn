@@ -8,7 +8,7 @@ namespace MidsReborn
         private const int EnhancementsTrayCapacity = 70;
         private const string BoostCmd = "boost";
         private const string CmdSeparator = "$$";
-        private const bool AutoAttune = true;
+        private const bool AutoAttune = false;
         public static string MenuName { get; set; } = "MRBTest";
         public const string MenuExt = "mnu";
 
@@ -34,7 +34,7 @@ namespace MidsReborn
                     var setLevelMax = enhData.nIDSet > -1
                         ? DatabaseAPI.Database.EnhancementSets[enhData.nIDSet].LevelMax
                         : 49;
-                    var enhBoostLevel = 50;
+                    var enhBoostLevel = enhData.LevelMax + 1;
                     if (enhData.nIDSet > -1 & AutoAttune & setLevelMax < 49)
                     {
                         enhUid = enhData.UID.Replace("Crafted_", "Attuned_");

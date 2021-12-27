@@ -9,7 +9,7 @@ namespace MidsReborn.Base
             return iPath.EndsWith("\\") ? iPath : iPath + "\\";
         }
 
-        private static string StripSlash(string iPath)
+        private static string? StripSlash(string? iPath)
         {
             return iPath.EndsWith("\\") ? iPath.Substring(0, iPath.Length - 1) : iPath;
         }
@@ -86,7 +86,7 @@ namespace MidsReborn.Base
             }
         }
 
-        public static bool CopyFolder(string src, string dest)
+        public static bool CopyFolder(string? src, string dest)
         {
             if (!Directory.Exists(src))
                 return false;

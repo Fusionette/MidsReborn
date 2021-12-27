@@ -19,10 +19,10 @@ namespace MidsReborn.Controls
         public delegate void BarClickEventHandler(float Value);
 
         // Token: 0x04000040 RID: 64
-        private ExtendedBitmap bxBuffer;
+        private ExtendedBitmap? bxBuffer;
 
         // Token: 0x0400003C RID: 60
-        private IContainer components;
+        private IContainer? components;
 
         // Token: 0x04000058 RID: 88
         private bool DualName;
@@ -34,7 +34,7 @@ namespace MidsReborn.Controls
         private bool Loaded;
 
         // Token: 0x04000041 RID: 65
-        private Graphics myGFX;
+        private Graphics? myGFX;
 
         // Token: 0x04000050 RID: 80
         private int nameWidth;
@@ -167,7 +167,7 @@ namespace MidsReborn.Controls
         // (get) Token: 0x0600007D RID: 125 RVA: 0x00007554 File Offset: 0x00005754
         // (set) Token: 0x0600007E RID: 126 RVA: 0x0000756C File Offset: 0x0000576C
         [field: AccessedThroughProperty("tTip")]
-        protected virtual ToolTip tTip
+        protected virtual ToolTip? tTip
         {
             get;
             [MethodImpl(MethodImplOptions.Synchronized)]
@@ -491,7 +491,7 @@ namespace MidsReborn.Controls
         // Token: 0x14000001 RID: 1
         // (add) Token: 0x0600007B RID: 123 RVA: 0x00007520 File Offset: 0x00005720
         // (remove) Token: 0x0600007C RID: 124 RVA: 0x0000753A File Offset: 0x0000573A
-        public event BarClickEventHandler BarClick;
+        public event BarClickEventHandler? BarClick;
 
         // Token: 0x060000B3 RID: 179 RVA: 0x00007C60 File Offset: 0x00005E60
         protected override void Dispose(bool disposing)
@@ -516,7 +516,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060000B5 RID: 181 RVA: 0x00007D1C File Offset: 0x00005F1C
-        private void ctlMultiGraph_Load(object sender, EventArgs e)
+        private void ctlMultiGraph_Load(object? sender, EventArgs e)
         {
             checked
             {
@@ -826,19 +826,19 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060000BE RID: 190 RVA: 0x00008D13 File Offset: 0x00006F13
-        private void ctlMultiGraph_BackColorChanged(object sender, EventArgs e)
+        private void ctlMultiGraph_BackColorChanged(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x060000BF RID: 191 RVA: 0x00008D1D File Offset: 0x00006F1D
-        private void ctlMultiGraph_SizeChanged(object sender, EventArgs e)
+        private void ctlMultiGraph_SizeChanged(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x060000C0 RID: 192 RVA: 0x00008D28 File Offset: 0x00006F28
-        private void ctlMultiGraph_Paint(object sender, PaintEventArgs e)
+        private void ctlMultiGraph_Paint(object? sender, PaintEventArgs e)
         {
             if (bxBuffer != null)
                 e.Graphics.DrawImage(bxBuffer.Bitmap, e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle,
@@ -846,25 +846,25 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060000C1 RID: 193 RVA: 0x00008D83 File Offset: 0x00006F83
-        private void ctlMultiGraph_FontChanged(object sender, EventArgs e)
+        private void ctlMultiGraph_FontChanged(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x060000C2 RID: 194 RVA: 0x00008D8D File Offset: 0x00006F8D
-        private void ctlMultiGraph_ForeColorChanged(object sender, EventArgs e)
+        private void ctlMultiGraph_ForeColorChanged(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x060000C3 RID: 195 RVA: 0x00008D97 File Offset: 0x00006F97
-        private void ctlMultiGraph_Resize(object sender, EventArgs e)
+        private void ctlMultiGraph_Resize(object? sender, EventArgs e)
         {
             Draw();
         }
 
         // Token: 0x060000C4 RID: 196 RVA: 0x00008DA4 File Offset: 0x00006FA4
-        private void ctlMultiGraph_MouseMove(object sender, MouseEventArgs e)
+        private void ctlMultiGraph_MouseMove(object? sender, MouseEventArgs e)
         {
             checked
             {
@@ -917,7 +917,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060000C5 RID: 197 RVA: 0x0000901C File Offset: 0x0000721C
-        private void ctlMultiGraph_MouseLeave(object sender, EventArgs e)
+        private void ctlMultiGraph_MouseLeave(object? sender, EventArgs e)
         {
             var num = pHighlight;
             pHighlight = -1;
@@ -1042,7 +1042,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060000CD RID: 205 RVA: 0x00009334 File Offset: 0x00007534
-        private void ctlMultiGraph_MouseDown(object sender, MouseEventArgs e)
+        private void ctlMultiGraph_MouseDown(object? sender, MouseEventArgs e)
         {
             if (!(Clickable & (e.Button == MouseButtons.Left)))
                 return;
@@ -1093,7 +1093,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x060000CF RID: 207 RVA: 0x00009511 File Offset: 0x00007711
-        private void ctlMultiGraph_MouseUp(object sender, MouseEventArgs e)
+        private void ctlMultiGraph_MouseUp(object? sender, MouseEventArgs e)
         {
         }
 

@@ -13,7 +13,7 @@ namespace MidsReborn.Controls
         public delegate void ExpandChangedEventHandler(bool Expanded);
         public delegate void ItemClickEventHandler(ListLabelItemV3 Item, MouseButtons Button);
         public delegate void ItemHoverEventHandler(ListLabelItemV3 Item);
-        public delegate void ItemHoverEventHandler2(object sender, ListLabelItemV3 Item);
+        public delegate void ItemHoverEventHandler2(object? sender, ListLabelItemV3 Item);
 
         public enum LLFontFlags
         {
@@ -47,7 +47,7 @@ namespace MidsReborn.Controls
         private Color bgColor;
         private Color hvrColor;
 
-        private ExtendedBitmap bxBuffer;
+        private ExtendedBitmap? bxBuffer;
 
         private bool canExpand;
         private bool canScroll;
@@ -326,11 +326,11 @@ namespace MidsReborn.Controls
 
         public int ActualLineHeight { get; set; }
 
-        public event ItemClickEventHandler ItemClick;
-        public event ItemHoverEventHandler ItemHover;
-        public event ItemHoverEventHandler2 ItemHover2;
-        public event EmptyHoverEventHandler EmptyHover;
-        public event ExpandChangedEventHandler ExpandChanged;
+        public event ItemClickEventHandler? ItemClick;
+        public event ItemHoverEventHandler? ItemHover;
+        public event ItemHoverEventHandler2? ItemHover2;
+        public event EmptyHoverEventHandler? EmptyHover;
+        public event ExpandChangedEventHandler? ExpandChanged;
 
         private int GetRealTotalHeight()
         {
@@ -342,18 +342,14 @@ namespace MidsReborn.Controls
             if (!Debugger.IsAttached && !Process.GetCurrentProcess().ProcessName.ToLowerInvariant().Contains("devenv")) return;
             
             ClearItems();
-            AddItem(new ListLabelItemV3("Header Item", LLItemState.Heading, -1, -1, -1, "", LLFontFlags.Bold,
-                LLTextAlign.Center));
+            AddItem(new ListLabelItemV3("Header Item", LLItemState.Heading, -1, -1, -1, "", LLFontFlags.Bold, LLTextAlign.Center));
             AddItem(new ListLabelItemV3("Enabled", LLItemState.Enabled, -1, -1, -1, "", LLFontFlags.Bold));
             AddItem(new ListLabelItemV3("Disabled Item", LLItemState.Disabled, -1, -1, -1, "", LLFontFlags.Bold));
-            AddItem(new ListLabelItemV3("Selected Item", LLItemState.Selected, -1, -1, -1, "",
-                LLFontFlags.Bold | LLFontFlags.Italic));
+            AddItem(new ListLabelItemV3("Selected Item", LLItemState.Selected, -1, -1, -1, "", LLFontFlags.Bold | LLFontFlags.Italic));
             AddItem(new ListLabelItemV3("SD Item", LLItemState.SelectedDisabled, -1, -1, -1, "", LLFontFlags.Bold));
             AddItem(new ListLabelItemV3("Invalid Item", LLItemState.Invalid, -1, -1, -1, "", LLFontFlags.Bold));
-            AddItem(new ListLabelItemV3("Automatic multiline Item", LLItemState.Enabled, -1, -1, -1, "",
-                LLFontFlags.Bold));
-            AddItem(new ListLabelItemV3("Scrollable", LLItemState.Heading, -1, -1, -1, "", LLFontFlags.Bold,
-                LLTextAlign.Center));
+            AddItem(new ListLabelItemV3("Automatic multiline Item", LLItemState.Enabled, -1, -1, -1, "", LLFontFlags.Bold));
+            AddItem(new ListLabelItemV3("Scrollable", LLItemState.Heading, -1, -1, -1, "", LLFontFlags.Bold, LLTextAlign.Center));
             AddItem(new ListLabelItemV3("Item 1", LLItemState.Enabled, -1, -1, -1, "", LLFontFlags.Bold));
             AddItem(new ListLabelItemV3("Item 2", LLItemState.Selected, -1, -1, -1, "", LLFontFlags.Bold));
             AddItem(new ListLabelItemV3("Item 3", LLItemState.Selected, -1, -1, -1, "", LLFontFlags.Bold));
@@ -595,7 +591,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void ListLabelV3_MouseWheel(object sender, MouseEventArgs e)
+        private void ListLabelV3_MouseWheel(object? sender, MouseEventArgs e)
         {
             if ((e.Delta > 0) & (ScrollSteps > 0) & (ScrollOffset > 0))
             {
@@ -609,7 +605,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void ListLabelV3_MouseDown(object sender, MouseEventArgs e)
+        private void ListLabelV3_MouseDown(object? sender, MouseEventArgs e)
         {
             checked
             {
@@ -754,7 +750,7 @@ namespace MidsReborn.Controls
             Draw();
         }
 
-        private void ListLabelV3_MouseLeave(object sender, EventArgs e)
+        private void ListLabelV3_MouseLeave(object? sender, EventArgs e)
         {
             Cursor = System.Windows.Forms.Cursors.Default;
             LastMouseMoveTarget = eMouseTarget.None;
@@ -763,7 +759,7 @@ namespace MidsReborn.Controls
             EmptyHover?.Invoke();
         }
 
-        private void ListLabelV3_MouseMove2(object sender, MouseEventArgs e)
+        private void ListLabelV3_MouseMove2(object? sender, MouseEventArgs e)
         {
             var cursor = System.Windows.Forms.Cursors.Default;
             var mouseTarget = GetMouseTarget(e.X, e.Y);
@@ -772,7 +768,7 @@ namespace MidsReborn.Controls
             {
                 if (!DragMode)
                 {
-                    EmptyHoverEventHandler emptyHoverEvent;
+                    EmptyHoverEventHandler? emptyHoverEvent;
                     switch (mouseTarget)
                     {
                         case eMouseTarget.Item:
@@ -863,7 +859,7 @@ namespace MidsReborn.Controls
                 LastMouseMoveTarget = mouseTarget;
             }
         }
-        private void ListLabelV3_MouseMove(object sender, MouseEventArgs e)
+        private void ListLabelV3_MouseMove(object? sender, MouseEventArgs e)
         {
             var cursor = System.Windows.Forms.Cursors.Default;
             var mouseTarget = GetMouseTarget(e.X, e.Y);
@@ -872,7 +868,7 @@ namespace MidsReborn.Controls
             {
                 if (!DragMode)
                 {
-                    EmptyHoverEventHandler emptyHoverEvent;
+                    EmptyHoverEventHandler? emptyHoverEvent;
                     switch (mouseTarget)
                     {
                         case eMouseTarget.Item:
@@ -964,13 +960,13 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void ListLabelV3_MouseUp(object sender, MouseEventArgs e)
+        private void ListLabelV3_MouseUp(object? sender, MouseEventArgs e)
         {
             DragMode = false;
             if (Cursor == System.Windows.Forms.Cursors.SizeNS) Cursor = System.Windows.Forms.Cursors.Default;
         }
 
-        private void ListLabelV3_Paint(object sender, PaintEventArgs e)
+        private void ListLabelV3_Paint(object? sender, PaintEventArgs e)
         {
             if (bxBuffer == null) Draw();
 
@@ -978,7 +974,7 @@ namespace MidsReborn.Controls
                 e.Graphics.DrawImage(bxBuffer.Bitmap, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel);
         }
 
-        private void ListLabelV3_Resize(object sender, EventArgs e)
+        private void ListLabelV3_Resize(object? sender, EventArgs e)
         {
             ScrollOffset = 0;
             Recalculate();
@@ -993,13 +989,13 @@ namespace MidsReborn.Controls
             Draw();
         }
 
-        private void ListLabelV3_FontChanged(object sender, EventArgs e)
+        private void ListLabelV3_FontChanged(object? sender, EventArgs e)
         {
             Recalculate();
             Draw();
         }
 
-        private void ListLabelV3_Load(object sender, EventArgs e)
+        private void ListLabelV3_Load(object? sender, EventArgs e)
         {
             szNormal = Size;
             DisableRedraw = true;
@@ -1011,6 +1007,8 @@ namespace MidsReborn.Controls
 
         private void Draw()
         {
+            if (IsDisposed) return;
+
             checked
             {
                 if (DisableRedraw) return;

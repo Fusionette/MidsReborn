@@ -58,7 +58,7 @@ namespace MidsReborn.Controls
         private IContainer components;
         public int LastLevel;
 
-        private IEnhancement SelectedEnhancement;
+        private IEnhancement? SelectedEnhancement;
         public cTracking UI;
 
 
@@ -174,7 +174,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000157 RID: 343 RVA: 0x0000B99D File Offset: 0x00009B9D
-        private void I9PickerLoad(object sender, EventArgs e)
+        private void I9PickerLoad(object? sender, EventArgs e)
         {
             FullDraw();
         }
@@ -759,7 +759,7 @@ namespace MidsReborn.Controls
             return GetRectBounds(iPoint.X, iPoint.Y);
         }
 
-        private void I9PickerPaint(object sender, PaintEventArgs e)
+        private void I9PickerPaint(object? sender, PaintEventArgs e)
         {
             if (_myBx.Bitmap != null)
                 e.Graphics.DrawImage(_myBx.Bitmap, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle,
@@ -792,7 +792,7 @@ namespace MidsReborn.Controls
             return checked((cell.Y - 1) * 4 + cell.X);
         }
 
-        private void I9PickerMouseDown(object sender, MouseEventArgs e)
+        private void I9PickerMouseDown(object? sender, MouseEventArgs e)
         {
             var iPt = new Point(e.X, e.Y);
             var cellXY = GetCellXY(iPt);
@@ -1062,7 +1062,7 @@ namespace MidsReborn.Controls
             FullDraw();
         }
 
-        private void I9PickerMouseMove(object sender, MouseEventArgs e)
+        private void I9PickerMouseMove(object? sender, MouseEventArgs e)
         {
             var location = new Point(e.X, e.Y);
             var cellXY = GetCellXY(location);
@@ -1149,6 +1149,7 @@ namespace MidsReborn.Controls
                                         1 => "Hamidon/Synthetic Hamidon enhancements.",
                                         2 => "Rewards from the Sewer Trial.",
                                         3 => "Rewards from the Eden Trial.",
+                                        4 => "Rewards from the Aeon Strike Force.",
                                         _ => ""
                                     };
 
@@ -1227,26 +1228,11 @@ namespace MidsReborn.Controls
                                     DatabaseAPI.Database.EnhancementSets[DatabaseAPI.Database.Enhancements[tId].nIDSet]
                                         .LevelMax)
                                 {
-                                    str2 = " (" + Convert.ToString(
-                                        DatabaseAPI.Database
-                                            .EnhancementSets[DatabaseAPI.Database.Enhancements[tId].nIDSet].LevelMin +
-                                        1) + ")";
+                                    str2 = $" ({DatabaseAPI.Database.EnhancementSets[DatabaseAPI.Database.Enhancements[tId].nIDSet].LevelMin + 1})";
                                 }
                                 else
                                 {
-                                    str2 = string.Concat(" (",
-                                        Convert.ToString(DatabaseAPI.Database
-                                                             .EnhancementSets[
-                                                                 DatabaseAPI.Database.Enhancements[tId].nIDSet]
-                                                             .LevelMin +
-                                                         1),
-                                        "-",
-                                        Convert.ToString(DatabaseAPI.Database
-                                                             .EnhancementSets[
-                                                                 DatabaseAPI.Database.Enhancements[tId].nIDSet]
-                                                             .LevelMax +
-                                                         1),
-                                        ")");
+                                    str2 = $" ({DatabaseAPI.Database.EnhancementSets[DatabaseAPI.Database.Enhancements[tId].nIDSet].LevelMin + 1}-{DatabaseAPI.Database.EnhancementSets[DatabaseAPI.Database.Enhancements[tId].nIDSet].LevelMax + 1})";
                                     if (DatabaseAPI.Database.Enhancements[tId].Unique) text += " (Unique)";
                                 }
 
@@ -1313,10 +1299,10 @@ namespace MidsReborn.Controls
             return array;
         }
 
-        private static int[] GetValidEnhancements(int iPowerIDX, Enums.eType iType, Enums.eSubtype iSubType = 0)
+        private static List<int> GetValidEnhancements(int iPowerIDX, Enums.eType iType, Enums.eSubtype iSubType = 0)
         {
             return iPowerIDX < 0
-                ? Array.Empty<int>()
+                ? new List<int>()
                 : DatabaseAPI.Database.Power[iPowerIDX].GetValidEnhancements(iType, iSubType);
         }
 
@@ -1336,8 +1322,8 @@ namespace MidsReborn.Controls
             UI.SpecialTypes = (int[]) Enum.GetValues(eSubtype.GetType());
             Enums.eEnhGrade eEnhGrade = 0;
             UI.NOGrades = (int[]) Enum.GetValues(eEnhGrade.GetType());
-            UI.NO = GetValidEnhancements(_nPowerIDX, Enums.eType.Normal);
-            UI.IO = GetValidEnhancements(_nPowerIDX, Enums.eType.InventO);
+            UI.NO = GetValidEnhancements(_nPowerIDX, Enums.eType.Normal).ToArray();
+            UI.IO = GetValidEnhancements(_nPowerIDX, Enums.eType.InventO).ToArray();
             UI.Initial.GradeID = _lastGrade;
             UI.Initial.RelLevel = _lastRelativeLevel;
             UI.Initial.SpecialID = _lastSpecial;
@@ -1352,17 +1338,17 @@ namespace MidsReborn.Controls
                 if (DatabaseAPI.Database.Enhancements[_mySlot.Enh].SubTypeID != 0)
                 {
                     UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO,
-                        DatabaseAPI.Database.Enhancements[_mySlot.Enh].SubTypeID);
+                        DatabaseAPI.Database.Enhancements[_mySlot.Enh].SubTypeID).ToArray();
                     UI.Initial.SpecialID = DatabaseAPI.Database.Enhancements[_mySlot.Enh].SubTypeID;
                 }
                 else
                 {
-                    UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO, UI.Initial.SpecialID);
+                    UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO, UI.Initial.SpecialID).ToArray();
                 }
             }
             else
             {
-                UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO, UI.Initial.SpecialID);
+                UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO, UI.Initial.SpecialID).ToArray();
             }
 
             UI.SetTypes = GetValidSetTypes(_nPowerIDX);
@@ -1480,7 +1466,7 @@ namespace MidsReborn.Controls
             UI.View.SpecialID = iSubType;
             if (_nPowerIDX > 0)
             {
-                UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO, UI.View.SpecialID);
+                UI.SpecialO = GetValidEnhancements(_nPowerIDX, Enums.eType.SpecialO, UI.View.SpecialID).ToArray();
             }
             else if ((UI.Initial.SpecialID == UI.View.SpecialID) & ((int) UI.Initial.TabID == 3))
             {
@@ -1650,7 +1636,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        private void I9PickerKeyDown(object sender, KeyEventArgs e)
+        private void I9PickerKeyDown(object? sender, KeyEventArgs e)
         {
             var num = -1;
             var keyCode = e.KeyCode;

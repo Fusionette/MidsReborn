@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using System.Runtime.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Display;
 using MidsReborn.Base.Base.Master_Classes;
@@ -120,9 +119,11 @@ namespace MidsReborn.Controls
         private Font _defaultFont;
         public int Highlight;
         public Enums.eInterfaceMode InterfaceMode;
-        
+        //private bool inDesigner = Process.GetCurrentProcess().ProcessName.ToLowerInvariant().Contains("devenv");
+        private readonly bool _inDesigner = AppDomain.CurrentDomain.FriendlyName.Contains("devenv");
+
         //bool VillainColor;
-        
+
         public clsDrawX(Control iTarget)
         {
             InterfaceMode = 0;
@@ -134,12 +135,12 @@ namespace MidsReborn.Controls
             bxPower = new List<ExtendedBitmap>();
             checked
             {
-                var filePath = $"{FileIO.AddSlash(Files.GetAssemblyLoc())}{GfxPath}";
-                Debug.WriteLine(filePath);
-                DirectoryInfo directoryInfo = new(filePath);
-                foreach (var file in directoryInfo.GetFiles($"pSlot*"))
+                var filePath = $"{Application.StartupPath}{GfxPath}";
+                var directoryInfo = new DirectoryInfo(filePath);
+                foreach (var file in directoryInfo.GetFiles($"{GfxPowerFn}*{GfxFileExt}"))
                 {
-                    bxPower.Add(new ExtendedBitmap(file.FullName));
+                    Debug.WriteLine($"{filePath}{file}");
+                    bxPower.Add(new ExtendedBitmap($"{file}"));
                 }
 
                 ColorSwitch();
@@ -187,7 +188,7 @@ namespace MidsReborn.Controls
             }
         }
 
-        public bool EpicColumns => MidsContext.Character is { Archetype: { ClassType: Enums.eClassType.HeroEpic } };
+        public bool EpicColumns => MidsContext.Character != null && MidsContext.Character.Archetype != null && MidsContext.Character.Archetype.ClassType == Enums.eClassType.HeroEpic;
 
        public int Columns
         {
@@ -682,7 +683,6 @@ namespace MidsReborn.Controls
                 }
                 SolidBrush solidBrush;
                 //if (!System.Diagnostics.Debugger.IsAttached || !this.IsInDesignMode() || !System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLowerInvariant().Contains("devenv"))
-                var inDesigner = Process.GetCurrentProcess().ProcessName.ToLowerInvariant().Contains("devenv");
                 for (var i = 0; i < iSlot.Slots.Length; i++)
                 {
                     var slot = iSlot.Slots[i];
@@ -705,7 +705,7 @@ namespace MidsReborn.Controls
                     }
                     else
                     {
-                        if (inDesigner) continue;
+                        if (_inDesigner) continue;
                         IEnhancement enhancement = DatabaseAPI.Database.Enhancements[slot.Enhancement.Enh];
                         Graphics graphics6 = bxBuffer.Graphics;
                         Rectangle clipRect2 = new Rectangle((int)Math.Round(rectangleF.X), slotLocation.Y, szSlot.Width, szSlot.Height);
@@ -915,9 +915,7 @@ namespace MidsReborn.Controls
                         for (var i = 0; i <= PowerIndex; i++)
                             if (MidsContext.Character.CurrentBuild.Powers[i].NIDPowerset > -1)
                             {
-                                if (DatabaseAPI.Database
-                                        .Powersets[MidsContext.Character.CurrentBuild.Powers[i].NIDPowerset].SetType !=
-                                    Enums.ePowerSetType.Inherent)
+                                if (DatabaseAPI.Database.Powersets[MidsContext.Character.CurrentBuild.Powers[i].NIDPowerset].SetType != Enums.ePowerSetType.Inherent)
                                     vIdx++;
                             }
                             else
@@ -934,9 +932,7 @@ namespace MidsReborn.Controls
                     for (var i = 0; i <= PowerIndex; i++)
                         if (MidsContext.Character.CurrentBuild.Powers[i].NIDPowerset > -1)
                         {
-                            if (DatabaseAPI.Database.Powersets[MidsContext.Character.CurrentBuild.Powers[i].NIDPowerset]
-                                    .SetType !=
-                                Enums.ePowerSetType.Inherent)
+                            if (DatabaseAPI.Database.Powersets[MidsContext.Character.CurrentBuild.Powers[i].NIDPowerset].SetType != Enums.ePowerSetType.Inherent)
                                 vIdx++;
                         }
                         else
@@ -2354,7 +2350,7 @@ namespace MidsReborn.Controls
             vcRowsPowers = checked(vcPowers / vcCols);
         }
 
-        private Size GetRequiredDrawingArea()
+        public Size GetRequiredDrawingArea()
         {
             var maxY = -1;
             var maxX = -1;

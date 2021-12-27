@@ -4,7 +4,6 @@ using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Display;
-using MidsReborn.Properties;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

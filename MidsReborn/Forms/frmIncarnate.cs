@@ -53,6 +53,9 @@ namespace MidsReborn.Forms
 
         public frmIncarnate(ref frmMain iParent)
         {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
+            CenterToParent();
+            Location = new Point(Location.X, Location.Y - 100);
             Load += frmIncarnate_Load;
             myPowers = Array.Empty<IPower>();
             Locked = false;
@@ -90,7 +93,7 @@ namespace MidsReborn.Forms
             loreBtn.ButtonClicked += loreBtn_ButtonClicked;
             Name = nameof(frmIncarnate);
             var componentResourceManager = new ComponentResourceManager(typeof(frmIncarnate));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myParent = iParent;
             myPowers = DatabaseAPI.GetPowersetByName("Alpha", Enums.ePowerSetType.Incarnate).Powers;
             FormClosing += FrmIncarnate_FormClosing;

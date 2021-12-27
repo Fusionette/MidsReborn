@@ -8,8 +8,8 @@ namespace MidsReborn.Updater
 {
     public partial class UpdateForm : Form
     {
-        private BackgroundWorker _updateWorker;
-        private FastZipEvents _updateEvents;
+        private BackgroundWorker? _updateWorker;
+        private FastZipEvents? _updateEvents;
 
         private string UpdatePath { get; set; }
         private string VersionText { get; set; }
@@ -28,7 +28,7 @@ namespace MidsReborn.Updater
             InitializeComponent();
         }
 
-        private void OnShown(object sender, EventArgs e)
+        private void OnShown(object? sender, EventArgs e)
         {
             Begin_Update();
         }
@@ -44,7 +44,7 @@ namespace MidsReborn.Updater
             client.DownloadFileAsync(UpdateFile, PackedUpdate);
         }
 
-        private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void Client_DownloadFileCompleted(object? sender, AsyncCompletedEventArgs e)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -73,7 +73,7 @@ namespace MidsReborn.Updater
             _updateWorker.RunWorkerAsync();
         }
 
-        private void UpdateWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void UpdateWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
             _updateEvents = new FastZipEvents();
             _updateEvents.Progress += Report_Progress;
@@ -88,7 +88,7 @@ namespace MidsReborn.Updater
             _updateWorker.ReportProgress(Convert.ToInt32(e.PercentComplete));
         }
 
-        private void UpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void UpdateWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
             circularProgressBar1.Text = @"Complete";
             File.Delete(PackedUpdate);

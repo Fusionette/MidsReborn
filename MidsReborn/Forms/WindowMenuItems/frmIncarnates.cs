@@ -19,6 +19,9 @@ namespace MidsReborn.Forms.WindowMenuItems
 
         public frmIncarnates(ref frmMain iParent)
         {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
+            CenterToParent();
+            Location = new Point(Location.X, Location.Y - 100);
             Load += frmIncarnate_Load;
             myPowers = Array.Empty<IPower>();
             Locked = false;
@@ -42,7 +45,7 @@ namespace MidsReborn.Forms.WindowMenuItems
             judgementBtn.ButtonClicked += judgementBtn_ButtonClicked;
             lblLock.Click += lblLock_Click;
             loreBtn.ButtonClicked += loreBtn_ButtonClicked;
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             myParent = iParent;
             myPowers = DatabaseAPI.GetPowersetByName("Alpha", Enums.ePowerSetType.Incarnate).Powers;
             FormClosing += FrmIncarnate_FormClosing;

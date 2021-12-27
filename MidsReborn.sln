@@ -4,12 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn", "MidsReborn\MidsReborn.csproj", "{45CB95D6-2FF8-4450-9000-3769DF02D9CB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6C12A18-E2F7-48FF-921A-1754CE8EABA4} = {F6C12A18-E2F7-48FF-921A-1754CE8EABA4}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Controls", "MidsReborn.Controls\MidsReborn.Controls.csproj", "{9FF87007-5242-49D0-BEF0-33AADD0A6924}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Base", "MidsReborn.Base\MidsReborn.Base.csproj", "{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidsReborn.Updater", "MidsReborn.Updater\MidsReborn.Updater.csproj", "{F6C12A18-E2F7-48FF-921A-1754CE8EABA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Updater", "MidsReborn.Updater\MidsReborn.Updater.csproj", "{F6C12A18-E2F7-48FF-921A-1754CE8EABA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FF5AD21E-1C33-4B09-B05F-6C8B815D8236} = {FF5AD21E-1C33-4B09-B05F-6C8B815D8236}
 	EndProjectSection

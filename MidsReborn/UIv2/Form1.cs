@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel;
-using System.Drawing.Imaging;
 using FontAwesome.Sharp;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Forms;
-using MidsReborn.My;
 
 namespace MidsReborn.UIv2
 {
@@ -25,7 +23,7 @@ namespace MidsReborn.UIv2
         public Form1()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint|ControlStyles.OptimizedDoubleBuffer|ControlStyles.ResizeRedraw, true);
-            ConfigData.Initialize(MyApplication.GetSerializer());
+            ConfigData.Initialize(Serializer.GetSerializer());
             Load += Form1_Load;
             Resize += Form1_Resize;
             InitializeComponent();
@@ -511,52 +509,6 @@ namespace MidsReborn.UIv2
 
         private void cbOrigin_SelectedIndexChanged(object sender, EventArgs e)
         {
-        }
-
-        /*private void InitializePowersView(SKCanvas surfaceCanvas)
-        {
-            var rows = 5;
-            var cols = 3;
-            var margin = 0;
-            using var stream = new SKFileStream($"{FileIO.AddSlash(Files.GetAssemblyLoc())}\\Images\\pSlot0.png");
-            var tempBitmap = SKBitmap.Decode(stream);
-            tempBitmap.Resize(new SKSizeI(Convert.ToInt32(skControl1.Width / cols), Convert.ToInt32(skControl1.Height / rows)), SKFilterQuality.High);
-            var powerButton = SKImage.FromBitmap(tempBitmap);
-            var pbList = new List<SKImage>();
-            for (var i = 0; i < 24; i++)
-            {
-                pbList.Add(powerButton);
-            }
-
-            var maxW = powerButton.Width;
-            var maxH = powerButton.Height;
-
-            var wid = maxW * cols + margin * (cols - 1);
-            var hgt = maxH * rows + margin * (rows - 1);
-
-            int x = 0;
-            int y = 0;
-            foreach (var img in pbList)
-            {
-                surfaceCanvas.DrawImage(img, x, y);
-                x += maxW + margin;
-                if (x >= wid)
-                {
-                    y += maxH + margin;
-                    x = 0;
-                }
-            }
-        }
-
-        private void skControl1_PaintSurface(object sender, SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs e)
-        {
-            e.Surface.Canvas.Clear(SKColor.Empty);
-            InitializePowersView(e.Surface.Canvas);
-        }*/
-
-        private void DrawPower(IPower power)
-        {
-
         }
     }
 }

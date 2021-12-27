@@ -1,14 +1,12 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
+using FastDeepCloner;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Display;
 using MidsReborn.Base.Base.Extensions;
 using MidsReborn.Base.Base.Master_Classes;
-using MidsReborn.My;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {
@@ -38,7 +36,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             InitializeComponent();
             Name = nameof(frmPowerBrowser);
             var componentResourceManager = new ComponentResourceManager(typeof(frmPowerBrowser));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -64,8 +62,9 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             if (frmEditArchetype.DialogResult != DialogResult.OK)
                 return;
             var database = DatabaseAPI.Database;
-            var archetypeArray = (Archetype[])Utils.CopyArray(database.Classes,
-                new Archetype[DatabaseAPI.Database.Classes.Length + 1]);
+            var archetypeArray = Array.Empty<Archetype>();
+            Array.Copy(database.Classes, archetypeArray, DatabaseAPI.Database.Classes.Length + 1);
+            //var archetypeArray = (Archetype[])Utils.CopyArray(database.Classes, new Archetype[DatabaseAPI.Database.Classes.Length + 1]);
             database.Classes = archetypeArray;
             DatabaseAPI.Database.Classes[DatabaseAPI.Database.Classes.Length - 1] =
                 new Archetype(frmEditArchetype.MyAT) { IsNew = true };
@@ -93,8 +92,9 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
                 if (frmEditArchetype.DialogResult != DialogResult.OK)
                     return;
                 var database = DatabaseAPI.Database;
-                var archetypeArray = (Archetype[])Utils.CopyArray(database.Classes,
-                    new Archetype[DatabaseAPI.Database.Classes.Length + 1]);
+                var archetypeArray = Array.Empty<Archetype>();
+                Array.Copy(database.Classes, archetypeArray, DatabaseAPI.Database.Classes.Length + 1);
+                //var archetypeArray = (Archetype[])Utils.CopyArray(database.Classes, new Archetype[DatabaseAPI.Database.Classes.Length + 1]);
                 database.Classes = archetypeArray;
                 DatabaseAPI.Database.Classes[DatabaseAPI.Database.Classes.Length - 1] =
                     new Archetype(frmEditArchetype.MyAT) { IsNew = true };
@@ -219,37 +219,14 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            // Zed - 04/11/21 - disabled diffing
-            /*if (!Debugger.IsAttached)
-            {
-                BusyMsg(@"Re-Indexing && Saving...");
-                foreach (var power in DatabaseAPI.Database.Power) power.BaseRechargeTime = power.RechargeTime;
-                Array.Sort(DatabaseAPI.Database.Power);
-                var serializer = MyApplication.GetSerializer();
-                DatabaseAPI.AssignStaticIndexValues(serializer, false);
-                DatabaseAPI.MatchAllIDs();
-                DatabaseAPI.SaveMainDatabase(serializer, MidsContext.Config.DataPath);
-                BusyHide();
-                DialogResult = DialogResult.OK;
-                Hide();
-            }
-            else
-            {
-                foreach (var power in DatabaseAPI.Database.Power) power.BaseRechargeTime = power.RechargeTime;
-                Array.Sort(DatabaseAPI.Database.Power);
-                var serializer = MyApplication.GetSerializer();
-                DatabaseAPI.AssignStaticIndexValues(serializer, false);
-                DatabaseAPI.MatchAllIDs();
-                var iParent = this;
-                using var diffForm = new frmDBDiffing(serializer, iParent);
-                diffForm.Closed += diffForm_Closed;
-                diffForm.ShowDialog(this);
-            }*/
-
             BusyMsg(@"Re-Indexing && Saving...");
-            foreach (var power in DatabaseAPI.Database.Power) power.BaseRechargeTime = power.RechargeTime;
+            foreach (var power in DatabaseAPI.Database.Power)
+            {
+                power.BaseRechargeTime = power.RechargeTime;
+            }
+
             Array.Sort(DatabaseAPI.Database.Power);
-            var serializer = MyApplication.GetSerializer();
+            var serializer = Serializer.GetSerializer();
             DatabaseAPI.AssignStaticIndexValues(serializer, false);
             DatabaseAPI.MatchAllIDs();
 
@@ -258,7 +235,6 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             // {
             //     DatabaseAPI.Database.Classes[index].Column = index;
             // }
-
             DatabaseAPI.SaveMainDatabase(serializer, MidsContext.Config.DataPath);
             BusyHide();
             DialogResult = DialogResult.OK;
@@ -294,11 +270,13 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             if (frmEditPower.ShowDialog() != DialogResult.OK)
                 return;
             var database = DatabaseAPI.Database;
-            var powerArray =
-                (IPower[])Utils.CopyArray(database.Power, new IPower[DatabaseAPI.Database.Power.Length + 1]);
-            database.Power = powerArray;
-            DatabaseAPI.Database.Power[DatabaseAPI.Database.Power.Length - 1] =
-                new Power(frmEditPower.myPower) { IsNew = true };
+
+            var powerList = database.Power.ToList();
+            powerList.Add(new Power(frmEditPower.myPower) { IsNew = true });
+            database.Power = powerList.ToArray();
+            // var powerArray = (IPower[])Utils.CopyArray(database.Power, new IPower[DatabaseAPI.Database.Power.Length + 1]);
+            // database.Power = powerArray;
+            // DatabaseAPI.Database.Power[DatabaseAPI.Database.Power.Length - 1] = new Power(frmEditPower.myPower) { IsNew = true };
             UpdateLists();
         }
 
@@ -312,33 +290,55 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             }
             else
             {
-                IPower newPower = new Power(DatabaseAPI.Database.Power[index]);
-                //Get the StaticIndex from the last power and add 1
+                // IPower newPower = new Power(DatabaseAPI.Database.Power[index]);
+                // //Get the StaticIndex from the last power and add 1
+                // var powerList = new List<IPower>(DatabaseAPI.Database.Power);
+                // //var newStaticIndex = powerList.Max(x => x.StaticIndex) + 1;
+                // newPower.StaticIndex = powerList.Last().StaticIndex++; //newStaticIndex;
+                // newPower.FullName += "_Clone";
+                // newPower.DisplayName += " (Clone)";
+                // newPower.PowerName += "_Clone";
+                // newPower.IsNew = true;
+                // newPower.PowerIndex = DatabaseAPI.Database.Power.Length;
+
+                var database = DatabaseAPI.Database;
                 var powerList = new List<IPower>(DatabaseAPI.Database.Power);
-                var newStaticIndex = powerList.Max(x => x.StaticIndex) + 1;
-                newPower.StaticIndex = newStaticIndex;
+                var newPower = powerList.First(x => x.FullName == database.Power[index].FullName).Clone();
+                newPower.StaticIndex = powerList.Last().StaticIndex++;
                 newPower.FullName += "_Clone";
                 newPower.DisplayName += " (Clone)";
                 newPower.PowerName += "_Clone";
                 newPower.IsNew = true;
-                newPower.PowerIndex = DatabaseAPI.Database.Power.Length;
+                newPower.PowerIndex = powerList.Count - 1;
+
+                //IPower newPower = new Power(DatabaseAPI.Database.Power[index]);
 
                 using var frmEditPower = new frmEditPower(newPower);
-                if (frmEditPower.ShowDialog() != DialogResult.OK)
-                    return;
+                if (frmEditPower.ShowDialog() != DialogResult.OK) return;
                 newPower = frmEditPower.myPower;
-                var database = DatabaseAPI.Database;
-                var powerArray =
-                    (IPower[])Utils.CopyArray(database.Power, new IPower[DatabaseAPI.Database.Power.Length + 1]);
-                database.Power = powerArray;
-                DatabaseAPI.Database.Power[DatabaseAPI.Database.Power.Length - 1] = newPower;
+                powerList.Add(newPower);
+                DatabaseAPI.Database.Power = powerList.ToArray();
+                // var powerArray = (IPower[])Utils.CopyArray(database.Power, new IPower[DatabaseAPI.Database.Power.Length + 1]);
+                // database.Power = powerArray;
+                // DatabaseAPI.Database.Power[DatabaseAPI.Database.Power.Length - 1] = newPower;
+
+
+
                 //Add the power to the power set otherwise we'll get issues later when upting the UI.
                 if (newPower.PowerSetID > -1)
                 {
                     var powerSet = DatabaseAPI.GetPowersetByName(newPower.FullName);
-                    powerArray = (IPower[])Utils.CopyArray(powerSet.Powers, new IPower[powerSet.Powers.Length + 1]);
-                    powerSet.Powers = powerArray;
-                    powerArray[powerSet.Powers.Length - 1] = newPower;
+                    var psPowerList = powerSet?.Powers.ToList();
+                    psPowerList?.Add(newPower);
+                    if (powerSet != null)
+                    {
+                        powerSet.Powers = psPowerList.ToArray();
+                    }
+
+                    // powerArray = (IPower[])Utils.CopyArray(powerSet.Powers, new IPower[powerSet.Powers.Length + 1]);
+                    //     powerSet.Powers = powerArray;
+                    //     powerArray[powerSet.Powers.Length - 1] = newPower;
+                    // }
                 }
 
                 UpdateLists(lvGroup.SelectedIndices[0], lvSet.SelectedIndices[0]);
@@ -572,11 +572,12 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             if (frmEditPowerset.DialogResult != DialogResult.OK)
                 return;
             var database = DatabaseAPI.Database;
-            var powersetArray = (IPowerset[])Utils.CopyArray(database.Powersets,
-                new IPowerset[DatabaseAPI.Database.Powersets.Length + 1]);
-            database.Powersets = powersetArray;
-            DatabaseAPI.Database.Powersets[DatabaseAPI.Database.Powersets.Length - 1] =
-                new Powerset(frmEditPowerset.myPS) { IsNew = true, nID = DatabaseAPI.Database.Powersets.Length - 1 };
+            // var powersetArray = (IPowerset[])Utils.CopyArray(database.Powersets, new IPowerset[DatabaseAPI.Database.Powersets.Length + 1]);
+            // database.Powersets = powersetArray;
+            var psList = database.Powersets.ToList();
+            psList.Add(new Powerset(frmEditPowerset.myPS) { IsNew = true, nID = psList.Count + 1 });
+            DatabaseAPI.Database.Powersets = psList.ToArray();
+            //DatabaseAPI.Database.Powersets[DatabaseAPI.Database.Powersets.Length - 1] = new Powerset(frmEditPowerset.myPS) { IsNew = true, nID = DatabaseAPI.Database.Powersets.Length - 1 };
             UpdateLists();
         }
 
@@ -835,9 +836,6 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             catch (Exception ex)
             {
                 MessageBox.Show($"Message: {ex.Message}\r\nTrace: {ex.StackTrace}");
-                ProjectData.SetProjectError(ex);
-                var num = (int)MessageBox.Show(ex.Message);
-                ProjectData.ClearProjectError();
             }
         }
 
@@ -989,7 +987,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
                                 iPowers2 = DatabaseAPI.UidPowers(lvSet.SelectedItems[0].SubItems[3].Text);
                             else if (lvSet.SelectedItems[0].SubItems[4].Text != "")
                                 iPowers1 = DatabaseAPI.NidPowers(
-                                    (int)Math.Round(Conversion.Val(lvSet.SelectedItems[0].SubItems[4].Text)));
+                                    (int)Math.Round(Convert.ToDouble(lvSet.SelectedItems[0].SubItems[4].Text)));
                         }
 
                         break;
@@ -998,9 +996,16 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
                     {
                         if (lvSet.SelectedItems.Count > 0)
                         {
-                            var index = lvSet.SelectedItems[0].SubItems[4].Text == ""
-                                ? -1
-                                : (int)Math.Round(Conversion.Val(lvSet.SelectedItems[0].SubItems[4].Text));
+                            int index;
+                            if (lvSet.SelectedItems[0].SubItems[4].Text == "")
+                            {
+                                index = -1;
+                            }
+                            else
+                            {
+                                index = (int)Math.Round(Convert.ToDouble(lvSet.SelectedItems[0].SubItems[4].Text));
+                            }
+
                             if (index > -1)
                             {
                                 iPowers1 = new int[DatabaseAPI.Database.Powersets[index].Power.Length - 1 + 1];
@@ -1015,11 +1020,11 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
                         var num = DatabaseAPI.Database.Power.Length - 1;
                         for (var index = 0; index <= num; ++index)
                         {
-                            if (!((DatabaseAPI.Database.Power[index].GroupName == "") |
-                                  (DatabaseAPI.Database.Power[index].SetName == "") |
-                                  (DatabaseAPI.Database.Power[index].GetPowerSet() == null)))
+                            if (!((DatabaseAPI.Database.Power[index].GroupName == "") | (DatabaseAPI.Database.Power[index].SetName == "") | (DatabaseAPI.Database.Power[index].GetPowerSet() == null)))
                                 continue;
-                            iPowers1 = (int[])Utils.CopyArray(iPowers1, new int[iPowers1.Length + 1]);
+
+                            Array.Resize(ref iPowers1, iPowers1.Length + 1);
+                            //iPowers1 = (int[])Utils.CopyArray(iPowers1, new int[iPowers1.Length + 1]);
                             iPowers1[iPowers1.Length - 1] = index;
                         }
 

@@ -7,7 +7,7 @@ namespace MidsReborn.Base.Base.Display
         private Bitmap _bits;
         private bool _isDisposed;
 
-        private bool _isInitialized;
+        private bool _isInitialised;
         private bool _isNew;
 
         private Graphics _surface;
@@ -20,7 +20,7 @@ namespace MidsReborn.Base.Base.Display
         {
             Cache = new PropertyCache();
             _isNew = true;
-            _isInitialized = false;
+            _isInitialised = false;
         }
 
         public ExtendedBitmap(Size imageSize)
@@ -57,7 +57,7 @@ namespace MidsReborn.Base.Base.Display
             get
             {
                 Graphics graphics;
-                if (_isInitialized)
+                if (_isInitialised)
                 {
                     _isNew = false;
                     graphics = _surface;
@@ -76,7 +76,7 @@ namespace MidsReborn.Base.Base.Display
             }
         }
 
-        public Bitmap Bitmap => !_isInitialized ? Initialise() ? _bits : null : _bits;
+        public Bitmap Bitmap => !_isInitialised ? Initialise() ? _bits : null : _bits;
 
         private bool CanInitialise
 
@@ -109,7 +109,7 @@ namespace MidsReborn.Base.Base.Display
 
         public Size Size
         {
-            get => _isInitialized ? Cache.Size : new Size();
+            get => _isInitialised ? Cache.Size : new Size();
             set
             {
                 if (value.Width == Cache.Size.Width && value.Height == Cache.Size.Height)
@@ -122,10 +122,10 @@ namespace MidsReborn.Base.Base.Display
         private Region Clip
 
         {
-            get => _isInitialized ? Cache.Clip : new Region();
+            get => _isInitialised ? Cache.Clip : new Region();
             set
             {
-                if (!_isInitialized)
+                if (!_isInitialised)
                     return;
                 _surface.Clip = value;
                 Cache.Update(ref _surface);
@@ -133,12 +133,12 @@ namespace MidsReborn.Base.Base.Display
             }
         }
 
-        public Rectangle ClipRect => _isInitialized ? Cache.ClipRect : new Rectangle();
+        public Rectangle ClipRect => _isInitialised ? Cache.ClipRect : new Rectangle();
 
         public object Clone()
         {
             object obj;
-            if (!_isInitialized)
+            if (!_isInitialised)
             {
                 obj = new ExtendedBitmap();
             }
@@ -150,7 +150,7 @@ namespace MidsReborn.Base.Base.Display
                 };
                 extendedBitmap._surface.DrawImageUnscaled(_bits, new Point(0, 0));
                 extendedBitmap.Clip = Clip;
-                extendedBitmap._isInitialized = _isInitialized;
+                extendedBitmap._isInitialised = _isInitialised;
                 extendedBitmap._isNew = _isNew;
                 obj = extendedBitmap;
             }
@@ -169,7 +169,7 @@ namespace MidsReborn.Base.Base.Display
             if (!disposing || _isDisposed)
                 return;
             _isNew = false;
-            _isInitialized = false;
+            _isInitialised = false;
             _surface?.Dispose();
             _bits?.Dispose();
             Cache.Clip?.Dispose();
@@ -194,7 +194,7 @@ namespace MidsReborn.Base.Base.Display
                 _surface.Clip = new Region(Cache.Bounds);
                 Cache.Update(ref _surface);
                 _isNew = true;
-                _isInitialized = true;
+                _isInitialised = true;
                 flag = true;
             }
 
@@ -226,7 +226,7 @@ namespace MidsReborn.Base.Base.Display
                 _surface.Clip = new Region(Cache.Bounds);
                 Cache.Update(ref _surface);
                 _isNew = true;
-                _isInitialized = true;
+                _isInitialised = true;
             }
         }
 
@@ -259,17 +259,17 @@ namespace MidsReborn.Base.Base.Display
 
             {
                 return new Rectangle(
-                    iRect.X <= 2147483648.0
-                        ? iRect.X >= (double) int.MinValue ? Convert.ToInt32(iRect.X) : int.MinValue
+                    (double) iRect.X <= 2147483648.0
+                        ? (double) iRect.X >= (double) int.MinValue ? Convert.ToInt32(iRect.X) : int.MinValue
                         : int.MaxValue,
-                    iRect.Y <= 2147483648.0
-                        ? iRect.Y >= (double) int.MinValue ? Convert.ToInt32(iRect.Y) : int.MinValue
+                    (double) iRect.Y <= 2147483648.0
+                        ? (double) iRect.Y >= (double) int.MinValue ? Convert.ToInt32(iRect.Y) : int.MinValue
                         : int.MaxValue,
-                    iRect.Width <= 2147483648.0
-                        ? iRect.Width >= (double) int.MinValue ? Convert.ToInt32(iRect.Width) : int.MinValue
+                    (double) iRect.Width <= 2147483648.0
+                        ? (double) iRect.Width >= (double) int.MinValue ? Convert.ToInt32(iRect.Width) : int.MinValue
                         : int.MaxValue,
-                    iRect.Height <= 2147483648.0
-                        ? iRect.Height >= (double) int.MinValue ? Convert.ToInt32(iRect.Height) : int.MinValue
+                    (double) iRect.Height <= 2147483648.0
+                        ? (double) iRect.Height >= (double) int.MinValue ? Convert.ToInt32(iRect.Height) : int.MinValue
                         : int.MaxValue);
             }
         }

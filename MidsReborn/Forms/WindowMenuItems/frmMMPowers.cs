@@ -1,8 +1,6 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Display;
@@ -38,11 +36,14 @@ namespace MidsReborn.Forms.WindowMenuItems
 
         public frmMMPowers(frmMain iParent, List<string> PetPowersList)
         {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
+            CenterToParent();
+            Location = new Point(Location.X, Location.Y - 100);
             Load += frmMMPowers_Load;
             _locked = false;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmMMPowers));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Name = nameof(frmMMPowers);
             _myParent = iParent;
             PetPowers = PetPowersList;
@@ -531,7 +532,7 @@ namespace MidsReborn.Forms.WindowMenuItems
 
         private void PopInfo_MouseWheel(object sender, MouseEventArgs e)
         {
-            var ConVal =
+            /*var ConVal =
                 Convert.ToInt32(Operators.AddObject(VScrollBar1.Value,
                     Interaction.IIf(e.Delta > 0, -1, 1)));
             if (ConVal != -1)
@@ -542,7 +543,7 @@ namespace MidsReborn.Forms.WindowMenuItems
                     VScrollBar1.Value = VScrollBar1.Maximum - 9;
                 VScrollBar1_Scroll(RuntimeHelpers.GetObjectValue(sender),
                     new ScrollEventArgs(ScrollEventType.EndScroll, 0));
-            }
+            }*/
         }
 
         private static void UpdateLlColours(ref ListLabelV3 iList)

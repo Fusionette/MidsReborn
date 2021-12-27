@@ -1,7 +1,6 @@
 ﻿using MidsReborn.Base.Base.Display;
 using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Controls;
-using MidsReborn.My;
 
 namespace MidsReborn.Forms
 {
@@ -94,7 +93,7 @@ namespace MidsReborn.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            MidsContext.Config.SaveConfig(MyApplication.GetSerializer());
+            MidsContext.Config.SaveConfig(Serializer.GetSerializer());
             DialogResult = DialogResult.OK;
             Hide();
         }

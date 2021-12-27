@@ -12,7 +12,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
         }
 
         private void frmRestoreHidden_Load(object sender, EventArgs e)

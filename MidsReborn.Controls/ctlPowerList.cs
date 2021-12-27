@@ -8,9 +8,7 @@ namespace MidsReborn.Controls
     public sealed partial class ctlPowerList : ListBox
     {
         public delegate void DrawPowerListItem(PowerListDrawItemEventArgs e);
-#pragma warning disable 67
         public event DrawPowerListItem DrawListItem;
-#pragma warning restore 67
 
         public Color SelectionColor { get; set; }
         public Color SelectionBackColor { get; set; } = Color.DarkOrange;
@@ -194,7 +192,7 @@ namespace MidsReborn.Controls
             TextAlign = alignment;
         }
     }
-    public partial class PowerListDrawItemEventArgs : EventArgs
+    public class PowerListDrawItemEventArgs : EventArgs
     {
         public Graphics Graphics { get; }
         public Font Font { get; }

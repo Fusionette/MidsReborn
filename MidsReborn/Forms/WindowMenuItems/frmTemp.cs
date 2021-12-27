@@ -1,8 +1,6 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Display;
@@ -33,11 +31,14 @@ namespace MidsReborn.Forms.WindowMenuItems
 
         public frmTemp(frmMain iParent, List<IPower> iPowers)
         {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
+            CenterToParent();
+            Location = new Point(Location.X, Location.Y - 100);
             Load += frmTemp_Load;
             _locked = false;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmTemp));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Name = nameof(frmTemp);
             _myParent = iParent;
             _myPowers = iPowers;
@@ -180,7 +181,7 @@ namespace MidsReborn.Forms.WindowMenuItems
                 }
                 else
                 {
-                    MidsContext.Character.CurrentBuild.AddPower(_myPowers[Item.Index]).StatInclude = true;
+                    MidsContext.Character.CurrentBuild.AddPower(_myPowers[Item.Index], 0).StatInclude = true;
                     Item.ItemState = ListLabelV3.LLItemState.Selected;
                 }
 
@@ -223,7 +224,7 @@ namespace MidsReborn.Forms.WindowMenuItems
                 }
                 else
                 {
-                    MidsContext.Character.CurrentBuild.AddPower(_myPowers[pIDX]).StatInclude = true;
+                    MidsContext.Character.CurrentBuild.AddPower(_myPowers[pIDX], 0).StatInclude = true;
                     Item.ItemState = ListLabelV3.LLItemState.Selected;
                 }
 
@@ -352,16 +353,16 @@ namespace MidsReborn.Forms.WindowMenuItems
 
         private void PopInfo_MouseWheel(object sender, MouseEventArgs e)
         {
-            var ConVal = Convert.ToInt32(Operators.AddObject(VScrollBar1.Value, Interaction.IIf(e.Delta > 0, -1, 1)));
-            if (ConVal != -1)
-            {
-                VScrollBar1.Value =
-                    Convert.ToInt32(Operators.AddObject(VScrollBar1.Value, Interaction.IIf(e.Delta > 0, -1, 1)));
-                if (VScrollBar1.Value > VScrollBar1.Maximum - 9)
-                    VScrollBar1.Value = VScrollBar1.Maximum - 9;
-                VScrollBar1_Scroll(RuntimeHelpers.GetObjectValue(sender),
-                    new ScrollEventArgs(ScrollEventType.EndScroll, 0));
-            }
+            // var ConVal = Convert.ToInt32(Operators.AddObject(VScrollBar1.Value, Interaction.IIf(e.Delta > 0, -1, 1)));
+            // if (ConVal != -1)
+            // {
+            //     VScrollBar1.Value =
+            //         Convert.ToInt32(Operators.AddObject(VScrollBar1.Value, Interaction.IIf(e.Delta > 0, -1, 1)));
+            //     if (VScrollBar1.Value > VScrollBar1.Maximum - 9)
+            //         VScrollBar1.Value = VScrollBar1.Maximum - 9;
+            //     VScrollBar1_Scroll(RuntimeHelpers.GetObjectValue(sender),
+            //         new ScrollEventArgs(ScrollEventType.EndScroll, 0));
+            // }
         }
 
         private static void UpdateLlColours(ref ListLabelV3 iList)

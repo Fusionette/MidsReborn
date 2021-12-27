@@ -8,12 +8,12 @@ namespace MidsReborn
     {
         public class MidsController
         {
-            public static Rectangle SzFrmCompare = new Rectangle();
-            public static Rectangle SzFrmData = new Rectangle();
-            public static Rectangle SzFrmRecipe = new Rectangle();
-            public static Rectangle SzFrmSets = new Rectangle();
-            public static Rectangle SzFrmStats = new Rectangle();
-            public static Rectangle SzFrmTotals = new Rectangle();
+            public static Rectangle SzFrmCompare = new();
+            public static Rectangle SzFrmData = new();
+            public static Rectangle SzFrmRecipe = new();
+            public static Rectangle SzFrmSets = new();
+            public static Rectangle SzFrmStats = new();
+            public static Rectangle SzFrmTotals = new();
 
             public static bool IsAppInitialized { get; private set; }
             private static frmBusy bFrm;

@@ -17,7 +17,7 @@ namespace MidsReborn.Forms
                 true);
             Name = nameof(frmColorOptions);
             var componentResourceManager = new ComponentResourceManager(typeof(frmColorOptions));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             _myFs.Assign(MidsContext.Config.RtFont);
         }
 

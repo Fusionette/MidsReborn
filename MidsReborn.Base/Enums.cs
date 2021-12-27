@@ -903,7 +903,7 @@ namespace MidsReborn.Base
             DefDebuff,
             EndMod,
             Knockback,
-            Taunt,
+            Threat,
             ToHit,
             ToHitDeb,
             PetRech,
@@ -1046,7 +1046,8 @@ namespace MidsReborn.Base
             None,
             Hamidon,
             Hydra,
-            Titan
+            Titan,
+            DSync
         }
 
         public enum eSummonEntity
@@ -1079,7 +1080,6 @@ namespace MidsReborn.Base
             Unspecified,
             Target,
             Self,
-            Ally,
             All
         }
 
@@ -1500,7 +1500,7 @@ namespace MidsReborn.Base
 
         public static string[] StringToArray(string iStr)
         {
-            var strArray1 = new string[0];
+            var strArray1 = Array.Empty<string>();
             string[] strArray2;
             if (iStr == null)
             {
@@ -1696,8 +1696,8 @@ namespace MidsReborn.Base
             {
                 if (Value == null)
                 {
-                    Value = new float[0];
-                    Index = new int[0];
+                    Value = Array.Empty<float>();
+                    Index = Array.Empty<int>();
                     Sum = 0.0f;
                 }
 
@@ -1740,8 +1740,8 @@ namespace MidsReborn.Base
                 }
                 else
                 {
-                    Index = new int[0];
-                    Value = new float[0];
+                    Index = Array.Empty<int>();
+                    Value = Array.Empty<float>();
                     Sum = 0.0f;
                 }
             }

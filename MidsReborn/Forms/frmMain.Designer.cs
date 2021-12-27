@@ -5,7 +5,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace MidsReborn.Forms
 {
-    public partial class frmMain
+    public sealed partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -1677,7 +1677,6 @@ namespace MidsReborn.Forms
             this.pnlGFXFlow.Size = new System.Drawing.Size(687, 891);
             this.pnlGFXFlow.TabIndex = 112;
             this.pnlGFXFlow.MouseEnter += new System.EventHandler(this.pnlGFXFlow_MouseEnter);
-            this.pnlGFXFlow.Scroll += new System.Windows.Forms.ScrollEventHandler(this.pnlGFXFlow_Scroll);
             // 
             // llAncillary
             // 
@@ -2039,10 +2038,11 @@ namespace MidsReborn.Forms
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1318, 857);
+            this.ClientSize = new Size(1342, 1001);
+            //this.ClientSize = new System.Drawing.Size(1318, 857);
             this.Controls.Add(this.i9Picker);
             this.Controls.Add(this.I9Popup);
             this.Controls.Add(this.lblLockedSecondary);
@@ -2074,7 +2074,6 @@ namespace MidsReborn.Forms
             this.ForeColor = System.Drawing.Color.White;
             this.KeyPreview = true;
             this.MainMenuStrip = this.MenuBar;
-            //this.MinimumSize = new System.Drawing.Size(1293, 835);
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

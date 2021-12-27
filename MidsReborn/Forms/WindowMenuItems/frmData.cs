@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Globalization;
-using Microsoft.VisualBasic;
 using MidsReborn.Base;
 using MidsReborn.Base.Base.Data_Classes;
 using MidsReborn.Base.Base.Display;
@@ -21,7 +20,7 @@ namespace MidsReborn.Forms.WindowMenuItems
             InitializeComponent();
             Name = nameof(frmData);
             var componentResourceManager = new ComponentResourceManager(typeof(frmData));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             _onClosing = onClosing;
         }
 
@@ -80,7 +79,7 @@ namespace MidsReborn.Forms.WindowMenuItems
 
         private string TwoDP(float iValue)
         {
-            return Strings.Format(iValue, "###,##0.00");
+            return $@"{Convert.ToDecimal(iValue):###,##0.##}";  //Strings.Format(iValue, "###,##0.00");
         }
 
         public void UpdateData(int powerID)
@@ -94,18 +93,13 @@ namespace MidsReborn.Forms.WindowMenuItems
                 iPopup.Sections[index1].Add("Unbuffed Power Data", PopUp.Colors.Title);
                 var index2 = iPopup.Add();
                 iPopup.Sections[index2].Add("Attributes:", PopUp.Colors.Title);
-                iPopup.Sections[index2].Add("Power Type:", PopUp.Colors.Text,
-                    Enum.GetName(power1.PowerType.GetType(), power1.PowerType), PopUp.Colors.Text, 0.9f, FontStyle.Bold,
-                    1);
-                iPopup.Sections[index2].Add("Accuracy:", PopUp.Colors.Text, TwoDP(power1.Accuracy), PopUp.Colors.Text,
-                    0.9f, FontStyle.Bold, 1);
+                iPopup.Sections[index2].Add("Power Type:", PopUp.Colors.Text, Enum.GetName(power1.PowerType.GetType(), power1.PowerType), PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
+                iPopup.Sections[index2].Add("Accuracy:", PopUp.Colors.Text, TwoDP(power1.Accuracy), PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
                 if (power1.ActivatePeriod > 0.0)
                     iPopup.Sections[index2].Add("Activate Interval:", PopUp.Colors.Text,
-                        Convert.ToString(power1.ActivatePeriod, CultureInfo.InvariantCulture) + "s", PopUp.Colors.Text,
-                        0.9f, FontStyle.Bold, 1);
+                        Convert.ToString(power1.ActivatePeriod, CultureInfo.InvariantCulture) + "s", PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
                 if (power1.Arc > 0)
-                    iPopup.Sections[index2].Add("Arc Radius:", PopUp.Colors.Text, Convert.ToString(power1.Arc) + "°",
-                        PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
+                    iPopup.Sections[index2].Add("Arc Radius:", PopUp.Colors.Text, Convert.ToString(power1.Arc) + "°", PopUp.Colors.Text, 0.9f, FontStyle.Bold, 1);
                 if (power1.AttackTypes != Enums.eVector.None)
                 {
                     var values = (int[]) Enum.GetValues(power1.AttackTypes.GetType());

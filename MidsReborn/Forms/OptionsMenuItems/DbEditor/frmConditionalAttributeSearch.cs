@@ -17,7 +17,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             InitializeComponent();
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
 
             IgnoredClasses = Archetype.GetNpcClasses();
         }

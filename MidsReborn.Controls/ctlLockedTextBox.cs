@@ -10,7 +10,7 @@
             //ctlOutlinedLabel1.Location = new Point(ctlOutlinedLabel1.Location.X + 10, ctlOutlinedLabel1.Location.Y + 4);
         }
 
-        private void OnTextChanged(object sender, EventArgs e)
+        private void OnTextChanged(object? sender, EventArgs e)
         {
             if (Image != null)
             {
@@ -31,6 +31,6 @@
             set => ctlOutlinedLabel1.Text = value;
         }
 
-        public Image Image { get; set; }
+        public Image? Image { get; set; }
     }
 }

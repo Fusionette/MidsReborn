@@ -28,7 +28,7 @@ namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
             Load += frmGCMEditor_Load;
             InitializeComponent();
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             _myParent = iParent;
             _bFrm = new frmBusy();
         }

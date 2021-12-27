@@ -26,7 +26,7 @@ namespace MidsReborn.Controls
         private bool _EnableOverlayText = false;
         private string _OverlayText = "";
 
-        private Graphics Gfx;
+        private Graphics? Gfx;
         private ExtendedBitmap BxBuffer;
         private List<Color> HighlightColors;
         // https://stackoverflow.com/a/34299931
@@ -300,7 +300,7 @@ namespace MidsReborn.Controls
         }
 
         private void DrawOutlineText(string iStr, RectangleF bounds, Color text, Color outline, Font bFont,
-            float outlineSpace, ref Graphics target, bool leftAlign = false)
+            float outlineSpace, ref Graphics? target, bool leftAlign = false)
         {
             var stringFormat = new StringFormat(StringFormatFlags.NoWrap)
             {

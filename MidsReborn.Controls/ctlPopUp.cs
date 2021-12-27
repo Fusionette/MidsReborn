@@ -12,7 +12,7 @@ namespace MidsReborn.Controls
     public class ctlPopUp : UserControl
     {
         // Token: 0x04000082 RID: 130
-        private IContainer components;
+        private IContainer? components;
 
         // Token: 0x0400008E RID: 142
         public int eIDX;
@@ -24,7 +24,7 @@ namespace MidsReborn.Controls
         public float lHeight;
 
         // Token: 0x04000083 RID: 131
-        private ExtendedBitmap myBX;
+        private ExtendedBitmap? myBX;
 
         // Token: 0x04000089 RID: 137
         private int pBXHeight;
@@ -185,28 +185,28 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000122 RID: 290 RVA: 0x0000A775 File Offset: 0x00008975
-        private void ctlPopUp_BackColorChanged(object sender, EventArgs e)
+        private void ctlPopUp_BackColorChanged(object? sender, EventArgs e)
         {
             NewBX();
             Draw();
         }
 
         // Token: 0x06000123 RID: 291 RVA: 0x0000A786 File Offset: 0x00008986
-        private void ctlPopUp_FontChanged(object sender, EventArgs e)
+        private void ctlPopUp_FontChanged(object? sender, EventArgs e)
         {
             NewBX();
             Draw();
         }
 
         // Token: 0x06000124 RID: 292 RVA: 0x0000A797 File Offset: 0x00008997
-        private void ctlPopUp_ForeColorChanged(object sender, EventArgs e)
+        private void ctlPopUp_ForeColorChanged(object? sender, EventArgs e)
         {
             NewBX();
             Draw();
         }
 
         // Token: 0x06000125 RID: 293 RVA: 0x0000A7A8 File Offset: 0x000089A8
-        private void ctlPopUp_Load(object sender, EventArgs e)
+        private void ctlPopUp_Load(object? sender, EventArgs e)
         {
             NewBX();
             pData = default;
@@ -340,13 +340,13 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x0600012B RID: 299 RVA: 0x0000AE00 File Offset: 0x00009000
-        private void ctlPopUp_Paint(object sender, PaintEventArgs e)
+        private void ctlPopUp_Paint(object? sender, PaintEventArgs e)
         {
             if (myBX != null) e.Graphics.DrawImageUnscaled(myBX.Bitmap, 0, 0);
         }
 
         // Token: 0x0600012C RID: 300 RVA: 0x0000AE3A File Offset: 0x0000903A
-        private void ctlPopUp_SizeChanged(object sender, EventArgs e)
+        private void ctlPopUp_SizeChanged(object? sender, EventArgs e)
         {
             NewBX();
             Draw();

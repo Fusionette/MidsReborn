@@ -107,7 +107,7 @@ namespace MidsReborn.Controls.My
             // Token: 0x06000010 RID: 16 RVA: 0x000021D0 File Offset: 0x000003D0
             [EditorBrowsable(EditorBrowsableState.Never)]
             [DebuggerHidden]
-            public override string ToString()
+            public override string? ToString()
             {
                 return base.ToString();
             }

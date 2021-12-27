@@ -1,6 +1,6 @@
 using System.ComponentModel;
-using MidsReborn.Controls;
 using MidsReborn.Base;
+using MidsReborn.Controls;
 
 namespace MidsReborn.Forms
 {

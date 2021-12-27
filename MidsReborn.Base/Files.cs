@@ -56,9 +56,9 @@ namespace MidsReborn.Base
             return pathString;
         }
 
-        internal static string SearchUp(string folder, string fn)
+        internal static string? SearchUp(string folder, string? fn)
         {
-            string SearchUpRec(string foldername, string filename)
+            string? SearchUpRec(string foldername, string? filename)
             {
                 // if it is not properly rooted, give up, and use the path
                 if (!Path.IsPathRooted(filename))
@@ -70,8 +70,8 @@ namespace MidsReborn.Base
                 // get the directory that holds the filename, filename should be a FULL path
                 var fnDir = Path.GetDirectoryName(filename);
                 // if the filename is already in a folder with the correct foldername, we need to go up twice instead of once.
-                string targetRoot;
-                if (fnDir.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).EndsWith(foldername))
+                string? targetRoot;
+                if (fnDir != null && fnDir.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).EndsWith(foldername))
                 {
                     targetRoot = Path.GetDirectoryName(fnDir);
                     Console.WriteLine($"Targetroot: {targetRoot}");

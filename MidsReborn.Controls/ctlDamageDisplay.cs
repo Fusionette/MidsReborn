@@ -14,16 +14,16 @@ namespace MidsReborn.Controls
         private readonly Enums.eDDText pText;
 
         // Token: 0x04000027 RID: 39
-        private ExtendedBitmap bxBuffer;
+        private ExtendedBitmap? bxBuffer;
 
         // Token: 0x04000025 RID: 37
-        private IContainer components;
+        private IContainer? components;
 
         // Token: 0x04000028 RID: 40
-        private Graphics myGFX;
+        private Graphics? myGFX;
 
         // Token: 0x04000026 RID: 38
-        [AccessedThroughProperty("myTip")] private ToolTip myTip;
+        [AccessedThroughProperty("myTip")] private ToolTip? myTip;
 
         // Token: 0x04000036 RID: 54
         private float nBase;
@@ -356,7 +356,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000070 RID: 112 RVA: 0x00006A62 File Offset: 0x00004C62
-        private void ctlDamageDisplay_Load(object sender, EventArgs e)
+        private void ctlDamageDisplay_Load(object? sender, EventArgs e)
         {
             myGFX = CreateGraphics();
             bxBuffer = new ExtendedBitmap(Width, Height);
@@ -372,7 +372,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x06000072 RID: 114 RVA: 0x00006ABC File Offset: 0x00004CBC
-        private void ctlDamageDisplayt_Paint(object sender, PaintEventArgs e)
+        private void ctlDamageDisplayt_Paint(object? sender, PaintEventArgs e)
         {
             if (bxBuffer != null)
                 myGFX.DrawImage(bxBuffer.Bitmap, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel);
@@ -423,7 +423,7 @@ namespace MidsReborn.Controls
 
                 if (pGraph == 0)
                 {
-                    var num = (int) Math.Round(nBase / nMaxEnhanced * rectangle2.Width);
+                    /*var num = (int) Math.Round(nBase / nMaxEnhanced * rectangle2.Width);
                     var brush2 = new SolidBrush(pFadeBaseStart);
                     var rect2 = new Rectangle(rectangle2.X, rectangle2.Y, num, rectangle2.Height);
                     bxBuffer.Graphics.FillRectangle(brush2, rect2);
@@ -439,7 +439,7 @@ namespace MidsReborn.Controls
 
                     rect3.Height = rectangle2.Height;
                     brush = new LinearGradientBrush(rect3, pFadeEnhStart, pFadeEnhEnd, 0f);
-                    bxBuffer.Graphics.FillRectangle(brush, rect2);
+                    bxBuffer.Graphics.FillRectangle(brush, rect2);*/
                 }
                 else
                 {
@@ -588,7 +588,7 @@ namespace MidsReborn.Controls
         }
 
         // Token: 0x0600007A RID: 122 RVA: 0x00007516 File Offset: 0x00005716
-        private void ctlDamageDisplay_BackColorChanged(object sender, EventArgs e)
+        private void ctlDamageDisplay_BackColorChanged(object? sender, EventArgs e)
         {
             Draw();
         }

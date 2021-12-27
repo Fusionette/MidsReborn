@@ -60,7 +60,7 @@ namespace MidsReborn.Forms
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::MidsReborn.Properties.Resources.MRB_Concept;
+            this.pictureBox1.Image = global::MidsReborn.Resources.MRB_Concept;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(645, 432);

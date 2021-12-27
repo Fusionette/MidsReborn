@@ -229,7 +229,7 @@ namespace MidsReborn.Forms
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::MidsReborn.Properties.Resources.AncientScroll;
+            this.pictureBox1.Image = global::MidsReborn.Resources.AncientScroll;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
@@ -240,7 +240,7 @@ namespace MidsReborn.Forms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::MidsReborn.Properties.Resources.EnhancementCatalyst;
+            this.pictureBox2.Image = global::MidsReborn.Resources.EnhancementCatalyst;
             this.pictureBox2.Location = new System.Drawing.Point(222, 0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(32, 32);
@@ -251,7 +251,7 @@ namespace MidsReborn.Forms
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::MidsReborn.Properties.Resources.EnhancementBooster;
+            this.pictureBox3.Image = global::MidsReborn.Resources.EnhancementBooster;
             this.pictureBox3.Location = new System.Drawing.Point(370, 0);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);

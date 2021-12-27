@@ -297,14 +297,14 @@ namespace MidsReborn
 
         public static void MbRegister()
         {
-            try
+            /*try
             {
                 var client = new RestClient(BOT_API_ENDPOINT);
                 var request = new RestRequest("v2/users/register", Method.POST);
                 var regName = $"{MidsContext.GetCryptedValue("User", "username")}#{MidsContext.GetCryptedValue("User", "discriminator")}";
-                //var pass = RandomString.GetString(Types.ALPHABET_LOWERCASE_WITH_SYMBOLS, 25, false);
+                var pass = RandomString.GetString(Types.ALPHABET_LOWERCASE_WITH_SYMBOLS, 25, false);
                 request.AddParameter("username", regName);
-                //request.AddParameter("pass_token", pass);
+                request.AddParameter("pass_token", pass);
                 var response = client.Execute(request);
                 if (response.Content == "Bad Request" || response.Content == "User already exists")
                 {
@@ -312,14 +312,14 @@ namespace MidsReborn
                     return;
                 }
 
-                //var MBObject = new MidsBotUser { username = regName, pass_token = pass };
-                //var MBObjectSerialized = JsonConvert.SerializeObject(MBObject);
-                //var jMBObject = JsonConvert.DeserializeObject<MidsBotUser>(MBObjectSerialized);
+                var MBObject = new MidsBotUser { username = regName, pass_token = pass };
+                var MBObjectSerialized = JsonConvert.SerializeObject(MBObject);
+                var jMBObject = JsonConvert.DeserializeObject<MidsBotUser>(MBObjectSerialized);
                 var mbDict = new Dictionary<string, object>();
                 var properties = typeof(MidsBotUser).GetProperties();
                 foreach (var property in properties)
                 {
-                    //mbDict.Add(property.Name, property.GetValue(jMBObject, null));
+                    mbDict.Add(property.Name, property.GetValue(jMBObject, null));
                 }
 
                 MidsContext.ConfigSp.BotUser = mbDict;
@@ -329,7 +329,7 @@ namespace MidsReborn
             catch (Exception e)
             {
                 MessageBox.Show($"{e.Message}\r\n\r\n{e.StackTrace}\r\n\r\nIf you received this error, please reach out to the RebornTeam.", @"Registration Method Error");
-            }
+            }*/
 
         }
 

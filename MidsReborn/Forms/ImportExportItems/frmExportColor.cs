@@ -12,7 +12,7 @@ namespace MidsReborn.Forms.ImportExportItems
             Load += frmExportColor_Load;
             InitializeComponent();
             var componentResourceManager = new ComponentResourceManager(typeof(frmExportColor));
-            //Icon = Resources.reborn;
+            Icon = Resources.reborn;
             Name = nameof(frmExportColor);
             myScheme.Assign(iScheme);
         }

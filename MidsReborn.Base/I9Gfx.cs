@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
@@ -230,10 +231,7 @@ namespace MidsReborn.Base
 
         public static string ImagePath()
         {
-            //Debug.WriteLine($"{Directory.GetCurrentDirectory()}\\Images\\");
-            var asmLOC = Assembly.GetExecutingAssembly().Location;
-            var dirLOC = Directory.GetParent(asmLOC);
-            return $"{dirLOC}\\Images\\";
+            return $"{Application.StartupPath}Images\\";
         }
 
         public static void LoadClasses()
@@ -246,22 +244,26 @@ namespace MidsReborn.Base
             Classes.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             Classes.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             Classes.Graphics.PageUnit = GraphicsUnit.Pixel;
-            using (var extendedBitmap1 = new ExtendedBitmap(ImagePath() + "Overlay\\Class.png"))
+            var extendedBitmap1 = new ExtendedBitmap(ImagePath() + "Overlay\\Class.png");
+            for (var index = 0; index <= DatabaseAPI.Database.EnhancementClasses.Length - 1; ++index)
             {
-                for (var index = 0; index <= DatabaseAPI.Database.EnhancementClasses.Length - 1; ++index)
+                if (index >= 27)
                 {
-                    var x = index * 30;
-                    using var extendedBitmap2 = new ExtendedBitmap(ImagePath() + "Classes\\" +
-                                                                   DatabaseAPI.Database.EnhancementClasses[index].ID +
-                                                                   ".png");
-                    Classes.Graphics.DrawImageUnscaled(extendedBitmap1.Bitmap, x, 0);
-                    if ((extendedBitmap2.Size.Height > 30) | (extendedBitmap2.Size.Width > 30))
-                        Classes.Graphics.DrawImage(extendedBitmap2.Bitmap, x, 0, 30, 30);
-                    else
-                        Classes.Graphics.DrawImage(extendedBitmap2.Bitmap, x, 0);
+                    extendedBitmap1 = new ExtendedBitmap(ImagePath() + "Overlay\\Inc.png");
+                }
+                var x = index * 30;
+                using var extendedBitmap2 = new ExtendedBitmap(ImagePath() + "Classes\\" + DatabaseAPI.Database.EnhancementClasses[index].ID + ".png");
+                Classes.Graphics.DrawImageUnscaled(extendedBitmap1.Bitmap, x, 0);
+                if ((extendedBitmap2.Size.Height > 30) | (extendedBitmap2.Size.Width > 30))
+                {
+                    Classes.Graphics.DrawImage(extendedBitmap2.Bitmap, x, 0, 30, 30);
+                }
+                else
+                {
+                    Classes.Graphics.DrawImage(extendedBitmap2.Bitmap, x, 0);
                 }
             }
-
+            extendedBitmap1.Dispose();
             GC.Collect();
         }
 
