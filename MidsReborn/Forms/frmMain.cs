@@ -1402,7 +1402,6 @@ namespace MidsReborn.Forms
             pnlGFX.Height = (int)Math.Round(drawingArea.Height * scale);
             NoResizeEvent = false;
             drawing.FullRedraw();
-            //pnlGFXFlow.Invalidate();
             pnlGFX.Refresh();
             gfxDrawing = false;
 
@@ -1421,7 +1420,6 @@ namespace MidsReborn.Forms
             pnlGFXFlow.Width = clientWidth;
             pnlGFXFlow.Height = clientHeight;
             var drawingArea = drawing.GetDrawingArea();
-            Debug.WriteLine(drawingArea.Height);
             var drawingWidth = pnlGFXFlow.Width - 30;
             // Zed: fix for drawing area turning black if scale is >= 1
             var prevScale = prevDrawingWidth / (double)drawingArea.Width;
