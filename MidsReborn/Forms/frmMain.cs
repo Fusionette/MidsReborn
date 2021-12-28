@@ -1421,6 +1421,7 @@ namespace MidsReborn.Forms
             pnlGFXFlow.Width = clientWidth;
             pnlGFXFlow.Height = clientHeight;
             var drawingArea = drawing.GetDrawingArea();
+            Debug.WriteLine(drawingArea.Height);
             var drawingWidth = pnlGFXFlow.Width - 30;
             // Zed: fix for drawing area turning black if scale is >= 1
             var prevScale = prevDrawingWidth / (double)drawingArea.Width;
@@ -1428,15 +1429,7 @@ namespace MidsReborn.Forms
             NoResizeEvent = prevScale >= 1 & scale >= 1;
             if (NoResizeEvent & !forceResize) return;
             scale = Math.Min(scale, 1);
-            //var drawingHeight = (int)Math.Round(drawingArea.Height * scale);
-            int drawingHeight;
-            if (drawing.bxBuffer.Size.Height > pnlGFX.Height)
-                drawingHeight = 2400;
-            else
-                drawingHeight = (int)Math.Round(drawingArea.Height * scale);
-            pnlGFX.Width = drawingWidth;
-            pnlGFX.Height = drawingHeight;
-
+            pnlGFX.Size = drawingArea;
             drawing.bxBuffer.Size = pnlGFX.Size;
             Control pnlGfx = pnlGFX;
             drawing.ReInit(pnlGfx);
@@ -1444,8 +1437,6 @@ namespace MidsReborn.Forms
             pnlGFX.Image = drawing.bxBuffer.Bitmap;
             drawing.SetScaling(scale < 1 ? pnlGFX.Size : drawing.bxBuffer.Size);
             ReArrange(false);
-            //pnlGFX.Update();
-            //pnlGFX.Refresh();
             NoResizeEvent = true;
             DoRedraw();
         }
