@@ -1,6 +1,6 @@
 using System.Drawing.Imaging;
 
-namespace MidsReborn.Base.Base.Display
+namespace mrbBase.Base.Display
 {
     public class ExtendedBitmap : IDisposable, ICloneable
     {

@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Display;
+using mrbBase;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public partial class PairedList : UserControl
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     sealed partial class ctlEnhTabControl
     {

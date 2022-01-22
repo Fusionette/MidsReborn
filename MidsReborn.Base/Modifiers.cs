@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class Modifiers : ICloneable
     {

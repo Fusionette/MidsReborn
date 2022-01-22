@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public static class CSV
     {

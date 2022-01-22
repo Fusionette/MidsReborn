@@ -1,4 +1,4 @@
-﻿using MidsReborn.Controls;
+﻿using mrbControls;
 
 namespace MidsReborn.UIv2
 {

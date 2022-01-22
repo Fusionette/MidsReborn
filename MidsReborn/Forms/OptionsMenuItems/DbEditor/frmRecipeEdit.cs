@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Globalization;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Extensions;
 using MidsReborn.Forms.WindowMenuItems;
+using mrbBase;
+using mrbBase.Base.Extensions;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

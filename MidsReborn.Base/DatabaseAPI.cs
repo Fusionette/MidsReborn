@@ -1,13 +1,13 @@
 using System.Globalization;
 using System.IO.Compression;
 using System.Text;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.IO_Classes;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.IO_Classes;
+using mrbBase.Base.Master_Classes;
 using Newtonsoft.Json;
 using Zstandard.Net;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public static class DatabaseAPI
     {

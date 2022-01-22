@@ -1,8 +1,8 @@
 using System.Text;
 using FastDeepCloner;
-using MidsReborn.Base.Base.Data_Classes;
+using mrbBase.Base.Data_Classes;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class EnhancementSet
     {

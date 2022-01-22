@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using Syncfusion.Windows.Forms.Tools;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public sealed partial class ctlEnhTabControl : TabControlAdv
     {

@@ -3,10 +3,10 @@ using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Runtime.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Display;
+using mrbBase;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public class ctlDamageDisplay : UserControl
     {

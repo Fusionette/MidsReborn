@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Runtime.InteropServices;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class Zlib
     {

@@ -5,10 +5,10 @@ using System.Drawing.Text;
 using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Display;
+using mrbBase;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     // Token: 0x0200000C RID: 12
     [DefaultEvent("BarClick")]

@@ -1,6 +1,6 @@
-using MidsReborn.Base.Base.Data_Classes;
+using mrbBase.Base.Data_Classes;
 
-namespace MidsReborn.Base.Import
+namespace mrbBase.Import
 {
     public class EffectData
     {

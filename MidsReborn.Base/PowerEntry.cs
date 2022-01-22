@@ -1,6 +1,6 @@
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class PowerEntry : ICloneable
     {

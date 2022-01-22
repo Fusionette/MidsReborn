@@ -1,4 +1,4 @@
-﻿using MidsReborn.Base.Base.IO_Classes;
+﻿using mrbBase.Base.IO_Classes;
 using Timer = System.Windows.Forms.Timer;
 
 namespace MidsReborn.Forms

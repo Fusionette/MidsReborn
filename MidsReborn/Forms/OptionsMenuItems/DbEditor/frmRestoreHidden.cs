@@ -1,5 +1,5 @@
-﻿using MidsReborn.Base;
-using MidsReborn.Base.Base.Extensions;
+﻿using mrbBase;
+using mrbBase.Base.Extensions;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

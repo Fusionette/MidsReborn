@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public partial class ZStatus : Form
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     partial class PairedList
     {

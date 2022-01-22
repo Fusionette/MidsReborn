@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public partial class ctlLayeredBar : clsCustomBorderUC
     {

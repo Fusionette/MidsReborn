@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Globalization;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Master_Classes;
-using MidsReborn.Controls;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Master_Classes;
+using mrbControls;
 
 namespace MidsReborn.Forms.WindowMenuItems
 {

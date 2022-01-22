@@ -1,5 +1,5 @@
 using System.Runtime.CompilerServices;
-using MidsReborn.Base;
+using mrbBase;
 
 namespace MidsReborn.Forms
 {

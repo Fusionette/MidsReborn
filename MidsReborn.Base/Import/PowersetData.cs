@@ -1,4 +1,4 @@
-namespace MidsReborn.Base.Import
+namespace mrbBase.Import
 {
     public class PowersetData
     {

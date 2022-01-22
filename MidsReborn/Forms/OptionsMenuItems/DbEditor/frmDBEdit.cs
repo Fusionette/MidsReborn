@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Forms.JsonImport;
+using mrbBase;
+using mrbBase.Base.Master_Classes;
 using Newtonsoft.Json;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor

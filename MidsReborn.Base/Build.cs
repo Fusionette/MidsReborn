@@ -1,9 +1,9 @@
 using System.Text.RegularExpressions;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Display;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class Build
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace MidsReborn.Controls.My
+namespace mrbControls.My
 {
     // Token: 0x02000003 RID: 3
     [EditorBrowsable(EditorBrowsableState.Never)]

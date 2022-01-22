@@ -1,5 +1,5 @@
-﻿using MidsReborn.Base;
-using MidsReborn.Base.Base.Master_Classes;
+﻿using mrbBase;
+using mrbBase.Base.Master_Classes;
 
 namespace MidsReborn
 {

@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Extensions;
 using MidsReborn.Forms.OptionsMenuItems.DbEditor;
+using mrbBase;
+using mrbBase.Base.Extensions;
 
 //using Microsoft.VisualBasic;
 //using Microsoft.VisualBasic.CompilerServices;

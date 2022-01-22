@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public interface ISerialize
     {

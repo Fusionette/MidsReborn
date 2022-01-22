@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     partial class ListLabelV3
     {

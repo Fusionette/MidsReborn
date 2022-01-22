@@ -1,7 +1,7 @@
 using System.Drawing.Printing;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base.Base.Document_Classes
+namespace mrbBase.Base.Document_Classes
 {
     public class Print : IDisposable
     {

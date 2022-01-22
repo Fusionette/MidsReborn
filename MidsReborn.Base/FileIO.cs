@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public static class FileIO
     {

@@ -1,4 +1,4 @@
-﻿using MidsReborn.Base;
+﻿using mrbBase;
 using Newtonsoft.Json;
 
 namespace MidsReborn

@@ -2,9 +2,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Extensions;
+using mrbBase;
+using mrbBase.Base.Display;
+using mrbBase.Base.Extensions;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

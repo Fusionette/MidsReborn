@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public static class clsCustomBorderHandlers
     {

@@ -1,4 +1,4 @@
-﻿namespace MidsReborn.Controls
+﻿namespace mrbControls
 {
     public partial class ctlEnhPopupPanel : UserControl
     {

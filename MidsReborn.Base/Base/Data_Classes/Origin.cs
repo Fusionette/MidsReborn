@@ -1,4 +1,4 @@
-namespace MidsReborn.Base.Base.Data_Classes
+namespace mrbBase.Base.Data_Classes
 {
     public class Origin
     {

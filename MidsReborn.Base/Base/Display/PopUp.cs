@@ -1,4 +1,4 @@
-namespace MidsReborn.Base.Base.Display
+namespace mrbBase.Base.Display
 {
     public static class PopUp
     {

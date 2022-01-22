@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Jace;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public static class ExpressionParser
     {

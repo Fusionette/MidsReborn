@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Drawing.Printing;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Document_Classes;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase;
+using mrbBase.Base.Document_Classes;
+using mrbBase.Base.Master_Classes;
 
 namespace MidsReborn.Forms
 {

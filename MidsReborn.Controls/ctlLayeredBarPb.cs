@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Text;
 using FastDeepCloner;
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     #region BarData sub-class
     public class BarData

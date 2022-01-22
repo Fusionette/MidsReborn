@@ -1,6 +1,6 @@
-﻿using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Master_Classes;
-using MidsReborn.Controls;
+﻿using mrbBase.Base.Display;
+using mrbBase.Base.Master_Classes;
+using mrbControls;
 
 namespace MidsReborn.Forms
 {

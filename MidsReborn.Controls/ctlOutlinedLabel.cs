@@ -1,6 +1,6 @@
 ﻿using System.Drawing.Drawing2D;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public partial class ctlOutlinedLabel : Label
     {

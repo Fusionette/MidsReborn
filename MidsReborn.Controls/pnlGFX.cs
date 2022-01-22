@@ -1,4 +1,4 @@
-﻿namespace MidsReborn.Controls
+﻿namespace mrbControls
 {
     public class pnlGFX : PictureBox
     {

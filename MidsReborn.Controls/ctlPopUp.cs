@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Microsoft.VisualBasic.CompilerServices;
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     // Token: 0x02000013 RID: 19
     [DesignerGenerated]

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using MidsReborn.Base;
+using mrbBase;
 
 namespace MidsReborn.UIv2.v2Controls
 {

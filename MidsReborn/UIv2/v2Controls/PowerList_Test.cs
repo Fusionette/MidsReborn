@@ -2,8 +2,8 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Runtime.InteropServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
 
 namespace MidsReborn.UIv2.v2Controls
 {

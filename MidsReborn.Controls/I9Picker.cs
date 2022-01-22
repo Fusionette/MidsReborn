@@ -5,12 +5,12 @@ using System.Drawing.Text;
 using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Display;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public class I9Picker : UserControl
     {

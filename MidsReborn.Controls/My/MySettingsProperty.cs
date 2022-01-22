@@ -3,9 +3,8 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
-using mrbControls.My;
 
-namespace MidsReborn.Controls.My
+namespace mrbControls.My
 {
     // Token: 0x02000009 RID: 9
     [CompilerGenerated]

@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using MidsReborn.Base;
+using mrbBase;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

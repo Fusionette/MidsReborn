@@ -1,9 +1,9 @@
 using System.Globalization;
 using System.Text;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class I9Slot : ICloneable
     {

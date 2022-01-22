@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Display;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Display;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

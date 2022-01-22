@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Reflection;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public static class Files
     {

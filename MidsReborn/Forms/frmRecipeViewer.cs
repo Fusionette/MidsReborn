@@ -1,11 +1,11 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Extensions;
-using MidsReborn.Base.Base.Master_Classes;
-using MidsReborn.Controls;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Display;
+using mrbBase.Base.Extensions;
+using mrbBase.Base.Master_Classes;
+using mrbControls;
 
 namespace MidsReborn.Forms
 {

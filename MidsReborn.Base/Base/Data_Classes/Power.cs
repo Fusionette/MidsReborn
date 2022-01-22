@@ -1,6 +1,6 @@
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base.Base.Data_Classes
+namespace mrbBase.Base.Data_Classes
 {
     public class Power : IPower, IComparable
     {

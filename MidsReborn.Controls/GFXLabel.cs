@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Drawing.Text;
 using Microsoft.VisualBasic.CompilerServices;
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     // Token: 0x02000014 RID: 20
     public class GFXLabel : UserControl

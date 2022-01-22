@@ -2,11 +2,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using FastDeepCloner;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Extensions;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Display;
+using mrbBase.Base.Extensions;
+using mrbBase.Base.Master_Classes;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using MidsReborn.Controls;
+using mrbControls;
 
 namespace MidsReborn.Forms.OptionsMenuItems.DbEditor
 {

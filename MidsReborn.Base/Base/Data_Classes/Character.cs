@@ -1,9 +1,9 @@
 using System.Globalization;
 using FastDeepCloner;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Display;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Base.Base.Data_Classes
+namespace mrbBase.Base.Data_Classes
 {
     public class Character
     {

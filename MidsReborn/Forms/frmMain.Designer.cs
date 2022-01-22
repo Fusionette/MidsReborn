@@ -1,6 +1,6 @@
 using System.ComponentModel;
-using MidsReborn.Controls;
 using MidsReborn.Forms.Controls;
+using mrbControls;
 using Timer = System.Windows.Forms.Timer;
 
 namespace MidsReborn.Forms

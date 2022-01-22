@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using MidsReborn.Base;
+using mrbBase;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public partial class ctlCombo : ComboBox
     {

@@ -1,7 +1,7 @@
 ﻿using System.Drawing.Text;
 using System.Runtime.InteropServices;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public sealed partial class ctlColorList : ListBox
     {

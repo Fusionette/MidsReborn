@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase.Base.Master_Classes;
 
 namespace MidsReborn.Forms.UpdateSystem
 {

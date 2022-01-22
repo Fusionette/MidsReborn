@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using MidsReborn.Base;
+using mrbBase;
 
 namespace MidsReborn.Forms.ImportExportItems
 {

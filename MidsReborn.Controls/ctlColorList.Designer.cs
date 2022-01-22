@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     sealed partial class ctlColorList
     {

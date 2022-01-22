@@ -1,5 +1,5 @@
-﻿using MidsReborn.Base;
-using MidsReborn.Controls;
+﻿using mrbBase;
+using mrbControls;
 
 namespace MidsReborn.Forms.Controls
 {

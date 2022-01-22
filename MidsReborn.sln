@@ -8,9 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn", "MidsReborn\Mi
 		{F6C12A18-E2F7-48FF-921A-1754CE8EABA4} = {F6C12A18-E2F7-48FF-921A-1754CE8EABA4}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Controls", "MidsReborn.Controls\MidsReborn.Controls.csproj", "{9FF87007-5242-49D0-BEF0-33AADD0A6924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mrbControls", "MidsReborn.Controls\mrbControls.csproj", "{9FF87007-5242-49D0-BEF0-33AADD0A6924}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Base", "MidsReborn.Base\MidsReborn.Base.csproj", "{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mrbBase", "MidsReborn.Base\mrbBase.csproj", "{FF5AD21E-1C33-4B09-B05F-6C8B815D8236}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidsReborn.Updater", "MidsReborn.Updater\MidsReborn.Updater.csproj", "{F6C12A18-E2F7-48FF-921A-1754CE8EABA4}"
 	ProjectSection(ProjectDependencies) = postProject

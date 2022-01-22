@@ -1,6 +1,6 @@
-using MidsReborn.Base.Base.Data_Classes;
+using mrbBase.Base.Data_Classes;
 
-namespace MidsReborn.Base.Base.Master_Classes
+namespace mrbBase.Base.Master_Classes
 {
     public static class MidsContext
     {

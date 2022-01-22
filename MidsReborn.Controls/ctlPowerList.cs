@@ -1,9 +1,9 @@
 ﻿using System.Runtime.InteropServices;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using static MidsReborn.Controls.ctlPowerList;
+using mrbBase;
+using mrbBase.Base.Data_Classes;
+using static mrbControls.ctlPowerList;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public sealed partial class ctlPowerList : ListBox
     {

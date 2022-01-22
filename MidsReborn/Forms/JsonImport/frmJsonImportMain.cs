@@ -1,5 +1,5 @@
-﻿using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
+﻿using mrbBase;
+using mrbBase.Base.Data_Classes;
 using Newtonsoft.Json;
 
 namespace MidsReborn.Forms.JsonImport

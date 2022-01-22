@@ -1,9 +1,9 @@
 using System.Text.RegularExpressions;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Extensions;
-using MidsReborn.Base.Base.Master_Classes;
-using MidsReborn.Controls;
+using mrbBase;
+using mrbBase.Base.Display;
+using mrbBase.Base.Extensions;
+using mrbBase.Base.Master_Classes;
+using mrbControls;
 using Timer = System.Windows.Forms.Timer;
 
 namespace MidsReborn.Forms.WindowMenuItems

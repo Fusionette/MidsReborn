@@ -1,12 +1,10 @@
-using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using System.Reflection;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Data_Classes;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public static class I9Gfx
     {

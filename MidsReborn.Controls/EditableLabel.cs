@@ -1,7 +1,7 @@
 ﻿
 
 // https://stackoverflow.com/questions/2309662/editable-label-controls
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public partial class EditableLabel : Form
     {

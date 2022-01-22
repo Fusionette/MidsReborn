@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Master_Classes;
 using MidsReborn.Forms;
+using mrbBase;
+using mrbBase.Base.Master_Classes;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;

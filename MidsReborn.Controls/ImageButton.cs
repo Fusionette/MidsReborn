@@ -4,9 +4,9 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using Microsoft.VisualBasic.CompilerServices;
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     // Token: 0x0200001C RID: 28
     [DefaultEvent("ButtonClicked")]

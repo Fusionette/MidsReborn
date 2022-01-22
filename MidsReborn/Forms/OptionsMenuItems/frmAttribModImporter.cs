@@ -1,6 +1,6 @@
-﻿using MidsReborn.Base;
-using MidsReborn.Base.Base.Data_Classes;
-using MidsReborn.Controls;
+﻿using mrbBase;
+using mrbBase.Base.Data_Classes;
+using mrbControls;
 using Newtonsoft.Json;
 
 namespace MidsReborn.Forms.OptionsMenuItems

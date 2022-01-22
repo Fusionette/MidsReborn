@@ -2,11 +2,11 @@ using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using MidsReborn.Base;
-using MidsReborn.Base.Base.Display;
-using MidsReborn.Base.Base.Master_Classes;
+using mrbBase;
+using mrbBase.Base.Display;
+using mrbBase.Base.Master_Classes;
 
-namespace MidsReborn.Controls
+namespace mrbControls
 {
     public class clsDrawX
     {

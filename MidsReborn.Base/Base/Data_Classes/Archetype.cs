@@ -1,6 +1,6 @@
-using MidsReborn.Base.Base.Display;
+using mrbBase.Base.Display;
 
-namespace MidsReborn.Base.Base.Data_Classes
+namespace mrbBase.Base.Data_Classes
 {
     public class Archetype : IComparable
     {

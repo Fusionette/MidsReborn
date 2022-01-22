@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MidsReborn.Base\MidsReborn.Base.csproj" />
+    <ProjectReference Include="..\MidsReborn.Base\mrbBase.csproj" />
   </ItemGroup>
 
 </Project>

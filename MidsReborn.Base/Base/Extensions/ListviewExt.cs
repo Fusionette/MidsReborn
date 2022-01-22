@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace MidsReborn.Base.Base.Extensions
+namespace mrbBase.Base.Extensions
 {
     public static class ListviewExt
     {

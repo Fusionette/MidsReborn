@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Microsoft.VisualBasic.Devices;
 
-namespace MidsReborn.Controls.My
+namespace mrbControls.My
 {
     // Token: 0x02000004 RID: 4
     [GeneratedCode("MyTemplate", "8.0.0.0")]

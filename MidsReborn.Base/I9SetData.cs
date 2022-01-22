@@ -1,4 +1,4 @@
-namespace MidsReborn.Base
+namespace mrbBase
 {
     public class I9SetData
     {
