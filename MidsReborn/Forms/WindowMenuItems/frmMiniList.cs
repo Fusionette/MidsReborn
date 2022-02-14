@@ -7,11 +7,11 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 {
     public partial class frmMiniList : Form
     {
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         internal ctlPopUp PInfo;
         private VScrollBar VScrollBar1;
 
-        public frmMiniList(frmMain iParent)
+        public frmMiniList(FrmMain2 iParent)
         {
             FormClosed += frmMiniList_FormClosed;
             ResizeEnd += frmMiniList_ResizeEnd;

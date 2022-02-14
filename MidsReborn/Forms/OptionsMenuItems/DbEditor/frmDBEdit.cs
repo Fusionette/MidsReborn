@@ -258,7 +258,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             gcmEditor.ShowDialog();
         }
 
-        private readonly frmMain _frmMain;
+        private readonly FrmMain2 _frmMain;
 
         private void button1_Click(object sender, EventArgs e)
         {

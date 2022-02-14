@@ -18,7 +18,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             public bool Played;
         }
 
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
 
         private ExtendedBitmap bxRecipe;
         private ColumnHeader chAnimation;
@@ -58,7 +58,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
         private EE _EE;
 
-        public frmDPSCalc(frmMain iParent)
+        public frmDPSCalc(FrmMain2 iParent)
         {
             FormClosed += frmDPSCalc_FormClosed;
             Load += frmDPSCalc_Load;

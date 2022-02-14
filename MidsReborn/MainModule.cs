@@ -36,7 +36,7 @@ namespace Mids_Reborn
                 bFrm = null;
             }
 
-            private static void BusyMsg(ref frmMain iFrm, string sMessage, string sTitle = "")
+            private static void BusyMsg(ref FrmMain2 iFrm, string sMessage, string sTitle = "")
             {
                 var bFrm = new frmBusy();
                 if (!string.IsNullOrWhiteSpace(sTitle))

@@ -545,9 +545,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
-    <Compile Include="Forms\frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="clsOutput.cs" />
@@ -612,9 +609,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmInputLevel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\WindowMenuItems\frmMiniList.cs">
@@ -720,9 +714,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmInputLevel.resx">
       <DependentUpon>FrmInputLevel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WindowMenuItems\frmMiniList.resx">
       <DependentUpon>frmMiniList.cs</DependentUpon>

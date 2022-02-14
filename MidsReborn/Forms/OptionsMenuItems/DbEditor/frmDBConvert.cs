@@ -12,14 +12,14 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class frmDBConvert : Form
     {
-        private frmMain _myParent;
+        private FrmMain2 _myParent;
         private string SourcePath { get; set; }
         private string DestinationPath { get; set; }
         private List<string> SourceFiles { get; set; }
         private List<string> DestinationFiles { get; set; }
 
 
-        public frmDBConvert(ref frmMain iParent)
+        public frmDBConvert(ref FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
             Load += On_Load;

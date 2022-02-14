@@ -7,9 +7,9 @@ namespace Mids_Reborn.Forms
 {
     public partial class frmFloatingStats : Form
     {
-        private readonly frmMain myOwner;
+        private readonly FrmMain2 myOwner;
 
-        public frmFloatingStats(frmMain iOwner)
+        public frmFloatingStats(FrmMain2 iOwner)
         {
             InitializeComponent();
             Load += frmFloatingStats_Load;

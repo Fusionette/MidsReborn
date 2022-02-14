@@ -16,7 +16,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems
     {
         private readonly clsOAuth clsOAuth;
         private readonly short[] defActs;
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         private readonly string[][] scenActs;
 
         private readonly string[] scenarioExample;
@@ -26,7 +26,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems
 
         private bool fcNoUpdate;
 
-        public frmCalcOpt(ref frmMain iParent)
+        public frmCalcOpt(ref FrmMain2 iParent)
         {
             Load += frmCalcOpt_Load;
             Closing += frmCalcOpt_Closing;

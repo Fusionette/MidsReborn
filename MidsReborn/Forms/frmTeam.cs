@@ -10,11 +10,11 @@ namespace Mids_Reborn.Forms
 {
     public partial class FrmTeam : Form
     {
-        private readonly frmMain _myParent;
+        private readonly FrmMain2 _myParent;
         private const int MaxMembers = 7;
         private int TotalMembers { get; set; }
 
-        public FrmTeam(ref frmMain iParent)
+        public FrmTeam(ref FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
             Load += frmTeam_OnLoad;

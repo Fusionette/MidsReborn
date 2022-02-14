@@ -16,11 +16,11 @@ namespace Mids_Reborn.Forms.WindowMenuItems
     public partial class frmIncarnates : Form
     {
         private readonly ImageButton[] buttonArray;
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         private IPower[] myPowers;
         private bool Locked;
 
-        public frmIncarnates(ref frmMain iParent)
+        public frmIncarnates(ref FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
             CenterToParent();

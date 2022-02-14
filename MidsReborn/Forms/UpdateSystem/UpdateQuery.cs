@@ -6,7 +6,7 @@ namespace Mids_Reborn.Forms.UpdateSystem
     public partial class UpdateQuery : Form
     {
         public string Type  { get; set; }
-        public UpdateQuery(frmMain parent)
+        public UpdateQuery(FrmMain2 parent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
             Load += OnQuery_Load;

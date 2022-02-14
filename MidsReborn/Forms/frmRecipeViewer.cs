@@ -17,7 +17,7 @@ namespace Mids_Reborn.Forms
     public partial class frmRecipeViewer : Form
     {
         private readonly ExtendedBitmap bxRecipe;
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
 
         private ImageButton ibClipboard;
         private ImageButton ibClose;
@@ -29,7 +29,7 @@ namespace Mids_Reborn.Forms
         private int nonRecipeCount;
         private ctlPopUp RecipeInfo;
 
-        public frmRecipeViewer(frmMain iParent)
+        public frmRecipeViewer(FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             FormClosed += frmRecipeViewer_FormClosed;

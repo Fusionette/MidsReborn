@@ -14,7 +14,7 @@ namespace Mids_Reborn.Forms
 {
     public partial class frmDiscord : Form
     {
-        private readonly frmMain _myParent;
+        private readonly FrmMain2 _myParent;
         private int checkedCount;
         private Dictionary<string, List<string>> SelectedStats { get; set; }
         private List<string> defList { get; set; }
@@ -32,7 +32,7 @@ namespace Mids_Reborn.Forms
             checkedCount = value;
         }
 
-        public frmDiscord(ref frmMain iParent)
+        public frmDiscord(ref FrmMain2 iParent)
         {
             InitializeComponent();
             SetStyle(

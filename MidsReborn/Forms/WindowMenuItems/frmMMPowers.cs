@@ -16,7 +16,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 {
     public partial class frmMMPowers : Form
     {
-        private readonly frmMain _myParent;
+        private readonly FrmMain2 _myParent;
 
         private bool _locked;
 
@@ -39,7 +39,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
         private VScrollBar VScrollBar1;
 
-        public frmMMPowers(frmMain iParent, List<string> PetPowersList)
+        public frmMMPowers(FrmMain2 iParent, List<string> PetPowersList)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
             CenterToParent();

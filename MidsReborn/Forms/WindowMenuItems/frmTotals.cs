@@ -37,12 +37,12 @@ namespace Mids_Reborn.Forms.WindowMenuItems
         bool _keepOnTop;
         bool _loaded;
 
-        readonly frmMain _myParent;
+        readonly FrmMain2 _myParent;
 
         int _tabPage;
 
 
-        public frmTotals(ref frmMain iParent)
+        public frmTotals(ref FrmMain2 iParent)
         {
             FormClosed += FrmTotalsFormClosed;
             Load += FrmTotalsLoad;

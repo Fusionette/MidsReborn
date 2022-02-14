@@ -56,7 +56,7 @@ namespace Mids_Reborn.Forms.UpdateSystem
             }
         }
 
-        public static void CheckUpdate(frmMain parent)
+        public static void CheckUpdate(FrmMain2 parent)
         {
             if (AppUpdate.IsAvailable)
             {

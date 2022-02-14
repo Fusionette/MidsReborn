@@ -11,12 +11,12 @@ namespace Mids_Reborn.Forms.UpdateSystem
 {
     public partial class PatchNotes : Form
     {
-        private readonly frmMain _parent;
+        private readonly FrmMain2 _parent;
         private bool ReadNotes { get; set; }
         public string Type { get; set; }
         public string Version { get; set; }
         private string ChangeLog { get; set; }
-        public PatchNotes(frmMain parent, bool notes)
+        public PatchNotes(FrmMain2 parent, bool notes)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             ReadNotes = notes;

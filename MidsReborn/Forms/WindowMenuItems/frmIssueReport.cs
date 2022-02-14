@@ -15,7 +15,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 {
     public partial class frmIssueReport : Form
     {
-        private readonly frmMain _myParent;
+        private readonly FrmMain2 _myParent;
 
         private string _operatingSystem;
         private string _issueType;
@@ -29,7 +29,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
         private string _selectedIssueType;
         private readonly List<string> _issueTypes = new() { "app-bug", "content-bug", "feature-request" };
 
-        public frmIssueReport(ref frmMain iParent)
+        public frmIssueReport(ref FrmMain2 iParent)
         {
             _myParent = iParent;
             Load += frmIssueReport_Load;

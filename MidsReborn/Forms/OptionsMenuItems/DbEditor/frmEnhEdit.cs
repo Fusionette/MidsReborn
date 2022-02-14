@@ -15,7 +15,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
     public partial class frmEnhEdit : Form
     {
         private frmBusy _bFrm;
-        private frmMain _frmMain;
+        private FrmMain2 _frmMain;
 
         public frmEnhEdit()
         {
@@ -212,7 +212,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             DatabaseAPI.MatchAllIDs();
             Task.Delay(1000).Wait();
             DatabaseAPI.SaveMainDatabase(serializer, MidsContext.Config.DataPath);
-            frmMain.MainInstance.UpdateTitle();
+            FrmMain2.MainInstance.UpdateTitle();
             BusyHide();
             DialogResult = DialogResult.OK;
             Hide();

@@ -30,7 +30,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
             public readonly Color VillainActiveTabColor = Color.FromArgb(184, 184, 187);
         }
 
-        private readonly frmMain _myParent;
+        private readonly FrmMain2 _myParent;
         private bool KeepOnTop { get; set; }
         private readonly TabColorScheme _tabColors = new TabColorScheme();
         private IEnumerable<ctlLayeredBarPb> _barsList;
@@ -119,7 +119,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
 
         #endregion
 
-        public frmTotalsV2(ref frmMain iParent)
+        public frmTotalsV2(ref FrmMain2 iParent)
         {
             try
             {

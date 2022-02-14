@@ -59,7 +59,7 @@ namespace Mids_Reborn.Forms.UpdateSystem
             }
         }
 
-        public static void InitiateQuery(frmMain parent)
+        public static void InitiateQuery(FrmMain2 parent)
         {
             if (!Mandatory)
             {

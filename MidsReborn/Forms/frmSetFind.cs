@@ -30,7 +30,7 @@ namespace Mids_Reborn.Forms
             }
         }
 
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
 
         private ImageButton ibClose;
         private ImageButton ibTopmost;
@@ -43,7 +43,7 @@ namespace Mids_Reborn.Forms
         // Dictionary<fxIdentifier, Dictionary<effectMagString, List<KeyValuePair<setNID, BonusID>>>>
         private Dictionary<fxIdentifier, Dictionary<string, List<KeyValuePair<int, int>>>> EffectsMap;
 
-        public frmSetFind(frmMain iParent)
+        public frmSetFind(FrmMain2 iParent)
         {
             FormClosed += frmSetFind_FormClosed;
             Load += frmSetFind_Load;

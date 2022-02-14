@@ -442,7 +442,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
         }
         #endregion
 
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         private ImageButton btnClose;
         private ImageButton btnSmall;
         private ImageButton chkOnTop;
@@ -463,7 +463,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
         private readonly List<BarSettings> EffectListOrder;
 
 
-        public frmSetViewer(frmMain iParent)
+        public frmSetViewer(FrmMain2 iParent)
         {
             Move += frmSetViewer_Move;
             FormClosed += frmSetViewer_FormClosed;

@@ -7,10 +7,10 @@ namespace Mids_Reborn.Forms
 {
     public partial class frmBuildSalvageHud : Form
     {
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         private bool executeOnCloseUpdates = true;
 
-        public frmBuildSalvageHud(frmMain iParent)
+        public frmBuildSalvageHud(FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             InitializeComponent();

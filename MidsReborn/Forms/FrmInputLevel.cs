@@ -11,9 +11,9 @@ namespace Mids_Reborn.Forms
 
         private readonly bool mode2;
 
-        private readonly frmMain myparent;
+        private readonly FrmMain2 myparent;
 
-        public FrmInputLevel(frmMain iParent, bool iLF, bool iMode2)
+        public FrmInputLevel(FrmMain2 iParent, bool iLF, bool iMode2)
         {
             InitializeComponent();
             Name = nameof(FrmInputLevel);

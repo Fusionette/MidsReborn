@@ -13,7 +13,7 @@ namespace Mids_Reborn.Forms
 {
     public partial class frmStats : Form
     {
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
 
         private IPower[] BaseArray;
         private bool BaseOverride;
@@ -40,7 +40,7 @@ namespace Mids_Reborn.Forms
         private TrackBar tbScaleX;
         private ToolTip tTip;
 
-        public frmStats(ref frmMain iParent)
+        public frmStats(ref FrmMain2 iParent)
         {
             FormClosed += frmStats_FormClosed;
             Load += frmStats_Load;

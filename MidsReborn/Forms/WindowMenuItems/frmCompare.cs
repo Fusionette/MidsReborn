@@ -14,7 +14,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
     public partial class frmCompare : Form
     {
         private readonly string[] DisplayValueStrings;
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         private readonly IPower[][] Powers;
         private readonly string[][] Tips;
         private readonly float[][] Values;
@@ -43,7 +43,7 @@ namespace Mids_Reborn.Forms.WindowMenuItems
         private TrackBar tbScaleX;
         private ToolTip tTip;
 
-        public frmCompare(ref frmMain iFrm)
+        public frmCompare(ref FrmMain2 iFrm)
         {
             Load += frmCompare_Load;
             KeyDown += frmCompare_KeyDown;

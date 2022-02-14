@@ -18,7 +18,7 @@ namespace Mids_Reborn.Forms
     public partial class frmIncarnate : Form
     {
         private readonly ImageButton[] buttonArray;
-        private readonly frmMain myParent;
+        private readonly FrmMain2 myParent;
         private ImageButton alphaBtn;
 
         private ImageButton destinyBtn;
@@ -56,7 +56,7 @@ namespace Mids_Reborn.Forms
 
         private VScrollBar VScrollBar1;
 
-        public frmIncarnate(ref frmMain iParent)
+        public frmIncarnate(ref FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
             CenterToParent();

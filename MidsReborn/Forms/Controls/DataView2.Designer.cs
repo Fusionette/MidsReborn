@@ -1204,14 +1204,14 @@
         #endregion
 
         private mrbControls.ctlEnhTabControl tabBox;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv1;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv2;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv3;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv4;
+        public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv1;
+        public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv2;
+        public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv3;
+        public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv4;
         private System.Windows.Forms.Label infoTabTitle;
         private System.Windows.Forms.RichTextBox richInfoLarge;
         private System.Windows.Forms.RichTextBox richInfoSmall;
-        private mrbControls.ctlDamageDisplay ctlDamageDisplay1;
+        public mrbControls.ctlDamageDisplay ctlDamageDisplay1;
         private System.Windows.Forms.Label lblDamage;
         private System.Windows.Forms.Label lblEffectsBlock3;
         private System.Windows.Forms.Label lblEffectsBlock2;
@@ -1234,7 +1234,7 @@
         private System.Windows.Forms.ListView listInfosL;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv5;
+        public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv5;
         private System.Windows.Forms.Label scalesTabTitle;
         private System.Windows.Forms.Panel panelPowerScaler3;
         private System.Windows.Forms.Label lblPowerScaler3;

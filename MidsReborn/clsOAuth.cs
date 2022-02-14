@@ -20,7 +20,7 @@ namespace Mids_Reborn
         private const string API_ENDPOINT = "https://discord.com/api";
         private const string REDIRECT_URI = "http://localhost:60403";
         private const string SCOPE = "identify guilds";
-        private static frmMain frmMain;
+        private static FrmMain2 FrmMain2;
 
         public static void InitiateListener()
         {

@@ -13,7 +13,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
 {
     public partial class FrmGCMEditor : Form
     {
-        private readonly frmMain _myParent;
+        private readonly FrmMain2 _myParent;
         private frmBusy _bFrm;
 
 		private void BusyHide()
@@ -28,7 +28,7 @@ namespace Mids_Reborn.Forms.OptionsMenuItems.DbEditor
             _bFrm.Show(this);
         }
 
-		public FrmGCMEditor(ref frmMain iParent)
+		public FrmGCMEditor(ref FrmMain2 iParent)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
             Load += frmGCMEditor_Load;
