@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -1749,6 +1750,7 @@ namespace Mids_Reborn.Forms.Controls
 
         private void tabBox_TabIndexChanged(object sender, EventArgs e)
         {
+            Debug.WriteLine($"tabBox_TabIndexChanged(tab={tabBox.TabIndex})");
             switch (tabBox.TabIndex)
             {
                 case 0:
@@ -1806,6 +1808,11 @@ namespace Mids_Reborn.Forms.Controls
         private void skglEnh_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             e.Surface.Canvas.Clear(SKColors.Black);
+            if (_flipAnimator == null)
+            {
+                return;
+            }
+
             for (var i = 0; i < Math.Max(_flipAnimator.NbEnhMain, _flipAnimator.NbEnhAlt); i++)
             {
                 var skImage = FlipAnimator.Bitmaps.DrawSingle(

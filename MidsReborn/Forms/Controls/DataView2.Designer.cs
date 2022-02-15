@@ -136,7 +136,7 @@
             this.tabBox.TabIndex = 0;
             this.tabBox.TabPanelBackColor = System.Drawing.Color.Black;
             this.tabBox.TabStyle = typeof(Syncfusion.Windows.Forms.Tools.TabRenderer2D);
-            this.tabBox.Text = "INFO";
+            this.tabBox.Text = "SCALES";
             this.tabBox.ThemeName = "TabRenderer2D";
             this.tabBox.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabBox.UseMnemonic = false;
@@ -156,10 +156,10 @@
             this.tabPageAdv1.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv1.Image = null;
             this.tabPageAdv1.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv1.Location = new System.Drawing.Point(0, 21);
+            this.tabPageAdv1.Location = new System.Drawing.Point(0, -1);
             this.tabPageAdv1.Name = "tabPageAdv1";
             this.tabPageAdv1.ShowCloseButton = true;
-            this.tabPageAdv1.Size = new System.Drawing.Size(360, 379);
+            this.tabPageAdv1.Size = new System.Drawing.Size(360, 401);
             this.tabPageAdv1.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
             this.tabPageAdv1.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv1.TabForeColor = System.Drawing.Color.White;
@@ -332,10 +332,10 @@
             this.tabPageAdv2.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv2.Image = null;
             this.tabPageAdv2.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv2.Location = new System.Drawing.Point(0, 21);
+            this.tabPageAdv2.Location = new System.Drawing.Point(0, -1);
             this.tabPageAdv2.Name = "tabPageAdv2";
             this.tabPageAdv2.ShowCloseButton = true;
-            this.tabPageAdv2.Size = new System.Drawing.Size(360, 379);
+            this.tabPageAdv2.Size = new System.Drawing.Size(360, 401);
             this.tabPageAdv2.TabBackColor = System.Drawing.Color.Indigo;
             this.tabPageAdv2.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv2.TabForeColor = System.Drawing.Color.White;
@@ -605,10 +605,10 @@
             this.tabPageAdv3.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv3.Image = null;
             this.tabPageAdv3.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv3.Location = new System.Drawing.Point(0, 21);
+            this.tabPageAdv3.Location = new System.Drawing.Point(0, -1);
             this.tabPageAdv3.Name = "tabPageAdv3";
             this.tabPageAdv3.ShowCloseButton = true;
-            this.tabPageAdv3.Size = new System.Drawing.Size(360, 379);
+            this.tabPageAdv3.Size = new System.Drawing.Size(360, 401);
             this.tabPageAdv3.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
             this.tabPageAdv3.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv3.TabForeColor = System.Drawing.Color.White;
@@ -783,10 +783,10 @@
             this.tabPageAdv4.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv4.Image = null;
             this.tabPageAdv4.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv4.Location = new System.Drawing.Point(0, 21);
+            this.tabPageAdv4.Location = new System.Drawing.Point(0, -1);
             this.tabPageAdv4.Name = "tabPageAdv4";
             this.tabPageAdv4.ShowCloseButton = true;
-            this.tabPageAdv4.Size = new System.Drawing.Size(360, 379);
+            this.tabPageAdv4.Size = new System.Drawing.Size(360, 401);
             this.tabPageAdv4.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
             this.tabPageAdv4.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv4.TabForeColor = System.Drawing.Color.White;
@@ -867,10 +867,10 @@
             this.tabPageAdv5.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv5.Image = null;
             this.tabPageAdv5.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv5.Location = new System.Drawing.Point(0, 21);
+            this.tabPageAdv5.Location = new System.Drawing.Point(0, -1);
             this.tabPageAdv5.Name = "tabPageAdv5";
             this.tabPageAdv5.ShowCloseButton = true;
-            this.tabPageAdv5.Size = new System.Drawing.Size(360, 379);
+            this.tabPageAdv5.Size = new System.Drawing.Size(360, 401);
             this.tabPageAdv5.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
             this.tabPageAdv5.TabIndex = 5;
             this.tabPageAdv5.Text = "SCALES";
@@ -1203,7 +1203,7 @@
 
         #endregion
 
-        private mrbControls.ctlEnhTabControl tabBox;
+        public mrbControls.ctlEnhTabControl tabBox;
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv1;
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv2;
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv3;
