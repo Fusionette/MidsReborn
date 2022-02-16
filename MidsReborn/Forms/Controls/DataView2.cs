@@ -1244,7 +1244,7 @@ namespace Mids_Reborn.Forms.Controls
 
         public DataView2()
         {
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
         }
 
@@ -1748,7 +1748,7 @@ namespace Mids_Reborn.Forms.Controls
 
         #region Event callbacks
 
-        private void tabBox_TabIndexChanged(object sender, EventArgs e)
+        protected void tabBox_TabIndexChanged(object sender, EventArgs e)
         {
             Debug.WriteLine($"tabBox_TabIndexChanged(tab={tabBox.TabIndex})");
             switch (tabBox.TabIndex)
@@ -1785,7 +1785,7 @@ namespace Mids_Reborn.Forms.Controls
             }
         }
 
-        private void powerScaler_ValueChanged(object sender, EventArgs e)
+        protected void powerScaler_ValueChanged(object sender, EventArgs e)
         {
             var target = (ColorSlider)sender;
 
@@ -1805,7 +1805,7 @@ namespace Mids_Reborn.Forms.Controls
 
         #endregion
 
-        private void skglEnh_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
+        protected void skglEnh_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             e.Surface.Canvas.Clear(SKColors.Black);
             if (_flipAnimator == null)
@@ -1823,7 +1823,7 @@ namespace Mids_Reborn.Forms.Controls
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        protected void timer1_Tick(object sender, EventArgs e)
         {
             if (_flipAnimator.Angle >= _flipAnimator.FullCycleAngle)
             {
@@ -1841,7 +1841,7 @@ namespace Mids_Reborn.Forms.Controls
             }
         }
 
-        private void skglControl_Click(object sender, EventArgs e)
+        protected void skglControl_Click(object sender, EventArgs e)
         {
             if (_flipAnimator.Active)
             {
@@ -1852,7 +1852,7 @@ namespace Mids_Reborn.Forms.Controls
             timer1.Start();
         }
 
-        private void skglScalesGraph_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
+        protected void skglScalesGraph_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             var target = (SKGLControl)sender;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -11,7 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Mids_Reborn.Forms.Controls;
@@ -25,7 +23,6 @@ using mrbBase.Base.Data_Classes;
 using mrbBase.Base.Display;
 using mrbBase.Base.Master_Classes;
 using mrbControls;
-using DataView = System.Data.DataView;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Mids_Reborn.Forms
@@ -180,7 +177,8 @@ namespace Mids_Reborn.Forms
 
         private void InitializeDv()
         {
-            Info_Power(llPrimary.Items[0].nIDPower);
+            // Change all DV2 control sizes. Do not use.
+            //Info_Power(llPrimary.Items[0].nIDPower);
         }
 
         private I9Picker I9Picker
@@ -443,10 +441,7 @@ namespace Mids_Reborn.Forms
                     tsAdvFreshInstall.Visible = true;
                     tsAdvResetTips.Visible = true;
                 }
-                Show();
-                _frmInitializing.Hide();
-                _frmInitializing.Close();
-                Refresh();
+                
                 //dvAnchored.SetScreenBounds(ClientRectangle);
                 var iLocation = new Point();
                 ref var local = ref iLocation;
@@ -462,7 +457,7 @@ namespace Mids_Reborn.Forms
                 UpdateControls(true);
                 setColumns(MidsContext.Config.Columns < 1 ? 3 : MidsContext.Config.Columns);
                 //UpdatePoolsPanelSize();
-                InitializeDv();
+                //InitializeDv();
                 if (this.IsInDesignMode())
                     return;
                 /*if (MidsContext.Config.CheckForUpdates)
@@ -475,6 +470,11 @@ namespace Mids_Reborn.Forms
                     WindowState = FormWindowState.Maximized;
                     LastState = FormWindowState.Maximized;
                 }
+
+                _frmInitializing.Hide();
+                _frmInitializing.Close();
+                Show();
+                //Refresh();
             }
             catch (Exception ex)
             {

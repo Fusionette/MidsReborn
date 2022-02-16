@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using mrbControls;
-using TabSizeMode = Syncfusion.Windows.Forms.Tools.TabSizeMode;
 
 namespace Mids_Reborn.Forms
 {

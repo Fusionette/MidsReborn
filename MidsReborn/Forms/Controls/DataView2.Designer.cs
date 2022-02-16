@@ -119,16 +119,20 @@
             this.tabBox.ActiveTabOutlineWidth = 2F;
             this.tabBox.BeforeTouchSize = new System.Drawing.Size(360, 400);
             this.tabBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tabBox.CanApplyTheme = false;
             this.tabBox.Controls.Add(this.tabPageAdv1);
             this.tabBox.Controls.Add(this.tabPageAdv2);
             this.tabBox.Controls.Add(this.tabPageAdv3);
             this.tabBox.Controls.Add(this.tabPageAdv4);
             this.tabBox.Controls.Add(this.tabPageAdv5);
-            this.tabBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabBox.EnableOutline = true;
+            this.tabBox.FixedSingleBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabBox.FocusOnTabClick = false;
+            this.tabBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tabBox.InactiveTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(33)))), ((int)(((byte)(59)))));
             this.tabBox.InactiveTabOutlineColor = System.Drawing.Color.Black;
             this.tabBox.InactiveTabOutlineWidth = 2F;
+            this.tabBox.ItemSize = new System.Drawing.Size(64, 22);
             this.tabBox.Location = new System.Drawing.Point(0, 0);
             this.tabBox.Name = "tabBox";
             this.tabBox.ShowScroll = false;
@@ -136,7 +140,7 @@
             this.tabBox.TabIndex = 0;
             this.tabBox.TabPanelBackColor = System.Drawing.Color.Black;
             this.tabBox.TabStyle = typeof(Syncfusion.Windows.Forms.Tools.TabRenderer2D);
-            this.tabBox.Text = "SCALES";
+            this.tabBox.Text = "ENHANCE";
             this.tabBox.ThemeName = "TabRenderer2D";
             this.tabBox.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabBox.UseMnemonic = false;
@@ -156,10 +160,10 @@
             this.tabPageAdv1.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv1.Image = null;
             this.tabPageAdv1.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv1.Location = new System.Drawing.Point(0, -1);
+            this.tabPageAdv1.Location = new System.Drawing.Point(0, 21);
             this.tabPageAdv1.Name = "tabPageAdv1";
             this.tabPageAdv1.ShowCloseButton = true;
-            this.tabPageAdv1.Size = new System.Drawing.Size(360, 401);
+            this.tabPageAdv1.Size = new System.Drawing.Size(360, 379);
             this.tabPageAdv1.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
             this.tabPageAdv1.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv1.TabForeColor = System.Drawing.Color.White;
@@ -332,10 +336,10 @@
             this.tabPageAdv2.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv2.Image = null;
             this.tabPageAdv2.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv2.Location = new System.Drawing.Point(0, -1);
+            this.tabPageAdv2.Location = new System.Drawing.Point(0, 21);
             this.tabPageAdv2.Name = "tabPageAdv2";
             this.tabPageAdv2.ShowCloseButton = true;
-            this.tabPageAdv2.Size = new System.Drawing.Size(360, 401);
+            this.tabPageAdv2.Size = new System.Drawing.Size(360, 379);
             this.tabPageAdv2.TabBackColor = System.Drawing.Color.Indigo;
             this.tabPageAdv2.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv2.TabForeColor = System.Drawing.Color.White;
@@ -605,10 +609,10 @@
             this.tabPageAdv3.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv3.Image = null;
             this.tabPageAdv3.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv3.Location = new System.Drawing.Point(0, -1);
+            this.tabPageAdv3.Location = new System.Drawing.Point(0, 21);
             this.tabPageAdv3.Name = "tabPageAdv3";
             this.tabPageAdv3.ShowCloseButton = true;
-            this.tabPageAdv3.Size = new System.Drawing.Size(360, 401);
+            this.tabPageAdv3.Size = new System.Drawing.Size(360, 379);
             this.tabPageAdv3.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
             this.tabPageAdv3.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv3.TabForeColor = System.Drawing.Color.White;
@@ -631,13 +635,13 @@
             this.totalsMiscEffectsR.HideSelection = false;
             this.totalsMiscEffectsR.HoverSelection = true;
             this.totalsMiscEffectsR.LabelWrap = false;
-            this.totalsMiscEffectsR.Location = new System.Drawing.Point(179, 264);
+            this.totalsMiscEffectsR.Location = new System.Drawing.Point(179, 275);
             this.totalsMiscEffectsR.MultiSelect = false;
             this.totalsMiscEffectsR.Name = "totalsMiscEffectsR";
             this.totalsMiscEffectsR.Scrollable = false;
             this.totalsMiscEffectsR.ShowGroups = false;
             this.totalsMiscEffectsR.ShowItemToolTips = true;
-            this.totalsMiscEffectsR.Size = new System.Drawing.Size(176, 112);
+            this.totalsMiscEffectsR.Size = new System.Drawing.Size(176, 101);
             this.totalsMiscEffectsR.TabIndex = 17;
             this.totalsMiscEffectsR.TabStop = false;
             this.totalsMiscEffectsR.UseCompatibleStateImageBehavior = false;
@@ -665,13 +669,13 @@
             this.totalsMiscEffectsL.HideSelection = false;
             this.totalsMiscEffectsL.HoverSelection = true;
             this.totalsMiscEffectsL.LabelWrap = false;
-            this.totalsMiscEffectsL.Location = new System.Drawing.Point(4, 264);
+            this.totalsMiscEffectsL.Location = new System.Drawing.Point(4, 275);
             this.totalsMiscEffectsL.MultiSelect = false;
             this.totalsMiscEffectsL.Name = "totalsMiscEffectsL";
             this.totalsMiscEffectsL.Scrollable = false;
             this.totalsMiscEffectsL.ShowGroups = false;
             this.totalsMiscEffectsL.ShowItemToolTips = true;
-            this.totalsMiscEffectsL.Size = new System.Drawing.Size(176, 112);
+            this.totalsMiscEffectsL.Size = new System.Drawing.Size(176, 101);
             this.totalsMiscEffectsL.TabIndex = 16;
             this.totalsMiscEffectsL.TabStop = false;
             this.totalsMiscEffectsL.UseCompatibleStateImageBehavior = false;
@@ -688,7 +692,7 @@
             // 
             this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(4, 241);
+            this.label8.Location = new System.Drawing.Point(4, 252);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(351, 20);
             this.label8.TabIndex = 10;
@@ -699,9 +703,9 @@
             // 
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(4, 135);
+            this.label7.Location = new System.Drawing.Point(4, 144);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(352, 16);
+            this.label7.Size = new System.Drawing.Size(351, 20);
             this.label7.TabIndex = 6;
             this.label7.Text = "Resistance:";
             // 
@@ -711,7 +715,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(4, 28);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(349, 16);
+            this.label6.Size = new System.Drawing.Size(351, 20);
             this.label6.TabIndex = 3;
             this.label6.Text = "Defense:";
             // 
@@ -731,10 +735,10 @@
             // 
             this.dV2TotalsPane2R.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane2R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane2R.Location = new System.Drawing.Point(179, 151);
+            this.dV2TotalsPane2R.Location = new System.Drawing.Point(180, 164);
             this.dV2TotalsPane2R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2R.Name = "dV2TotalsPane2R";
-            this.dV2TotalsPane2R.Size = new System.Drawing.Size(176, 90);
+            this.dV2TotalsPane2R.Size = new System.Drawing.Size(176, 96);
             this.dV2TotalsPane2R.TabIndex = 5;
             this.dV2TotalsPane2R.TabStop = false;
             // 
@@ -742,10 +746,10 @@
             // 
             this.dV2TotalsPane2L.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane2L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane2L.Location = new System.Drawing.Point(4, 151);
+            this.dV2TotalsPane2L.Location = new System.Drawing.Point(4, 164);
             this.dV2TotalsPane2L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2L.Name = "dV2TotalsPane2L";
-            this.dV2TotalsPane2L.Size = new System.Drawing.Size(176, 90);
+            this.dV2TotalsPane2L.Size = new System.Drawing.Size(176, 96);
             this.dV2TotalsPane2L.TabIndex = 4;
             this.dV2TotalsPane2L.TabStop = false;
             // 
@@ -753,10 +757,10 @@
             // 
             this.dV2TotalsPane1R.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane1R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane1R.Location = new System.Drawing.Point(179, 45);
+            this.dV2TotalsPane1R.Location = new System.Drawing.Point(180, 48);
             this.dV2TotalsPane1R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1R.Name = "dV2TotalsPane1R";
-            this.dV2TotalsPane1R.Size = new System.Drawing.Size(176, 90);
+            this.dV2TotalsPane1R.Size = new System.Drawing.Size(176, 96);
             this.dV2TotalsPane1R.TabIndex = 2;
             this.dV2TotalsPane1R.TabStop = false;
             // 
@@ -764,10 +768,10 @@
             // 
             this.dV2TotalsPane1L.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane1L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane1L.Location = new System.Drawing.Point(4, 45);
+            this.dV2TotalsPane1L.Location = new System.Drawing.Point(4, 48);
             this.dV2TotalsPane1L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1L.Name = "dV2TotalsPane1L";
-            this.dV2TotalsPane1L.Size = new System.Drawing.Size(176, 90);
+            this.dV2TotalsPane1L.Size = new System.Drawing.Size(176, 96);
             this.dV2TotalsPane1L.TabIndex = 1;
             this.dV2TotalsPane1L.TabStop = false;
             // 
@@ -783,10 +787,10 @@
             this.tabPageAdv4.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv4.Image = null;
             this.tabPageAdv4.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv4.Location = new System.Drawing.Point(0, -1);
+            this.tabPageAdv4.Location = new System.Drawing.Point(0, 21);
             this.tabPageAdv4.Name = "tabPageAdv4";
             this.tabPageAdv4.ShowCloseButton = true;
-            this.tabPageAdv4.Size = new System.Drawing.Size(360, 401);
+            this.tabPageAdv4.Size = new System.Drawing.Size(360, 379);
             this.tabPageAdv4.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
             this.tabPageAdv4.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv4.TabForeColor = System.Drawing.Color.White;
@@ -797,10 +801,10 @@
             // skglEnhAlt
             // 
             this.skglEnhAlt.BackColor = System.Drawing.Color.Black;
-            this.skglEnhAlt.Location = new System.Drawing.Point(4, 334);
-            this.skglEnhAlt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.skglEnhAlt.Location = new System.Drawing.Point(4, 333);
+            this.skglEnhAlt.Margin = new System.Windows.Forms.Padding(7, 3, 7, 3);
             this.skglEnhAlt.Name = "skglEnhAlt";
-            this.skglEnhAlt.Size = new System.Drawing.Size(352, 38);
+            this.skglEnhAlt.Size = new System.Drawing.Size(353, 43);
             this.skglEnhAlt.TabIndex = 4;
             this.skglEnhAlt.VSync = false;
             this.skglEnhAlt.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.skglEnh_PaintSurface);
@@ -809,10 +813,10 @@
             // skglEnhActive
             // 
             this.skglEnhActive.BackColor = System.Drawing.Color.Black;
-            this.skglEnhActive.Location = new System.Drawing.Point(4, 290);
-            this.skglEnhActive.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.skglEnhActive.Location = new System.Drawing.Point(4, 287);
+            this.skglEnhActive.Margin = new System.Windows.Forms.Padding(7, 3, 7, 3);
             this.skglEnhActive.Name = "skglEnhActive";
-            this.skglEnhActive.Size = new System.Drawing.Size(352, 38);
+            this.skglEnhActive.Size = new System.Drawing.Size(353, 43);
             this.skglEnhActive.TabIndex = 3;
             this.skglEnhActive.VSync = false;
             this.skglEnhActive.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.skglEnh_PaintSurface);
@@ -867,10 +871,10 @@
             this.tabPageAdv5.ForeColor = System.Drawing.Color.White;
             this.tabPageAdv5.Image = null;
             this.tabPageAdv5.ImageSize = new System.Drawing.Size(16, 16);
-            this.tabPageAdv5.Location = new System.Drawing.Point(0, -1);
+            this.tabPageAdv5.Location = new System.Drawing.Point(0, 21);
             this.tabPageAdv5.Name = "tabPageAdv5";
             this.tabPageAdv5.ShowCloseButton = true;
-            this.tabPageAdv5.Size = new System.Drawing.Size(360, 401);
+            this.tabPageAdv5.Size = new System.Drawing.Size(360, 379);
             this.tabPageAdv5.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
             this.tabPageAdv5.TabIndex = 5;
             this.tabPageAdv5.Text = "SCALES";
@@ -1182,8 +1186,7 @@
             // 
             // DataView2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.tabBox);
             this.Name = "DataView2";
             this.Size = new System.Drawing.Size(360, 400);
