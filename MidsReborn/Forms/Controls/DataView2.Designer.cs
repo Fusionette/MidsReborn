@@ -144,7 +144,6 @@
             this.tabBox.ThemeName = "TabRenderer2D";
             this.tabBox.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabBox.UseMnemonic = false;
-            this.tabBox.TabIndexChanged += new System.EventHandler(this.tabBox_TabIndexChanged);
             // 
             // tabPageAdv1
             // 

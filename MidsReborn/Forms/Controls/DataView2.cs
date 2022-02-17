@@ -8,8 +8,10 @@ using System.Windows.Forms;
 using FastDeepCloner;
 using mrbBase;
 using mrbBase.Base.Master_Classes;
+using mrbControls;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
+using Syncfusion.Windows.Forms.Tools;
 
 namespace Mids_Reborn.Forms.Controls
 {
@@ -55,6 +57,7 @@ namespace Mids_Reborn.Forms.Controls
         private PowerEntry BuildPowerEntry;
         private bool FreezeScalerCB;
         private FlipAnimator _flipAnimator;
+        private readonly TabControlAdv _tabControlAdv;
 
         private static readonly SKBitmap
             NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
@@ -1246,7 +1249,10 @@ namespace Mids_Reborn.Forms.Controls
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
+            _tabControlAdv = tabBox;
+            _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
         }
+
 
         // Move the extra effects from the longest array (pBase) to the shortest (pEnh),
         // Resulting in pEnh always being the longest one.
@@ -1748,39 +1754,38 @@ namespace Mids_Reborn.Forms.Controls
 
         #region Event callbacks
 
-        protected void tabBox_TabIndexChanged(object sender, EventArgs e)
+        private void tabBox_TabIndexChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine($"tabBox_TabIndexChanged(tab={tabBox.TabIndex})");
-            switch (tabBox.TabIndex)
+            switch (_tabControlAdv.SelectedIndex)
             {
                 case 0:
                     // L=39 / L=23
-                    tabBox.ActiveTabColor = Color.FromArgb(12, 56, 100);
-                    tabBox.InactiveTabColor = Color.FromArgb(7, 33, 59);
+                    _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
+                    _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
                     break;
 
                 case 1:
                     // L=51 / L=30
-                    tabBox.ActiveTabColor = Color.Indigo;
-                    tabBox.InactiveTabColor = Color.FromArgb(45, 0, 77);
+                    _tabControlAdv.ActiveTabColor = Color.Indigo;
+                    _tabControlAdv.InactiveTabColor = Color.FromArgb(45, 0, 77);
                     break;
 
                 case 2:
                     // L=33 / L=20
-                    tabBox.ActiveTabColor = Color.FromArgb(2, 85, 55);
-                    tabBox.InactiveTabColor = Color.FromArgb(1, 51, 33);
+                    _tabControlAdv.ActiveTabColor = Color.FromArgb(2, 85, 55);
+                    _tabControlAdv.InactiveTabColor = Color.FromArgb(1, 51, 33);
                     break;
 
                 case 3:
                     // L=45 / L=27
-                    tabBox.ActiveTabColor = Color.FromArgb(0, 98, 116);
-                    tabBox.InactiveTabColor = Color.FromArgb(0, 59, 69);
+                    _tabControlAdv.ActiveTabColor = Color.FromArgb(0, 98, 116);
+                    _tabControlAdv.InactiveTabColor = Color.FromArgb(0, 59, 69);
                     break;
 
                 case 4:
                     // L=58 / L=35
-                    tabBox.ActiveTabColor = Color.FromArgb(148, 117, 46);
-                    tabBox.InactiveTabColor = Color.FromArgb(69, 71, 28);
+                    _tabControlAdv.ActiveTabColor = Color.FromArgb(148, 117, 46);
+                    _tabControlAdv.InactiveTabColor = Color.FromArgb(69, 71, 28);
                     break;
             }
         }
