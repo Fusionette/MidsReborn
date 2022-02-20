@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using FastDeepCloner;
 using mrbBase;
@@ -1289,9 +1290,11 @@ namespace Mids_Reborn.Forms.Controls
                 : null;
 
             // Data may differ from DB.
+            Debug.WriteLine($"SetData: _basePower == null: {_basePower == null}");
             if (_basePower == null) return;
 
             var dbPower = DatabaseAPI.GetPowerByFullName(_basePower.FullName);
+            Debug.WriteLine($"SetData: dbPower == null: {dbPower == null}");
             if (dbPower == null) return;
 
             if (_basePower != null)
@@ -1299,7 +1302,7 @@ namespace Mids_Reborn.Forms.Controls
                 _basePower.ActivatePeriod = dbPower.ActivatePeriod;
             }
 
-            if (_enhancedPower == null) return;
+            _enhancedPower ??= _basePower.Clone();
             _enhancedPower.ActivatePeriod = dbPower.ActivatePeriod;
 
             if (_basePower.Effects.Length <= _enhancedPower.Effects.Length) return;
@@ -1309,6 +1312,19 @@ namespace Mids_Reborn.Forms.Controls
             _enhancedPower.Effects = (IEffect[])swappedFx[1].Clone();
 
             _flipAnimator = new FlipAnimator(BuildPowerEntry);
+
+            /*var taskArray = new Task[5];
+            taskArray[0] = Task.Run(DisplayInfo);
+            taskArray[1] = Task.Run(DisplayEffects);
+            taskArray[2] = Task.Run(DisplayTotals);
+            taskArray[3] = Task.Run(DisplayEnhance);
+            taskArray[4] = Task.Run(DisplayScales);
+            Task.WaitAll(taskArray);*/
+            DisplayInfo();
+            DisplayEffects();
+            DisplayTotals();
+            DisplayEnhance();
+            DisplayScales();
         }
 
         private void InitScaler()
@@ -1454,6 +1470,7 @@ namespace Mids_Reborn.Forms.Controls
 
         private void DisplayInfo()
         {
+            Debug.WriteLine("DataView2.DisplayInfo()");
             infoTabTitle.Text =
                 $"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level}] " : "")}{_basePower?.DisplayName ?? "Info"}";
             richInfoSmall.Rtf = Text2RTF(_basePower?.DescShort ?? "");

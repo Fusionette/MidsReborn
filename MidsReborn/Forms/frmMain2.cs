@@ -2581,6 +2581,7 @@ namespace Mids_Reborn.Forms
 
         private void Info_Power(int powerIdx, int iEnhLvl = -1, bool NoLevel = false, bool Lock = false)
         {
+            Debug.WriteLine($"Info_Power({powerIdx}, {iEnhLvl}, {NoLevel}, {Lock})");
             if (!Lock & DataViewLocked)
             {
                 if (dvLastPower != powerIdx)
@@ -2606,6 +2607,7 @@ namespace Mids_Reborn.Forms
             }
 
             DataViewLocked = Lock;
+            Debug.WriteLine("DataView2.SetData()");
             if (powIndex > -1)
             {
                 var basePower = MainModule.MidsController.Toon.GetBasePower(powIndex);
