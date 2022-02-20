@@ -4,12 +4,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FastDeepCloner;
 using mrbBase;
 using mrbBase.Base.Master_Classes;
-using mrbControls;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using Syncfusion.Windows.Forms.Tools;
@@ -49,6 +47,24 @@ namespace Mids_Reborn.Forms.Controls
             public ColorRange ElapsedPenColorTop;
         }
 
+        private struct TabsRendered
+        {
+            public bool Info;
+            public bool Effects;
+            public bool Totals;
+            public bool Enhance;
+            public bool Scales;
+
+            public void Reset()
+            {
+                Info = false;
+                Effects = false;
+                Totals = false;
+                Enhance = false;
+                Scales = false;
+            }
+        }
+
         #endregion
 
         private IPower _basePower;
@@ -59,6 +75,7 @@ namespace Mids_Reborn.Forms.Controls
         private bool FreezeScalerCB;
         private FlipAnimator _flipAnimator;
         private readonly TabControlAdv _tabControlAdv;
+        private TabsRendered _tabsRendered;
 
         private static readonly SKBitmap
             NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
@@ -530,9 +547,9 @@ namespace Mids_Reborn.Forms.Controls
                 var fxGroups = new List<List<IEffect>>();
                 for (var i = 0; i < 6; i++)
                 {
-                    groups[i] = new List<GroupedEffect>();
-                    fxGroups[i] = new List<IEffect>();
-                    groupsEffectTypes[i] = new Dictionary<FxVectorIdentifier, int>();
+                    groups.Add(new List<GroupedEffect>());
+                    groupsEffectTypes.Add(new Dictionary<FxVectorIdentifier, int>());
+                    fxGroups.Add(new List<IEffect>());
                 }
 
                 // Assign effects to groups according to settings
@@ -801,6 +818,8 @@ namespace Mids_Reborn.Forms.Controls
 
             public FlipAnimator(PowerEntry buildPowerEntry)
             {
+                if (buildPowerEntry == null) return;
+
                 for (var i = 0; i < buildPowerEntry.Slots.Length; i++)
                 {
                     var enhSlot = buildPowerEntry.Slots[i].Enhancement;
@@ -1250,10 +1269,13 @@ namespace Mids_Reborn.Forms.Controls
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
+            
             _tabControlAdv = tabBox;
             _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
+            
+            _tabsRendered = new TabsRendered();
+            _tabsRendered.Reset();
         }
-
 
         // Move the extra effects from the longest array (pBase) to the shortest (pEnh),
         // Resulting in pEnh always being the longest one.
@@ -1277,10 +1299,14 @@ namespace Mids_Reborn.Forms.Controls
             return new List<IEffect[]> { baseEffects, enhEffects };
         }
 
-        public void SetData(IPower basePower = null, IPower enhancedPower = null, bool noLevel = false,
+        public void SetData(IPower enhancedPower = null, bool noLevel = false,
             bool locked = false, int historyIdx = -1)
         {
-            _basePower = basePower;
+            if ((enhancedPower?.PowerIndex ?? -1) == (_enhancedPower?.PowerIndex ?? -1))
+            {
+                return;
+            }
+
             _enhancedPower = enhancedPower;
             Locked = locked;
             NoLevel = noLevel;
@@ -1289,42 +1315,38 @@ namespace Mids_Reborn.Forms.Controls
                 ? MidsContext.Character.CurrentBuild.Powers[HistoryIdx]
                 : null;
 
-            // Data may differ from DB.
-            Debug.WriteLine($"SetData: _basePower == null: {_basePower == null}");
-            if (_basePower == null) return;
-
-            var dbPower = DatabaseAPI.GetPowerByFullName(_basePower.FullName);
-            Debug.WriteLine($"SetData: dbPower == null: {dbPower == null}");
-            if (dbPower == null) return;
-
-            if (_basePower != null)
-            {
-                _basePower.ActivatePeriod = dbPower.ActivatePeriod;
-            }
-
-            _enhancedPower ??= _basePower.Clone();
-            _enhancedPower.ActivatePeriod = dbPower.ActivatePeriod;
-
-            if (_basePower.Effects.Length <= _enhancedPower.Effects.Length) return;
-
-            var swappedFx = SwapExtraEffects(_basePower.Effects, _enhancedPower.Effects);
-            _basePower.Effects = (IEffect[])swappedFx[0].Clone();
-            _enhancedPower.Effects = (IEffect[])swappedFx[1].Clone();
+            _basePower = _enhancedPower == null ? null : DatabaseAPI.Database.Power[enhancedPower.PowerIndex];
 
             _flipAnimator = new FlipAnimator(BuildPowerEntry);
 
-            /*var taskArray = new Task[5];
-            taskArray[0] = Task.Run(DisplayInfo);
-            taskArray[1] = Task.Run(DisplayEffects);
-            taskArray[2] = Task.Run(DisplayTotals);
-            taskArray[3] = Task.Run(DisplayEnhance);
-            taskArray[4] = Task.Run(DisplayScales);
-            Task.WaitAll(taskArray);*/
-            DisplayInfo();
-            DisplayEffects();
-            DisplayTotals();
-            DisplayEnhance();
-            DisplayScales();
+            _tabsRendered.Reset();
+            switch (_tabControlAdv.SelectedIndex)
+            {
+                case 0:
+                    DisplayInfo();
+                    _tabsRendered.Info = true;
+                    break;
+
+                case 1:
+                    DisplayEffects();
+                    _tabsRendered.Effects = true;
+                    break;
+
+                case 2:
+                    DisplayTotals();
+                    _tabsRendered.Totals = true;
+                    break;
+
+                case 3:
+                    DisplayEnhance();
+                    _tabsRendered.Enhance = true;
+                    break;
+
+                case 4:
+                    DisplayScales();
+                    _tabsRendered.Scales = true;
+                    break;
+            }
         }
 
         private void InitScaler()
@@ -1472,7 +1494,7 @@ namespace Mids_Reborn.Forms.Controls
         {
             Debug.WriteLine("DataView2.DisplayInfo()");
             infoTabTitle.Text =
-                $"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level}] " : "")}{_basePower?.DisplayName ?? "Info"}";
+                $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level}] " : "")}{_basePower?.DisplayName ?? "Info"}";
             richInfoSmall.Rtf = Text2RTF(_basePower?.DescShort ?? "");
             richInfoLarge.Rtf = Text2RTF(_basePower?.DescLong ?? "");
 
@@ -1779,30 +1801,55 @@ namespace Mids_Reborn.Forms.Controls
                     // L=39 / L=23
                     _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
                     _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
+                    if (!_tabsRendered.Info)
+                    {
+                        DisplayInfo();
+                        _tabsRendered.Info = true;
+                    }
                     break;
 
                 case 1:
                     // L=51 / L=30
                     _tabControlAdv.ActiveTabColor = Color.Indigo;
                     _tabControlAdv.InactiveTabColor = Color.FromArgb(45, 0, 77);
+                    if (!_tabsRendered.Effects)
+                    {
+                        DisplayEffects();
+                        _tabsRendered.Effects = true;
+                    }
                     break;
 
                 case 2:
                     // L=33 / L=20
                     _tabControlAdv.ActiveTabColor = Color.FromArgb(2, 85, 55);
                     _tabControlAdv.InactiveTabColor = Color.FromArgb(1, 51, 33);
+                    if (!_tabsRendered.Totals)
+                    {
+                        DisplayTotals();
+                        _tabsRendered.Totals = true;
+                    }
                     break;
 
                 case 3:
                     // L=45 / L=27
                     _tabControlAdv.ActiveTabColor = Color.FromArgb(0, 98, 116);
                     _tabControlAdv.InactiveTabColor = Color.FromArgb(0, 59, 69);
+                    if (!_tabsRendered.Enhance)
+                    {
+                        DisplayEnhance();
+                        _tabsRendered.Enhance = true;
+                    }
                     break;
 
                 case 4:
                     // L=58 / L=35
                     _tabControlAdv.ActiveTabColor = Color.FromArgb(148, 117, 46);
                     _tabControlAdv.InactiveTabColor = Color.FromArgb(69, 71, 28);
+                    if (!_tabsRendered.Scales)
+                    {
+                        DisplayScales();
+                        _tabsRendered.Scales = true;
+                    }
                     break;
             }
         }

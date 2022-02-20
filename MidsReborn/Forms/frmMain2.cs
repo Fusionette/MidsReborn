@@ -2614,16 +2614,16 @@ namespace Mids_Reborn.Forms
                 var enhancedPower = MainModule.MidsController.Toon.GetEnhancedPower(powIndex);
                 if (basePower != null && enhancedPower != null)
                 {
-                    myDataView.SetData(basePower, enhancedPower, NoLevel, DataViewLocked, powIndex);
+                    myDataView.SetData(enhancedPower, NoLevel, DataViewLocked, powIndex);
                 }
                 else
                 {
-                    myDataView.SetData(MainModule.MidsController.Toon.GetBasePower(powIndex, powerIdx), null, NoLevel, DataViewLocked, powIndex);
+                    myDataView.SetData(MainModule.MidsController.Toon.GetBasePower(powIndex, powerIdx), NoLevel, DataViewLocked, powIndex);
                 }
             }
             else
             {
-                myDataView.SetData(MainModule.MidsController.Toon.GetBasePower(powIndex, powerIdx), null, NoLevel, DataViewLocked, powIndex);
+                myDataView.SetData(MainModule.MidsController.Toon.GetBasePower(powIndex, powerIdx), NoLevel, DataViewLocked, powIndex);
             }
 
             if (!Lock || dvAnchored.Visible)
