@@ -1429,6 +1429,7 @@ namespace Mids_Reborn.Forms.Controls
                 ToolTipText = tip
             };
 
+            //Debug.WriteLine($"CreateStatLvItem('{statName}', '{value}', '{boostType}', '{tip}')");
             lvItem.SubItems.Add(
                 new ListViewItem.ListViewSubItem
                 {
@@ -1442,6 +1443,7 @@ namespace Mids_Reborn.Forms.Controls
 
         private static ListViewItem CreateStatLvItem()
         {
+            //Debug.WriteLine($"CreateStatLvItem(<blank>)");
             var lvItem = new ListViewItem
             {
                 Text = ""
@@ -1490,9 +1492,68 @@ namespace Mids_Reborn.Forms.Controls
 
         #region Info Tab
 
+        private string CheckEffectTypeAffects(IPower power, Enums.eEffectType effectType)
+        {
+            var allVectors = new List<Enums.eDamage>
+            {
+                Enums.eDamage.Smashing,
+                Enums.eDamage.Lethal,
+                Enums.eDamage.Fire,
+                Enums.eDamage.Cold,
+                Enums.eDamage.Energy,
+                Enums.eDamage.Negative,
+                Enums.eDamage.Toxic,
+                Enums.eDamage.Psionic
+            };
+
+            var dmgVectors = allVectors.Clone();
+
+            var positionVectors = new List<Enums.eDamage>
+            {
+                Enums.eDamage.Melee,
+                Enums.eDamage.Ranged,
+                Enums.eDamage.AoE
+            };
+
+            var buffTypes = power.Effects.Where(e => e.EffectType == effectType).Select(e => e.DamageType).ToList();
+
+            if (effectType == Enums.eEffectType.Defense | effectType == Enums.eEffectType.Elusivity)
+            {
+                allVectors = allVectors.Concat(positionVectors).ToList();
+            }
+
+            switch (effectType)
+            {
+                case Enums.eEffectType.DamageBuff:
+                case Enums.eEffectType.Resistance:
+                    return buffTypes.Intersect(allVectors).Count() == allVectors.Count ? "All" : string.Join(", ", buffTypes);
+
+                case Enums.eEffectType.Defense:
+                case Enums.eEffectType.Elusivity:
+                    if (buffTypes.Count == positionVectors.Count & buffTypes.Intersect(positionVectors).Count() == positionVectors.Count)
+                    {
+                        return "All pos.";
+                    }
+                    else if (buffTypes.Count == dmgVectors.Count & buffTypes.Intersect(dmgVectors).Count() == dmgVectors.Count)
+                    {
+                        return "All dmg";
+                    }
+                    else if (buffTypes.Count == allVectors.Count & buffTypes.Intersect(allVectors).Count() == allVectors.Count)
+                    {
+                        return "All";
+                    }
+                    else
+                    {
+                        return string.Join(", ", buffTypes);
+                    }
+
+                default:
+                    return "";
+            }
+        }
+        
         private void DisplayInfo()
         {
-            Debug.WriteLine("DataView2.DisplayInfo()");
             infoTabTitle.Text =
                 $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level}] " : "")}{_basePower?.DisplayName ?? "Info"}";
             richInfoSmall.Rtf = Text2RTF(_basePower?.DescShort ?? "");
@@ -1553,22 +1614,46 @@ namespace Mids_Reborn.Forms.Controls
                 Enums.eEffectType.Damage
             };
 
+            var hasBuff = new List<Enums.eEffectType>();
             var miscEffectsIndexes =
                 _enhancedPower.Effects.FindIndexes(e => !effectsHidden.Contains(e.EffectType)).ToList();
-            for (var i = 0; i < Math.Min(4, miscEffectsIndexes.Count); i++)
+            var k = 0;
+            for (var i = 0; i < miscEffectsIndexes.Count & k < 4; i++)
             {
                 if (miscEffectsIndexes[i] >= _basePower.Effects.Length ||
                     _basePower.Effects[miscEffectsIndexes[i]].EffectType !=
                     _enhancedPower.Effects[miscEffectsIndexes[i]].EffectType)
                 {
                     var fx = _enhancedPower.Effects[miscEffectsIndexes[i]];
+
+                    switch (fx.EffectType)
+                    {
+                        case Enums.eEffectType.Resistance:
+                        case Enums.eEffectType.Defense:
+                        case Enums.eEffectType.DamageBuff:
+                        case Enums.eEffectType.Elusivity:
+                            if (!hasBuff.Contains(fx.EffectType))
+                            {
+                                hasBuff.Add(fx.EffectType);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+
+                            break;
+                    }
+
                     var fxType = fx.EffectType switch
                     {
                         Enums.eEffectType.Enhancement => $"{fx.EffectType}({fx.ETModifies})",
                         Enums.eEffectType.MezResist => $"{fx.EffectType}({fx.MezType})",
                         Enums.eEffectType.Mez => $"{fx.EffectType}({fx.MezType})",
-                        Enums.eEffectType.Resistance => $"{fx.EffectType}({fx.DamageType})",
-                        Enums.eEffectType.Defense => $"{fx.EffectType}({fx.DamageType})",
+
+                        Enums.eEffectType.Resistance => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
+                        Enums.eEffectType.Defense => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
+                        Enums.eEffectType.DamageBuff => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
+                        Enums.eEffectType.Elusivity => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
                         _ => $"{fx.EffectType}"
                     };
 
@@ -1594,13 +1679,34 @@ namespace Mids_Reborn.Forms.Controls
                 {
                     var fxEnh = _enhancedPower.Effects[miscEffectsIndexes[i]];
                     var fxBase = _basePower.Effects[miscEffectsIndexes[i]];
+
+                    switch (fxEnh.EffectType)
+                    {
+                        case Enums.eEffectType.Resistance:
+                        case Enums.eEffectType.Defense:
+                        case Enums.eEffectType.DamageBuff:
+                        case Enums.eEffectType.Elusivity:
+                            if (!hasBuff.Contains(fxEnh.EffectType))
+                            {
+                                hasBuff.Add(fxEnh.EffectType);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+
+                            break;
+                    }
+
                     var fxType = fxEnh.EffectType switch
                     {
                         Enums.eEffectType.Enhancement => $"{fxEnh.EffectType}({fxEnh.ETModifies})",
                         Enums.eEffectType.MezResist => $"{fxEnh.EffectType}({fxEnh.MezType})",
                         Enums.eEffectType.Mez => $"{fxEnh.EffectType}({fxEnh.MezType})",
-                        Enums.eEffectType.Resistance => $"{fxEnh.EffectType}({fxEnh.DamageType})",
-                        Enums.eEffectType.Defense => $"{fxEnh.EffectType}({fxEnh.DamageType})",
+                        Enums.eEffectType.Resistance => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
+                        Enums.eEffectType.Defense => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
+                        Enums.eEffectType.DamageBuff => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
+                        Enums.eEffectType.Elusivity => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
                         _ => $"{fxEnh.EffectType}"
                     };
 
@@ -1633,6 +1739,8 @@ namespace Mids_Reborn.Forms.Controls
                             GetBoostType(baseValue, enhValue)));
                     }
                 }
+
+                k++;
             }
 
             listInfosL.EndUpdate();
