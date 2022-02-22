@@ -18,14 +18,6 @@ namespace Mids_Reborn.Forms.Controls
     {
         #region Private enums & structs
 
-        private enum BoostType
-        {
-            Reduction,
-            Equal,
-            Enhancement,
-            Extra
-        }
-
         private enum BuffEffectType
         {
             Buff,
@@ -66,6 +58,14 @@ namespace Mids_Reborn.Forms.Controls
         }
 
         #endregion
+
+        public enum BoostType
+        {
+            Reduction,
+            Equal,
+            Enhancement,
+            Extra
+        }
 
         private IPower _basePower;
         private IPower _enhancedPower;
@@ -1564,6 +1564,17 @@ namespace Mids_Reborn.Forms.Controls
             // Add basic power info
             listInfosL.BeginUpdate();
             listInfosR.BeginUpdate();
+
+            listInfosL.Columns[0].Width = (int)Math.Round(listInfosL.Width / 2d);
+            listInfosL.Columns[1].Width = (int)Math.Round(listInfosL.Width / 2d);
+            listInfosR.Columns[0].Width = (int)Math.Round(listInfosR.Width / 2d);
+            listInfosR.Columns[1].Width = (int)Math.Round(listInfosR.Width / 2d);
+
+            listInfosL.Columns[0].TextAlign = HorizontalAlignment.Left;
+            listInfosL.Columns[1].TextAlign = HorizontalAlignment.Left;
+            listInfosR.Columns[0].TextAlign = HorizontalAlignment.Left;
+            listInfosR.Columns[1].TextAlign = HorizontalAlignment.Left;
+
             listInfosL.Items.Add(CreateStatLvItem("End Cost", $"{_enhancedPower.EndCost:##.##}",
                 GetBoostType(_basePower.EndCost, _enhancedPower?.EndCost ?? _basePower.EndCost)));
             listInfosL.Items.Add(CreateStatLvItem("Recharge", $"{_enhancedPower.RechargeTime:#####.##}s",
@@ -1592,14 +1603,14 @@ namespace Mids_Reborn.Forms.Controls
 
                 listInfosR.Items.Add(CreateStatLvItem("Duration", $"{enhancedDuration:###.##}s",
                     GetBoostType(baseDuration, enhancedDuration)));
-                listInfosR.Items.Add(CreateStatLvItem());
-                listInfosR.Items.Add(CreateStatLvItem());
+                //listInfosR.Items.Add(CreateStatLvItem());
+                //listInfosR.Items.Add(CreateStatLvItem());
             }
             else
             {
-                listInfosR.Items.Add(CreateStatLvItem());
-                listInfosR.Items.Add(CreateStatLvItem());
-                listInfosR.Items.Add(CreateStatLvItem());
+                //listInfosR.Items.Add(CreateStatLvItem());
+                //listInfosR.Items.Add(CreateStatLvItem());
+                //listInfosR.Items.Add(CreateStatLvItem());
             }
 
             // Misc & special effects (4 max)
