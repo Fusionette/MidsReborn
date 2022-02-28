@@ -49,9 +49,6 @@
     <Compile Include="clsShoppingCheckList.cs" />
     <Compile Include="clsGenFreebies.cs" />
     <Compile Include="clsOAuth.cs" />
-    <Compile Include="Forms\Controls\SKGLBoostColumns.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Forms\Controls\DataView2.cs">
       <SubType>UserControl</SubType>
     </Compile>

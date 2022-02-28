@@ -31,12 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.tabBox = new mrbControls.ctlEnhTabControl();
             this.tabPageAdv1 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
-            this.listInfosR = new System.Windows.Forms.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listInfosL = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listInfos = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ctlDamageDisplay1 = new mrbControls.ctlDamageDisplay();
             this.lblDamage = new System.Windows.Forms.Label();
             this.richInfoLarge = new System.Windows.Forms.RichTextBox();
@@ -103,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabBox)).BeginInit();
             this.tabBox.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listInfos)).BeginInit();
             this.tabPageAdv2.SuspendLayout();
             this.tabPageAdv3.SuspendLayout();
             this.tabPageAdv4.SuspendLayout();
@@ -140,7 +140,7 @@
             this.tabBox.TabIndex = 0;
             this.tabBox.TabPanelBackColor = System.Drawing.Color.Black;
             this.tabBox.TabStyle = typeof(Syncfusion.Windows.Forms.Tools.TabRenderer2D);
-            this.tabBox.Text = "ENHANCE";
+            this.tabBox.Text = "INFO";
             this.tabBox.ThemeName = "TabRenderer2D";
             this.tabBox.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabBox.UseMnemonic = false;
@@ -148,8 +148,7 @@
             // tabPageAdv1
             // 
             this.tabPageAdv1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
-            this.tabPageAdv1.Controls.Add(this.listInfosR);
-            this.tabPageAdv1.Controls.Add(this.listInfosL);
+            this.tabPageAdv1.Controls.Add(this.listInfos);
             this.tabPageAdv1.Controls.Add(this.ctlDamageDisplay1);
             this.tabPageAdv1.Controls.Add(this.lblDamage);
             this.tabPageAdv1.Controls.Add(this.richInfoLarge);
@@ -170,73 +169,67 @@
             this.tabPageAdv1.Text = "INFO";
             this.tabPageAdv1.ThemesEnabled = false;
             // 
-            // listInfosR
+            // listInfos
             // 
-            this.listInfosR.AutoArrange = false;
-            this.listInfosR.BackColor = System.Drawing.Color.Black;
-            this.listInfosR.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listInfosR.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listInfosR.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listInfosR.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.listInfosR.FullRowSelect = true;
-            this.listInfosR.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listInfosR.HideSelection = false;
-            this.listInfosR.HoverSelection = true;
-            this.listInfosR.LabelWrap = false;
-            this.listInfosR.Location = new System.Drawing.Point(179, 181);
-            this.listInfosR.MultiSelect = false;
-            this.listInfosR.Name = "listInfosR";
-            this.listInfosR.Scrollable = false;
-            this.listInfosR.ShowGroups = false;
-            this.listInfosR.ShowItemToolTips = true;
-            this.listInfosR.Size = new System.Drawing.Size(176, 100);
-            this.listInfosR.TabIndex = 9;
-            this.listInfosR.TabStop = false;
-            this.listInfosR.UseCompatibleStateImageBehavior = false;
+            this.listInfos.AllowUserToAddRows = false;
+            this.listInfos.AllowUserToDeleteRows = false;
+            this.listInfos.AllowUserToResizeColumns = false;
+            this.listInfos.AllowUserToResizeRows = false;
+            this.listInfos.BackgroundColor = System.Drawing.Color.Black;
+            this.listInfos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listInfos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.listInfos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.listInfos.ColumnHeadersVisible = false;
+            this.listInfos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4});
+            this.listInfos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.listInfos.Location = new System.Drawing.Point(4, 181);
+            this.listInfos.MultiSelect = false;
+            this.listInfos.Name = "listInfos";
+            this.listInfos.ReadOnly = true;
+            this.listInfos.RowHeadersVisible = false;
+            this.listInfos.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.listInfos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.listInfos.ShowCellErrors = false;
+            this.listInfos.ShowCellToolTips = false;
+            this.listInfos.ShowEditingIcon = false;
+            this.listInfos.Size = new System.Drawing.Size(351, 100);
+            this.listInfos.TabIndex = 7;
+            this.listInfos.TabStop = false;
             // 
-            // columnHeader3
+            // Column1
             // 
-            this.columnHeader3.Width = 73;
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 87;
             // 
-            // columnHeader4
+            // Column2
             // 
-            this.columnHeader4.Width = 73;
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.Width = 88;
             // 
-            // listInfosL
+            // Column3
             // 
-            this.listInfosL.AutoArrange = false;
-            this.listInfosL.BackColor = System.Drawing.Color.Black;
-            this.listInfosL.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listInfosL.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listInfosL.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listInfosL.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.listInfosL.FullRowSelect = true;
-            this.listInfosL.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listInfosL.HideSelection = false;
-            this.listInfosL.HoverSelection = true;
-            this.listInfosL.LabelWrap = false;
-            this.listInfosL.Location = new System.Drawing.Point(4, 181);
-            this.listInfosL.MultiSelect = false;
-            this.listInfosL.Name = "listInfosL";
-            this.listInfosL.Scrollable = false;
-            this.listInfosL.ShowGroups = false;
-            this.listInfosL.ShowItemToolTips = true;
-            this.listInfosL.Size = new System.Drawing.Size(176, 100);
-            this.listInfosL.TabIndex = 8;
-            this.listInfosL.TabStop = false;
-            this.listInfosL.UseCompatibleStateImageBehavior = false;
+            this.Column3.HeaderText = "Column3";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column3.Width = 88;
             // 
-            // columnHeader1
+            // Column4
             // 
-            this.columnHeader1.Width = 73;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 73;
+            this.Column4.HeaderText = "Column4";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 88;
             // 
             // ctlDamageDisplay1
             // 
@@ -1192,6 +1185,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabBox)).EndInit();
             this.tabBox.ResumeLayout(false);
             this.tabPageAdv1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.listInfos)).EndInit();
             this.tabPageAdv2.ResumeLayout(false);
             this.tabPageAdv3.ResumeLayout(false);
             this.tabPageAdv4.ResumeLayout(false);
@@ -1230,12 +1224,6 @@
         private System.Windows.Forms.RichTextBox richEnhValues;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label enhanceTabTitle;
-        private System.Windows.Forms.ListView listInfosR;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ListView listInfosL;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv5;
         private System.Windows.Forms.Label scalesTabTitle;
         private System.Windows.Forms.Panel panelPowerScaler3;
@@ -1276,5 +1264,10 @@
         private SkiaSharp.Views.Desktop.SKGLControl skglEnhActive;
         private System.Windows.Forms.Timer timer1;
         private SkiaSharp.Views.Desktop.SKGLControl skglScalesGraph;
+        private System.Windows.Forms.DataGridView listInfos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

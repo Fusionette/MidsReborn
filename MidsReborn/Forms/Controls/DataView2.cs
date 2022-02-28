@@ -458,8 +458,8 @@ namespace Mids_Reborn.Forms.Controls
             public string GetMagString()
             {
                 return EffectType == Enums.eEffectType.Enhancement
-                    ? $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")}"
-                    : $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")}";
+                    ? $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")}"
+                    : $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")}";
             }
 
             public override string ToString()
@@ -471,18 +471,18 @@ namespace Mids_Reborn.Forms.Controls
                         case Enums.eEffectType.Mez:
                         case Enums.eEffectType.MezResist:
                             return
-                                $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")} {EffectType} to {SubEffectType}({MezTypesString()}){ToWhoString()}";
+                                $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")} {EffectType} to {SubEffectType}({MezTypesString()}){ToWhoString()}";
 
                         case Enums.eEffectType.DamageBuff:
                         case Enums.eEffectType.Resistance:
                         case Enums.eEffectType.Defense:
                         case Enums.eEffectType.Elusivity:
                             return
-                                $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")} {EffectType} to {SubEffectType}({DamageTypesString()}){ToWhoString()}";
+                                $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")} {EffectType} to {SubEffectType}({DamageTypesString()}){ToWhoString()}";
 
                         default:
                             return
-                                $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")} {EffectType} to {ETModifiesString()}{ToWhoString()}";
+                                $"{(BuffedMag > 0 ? "+" : "")}{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")} {EffectType} to {ETModifiesString()}{ToWhoString()}";
                     }
                 }
 
@@ -491,18 +491,18 @@ namespace Mids_Reborn.Forms.Controls
                     case Enums.eEffectType.Mez:
                     case Enums.eEffectType.MezResist:
                         return
-                            $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")} {EffectType}({MezTypesString()}){ToWhoString()}";
+                            $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")} {EffectType}({MezTypesString()}){ToWhoString()}";
 
                     case Enums.eEffectType.DamageBuff:
                     case Enums.eEffectType.Resistance:
                     case Enums.eEffectType.Defense:
                     case Enums.eEffectType.Elusivity:
                         return
-                            $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")} {EffectType}({DamageTypesString()}){ToWhoString()}";
+                            $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")} {EffectType}({DamageTypesString()}){ToWhoString()}";
 
                     default:
                         return
-                            $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:#####.##}")} {EffectType}{ToWhoString()}";
+                            $"{(DisplayPercentage ? $"{BuffedMag:P2}" : $"{BuffedMag:###0.##}")} {EffectType}{ToWhoString()}";
                 }
             }
         }
@@ -1506,7 +1506,20 @@ namespace Mids_Reborn.Forms.Controls
                 Enums.eDamage.Psionic
             };
 
-            var dmgVectors = allVectors.Clone();
+            var allVectorsDef = new List<Enums.eDamage>
+            {
+                Enums.eDamage.Smashing,
+                Enums.eDamage.Lethal,
+                Enums.eDamage.Fire,
+                Enums.eDamage.Cold,
+                Enums.eDamage.Energy,
+                Enums.eDamage.Negative,
+                Enums.eDamage.Psionic
+            };
+
+            var dmgVectors = effectType == Enums.eEffectType.Defense | effectType == Enums.eEffectType.Elusivity
+                ? allVectorsDef.Clone()
+                : allVectors.Clone();
 
             var positionVectors = new List<Enums.eDamage>
             {
@@ -1519,14 +1532,17 @@ namespace Mids_Reborn.Forms.Controls
 
             if (effectType == Enums.eEffectType.Defense | effectType == Enums.eEffectType.Elusivity)
             {
-                allVectors = allVectors.Concat(positionVectors).ToList();
+                allVectors = allVectorsDef.Concat(positionVectors).ToList();
             }
 
             switch (effectType)
             {
                 case Enums.eEffectType.DamageBuff:
                 case Enums.eEffectType.Resistance:
-                    return buffTypes.Intersect(allVectors).Count() == allVectors.Count ? "All" : string.Join(", ", buffTypes);
+                    //return buffTypes.Intersect(allVectors).Count() == allVectors.Count ? "All" : string.Join(", ", buffTypes);
+                    return buffTypes.Intersect(allVectors).Count() == allVectors.Count
+                        ? "All"
+                        : buffTypes.Count == 1 ? $"{buffTypes[0]}" : "Multi";
 
                 case Enums.eEffectType.Defense:
                 case Enums.eEffectType.Elusivity:
@@ -1544,14 +1560,75 @@ namespace Mids_Reborn.Forms.Controls
                     }
                     else
                     {
-                        return string.Join(", ", buffTypes);
+                        //return string.Join(", ", buffTypes);
+                        return buffTypes.Count == 1 ? $"{buffTypes[0]}" : "Multi";
                     }
 
                 default:
                     return "";
             }
         }
-        
+
+        // Invert on means enhanced value is better when lower than base.
+        // E.g. Endurance cost, cast time, recharge time
+        private Color GetBoostColor(float baseValue, float enhancedValue, bool invert = false)
+        {
+            switch (GetBoostType(baseValue, enhancedValue))
+            {
+                case BoostType.Reduction when !invert:
+                case BoostType.Enhancement when invert:
+                    return Color.FromArgb(255, 20, 20);
+                
+                case BoostType.Enhancement:
+                case BoostType.Reduction:
+                    return Color.FromArgb(0, 240, 80);
+                
+                case BoostType.Extra:
+                    return Color.FromArgb(0, 220, 220);
+                
+                default:
+                    return Color.WhiteSmoke;
+            }
+        }
+
+        private Color GetBoostColor(BoostType boostType)
+        {
+            return boostType switch
+            {
+                BoostType.Reduction => Color.FromArgb(255, 20, 20),
+                BoostType.Enhancement => Color.FromArgb(0, 240, 80),
+                BoostType.Extra => Color.FromArgb(0, 220, 220),
+                _ => Color.WhiteSmoke,
+            };
+        }
+
+        private void SetCellContent(int row, int column)
+        {
+            listInfos.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
+            listInfos.Rows[row].Cells[column].Style.ForeColor = Color.WhiteSmoke;
+            listInfos.Rows[row].Cells[column].Style.BackColor = Color.Black;
+            listInfos.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            listInfos.Rows[row].Cells[column].Value = string.Empty;
+        }
+
+        private void SetCellContent(string text, int row, int column)
+        {
+            listInfos.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
+            listInfos.Rows[row].Cells[column].Style.ForeColor = Color.WhiteSmoke;
+            listInfos.Rows[row].Cells[column].Style.BackColor = Color.Black;
+            listInfos.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            listInfos.Rows[row].Cells[column].Value = text;
+        }
+
+        private void SetCellContent(string text, Color textColor, int row, int column)
+        {
+            listInfos.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
+            listInfos.Rows[row].Cells[column].Style.ForeColor = textColor;
+            listInfos.Rows[row].Cells[column].Style.BackColor = Color.Black;
+            listInfos.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            listInfos.Rows[row].Cells[column].Value = text;
+        }
+
         private void DisplayInfo()
         {
             infoTabTitle.Text =
@@ -1561,31 +1638,39 @@ namespace Mids_Reborn.Forms.Controls
 
             if (_basePower == null) return;
 
-            // Add basic power info
-            listInfosL.BeginUpdate();
-            listInfosR.BeginUpdate();
+            listInfos.Rows.Clear();
+            for (var i = 0; i < 5; i++)
+            {
+                listInfos.Rows.Add();
+                listInfos.Rows[i].Height = 20;
+                SetCellContent(i, 0);
+                SetCellContent(i, 1);
+                SetCellContent(i, 2);
+                SetCellContent(i, 3);
+            }
 
-            listInfosL.Columns[0].Width = (int)Math.Round(listInfosL.Width / 2d);
-            listInfosL.Columns[1].Width = (int)Math.Round(listInfosL.Width / 2d);
-            listInfosR.Columns[0].Width = (int)Math.Round(listInfosR.Width / 2d);
-            listInfosR.Columns[1].Width = (int)Math.Round(listInfosR.Width / 2d);
+            var row = 0;
+            
+            listInfos.Rows.Add();
+            listInfos.Rows[row].Height = 20;
+            SetCellContent("End Cost:", row, 0);
+            SetCellContent($"{_enhancedPower.EndCost:###0.##}", GetBoostColor(_basePower.EndCost, _enhancedPower.EndCost, true), row, 1);
+            SetCellContent("Recharge:", row, 2);
+            SetCellContent($"{_enhancedPower.RechargeTime:#####0.##}s", GetBoostColor(_basePower.RechargeTime, _enhancedPower.RechargeTime, true), row, 3);
 
-            listInfosL.Columns[0].TextAlign = HorizontalAlignment.Left;
-            listInfosL.Columns[1].TextAlign = HorizontalAlignment.Left;
-            listInfosR.Columns[0].TextAlign = HorizontalAlignment.Left;
-            listInfosR.Columns[1].TextAlign = HorizontalAlignment.Left;
+            row++;
+            listInfos.Rows.Add();
+            listInfos.Rows[row].Height = 20;
+            SetCellContent("Range:", row, 0);
+            SetCellContent($"{_enhancedPower.Range:####0.##}ft", GetBoostColor(_basePower.Range, _enhancedPower.Range), row, 1);
+            SetCellContent("Cast Time:", row, 2);
+            SetCellContent($"{_enhancedPower.CastTime:#####0.##}s", GetBoostColor(_basePower.CastTime, _enhancedPower.CastTime, true), row, 3);
 
-            listInfosL.Items.Add(CreateStatLvItem("End Cost", $"{_enhancedPower.EndCost:##.##}",
-                GetBoostType(_basePower.EndCost, _enhancedPower?.EndCost ?? _basePower.EndCost)));
-            listInfosL.Items.Add(CreateStatLvItem("Recharge", $"{_enhancedPower.RechargeTime:#####.##}s",
-                GetBoostType(_basePower.RechargeTime, _enhancedPower?.RechargeTime ?? _basePower.RechargeTime)));
-            listInfosL.Items.Add(CreateStatLvItem("Range", $"{_enhancedPower.Range:####.##}ft",
-                GetBoostType(_basePower.Range, _enhancedPower?.Range ?? _basePower.Range)));
-            listInfosL.Items.Add(CreateStatLvItem("Case Time", $"{_enhancedPower.CastTime:##.##}s",
-                GetBoostType(_basePower.CastTime, _enhancedPower?.CastTime ?? _basePower.CastTime)));
-
-            listInfosR.Items.Add(CreateStatLvItem("Accuracy", $"{_enhancedPower.Accuracy:P2}",
-                GetBoostType(_basePower.Accuracy, _enhancedPower?.Accuracy ?? _basePower.Accuracy)));
+            row++;
+            listInfos.Rows.Add();
+            listInfos.Rows[row].Height = 20;
+            SetCellContent("Accuracy:", row, 0);
+            SetCellContent($"{_enhancedPower.Accuracy:P2}", GetBoostColor(_basePower.Accuracy, _enhancedPower.Accuracy), row, 1);
 
             // Check if there is a mez effect, display duration in the right column.
             var hasMez = _basePower.Effects.Any(e => e.EffectType == Enums.eEffectType.Mez);
@@ -1601,16 +1686,11 @@ namespace Mids_Reborn.Forms.Controls
                     .Select(e => e.Duration)
                     .Max();
 
-                listInfosR.Items.Add(CreateStatLvItem("Duration", $"{enhancedDuration:###.##}s",
-                    GetBoostType(baseDuration, enhancedDuration)));
-                //listInfosR.Items.Add(CreateStatLvItem());
-                //listInfosR.Items.Add(CreateStatLvItem());
-            }
-            else
-            {
-                //listInfosR.Items.Add(CreateStatLvItem());
-                //listInfosR.Items.Add(CreateStatLvItem());
-                //listInfosR.Items.Add(CreateStatLvItem());
+                if (enhancedDuration > float.Epsilon)
+                {
+                    SetCellContent("Duration:", row, 2);
+                    SetCellContent($"{enhancedDuration:#####0.##}s", GetBoostColor(baseDuration, enhancedDuration), row, 3);
+                }
             }
 
             // Misc & special effects (4 max)
@@ -1628,14 +1708,27 @@ namespace Mids_Reborn.Forms.Controls
             var hasBuff = new List<Enums.eEffectType>();
             var miscEffectsIndexes =
                 _enhancedPower.Effects.FindIndexes(e => !effectsHidden.Contains(e.EffectType)).ToList();
+            
+            // Useless blank line showing with Combat Jumping
             var k = 0;
             for (var i = 0; i < miscEffectsIndexes.Count & k < 4; i++)
             {
+                if (k % 2 == 0)
+                {
+                    row++;
+                    listInfos.Rows.Add();
+                    listInfos.Rows[row].Height = 20;
+                }
+
                 if (miscEffectsIndexes[i] >= _basePower.Effects.Length ||
                     _basePower.Effects[miscEffectsIndexes[i]].EffectType !=
                     _enhancedPower.Effects[miscEffectsIndexes[i]].EffectType)
                 {
                     var fx = _enhancedPower.Effects[miscEffectsIndexes[i]];
+                    if (fx.PvMode != Enums.ePvX.PvE != MidsContext.Config.Inc.DisablePvE)
+                    {
+                        continue;
+                    }
 
                     switch (fx.EffectType)
                     {
@@ -1675,21 +1768,29 @@ namespace Mids_Reborn.Forms.Controls
                         _ => fx.BuffedMag
                     };*/
 
+                    var mezPrefix = fx.EffectType == Enums.eEffectType.Mez ? "Mag " : "";
                     if (i % 2 == 0)
                     {
-                        listInfosL.Items.Add(CreateStatLvItem(fxType,
-                            fx.DisplayPercentage ? $"{fx.BuffedMag:P2}" : $"{fx.BuffedMag:###.##}", BoostType.Extra));
+                        SetCellContent($"{fxType}:", row, 0);
+                        SetCellContent(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}", GetBoostColor(BoostType.Extra), row, 1);
                     }
                     else
                     {
-                        listInfosR.Items.Add(CreateStatLvItem(fxType,
-                            fx.DisplayPercentage ? $"{fx.BuffedMag:P2}" : $"{fx.BuffedMag:###.##}", BoostType.Extra));
+                        SetCellContent($"{fxType}:", row, 2);
+                        SetCellContent(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}", GetBoostColor(BoostType.Extra), row, 3);
                     }
+
+                    k++;
                 }
                 else
                 {
                     var fxEnh = _enhancedPower.Effects[miscEffectsIndexes[i]];
                     var fxBase = _basePower.Effects[miscEffectsIndexes[i]];
+
+                    if (fxEnh.PvMode != Enums.ePvX.PvE != MidsContext.Config.Inc.DisablePvE)
+                    {
+                        continue;
+                    }
 
                     switch (fxEnh.EffectType)
                     {
@@ -1739,23 +1840,18 @@ namespace Mids_Reborn.Forms.Controls
 
                     if (i % 2 == 0)
                     {
-                        listInfosL.Items.Add(CreateStatLvItem(fxType,
-                            fxEnh.DisplayPercentage ? $"{enhValue:P2}" : $"{enhValue:###.##}",
-                            GetBoostType(baseValue, enhValue)));
+                        SetCellContent($"{fxType}:", row, 0);
+                        SetCellContent(fxEnh.DisplayPercentage ? $"{enhValue:P2}" : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}" : $"{enhValue:#####0.##}")}", GetBoostColor(baseValue, enhValue), row, 1);
                     }
                     else
                     {
-                        listInfosR.Items.Add(CreateStatLvItem(fxType,
-                            fxEnh.DisplayPercentage ? $"{enhValue:P2}" : $"{enhValue:###.##}",
-                            GetBoostType(baseValue, enhValue)));
+                        SetCellContent($"{fxType}:", row, 2);
+                        SetCellContent(fxEnh.DisplayPercentage ? $"{enhValue:P2}" : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}" : $"{enhValue:#####0.##}")}", GetBoostColor(baseValue, enhValue), row, 3);
                     }
+
+                    k++;
                 }
-
-                k++;
             }
-
-            listInfosL.EndUpdate();
-            listInfosR.EndUpdate();
 
             var baseDamage = _basePower.FXGetDamageValue();
             var enhancedDamage = _enhancedPower.FXGetDamageValue();
@@ -1782,15 +1878,15 @@ namespace Mids_Reborn.Forms.Controls
                     switch (i)
                     {
                         case 0:
-                            lblEffectsBlock1.Text = $"{labels[i]}/{labels[i + 1]}";
+                            lblEffectsBlock1.Text = @$"{labels[i]}/{labels[i + 1]}";
                             break;
 
                         case 2:
-                            lblEffectsBlock2.Text = $"{labels[i]}/{labels[i + 1]}";
+                            lblEffectsBlock2.Text = @$"{labels[i]}/{labels[i + 1]}";
                             break;
 
                         case 4:
-                            lblEffectsBlock3.Text = $"{labels[i]}/{labels[i + 1]}";
+                            lblEffectsBlock3.Text = @$"{labels[i]}/{labels[i + 1]}";
                             break;
                     }
                 }
