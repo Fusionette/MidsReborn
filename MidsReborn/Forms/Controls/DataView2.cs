@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -77,8 +76,7 @@ namespace Mids_Reborn.Forms.Controls
         private readonly TabControlAdv _tabControlAdv;
         private TabsRendered _tabsRendered;
 
-        private static readonly SKBitmap
-            NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
+        private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
 
         // Track bar colors for power scalers
         private readonly TrackGradientsScheme TrackColors = new()
@@ -403,7 +401,7 @@ namespace Mids_Reborn.Forms.Controls
             {
                 return ToWho switch
                 {
-                    Enums.eToWho.Self => $"{(addSpace ? " " : "")}(Self)",
+                    Enums.eToWho.Self => $"{(addSpace ? " " : "")}(Slf)",
                     Enums.eToWho.Target => $"{(addSpace ? " " : "")}(Tgt)",
                     _ => ""
                 };
@@ -1265,6 +1263,271 @@ namespace Mids_Reborn.Forms.Controls
 
         #endregion
 
+        #region Abbreviate effects/mez sub-class
+
+        private static class AbbreviateNames
+        {
+            public static string AbbreviateMez(Enums.eMez mezType)
+            {
+                switch (mezType)
+                {
+                    case Enums.eMez.None:
+                    case Enums.eMez.Afraid:
+                    case Enums.eMez.Avoid:
+                    case Enums.eMez.Held:
+                    case Enums.eMez.Repel:
+                    case Enums.eMez.Taunt:
+                    case Enums.eMez.Sleep:
+                        return $"{mezType}";
+
+                    case Enums.eMez.Confused:
+                        return "Conf.";
+
+                    case Enums.eMez.Immobilized:
+                        return "Immob.";
+
+                    case Enums.eMez.Knockback:
+                        return "KBk";
+
+                    case Enums.eMez.Knockup:
+                        return "KUp";
+
+                    case Enums.eMez.OnlyAffectsSelf:
+                        return "OnlySlf";
+
+                    case Enums.eMez.Placate:
+                        return "Plact";
+
+                    case Enums.eMez.Stunned:
+                        return "Stun";
+
+                    case Enums.eMez.Terrorized:
+                        return "Fear";
+
+                    case Enums.eMez.Untouchable:
+                        return "Untch.";
+
+                    case Enums.eMez.Teleport:
+                        return "TP";
+
+                    case Enums.eMez.ToggleDrop:
+                        return "TglDrp";
+
+                    case Enums.eMez.CombatPhase:
+                        return "Phase";
+
+                    case Enums.eMez.Intangible:
+                        return "Intangb.";
+
+                    default:
+                        return "";
+                }
+            }
+
+            public static string AbbreviateFx(Enums.eEffectType effectType)
+            {
+                switch (effectType)
+                {
+                    case Enums.eEffectType.None:
+                        return "";
+
+                    case Enums.eEffectType.Accuracy:
+                        return "Acc.";
+
+                    case Enums.eEffectType.ViewAttrib:
+                        return "ViewAttr.";
+
+                    case Enums.eEffectType.Damage:
+                        return "Dmg.";
+
+                    case Enums.eEffectType.DamageBuff:
+                        return "DmgBuff";
+
+                    case Enums.eEffectType.Defense:
+                        return "Def";
+
+                    case Enums.eEffectType.DropToggles:
+                        return "DropTgl.";
+
+                    case Enums.eEffectType.Endurance:
+                        return "End";
+
+                    case Enums.eEffectType.EnduranceDiscount:
+                        return "EndDsct";
+
+                    case Enums.eEffectType.Enhancement:
+                        return "Enh";
+
+                    case Enums.eEffectType.SpeedFlying:
+                        return "SpdFly";
+
+                    case Enums.eEffectType.GrantPower:
+                        return "Grant";
+
+                    case Enums.eEffectType.HitPoints:
+                        return "HP";
+
+                    case Enums.eEffectType.InterruptTime:
+                        return "Interpt";
+
+                    case Enums.eEffectType.JumpHeight:
+                        return "JmpHgt";
+
+                    case Enums.eEffectType.SpeedJumping:
+                        return "SpdJmp";
+
+                    case Enums.eEffectType.MezResist:
+                        return "MezRes";
+
+                    case Enums.eEffectType.MovementControl:
+                        return "MvCtrl";
+
+                    case Enums.eEffectType.MovementFriction:
+                        return "MvFrct";
+
+                    case Enums.eEffectType.PerceptionRadius:
+                        return "Percept.";
+
+                    case Enums.eEffectType.RechargeTime:
+                        return "Rechg";
+
+                    case Enums.eEffectType.Recovery:
+                        return "Rcv";
+
+                    case Enums.eEffectType.Regeneration:
+                        return "Regen";
+
+                    case Enums.eEffectType.ResEffect:
+                        return "ResFx";
+
+                    case Enums.eEffectType.Resistance:
+                        return "Res";
+
+                    case Enums.eEffectType.RevokePower:
+                        return "Revk";
+
+                    case Enums.eEffectType.SpeedRunning:
+                        return "SpdRun";
+
+                    case Enums.eEffectType.SetCostume:
+                        return "Costume";
+
+                    case Enums.eEffectType.SetMode:
+                        return "Mode";
+
+                    case Enums.eEffectType.StealthRadius:
+                        return "StealthPvE";
+
+                    case Enums.eEffectType.StealthRadiusPlayer:
+                        return "StealthPvP";
+
+                    case Enums.eEffectType.EntCreate:
+                        return "Spawn";
+
+                    case Enums.eEffectType.ThreatLevel:
+                        return "Threat";
+
+                    case Enums.eEffectType.Translucency:
+                        return "Translcy";
+
+                    case Enums.eEffectType.XPDebtProtection:
+                        return "DebtProt";
+
+                    case Enums.eEffectType.SilentKill:
+                        return "SiltKill";
+
+                    case Enums.eEffectType.Elusivity:
+                        return "Elusv";
+
+                    case Enums.eEffectType.GlobalChanceMod:
+                        return "GCM";
+
+                    case Enums.eEffectType.CombatModShift:
+                        return "ModShft";
+
+                    case Enums.eEffectType.MaxRunSpeed:
+                        return "MaxRunSpd";
+
+                    case Enums.eEffectType.MaxJumpSpeed:
+                        return "MaxJmpSpd";
+
+                    case Enums.eEffectType.MaxFlySpeed:
+                        return "MaxFlySpd";
+
+                    case Enums.eEffectType.DesignerStatus:
+                        return "DesgnSt";
+
+                    case Enums.eEffectType.PowerRedirect:
+                        return "Redir.";
+
+                    case Enums.eEffectType.TokenAdd:
+                        return "TknAdd";
+
+                    case Enums.eEffectType.ExperienceGain:
+                        return "XPGain";
+
+                    case Enums.eEffectType.InfluenceGain:
+                        return "InfGain";
+
+                    case Enums.eEffectType.PrestigeGain:
+                        return "PrstgGain";
+
+                    case Enums.eEffectType.AddBehavior:
+                        return "AddBhv";
+
+                    case Enums.eEffectType.RechargePower:
+                        return "RechPwr";
+
+                    case Enums.eEffectType.RewardSourceTeam:
+                        return "RewrdSrcTm";
+
+                    case Enums.eEffectType.VisionPhase:
+                        return "VisPhase";
+
+                    case Enums.eEffectType.CombatPhase:
+                        return "CbtPhase";
+
+                    case Enums.eEffectType.ClearFog:
+                        return "ClrFog";
+
+                    case Enums.eEffectType.SetSZEValue:
+                        return "SetSZE";
+
+                    case Enums.eEffectType.ExclusiveVisionPhase:
+                        return "ExclVisPhase";
+
+                    case Enums.eEffectType.ClearDamagers:
+                        return "ClrDmgers";
+
+                    case Enums.eEffectType.EntCreate_x:
+                        return "Spawn_x";
+
+                    case Enums.eEffectType.Hoverboard:
+                        return "Hvrbrd";
+
+                    case Enums.eEffectType.Jumppack:
+                        return "JmpPack";
+
+                    case Enums.eEffectType.MagicCarpet:
+                        return "MagCrpt";
+
+                    case Enums.eEffectType.NinjaRun:
+                        return "NinjaRn";
+
+                    case Enums.eEffectType.SteamJump:
+                        return "SteamJmp";
+
+                    case Enums.eEffectType.ModifyAttrib:
+                        return "ModAttr";
+
+                    default:
+                        return $"{effectType}";
+                }
+            }
+        }
+
+        #endregion
+
         public DataView2()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
@@ -1429,7 +1692,6 @@ namespace Mids_Reborn.Forms.Controls
                 ToolTipText = tip
             };
 
-            //Debug.WriteLine($"CreateStatLvItem('{statName}', '{value}', '{boostType}', '{tip}')");
             lvItem.SubItems.Add(
                 new ListViewItem.ListViewSubItem
                 {
@@ -1443,7 +1705,6 @@ namespace Mids_Reborn.Forms.Controls
 
         private static ListViewItem CreateStatLvItem()
         {
-            //Debug.WriteLine($"CreateStatLvItem(<blank>)");
             var lvItem = new ListViewItem
             {
                 Text = ""
@@ -1742,15 +2003,15 @@ namespace Mids_Reborn.Forms.Controls
 
                     var fxType = fx.EffectType switch
                     {
-                        Enums.eEffectType.Enhancement => $"{fx.EffectType}({fx.ETModifies})",
-                        Enums.eEffectType.MezResist => $"{fx.EffectType}({fx.MezType})",
-                        Enums.eEffectType.Mez => $"{fx.EffectType}({fx.MezType})",
+                        Enums.eEffectType.Enhancement => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({AbbreviateNames.AbbreviateFx(fx.ETModifies)})",
+                        Enums.eEffectType.MezResist => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({AbbreviateNames.AbbreviateMez(fx.MezType)})",
+                        Enums.eEffectType.Mez => $"{AbbreviateNames.AbbreviateMez(fx.MezType)}",
 
-                        Enums.eEffectType.Resistance => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
-                        Enums.eEffectType.Defense => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
-                        Enums.eEffectType.DamageBuff => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
-                        Enums.eEffectType.Elusivity => $"{fx.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
-                        _ => $"{fx.EffectType}"
+                        Enums.eEffectType.Resistance => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
+                        Enums.eEffectType.Defense => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
+                        Enums.eEffectType.DamageBuff => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
+                        Enums.eEffectType.Elusivity => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
+                        _ => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}"
                     };
 
                     /*var enhValue = fx.EffectType switch
@@ -1767,17 +2028,22 @@ namespace Mids_Reborn.Forms.Controls
                         listInfos.Rows[row].Height = 20;
                     }
 
+                    var fxTarget = fx.ToWho switch
+                    {
+                        Enums.eToWho.Self => " (Slf)",
+                        Enums.eToWho.Target => " (Tgt)",
+                        _ => ""
+                    };
+
+                    var fxDuration = fx.EffectType == Enums.eEffectType.Mez &
+                                      (fx.MezType == Enums.eMez.Knockback | fx.MezType == Enums.eMez.Knockup)
+                        ? ""
+                        : $", {fx.Duration:#####0.##}s";
+
                     var mezPrefix = fx.EffectType == Enums.eEffectType.Mez ? "Mag " : "";
-                    if (i % 2 == 0)
-                    {
-                        SetCellContent($"{fxType}:", row, 0);
-                        SetCellContent(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}", GetBoostColor(BoostType.Extra), row, 1);
-                    }
-                    else
-                    {
-                        SetCellContent($"{fxType}:", row, 2);
-                        SetCellContent(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}", GetBoostColor(BoostType.Extra), row, 3);
-                    }
+                    
+                    SetCellContent($"{fxType}{fxTarget}:", row, k % 2 == 0 ? 0 : 2);
+                    SetCellContent($"{(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}")}{fxDuration}", GetBoostColor(fx.isEnhancementEffect ? BoostType.Extra : BoostType.Equal), row, k % 2 == 0 ? 1 : 3);
 
                     k++;
                 }
@@ -1811,30 +2077,29 @@ namespace Mids_Reborn.Forms.Controls
 
                     var fxType = fxEnh.EffectType switch
                     {
-                        Enums.eEffectType.Enhancement => $"{fxEnh.EffectType}({fxEnh.ETModifies})",
-                        Enums.eEffectType.MezResist => $"{fxEnh.EffectType}({fxEnh.MezType})",
-                        Enums.eEffectType.Mez => $"{fxEnh.EffectType}({fxEnh.MezType})",
-                        Enums.eEffectType.Resistance => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
-                        Enums.eEffectType.Defense => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
-                        Enums.eEffectType.DamageBuff => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
-                        Enums.eEffectType.Elusivity => $"{fxEnh.EffectType}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
-                        _ => $"{fxEnh.EffectType}"
+                        Enums.eEffectType.Enhancement => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({AbbreviateNames.AbbreviateFx(fxEnh.ETModifies)})",
+                        Enums.eEffectType.MezResist => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({AbbreviateNames.AbbreviateMez(fxEnh.MezType)})",
+                        Enums.eEffectType.Mez => $"{AbbreviateNames.AbbreviateMez(fxEnh.MezType)}",
+                        Enums.eEffectType.Resistance => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
+                        Enums.eEffectType.Defense => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
+                        Enums.eEffectType.DamageBuff => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
+                        Enums.eEffectType.Elusivity => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
+                        _ => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}"
                     };
 
-                    var enhValue = fxEnh.EffectType switch
-                    {
-                        Enums.eEffectType.Mez when fxEnh.MezType == Enums.eMez.Knockback |
-                                                   fxEnh.MezType == Enums.eMez.Knockup => fxEnh.BuffedMag,
-                        Enums.eEffectType.Mez => fxEnh.Duration,
-                        _ => fxEnh.BuffedMag
-                    };
+                    var enhValue = fxEnh.BuffedMag;
+                    var baseValue = fxBase.BuffedMag;
 
-                    var baseValue = fxBase.EffectType switch
+                    var enhDuration = fxEnh.EffectType == Enums.eEffectType.Mez &
+                                      (fxEnh.MezType == Enums.eMez.Knockback | fxEnh.MezType == Enums.eMez.Knockup)
+                        ? ""
+                        : $", {fxEnh.Duration:#####0.##}s";
+
+                    var fxTarget = fxEnh.ToWho switch
                     {
-                        Enums.eEffectType.Mez when fxBase.MezType == Enums.eMez.Knockback |
-                                                   fxBase.MezType == Enums.eMez.Knockup => fxBase.BuffedMag,
-                        Enums.eEffectType.Mez => fxBase.Duration,
-                        _ => fxBase.BuffedMag
+                        Enums.eToWho.Self => " (Slf)",
+                        Enums.eToWho.Target => " (Tgt)",
+                        _ => ""
                     };
 
                     if (k % 2 == 0)
@@ -1844,16 +2109,13 @@ namespace Mids_Reborn.Forms.Controls
                         listInfos.Rows[row].Height = 20;
                     }
 
-                    if (i % 2 == 0)
-                    {
-                        SetCellContent($"{fxType}:", row, 0);
-                        SetCellContent(fxEnh.DisplayPercentage ? $"{enhValue:P2}" : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}" : $"{enhValue:#####0.##}")}", GetBoostColor(baseValue, enhValue), row, 1);
-                    }
-                    else
-                    {
-                        SetCellContent($"{fxType}:", row, 2);
-                        SetCellContent(fxEnh.DisplayPercentage ? $"{enhValue:P2}" : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}" : $"{enhValue:#####0.##}")}", GetBoostColor(baseValue, enhValue), row, 3);
-                    }
+                    SetCellContent($"{fxType}{fxTarget}:", row, k % 2 == 0 ? 0 : 2);
+                    SetCellContent(
+                        fxEnh.DisplayPercentage
+                            ? $"{enhValue:P2}"
+                            : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}{enhDuration}" : $"{enhValue:#####0.##}")}",
+                        fxEnh.isEnhancementEffect ? GetBoostColor(BoostType.Extra) : GetBoostColor(baseValue, enhValue),
+                        row, k % 2 == 0 ? 1 : 3);
 
                     k++;
                 }
