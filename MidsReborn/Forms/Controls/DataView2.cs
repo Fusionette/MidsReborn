@@ -1709,17 +1709,9 @@ namespace Mids_Reborn.Forms.Controls
             var miscEffectsIndexes =
                 _enhancedPower.Effects.FindIndexes(e => !effectsHidden.Contains(e.EffectType)).ToList();
             
-            // Useless blank line showing with Combat Jumping
             var k = 0;
             for (var i = 0; i < miscEffectsIndexes.Count & k < 4; i++)
             {
-                if (k % 2 == 0)
-                {
-                    row++;
-                    listInfos.Rows.Add();
-                    listInfos.Rows[row].Height = 20;
-                }
-
                 if (miscEffectsIndexes[i] >= _basePower.Effects.Length ||
                     _basePower.Effects[miscEffectsIndexes[i]].EffectType !=
                     _enhancedPower.Effects[miscEffectsIndexes[i]].EffectType)
@@ -1767,6 +1759,13 @@ namespace Mids_Reborn.Forms.Controls
                         Enums.eEffectType.Mez => fx.Duration,
                         _ => fx.BuffedMag
                     };*/
+
+                    if (k % 2 == 0)
+                    {
+                        row++;
+                        listInfos.Rows.Add();
+                        listInfos.Rows[row].Height = 20;
+                    }
 
                     var mezPrefix = fx.EffectType == Enums.eEffectType.Mez ? "Mag " : "";
                     if (i % 2 == 0)
@@ -1837,6 +1836,13 @@ namespace Mids_Reborn.Forms.Controls
                         Enums.eEffectType.Mez => fxBase.Duration,
                         _ => fxBase.BuffedMag
                     };
+
+                    if (k % 2 == 0)
+                    {
+                        row++;
+                        listInfos.Rows.Add();
+                        listInfos.Rows[row].Height = 20;
+                    }
 
                     if (i % 2 == 0)
                     {
