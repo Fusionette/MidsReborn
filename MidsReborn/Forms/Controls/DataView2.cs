@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -1532,7 +1533,7 @@ namespace Mids_Reborn.Forms.Controls
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
             InitializeComponent();
-            
+
             _tabControlAdv = tabBox;
             _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
             
@@ -2123,12 +2124,36 @@ namespace Mids_Reborn.Forms.Controls
 
             var baseDamage = _basePower.FXGetDamageValue();
             var enhancedDamage = _enhancedPower.FXGetDamageValue();
-            ctlDamageDisplay1.nBaseVal = baseDamage;
-            ctlDamageDisplay1.nMaxEnhVal = baseDamage * (1 + Enhancement.ApplyED(Enums.eSchedule.A, 2.277f));
-            ctlDamageDisplay1.nEnhVal = enhancedDamage;
-            ctlDamageDisplay1.Text = Math.Abs(enhancedDamage - baseDamage) > float.Epsilon
-                ? $"{_enhancedPower.FXGetDamageString()} ({Utilities.FixDP(baseDamage)})"
-                : _basePower.FXGetDamageString();
+            var dmgType = "Damage" + MidsContext.Config.DamageMath.ReturnValue switch
+            {
+                ConfigData.EDamageReturn.DPS => " Per Second",
+                ConfigData.EDamageReturn.DPA => " Per Animation Second",
+                _ => ""
+            };
+
+            dmgType += MidsContext.Config.DataDamageGraphPercentageOnly ? " (% only)" : "";
+            dmgType += ":";
+
+            lblDamage.Text = dmgType;
+
+            if (_basePower.NIDSubPower.Length > 0 & Math.Abs(baseDamage) < float.Epsilon)
+            {
+                ctlDamageDisplay1.nBaseVal = 0;
+                ctlDamageDisplay1.nMaxEnhVal = 0;
+                ctlDamageDisplay1.nEnhVal = 0;
+                ctlDamageDisplay1.Text = string.Empty;
+            }
+            else
+            {
+                Debug.WriteLine($"baseDamage: {baseDamage}, maxEnhVal: {baseDamage * (1 + Enhancement.ApplyED(Enums.eSchedule.A, 2.277f))}, enhancedDamage: {enhancedDamage}");
+                ctlDamageDisplay1.nBaseVal = baseDamage; // Math.Max(0, baseDamage) ? (see Toxins)
+                ctlDamageDisplay1.nMaxEnhVal = Math.Max(baseDamage * (1 + Enhancement.ApplyED(Enums.eSchedule.A, 2.277f)), enhancedDamage); // ???
+                ctlDamageDisplay1.nEnhVal = enhancedDamage; // Math.Max(0, enhancedDamage ? (see Toxins)
+                ctlDamageDisplay1.nHighEnh = Math.Max(414, enhancedDamage); // Maximum graph value
+                ctlDamageDisplay1.Text = Math.Abs(enhancedDamage - baseDamage) > float.Epsilon
+                    ? @$"{_enhancedPower.FXGetDamageString()} ({Utilities.FixDP(baseDamage)})"
+                    : _basePower.FXGetDamageString();
+            }
         }
 
         #endregion
@@ -2416,6 +2441,11 @@ namespace Mids_Reborn.Forms.Controls
         private void listInfos_SelectionChanged(object sender, EventArgs e)
         {
             listInfos.ClearSelection();
+        }
+
+        private void DataView2_Load(object sender, EventArgs e)
+        {
+            ctlDamageDisplay1.Text = string.Empty;
         }
     }
 }

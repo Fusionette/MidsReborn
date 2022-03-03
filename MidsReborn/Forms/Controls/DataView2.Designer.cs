@@ -294,21 +294,24 @@ namespace Mids_Reborn.Forms.Controls
             this.ctlDamageDisplay1.ColorBaseStart = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(130)))), ((int)(((byte)(32)))));
             this.ctlDamageDisplay1.ColorEnhEnd = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ctlDamageDisplay1.ColorEnhStart = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ctlDamageDisplay1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.ctlDamageDisplay1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ctlDamageDisplay1.GraphType = mrbBase.Enums.eDDGraph.Both;
             this.ctlDamageDisplay1.Location = new System.Drawing.Point(4, 304);
             this.ctlDamageDisplay1.Name = "ctlDamageDisplay1";
             this.ctlDamageDisplay1.nBaseVal = 100F;
             this.ctlDamageDisplay1.nEnhVal = 196F;
-            this.ctlDamageDisplay1.nHighBase = 200F;
+            this.ctlDamageDisplay1.nHighBase = 2000F;
             this.ctlDamageDisplay1.nHighEnh = 414F;
             this.ctlDamageDisplay1.nMaxEnhVal = 207F;
             this.ctlDamageDisplay1.PaddingH = 0;
             this.ctlDamageDisplay1.PaddingV = 0;
-            this.ctlDamageDisplay1.Size = new System.Drawing.Size(351, 72);
+            this.ctlDamageDisplay1.Size = new System.Drawing.Size(351, 71);
             this.ctlDamageDisplay1.Style = mrbBase.Enums.eDDStyle.TextUnderGraph;
             this.ctlDamageDisplay1.TabIndex = 6;
+            this.ctlDamageDisplay1.TabStop = false;
             this.ctlDamageDisplay1.TextAlign = mrbBase.Enums.eDDAlign.Center;
-            this.ctlDamageDisplay1.TextColor = System.Drawing.Color.Black;
+            this.ctlDamageDisplay1.TextColor = System.Drawing.Color.WhiteSmoke;
             // 
             // lblDamage
             // 
@@ -1236,6 +1239,7 @@ namespace Mids_Reborn.Forms.Controls
             this.Controls.Add(this.tabBox);
             this.Name = "DataView2";
             this.Size = new System.Drawing.Size(360, 400);
+            this.Load += new System.EventHandler(this.DataView2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tabBox)).EndInit();
             this.tabBox.ResumeLayout(false);
             this.tabPageAdv1.ResumeLayout(false);
