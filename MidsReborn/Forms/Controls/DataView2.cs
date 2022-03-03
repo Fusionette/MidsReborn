@@ -2412,5 +2412,10 @@ namespace Mids_Reborn.Forms.Controls
             var graph = VariableStatsGraph.DrawScalesGraphSurface(HistoryIdx, target.Width, target.Height);
             e.Surface.Canvas.DrawImage(graph, new SKPoint(0, 0));
         }
+
+        private void listInfos_SelectionChanged(object sender, EventArgs e)
+        {
+            listInfos.ClearSelection();
+        }
     }
 }
