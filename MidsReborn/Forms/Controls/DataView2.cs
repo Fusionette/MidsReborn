@@ -76,6 +76,7 @@ namespace Mids_Reborn.Forms.Controls
         private FlipAnimator _flipAnimator;
         private readonly TabControlAdv _tabControlAdv;
         private TabsRendered _tabsRendered;
+        private KeyValuePair<DataGridView, Point> GridMouseOverEventLoc;
 
         private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
 
@@ -1327,203 +1328,9 @@ namespace Mids_Reborn.Forms.Controls
 
             public static string AbbreviateFx(Enums.eEffectType effectType)
             {
-                switch (effectType)
-                {
-                    case Enums.eEffectType.None:
-                        return "";
+                var index = (int) effectType;
 
-                    case Enums.eEffectType.Accuracy:
-                        return "Acc.";
-
-                    case Enums.eEffectType.ViewAttrib:
-                        return "ViewAttr.";
-
-                    case Enums.eEffectType.Damage:
-                        return "Dmg.";
-
-                    case Enums.eEffectType.DamageBuff:
-                        return "DmgBuff";
-
-                    case Enums.eEffectType.Defense:
-                        return "Def";
-
-                    case Enums.eEffectType.DropToggles:
-                        return "DropTgl.";
-
-                    case Enums.eEffectType.Endurance:
-                        return "End";
-
-                    case Enums.eEffectType.EnduranceDiscount:
-                        return "EndDsct";
-
-                    case Enums.eEffectType.Enhancement:
-                        return "Enh";
-
-                    case Enums.eEffectType.SpeedFlying:
-                        return "SpdFly";
-
-                    case Enums.eEffectType.GrantPower:
-                        return "Grant";
-
-                    case Enums.eEffectType.HitPoints:
-                        return "HP";
-
-                    case Enums.eEffectType.InterruptTime:
-                        return "Interpt";
-
-                    case Enums.eEffectType.JumpHeight:
-                        return "JmpHgt";
-
-                    case Enums.eEffectType.SpeedJumping:
-                        return "SpdJmp";
-
-                    case Enums.eEffectType.MezResist:
-                        return "MezRes";
-
-                    case Enums.eEffectType.MovementControl:
-                        return "MvCtrl";
-
-                    case Enums.eEffectType.MovementFriction:
-                        return "MvFrct";
-
-                    case Enums.eEffectType.PerceptionRadius:
-                        return "Percept.";
-
-                    case Enums.eEffectType.RechargeTime:
-                        return "Rechg";
-
-                    case Enums.eEffectType.Recovery:
-                        return "Rcv";
-
-                    case Enums.eEffectType.Regeneration:
-                        return "Regen";
-
-                    case Enums.eEffectType.ResEffect:
-                        return "ResFx";
-
-                    case Enums.eEffectType.Resistance:
-                        return "Res";
-
-                    case Enums.eEffectType.RevokePower:
-                        return "Revk";
-
-                    case Enums.eEffectType.SpeedRunning:
-                        return "SpdRun";
-
-                    case Enums.eEffectType.SetCostume:
-                        return "Costume";
-
-                    case Enums.eEffectType.SetMode:
-                        return "Mode";
-
-                    case Enums.eEffectType.StealthRadius:
-                        return "StealthPvE";
-
-                    case Enums.eEffectType.StealthRadiusPlayer:
-                        return "StealthPvP";
-
-                    case Enums.eEffectType.EntCreate:
-                        return "Spawn";
-
-                    case Enums.eEffectType.ThreatLevel:
-                        return "Threat";
-
-                    case Enums.eEffectType.Translucency:
-                        return "Translcy";
-
-                    case Enums.eEffectType.XPDebtProtection:
-                        return "DebtProt";
-
-                    case Enums.eEffectType.SilentKill:
-                        return "SiltKill";
-
-                    case Enums.eEffectType.Elusivity:
-                        return "Elusv";
-
-                    case Enums.eEffectType.GlobalChanceMod:
-                        return "GCM";
-
-                    case Enums.eEffectType.CombatModShift:
-                        return "ModShft";
-
-                    case Enums.eEffectType.MaxRunSpeed:
-                        return "MaxRunSpd";
-
-                    case Enums.eEffectType.MaxJumpSpeed:
-                        return "MaxJmpSpd";
-
-                    case Enums.eEffectType.MaxFlySpeed:
-                        return "MaxFlySpd";
-
-                    case Enums.eEffectType.DesignerStatus:
-                        return "DesgnSt";
-
-                    case Enums.eEffectType.PowerRedirect:
-                        return "Redir.";
-
-                    case Enums.eEffectType.TokenAdd:
-                        return "TknAdd";
-
-                    case Enums.eEffectType.ExperienceGain:
-                        return "XPGain";
-
-                    case Enums.eEffectType.InfluenceGain:
-                        return "InfGain";
-
-                    case Enums.eEffectType.PrestigeGain:
-                        return "PrstgGain";
-
-                    case Enums.eEffectType.AddBehavior:
-                        return "AddBhv";
-
-                    case Enums.eEffectType.RechargePower:
-                        return "RechPwr";
-
-                    case Enums.eEffectType.RewardSourceTeam:
-                        return "RewrdSrcTm";
-
-                    case Enums.eEffectType.VisionPhase:
-                        return "VisPhase";
-
-                    case Enums.eEffectType.CombatPhase:
-                        return "CbtPhase";
-
-                    case Enums.eEffectType.ClearFog:
-                        return "ClrFog";
-
-                    case Enums.eEffectType.SetSZEValue:
-                        return "SetSZE";
-
-                    case Enums.eEffectType.ExclusiveVisionPhase:
-                        return "ExclVisPhase";
-
-                    case Enums.eEffectType.ClearDamagers:
-                        return "ClrDmgers";
-
-                    case Enums.eEffectType.EntCreate_x:
-                        return "Spawn_x";
-
-                    case Enums.eEffectType.Hoverboard:
-                        return "Hvrbrd";
-
-                    case Enums.eEffectType.Jumppack:
-                        return "JmpPack";
-
-                    case Enums.eEffectType.MagicCarpet:
-                        return "MagCrpt";
-
-                    case Enums.eEffectType.NinjaRun:
-                        return "NinjaRn";
-
-                    case Enums.eEffectType.SteamJump:
-                        return "SteamJmp";
-
-                    case Enums.eEffectType.ModifyAttrib:
-                        return "ModAttr";
-
-                    default:
-                        return $"{effectType}";
-                }
+                return $"{(Enums.eEffectTypeShort) index}";
             }
         }
 
@@ -1675,52 +1482,6 @@ namespace Mids_Reborn.Forms.Controls
             };
         }
 
-        private static ListViewItem CreateStatLvItem(string statName, string value, BoostType boostType,
-            string tip = "")
-        {
-            var valueColor = boostType switch
-            {
-                BoostType.Reduction => Color.FromArgb(255, 20, 20),
-                BoostType.Enhancement => Color.FromArgb(0, 240, 80),
-                BoostType.Extra => Color.FromArgb(0, 220, 220),
-                _ => Color.WhiteSmoke,
-            };
-
-            var lvItem = new ListViewItem
-            {
-                ForeColor = Color.FromArgb(160, 160, 160),
-                Text = statName,
-                ToolTipText = tip
-            };
-
-            lvItem.SubItems.Add(
-                new ListViewItem.ListViewSubItem
-                {
-                    ForeColor = valueColor,
-                    Text = value
-                }
-            );
-
-            return lvItem;
-        }
-
-        private static ListViewItem CreateStatLvItem()
-        {
-            var lvItem = new ListViewItem
-            {
-                Text = ""
-            };
-
-            lvItem.SubItems.Add(
-                new ListViewItem.ListViewSubItem
-                {
-                    Text = ""
-                }
-            );
-
-            return lvItem;
-        }
-
         private static Color InterpolateColor(decimal value, decimal valueMin, decimal valueMax, ColorRange colorRange)
         {
             return Color.FromArgb(
@@ -1864,31 +1625,39 @@ namespace Mids_Reborn.Forms.Controls
             };
         }
 
-        private void SetCellContent(int row, int column)
+        private void SetCellContent(DataGridView target, int row, int column)
         {
-            listInfos.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
-            listInfos.Rows[row].Cells[column].Style.ForeColor = Color.WhiteSmoke;
-            listInfos.Rows[row].Cells[column].Style.BackColor = Color.Black;
-            listInfos.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            listInfos.Rows[row].Cells[column].Value = string.Empty;
+            target.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
+            target.Rows[row].Cells[column].Style.ForeColor = Color.WhiteSmoke;
+            target.Rows[row].Cells[column].Style.BackColor = Color.Black;
+            target.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            target.Rows[row].Cells[column].Value = string.Empty;
         }
 
-        private void SetCellContent(string text, int row, int column)
+        private void SetCellContent(DataGridView target, string text, string tooltipText, int row, int column)
         {
-            listInfos.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
-            listInfos.Rows[row].Cells[column].Style.ForeColor = Color.WhiteSmoke;
-            listInfos.Rows[row].Cells[column].Style.BackColor = Color.Black;
-            listInfos.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            listInfos.Rows[row].Cells[column].Value = text;
+            target.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
+            target.Rows[row].Cells[column].Style.ForeColor = Color.WhiteSmoke;
+            target.Rows[row].Cells[column].Style.BackColor = Color.Black;
+            target.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            target.Rows[row].Cells[column].Value = text;
+            if (tooltipText != "")
+            {
+                target.Rows[row].Cells[column].ToolTipText = tooltipText;
+            }
         }
 
-        private void SetCellContent(string text, Color textColor, int row, int column)
+        private void SetCellContent(DataGridView target, string text, Color textColor, string tooltipText, int row, int column)
         {
-            listInfos.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
-            listInfos.Rows[row].Cells[column].Style.ForeColor = textColor;
-            listInfos.Rows[row].Cells[column].Style.BackColor = Color.Black;
-            listInfos.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            listInfos.Rows[row].Cells[column].Value = text;
+            target.Rows[row].Cells[column].Style.Font = new Font(new FontFamily("Microsoft Sans Serif"), 12, FontStyle.Regular, GraphicsUnit.Pixel);
+            target.Rows[row].Cells[column].Style.ForeColor = textColor;
+            target.Rows[row].Cells[column].Style.BackColor = Color.Black;
+            target.Rows[row].Cells[column].Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            target.Rows[row].Cells[column].Value = text;
+            if (tooltipText != "")
+            {
+                target.Rows[row].Cells[column].ToolTipText = tooltipText;
+            }
         }
 
         private void DisplayInfo()
@@ -1905,34 +1674,37 @@ namespace Mids_Reborn.Forms.Controls
             {
                 listInfos.Rows.Add();
                 listInfos.Rows[i].Height = 20;
-                SetCellContent(i, 0);
-                SetCellContent(i, 1);
-                SetCellContent(i, 2);
-                SetCellContent(i, 3);
+                SetCellContent(listInfos, i, 0);
+                SetCellContent(listInfos, i, 1);
+                SetCellContent(listInfos, i, 2);
+                SetCellContent(listInfos, i, 3);
             }
 
             var row = 0;
             
             listInfos.Rows.Add();
             listInfos.Rows[row].Height = 20;
-            SetCellContent("End Cost:", row, 0);
-            SetCellContent($"{_enhancedPower.EndCost:###0.##}", GetBoostColor(_basePower.EndCost, _enhancedPower.EndCost, true), row, 1);
-            SetCellContent("Recharge:", row, 2);
-            SetCellContent($"{_enhancedPower.RechargeTime:#####0.##}s", GetBoostColor(_basePower.RechargeTime, _enhancedPower.RechargeTime, true), row, 3);
+            SetCellContent(listInfos, "End Cost:", "", row, 0);
+            SetCellContent(listInfos, $"{_enhancedPower.EndCost:###0.##}", GetBoostColor(_basePower.EndCost, _enhancedPower.EndCost, true), "", row, 1);
+            SetCellContent(listInfos, "Recharge:", "", row, 2);
+            SetCellContent(listInfos, $"{_enhancedPower.RechargeTime:#####0.##}s", GetBoostColor(_basePower.RechargeTime, _enhancedPower.RechargeTime, true), "", row, 3);
 
             row++;
             listInfos.Rows.Add();
             listInfos.Rows[row].Height = 20;
-            SetCellContent("Range:", row, 0);
-            SetCellContent($"{_enhancedPower.Range:####0.##}ft", GetBoostColor(_basePower.Range, _enhancedPower.Range), row, 1);
-            SetCellContent("Cast Time:", row, 2);
-            SetCellContent($"{_enhancedPower.CastTime:#####0.##}s", GetBoostColor(_basePower.CastTime, _enhancedPower.CastTime, true), row, 3);
+            SetCellContent(listInfos, "Range:", "", row, 0);
+            SetCellContent(listInfos, $"{_enhancedPower.Range:####0.##}ft", GetBoostColor(_basePower.Range, _enhancedPower.Range), "", row, 1);
+
+            var castTimeTooltip = $"Cast Time: {_enhancedPower.CastTime:#####0.##}s\r\nArcana Time: {(Math.Ceiling(_enhancedPower.CastTime / 0.132) + 1) * 0.132}s";
+            SetCellContent(listInfos, "Cast Time:", castTimeTooltip, row, 2);
+            SetCellContent(listInfos, $"{_enhancedPower.CastTime:#####0.##}s", GetBoostColor(_basePower.CastTime, _enhancedPower.CastTime, true), castTimeTooltip, row, 3);
 
             row++;
             listInfos.Rows.Add();
             listInfos.Rows[row].Height = 20;
-            SetCellContent("Accuracy:", row, 0);
-            SetCellContent($"{_enhancedPower.Accuracy:P2}", GetBoostColor(_basePower.Accuracy, _enhancedPower.Accuracy), row, 1);
+            var accuracyTooltip = $"Accuracy: {_enhancedPower.Accuracy:P2}\r\nMultiplier: {_enhancedPower.Accuracy / 0.75:##0.0##}x"; // Base accuracy variable ?
+            SetCellContent(listInfos, "Accuracy:", accuracyTooltip, row, 0);
+            SetCellContent(listInfos, $"{_enhancedPower.Accuracy:P2}", GetBoostColor(_basePower.Accuracy, _enhancedPower.Accuracy), accuracyTooltip, row, 1);
 
             // Check if there is a mez effect, display duration in the right column.
             var hasMez = _basePower.Effects.Any(e => e.EffectType == Enums.eEffectType.Mez);
@@ -1950,8 +1722,8 @@ namespace Mids_Reborn.Forms.Controls
 
                 if (enhancedDuration > float.Epsilon)
                 {
-                    SetCellContent("Duration:", row, 2);
-                    SetCellContent($"{enhancedDuration:#####0.##}s", GetBoostColor(baseDuration, enhancedDuration), row, 3);
+                    SetCellContent(listInfos, "Duration:", "", row, 2);
+                    SetCellContent(listInfos, $"{enhancedDuration:#####0.##}s", GetBoostColor(baseDuration, enhancedDuration), "", row, 3);
                 }
             }
 
@@ -1974,6 +1746,7 @@ namespace Mids_Reborn.Forms.Controls
             var k = 0;
             for (var i = 0; i < miscEffectsIndexes.Count & k < 4; i++)
             {
+                // Special effects (from enhancements)
                 if (miscEffectsIndexes[i] >= _basePower.Effects.Length ||
                     _basePower.Effects[miscEffectsIndexes[i]].EffectType !=
                     _enhancedPower.Effects[miscEffectsIndexes[i]].EffectType)
@@ -2042,9 +1815,10 @@ namespace Mids_Reborn.Forms.Controls
                         : $", {fx.Duration:#####0.##}s";
 
                     var mezPrefix = fx.EffectType == Enums.eEffectType.Mez ? "Mag " : "";
+                    var fxTooltip = fx.BuildEffectString();
                     
-                    SetCellContent($"{fxType}{fxTarget}:", row, k % 2 == 0 ? 0 : 2);
-                    SetCellContent($"{(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}")}{fxDuration}", GetBoostColor(fx.isEnhancementEffect ? BoostType.Extra : BoostType.Equal), row, k % 2 == 0 ? 1 : 3);
+                    SetCellContent(listInfos, $"{fxType}{fxTarget}:", fxTooltip, row, k % 2 == 0 ? 0 : 2);
+                    SetCellContent(listInfos, $"{(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}")}{fxDuration}", GetBoostColor(fx.isEnhancementEffect ? BoostType.Extra : BoostType.Equal), fxTooltip, row, k % 2 == 0 ? 1 : 3);
 
                     k++;
                 }
@@ -2110,12 +1884,14 @@ namespace Mids_Reborn.Forms.Controls
                         listInfos.Rows[row].Height = 20;
                     }
 
-                    SetCellContent($"{fxType}{fxTarget}:", row, k % 2 == 0 ? 0 : 2);
-                    SetCellContent(
+                    var fxTooltip = fxEnh.BuildEffectString();
+                    SetCellContent(listInfos, $"{fxType}{fxTarget}:", fxTooltip, row, k % 2 == 0 ? 0 : 2);
+                    SetCellContent(listInfos,
                         fxEnh.DisplayPercentage
                             ? $"{enhValue:P2}"
                             : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}{enhDuration}" : $"{enhValue:#####0.##}")}",
                         fxEnh.isEnhancementEffect ? GetBoostColor(BoostType.Extra) : GetBoostColor(baseValue, enhValue),
+                        fxTooltip,
                         row, k % 2 == 0 ? 1 : 3);
 
                     k++;
@@ -2202,43 +1978,31 @@ namespace Mids_Reborn.Forms.Controls
                 }
             }
 
-            lvEffectsBlock1L.BeginUpdate();
-            lvEffectsBlock1R.BeginUpdate();
-            lvEffectsBlock2L.BeginUpdate();
-            lvEffectsBlock2R.BeginUpdate();
-            lvEffectsBlock3L.BeginUpdate();
-            lvEffectsBlock3R.BeginUpdate();
-
             var groupedItems = effectGroups.Groups.Values.ToList();
+            gridEffectsBlock1.Rows.Clear();
+            gridEffectsBlock2.Rows.Clear();
+            gridEffectsBlock3.Rows.Clear();
             for (var i = 0; i < groupedItems.Count; i++)
             {
-                var target = i switch
+                var target = (int)Math.Floor(i / 2f) switch
                 {
-                    0 => lvEffectsBlock1L,
-                    1 => lvEffectsBlock1R,
-                    2 => lvEffectsBlock2L,
-                    3 => lvEffectsBlock2R,
-                    4 => lvEffectsBlock3L,
-                    _ => lvEffectsBlock3R
+                    0 => gridEffectsBlock1,
+                    1 => gridEffectsBlock2,
+                    2 => gridEffectsBlock3,
+                    _ => gridEffectsBlock1
                 };
 
-                for (var j = 0; j < groupedItems[i].Count; j++)
+                for (var j = 0; j < Math.Min(5, groupedItems[i].Count); j++)
                 {
                     var boostType = groupedItems[i][j].GetBoostType();
                     var stat = groupedItems[i][j].GetStatName();
                     var mag = groupedItems[i][j].GetMagString();
-                    var lvItem = CreateStatLvItem(stat, mag, boostType, $"{groupedItems[i][j]}");
+                    var rowOffset = i % 2 * 2;
 
-                    target.Items.Add(lvItem);
+                    SetCellContent(target, $"{stat}:", "", j, rowOffset);
+                    SetCellContent(target, mag, GetBoostColor(boostType), "", j, rowOffset + 1);
                 }
             }
-
-            lvEffectsBlock1L.EndUpdate();
-            lvEffectsBlock1R.EndUpdate();
-            lvEffectsBlock2L.EndUpdate();
-            lvEffectsBlock2R.EndUpdate();
-            lvEffectsBlock3L.EndUpdate();
-            lvEffectsBlock3R.EndUpdate();
         }
 
         #endregion
@@ -2446,6 +2210,27 @@ namespace Mids_Reborn.Forms.Controls
         private void DataView2_Load(object sender, EventArgs e)
         {
             ctlDamageDisplay1.Text = string.Empty;
+            GridMouseOverEventLoc = new KeyValuePair<DataGridView, Point>(listInfos, new Point(-1, -1));
+        }
+
+        private void listInfos_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var target = (DataGridView) sender;
+            var tooltipTextSource = target.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText;
+
+            // Do not set tooltip text when mouse is stationary to reduce tooltip flicker.
+            if (GridMouseOverEventLoc.Key.Name == target.Name & GridMouseOverEventLoc.Value.Equals(e.Location)) return;
+            
+            toolTip1.SetToolTip(target, tooltipTextSource != "" ? target.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText : "");
+            GridMouseOverEventLoc = new KeyValuePair<DataGridView, Point>(target, e.Location);
+        }
+
+        private void listInfos_MouseLeave(object sender, EventArgs e)
+        {
+            var target = (DataGridView) sender;
+
+            toolTip1.SetToolTip(target, "");
+            GridMouseOverEventLoc = new KeyValuePair<DataGridView, Point>(target, new Point(-1, -1));
         }
     }
 }
