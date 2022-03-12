@@ -2569,6 +2569,7 @@ namespace Mids_Reborn.Forms
         private void Info_Enhancement(I9Slot iEnh, int iLevel = -1)
         {
             //myDataView.SetEnhancement(iEnh, iLevel);
+            myDataView.SetData(iEnh, iLevel);
         }
 
         internal void UnlockFloatingStats()
@@ -2607,7 +2608,6 @@ namespace Mids_Reborn.Forms
             }
 
             DataViewLocked = Lock;
-            //Debug.WriteLine("DataView2.SetData()");
             if (powIndex > -1)
             {
                 var basePower = MainModule.MidsController.Toon.GetBasePower(powIndex);
