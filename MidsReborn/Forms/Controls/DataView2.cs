@@ -1611,8 +1611,7 @@ namespace Mids_Reborn.Forms.Controls
                     Root.ctlDamageDisplay1.Visible = true;
                     Root.listSpecialBonuses.Visible = false;
 
-                    Root.infoTabTitle.Text =
-                        $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level}] " : "")}{_basePower?.DisplayName ?? "Info"}";
+                    Root.infoTabTitle.Text = $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level + 1}] " : "")}{_basePower?.DisplayName ?? "Info"}";
                     Root.richInfoSmall.Rtf = RTFText.Text2RTF(_basePower?.DescShort ?? "");
                     Root.richInfoLarge.Rtf = RTFText.Text2RTF(_basePower?.DescLong ?? "");
 
