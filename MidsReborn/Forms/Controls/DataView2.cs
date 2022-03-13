@@ -42,6 +42,7 @@ namespace Mids_Reborn.Forms.Controls
         private struct TabsRendered
         {
             public bool Info;
+            public InfoType InfoType;
             public bool Effects;
             public bool Totals;
             public bool Enhance;
@@ -50,11 +51,19 @@ namespace Mids_Reborn.Forms.Controls
             public void Reset()
             {
                 Info = false;
+                InfoType = InfoType.Power;
                 Effects = false;
                 Totals = false;
                 Enhance = false;
                 Scales = false;
             }
+        }
+
+        private struct GridViewMouseEventInfo
+        {
+            public DataGridView Target;
+            public Point Loc;
+            public InfoType InfoType;
         }
 
         private enum InfoType
@@ -84,7 +93,7 @@ namespace Mids_Reborn.Forms.Controls
         private FlipAnimator _flipAnimator;
         private readonly TabControlAdv _tabControlAdv;
         private TabsRendered _tabsRendered;
-        private KeyValuePair<DataGridView, Point> GridMouseOverEventLoc;
+        private GridViewMouseEventInfo GridMouseOverEventLoc;
         private InfoType LayoutType;
 
         private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
@@ -1402,6 +1411,7 @@ namespace Mids_Reborn.Forms.Controls
                         case 0:
                             Info.Render(root, root.LayoutType);
                             root._tabsRendered.Info = true;
+                            root._tabsRendered.InfoType = root.LayoutType;
                             break;
 
                         case 1:
@@ -1430,10 +1440,11 @@ namespace Mids_Reborn.Forms.Controls
                     switch (root._tabControlAdv.SelectedIndex)
                     {
                         case 0:
-                            if (!root._tabsRendered.Info)
+                            if (!root._tabsRendered.Info | root._tabsRendered.InfoType != root.LayoutType)
                             {
                                 Info.Render(root, root.LayoutType);
                                 root._tabsRendered.Info = true;
+                                root._tabsRendered.InfoType = root.LayoutType;
                             }
                             break;
 
@@ -1596,6 +1607,10 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void PowerInfo()
                 {
+                    Root.lblDamage.Visible = true;
+                    Root.ctlDamageDisplay1.Visible = true;
+                    Root.listSpecialBonuses.Visible = false;
+
                     Root.infoTabTitle.Text =
                         $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level}] " : "")}{_basePower?.DisplayName ?? "Info"}";
                     Root.richInfoSmall.Rtf = RTFText.Text2RTF(_basePower?.DescShort ?? "");
@@ -1881,10 +1896,15 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void EnhancementInfo()
                 {
+                    // ???
                     if (Root.Locked || EnhLevel < 0)
                     {
                         return;
                     }
+
+                    Root.lblDamage.Visible = false;
+                    Root.ctlDamageDisplay1.Visible = false;
+                    Root.listSpecialBonuses.Visible = true;
 
                     var enhDesc = "";
                     var enhName = "";
@@ -1992,6 +2012,12 @@ namespace Mids_Reborn.Forms.Controls
                     var setInfo = EnhancementSetCollection.GetSetInfoLong(dbEnh.nIDSet);
                     var chunks = setInfo.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
 
+                    /*var specialBonuses = dbSet.SpecialBonus
+                        .Select(b => dbSet.GetEffectString(Array.FindIndex(dbSet.SpecialBonus, e => e.Equals(b)), true))
+                        .Count(b => !string.IsNullOrEmpty(b));
+                    Debug.WriteLine($"Set: {dbSet.DisplayName} - Special set bonuses: {specialBonuses}");
+                    Debug.WriteLine(setInfo);*/
+
                     Root.listInfos.Rows.Clear();
                     for (var i = 0; i < 5; i++)
                     {
@@ -2017,7 +2043,36 @@ namespace Mids_Reborn.Forms.Controls
                         }
                     }
 
-                    // Add special set effects ?
+                    Root.listSpecialBonuses.Rows.Clear();
+                    for (var i = 0; i < 4; i++)
+                    {
+                        Root.listSpecialBonuses.Rows.Add();
+                        Root.listSpecialBonuses.Rows[i].Height = 22;
+
+                        for (var j = 0; j < 2; j++)
+                        {
+                            if (j == 0 & i + setSize + 1 < chunks.Length)
+                            {
+                                Root.listSpecialBonuses.SetCellContent("Special: ", "", i, j);
+                            }
+                            else if (j == 1 & i + setSize + 1 < chunks.Length)
+                            {
+                                var fxFullText = chunks[i + setSize + 1].Substring(2);
+                                Utilities.ModifiedEffectString(ref fxFullText, 1);
+                                
+                                var parts = fxFullText.Split(new[] { ": "}, StringSplitOptions.RemoveEmptyEntries);
+                                var fxString = parts[1];
+                                Root.listSpecialBonuses.Rows[i].Cells[0].ToolTipText = chunks[i + setSize + 1].Substring(2);
+                                Root.listSpecialBonuses.Rows[i].Cells[1].ToolTipText = chunks[i + setSize + 1].Substring(2);
+                                Utilities.ModifiedEffectString(ref fxString, 1);
+                                Root.listSpecialBonuses.SetCellContent($"{fxString}", Color.Cyan, "", i, j);
+                            }
+                            else
+                            {
+                                Root.listSpecialBonuses.SetCellContent(i, j);
+                            }
+                        }
+                    }
                 }
 
                 private static string CheckEffectTypeAffects(IPower power, Enums.eEffectType effectType)
@@ -2294,7 +2349,7 @@ namespace Mids_Reborn.Forms.Controls
         public void SetData(IPower enhancedPower = null, bool noLevel = false,
             bool locked = false, int historyIdx = -1)
         {
-            if ((enhancedPower?.PowerIndex ?? -1) == (_enhancedPower?.PowerIndex ?? -1))
+            if ((enhancedPower?.PowerIndex ?? -1) == (_enhancedPower?.PowerIndex ?? -1) & LayoutType == InfoType.Power)
             {
                 return;
             }
@@ -2307,9 +2362,7 @@ namespace Mids_Reborn.Forms.Controls
                 ? MidsContext.Character.CurrentBuild.Powers[HistoryIdx]
                 : null;
             LayoutType = InfoType.Power;
-
             _basePower = _enhancedPower == null ? null : DatabaseAPI.Database.Power[enhancedPower.PowerIndex];
-
             _flipAnimator = new FlipAnimator(BuildPowerEntry);
 
             Tabs.RenderTabs(this);
@@ -2470,27 +2523,47 @@ namespace Mids_Reborn.Forms.Controls
         private void DataView2_Load(object sender, EventArgs e)
         {
             ctlDamageDisplay1.Text = string.Empty;
-            GridMouseOverEventLoc = new KeyValuePair<DataGridView, Point>(listInfos, new Point(-1, -1));
+            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            {
+                Target = listInfos,
+                Loc = new Point(-1, -1),
+                InfoType = InfoType.Power
+            };
         }
 
-        private void listInfos_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var target = (DataGridView) sender;
+            var target = (DataGridView)sender;
             var tooltipTextSource = target.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText;
 
             // Do not set tooltip text when mouse is stationary to reduce tooltip flicker.
-            if (GridMouseOverEventLoc.Key.Name == target.Name & GridMouseOverEventLoc.Value.Equals(e.Location)) return;
-            
+            if (GridMouseOverEventLoc.Target.Name == target.Name
+                & GridMouseOverEventLoc.Loc.Equals(e.Location)
+                & GridMouseOverEventLoc.InfoType == LayoutType)
+            {
+                return;
+            }
+
             toolTip1.SetToolTip(target, tooltipTextSource != "" ? target.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText : "");
-            GridMouseOverEventLoc = new KeyValuePair<DataGridView, Point>(target, e.Location);
+            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            {
+                Target = target,
+                Loc = e.Location,
+                InfoType = LayoutType
+            };
         }
 
-        private void listInfos_MouseLeave(object sender, EventArgs e)
+        private void dataGridView_MouseLeave(object sender, EventArgs e)
         {
-            var target = (DataGridView) sender;
+            var target = (DataGridView)sender;
 
             toolTip1.SetToolTip(target, "");
-            GridMouseOverEventLoc = new KeyValuePair<DataGridView, Point>(target, new Point(-1, -1));
+            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            {
+                Target = target,
+                Loc = new Point(-1, -1),
+                InfoType = InfoType.Power
+            };
         }
     }
 }

@@ -97,7 +97,7 @@ namespace mrbBase
                 var effectString = set.GetEffectString(index, true);
                 if (!string.IsNullOrEmpty(effectString))
                 {
-                    setInfo += $"  {DatabaseAPI.Database.Enhancements[set.Enhancements[index]].Name}: {effectString}";
+                    setInfo += $"\r\n  {DatabaseAPI.Database.Enhancements[set.Enhancements[index]].Name}: {effectString}";
                 }
             }
 

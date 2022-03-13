@@ -2582,11 +2582,13 @@ namespace Mids_Reborn.Forms
 
         private void Info_Power(int powerIdx, int iEnhLvl = -1, bool NoLevel = false, bool Lock = false)
         {
-            //Debug.WriteLine($"Info_Power({powerIdx}, {iEnhLvl}, {NoLevel}, {Lock})");
             if (!Lock & DataViewLocked)
             {
                 if (dvLastPower != powerIdx)
+                {
                     return;
+                }
+
                 Lock = true;
             }
 
