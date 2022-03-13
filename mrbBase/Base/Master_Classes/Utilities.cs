@@ -37,6 +37,7 @@ namespace mrbBase.Base.Master_Classes
                 { @"(Defense\(Melee\), \d.*% Defense\(AoE\), \d.*% Defense\(Ranged\), \d.*% Defense\(Smashing\), \d.*% Defense\(Lethal\), \d.*% Defense\(Fire\), \d.*% Defense\(Cold\), \d.*% Defense\(Energy\), \d.*% Defense\(Negative\), \d.*% Defense\(Psionic\))", @"Defense(All)" },
                 { @"(Resistance\((Smashing|Lethal)\), \d.*% Resistance\((Smashing|Lethal)\), \d.*% Resistance\(Fire\), \d.*% Resistance\(Cold\), \d.*% Resistance\(Energy\), \d.*% Resistance\(Negative\), \d.*% Resistance\((Psionic|Toxic)\), \d.*% Resistance\((Toxic|Psionic)\)|Resistance\(Smashing,Fire,Cold,Energy,Negative,Toxic,Psionic\).*Resistance\(Lethal\))", @"Resistance(All)" },
                 { @"(MezResist\(Immobilized\).*MezResist\(Held\).*MezResist\(Stunned\).*MezResist\(Sleep\).*MezResist\(Terrorized\).*MezResist\(Confused\))", @"MezResist(All)" },
+                { @"(MezRes\(Immobilized\).*MezRes\(Held\).*MezRes\(Stunned\).*MezRes\(Sleep\).*MezRes\(Terrorized\).*MezRes\(Confused\))", @"MezResist(All)" },
                 { @"(SpeedJumping.*JumpHeight.*SpeedFlying.*SpeedRunning)", @"Movement Speed" },
                 { @"(Knockback.*\(Mag.-)", @"Knockback Protection (Mag " }, 
                 { @"(Knockback.*Knockup.*protection)", @"Knockback Protection"}
@@ -49,6 +50,7 @@ namespace mrbBase.Base.Master_Classes
                 { @"(Defense\(Melee\), \d.*% Defense\(AoE\), \d.*% Defense\(Ranged\), \d.*% Defense\(Smashing\), \d.*% Defense\(Lethal\), \d.*% Defense\(Fire\), \d.*% Defense\(Cold\), \d.*% Defense\(Energy\), \d.*% Defense\(Negative\), \d.*% Defense\(Psionic\))", @"Defense(All)" },
                 { @"(Resistance\((Smashing|Lethal)\), \d.*% Resistance\((Smashing|Lethal)\), \d.*% Resistance\(Fire\), \d.*% Resistance\(Cold\), \d.*% Resistance\(Energy\), \d.*% Resistance\(Negative\), \d.*% Resistance\((Psionic|Toxic)\), \d.*% Resistance\((Toxic|Psionic)\)|Resistance\(Smashing,Fire,Cold,Energy,Negative,Toxic,Psionic\).*Resistance\(Lethal\))", @" Resistance(All)" },
                 { @"(MezResist\(Immobilized\).*MezResist\(Held\).*MezResist\(Stunned\).*MezResist\(Sleep\).*MezResist\(Terrorized\).*MezResist\(Confused\))", @"Status Resistance" },
+                { @"(MezRes\(Immobilized\).*MezRes\(Held\).*MezRes\(Stunned\).*MezRes\(Sleep\).*MezRes\(Terrorized\).*MezRes\(Confused\))", @"Status Resistance" },
                 { @"(SpeedJumping.*JumpHeight.*SpeedFlying.*SpeedRunning)", @"Movement Speed" },
                 { @"(Knockback.*\(Mag.-)", @"Knockback Protection (Mag " },
                 { @"(Knockback.*Knockup.*protection)", @"Knockback Protection"}

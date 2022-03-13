@@ -53,5 +53,55 @@ namespace mrbBase
 
             return str3;
         }
+
+        public static string GetSetInfoShortRTF(int iSet, int enhCount = -1)
+        {
+            if ((iSet < 0) | (iSet > DatabaseAPI.Database.EnhancementSets.Count - 1)) return "";
+
+            var set = DatabaseAPI.Database.EnhancementSets[iSet];
+            var str3 = set.LevelMin == set.LevelMax
+                ? RTF.Bold(RTF.Underline($"{set.DisplayName} ({set.LevelMin + 1})"))
+                : RTF.Bold(RTF.Underline($"{set.DisplayName} ({set.LevelMin + 1}-{set.LevelMax + 1})"));
+            str3 = $"{RTF.Color(RTF.ElementID.Invention)}{str3}{RTF.Color(RTF.ElementID.Text)}";
+            
+            return str3;
+        }
+
+        public static string GetSetInfoLong(int iSet, int enhCount = -1)
+        {
+            if ((iSet < 0) | (iSet > DatabaseAPI.Database.EnhancementSets.Count - 1)) return "";
+
+            var set = DatabaseAPI.Database.EnhancementSets[iSet];
+            var setInfo = set.LevelMin == set.LevelMax
+                ? $"{set.DisplayName} ({set.LevelMin + 1}): "
+                : $"{set.DisplayName} ({set.LevelMin + 1}-{set.LevelMax + 1}): ";
+            //str3 = $"{RTF.Color(RTF.ElementID.Invention)}{str3}{RTF.Color(RTF.ElementID.Text)}";
+            for (var i = 0; i < set.Bonus.Length; i++)
+            {
+                var effectString = set.GetEffectString(i, false);
+                if (string.IsNullOrEmpty(effectString))
+                {
+                    continue;
+                }
+
+                if (set.Bonus[i].PvMode == Enums.ePvX.PvP)
+                {
+                    effectString += " (PvP)";
+                }
+
+                setInfo += $"\r\n  {set.Bonus[i].Slotted} Slotted: {effectString}";
+            }
+
+            for (var index = 0; index < set.SpecialBonus.Length; index++)
+            {
+                var effectString = set.GetEffectString(index, true);
+                if (!string.IsNullOrEmpty(effectString))
+                {
+                    setInfo += $"  {DatabaseAPI.Database.Enhancements[set.Enhancements[index]].Name}: {effectString}";
+                }
+            }
+
+            return setInfo;
+        }
     }
 }

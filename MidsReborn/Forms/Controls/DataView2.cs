@@ -78,8 +78,8 @@ namespace Mids_Reborn.Forms.Controls
         private static int HistoryIdx = -1;
         private bool NoLevel;
         private static PowerEntry BuildPowerEntry;
-        private I9Slot EnhSlot;
-        private int EnhLevel;
+        private static I9Slot EnhSlot;
+        private static int EnhLevel;
         private bool FreezeScalerCB;
         private FlipAnimator _flipAnimator;
         private readonly TabControlAdv _tabControlAdv;
@@ -1496,6 +1496,36 @@ namespace Mids_Reborn.Forms.Controls
 
                     return ret;
                 }
+
+                public static string ConvertNewlinesToRTF(string str)
+                {
+                    return str
+                        .Replace("\r\n", "\n")
+                        .Replace("\r", "\n")
+                        .Replace("\n", RTF.Crlf());
+                }
+
+                public static string GetEnhancementStringLongRTF(I9Slot enhSlot)
+                {
+                    var str = enhSlot.GetEnhancementStringLong();
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        str = $"{RTF.Color(RTF.ElementID.Enhancement)}{RTF.Italic(ConvertNewlinesToRTF(str))}{RTF.Color(RTF.ElementID.Text)}";
+                    }
+
+                    return str;
+                }
+
+                public static string GetEnhancementStringRTF(I9Slot enhSlot)
+                {
+                    var str = enhSlot.GetEnhancementString();
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        str = $"{RTF.Color(RTF.ElementID.Enhancement)}{ConvertNewlinesToRTF(str)}{RTF.Color(RTF.ElementID.Text)}";
+                    }
+
+                    return str;
+                }
             }
 
             public static class Boosts
@@ -1851,7 +1881,143 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void EnhancementInfo()
                 {
-                    // ???
+                    if (Root.Locked || EnhLevel < 0)
+                    {
+                        return;
+                    }
+
+                    var enhDesc = "";
+                    var enhName = "";
+                    if (EnhSlot.Enh > -1)
+                    {
+                        enhDesc = DatabaseAPI.Database.Enhancements[EnhSlot.Enh].LongName;
+                        if ((enhDesc.Length > 38) & (EnhLevel > -1))
+                        {
+                            enhDesc = DatabaseAPI.GetEnhancementNameShortWSet(EnhSlot.Enh);
+                        }
+
+                        enhName = enhDesc;
+                    }
+                    else
+                    {
+                        enhName = enhDesc;
+                        // _basePower may be wrong or undefined
+                        enhDesc = _basePower != null ? _basePower.DisplayName : "";
+                        Root.richInfoSmall.Rtf = $"{RTF.StartRTF()}{(_basePower != null ? $"{_basePower.DescShort}\r\n" : "")}{RTF.Color(RTF.ElementID.Faded)}Shift+Click to move slot. Right-Click to place enh.{RTF.EndRTF()}";
+                    }
+
+                    if (!MidsContext.Config.ShowSlotLevels)
+                    {
+                        enhDesc += $" (Slot Level {EnhLevel + 1})";
+                    }
+
+                    Root.infoTabTitle.Text = enhName;
+                    if (EnhSlot.Enh < 0)
+                    {
+                        return;
+                    }
+
+                    Root.richInfoSmall.Text = enhDesc;
+
+                    var shortDescRtf = "";
+                    var longDescRtf = "";
+                    var procChance = "";
+                    var dbEnh = DatabaseAPI.Database.Enhancements[EnhSlot.Enh];
+                    var typeId = dbEnh.TypeID;
+
+                    if (typeId == Enums.eType.InventO | typeId == Enums.eType.SetO)
+                    {
+                        shortDescRtf = $"{RTF.Color(RTF.ElementID.Invention)}Invention Level: {EnhSlot.IOLevel + 1}{Enums.GetRelativeString(EnhSlot.RelativeLevel, false)}{RTF.Color(RTF.ElementID.Text)}";
+                    }
+
+                    switch (typeId)
+                    {
+                        case Enums.eType.SetO:
+                            if (dbEnh.Unique)
+                            {
+                                shortDescRtf += $"{RTF.Color(RTF.ElementID.Warning)} (Unique) {RTF.Color(RTF.ElementID.Text)}";
+                            }
+
+                            if (dbEnh.EffectChance < 1 & dbEnh.EffectChance > 0)
+                            {
+
+                                procChance = $"{procChance}{RTF.Color(RTF.ElementID.Enhancement)}{dbEnh.EffectChance * 100:#0.##)} % chance of ";
+                            }
+
+                            break;
+
+                        case Enums.eType.SpecialO:
+                            // Missing case for Titan, Hydra, D-Sync ?
+                            shortDescRtf += $"{RTF.Color(RTF.ElementID.Enhancement)}Hamidon/Synthetic Hamidon Origin Enhancement";
+
+                            break;
+
+                        default:
+                            if (shortDescRtf != "")
+                            {
+                                shortDescRtf += " - ";
+                            }
+
+                            shortDescRtf += RTFText.GetEnhancementStringRTF(EnhSlot);
+
+                            break;
+                    }
+
+
+                    if (typeId == Enums.eType.SetO)
+                    {
+                        longDescRtf = EnhancementSetCollection.GetSetInfoShortRTF(dbEnh.nIDSet);
+                    }
+                    else
+                    {
+                        var fxDesc = $"{procChance}{dbEnh.Desc}";
+                        if (fxDesc != "")
+                        {
+                            fxDesc += "\r\n";
+                        }
+
+                        longDescRtf = $"{fxDesc}{RTFText.GetEnhancementStringLongRTF(EnhSlot)}";
+                    }
+
+                    Root.richInfoSmall.Rtf = $"{RTF.StartRTF()}{RTF.ToRTF(shortDescRtf)}{RTF.Crlf()}{RTF.Color(RTF.ElementID.Faded)}Shift+Click to move slot. Right-Click to place enh.{RTF.EndRTF()}";
+                    Root.richInfoLarge.Rtf = $"{RTF.StartRTF()}{RTF.ToRTF(longDescRtf)}{RTF.EndRTF()}";
+                    if (typeId != Enums.eType.SetO)
+                    {
+                        // Need to blank listInfos' cells
+                        return;
+                    }
+
+                    var dbSet = DatabaseAPI.Database.EnhancementSets[dbEnh.nIDSet];
+                    var setSize = dbSet.Bonus.Length;
+                    var setInfo = EnhancementSetCollection.GetSetInfoLong(dbEnh.nIDSet);
+                    var chunks = setInfo.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+
+                    Root.listInfos.Rows.Clear();
+                    for (var i = 0; i < 5; i++)
+                    {
+                        Root.listInfos.Rows.Add();
+                        Root.listInfos.Rows[i].Height = 20;
+
+                        for (var j = 0; j < 2; j++)
+                        {
+                            if (j == 0 & i < setSize)
+                            {
+                                Root.listInfos.SetCellContent($"{i + 2}:", "", i, j);
+                            }
+                            else if (j == 1 & i < setSize)
+                            {
+                                var fxString = chunks[i + 1].Substring(13);
+                                Utilities.ModifiedEffectString(ref fxString, 1);
+                                Root.listInfos.SetCellContent($"{fxString}", Color.FromArgb(0, 255, 0), "", i, j);
+                            }
+                            else
+                            {
+                                Root.listInfos.SetCellContent(i, j);
+                            }
+                        }
+                    }
+
+                    // Add special set effects ?
                 }
 
                 private static string CheckEffectTypeAffects(IPower power, Enums.eEffectType effectType)
@@ -2154,6 +2320,8 @@ namespace Mids_Reborn.Forms.Controls
         {
             // Locked ?
             LayoutType = InfoType.Enhancement;
+            EnhSlot = enh;
+            EnhLevel = level;
 
             Tabs.RenderTabs(this);
         }
