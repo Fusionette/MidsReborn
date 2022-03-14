@@ -6133,8 +6133,7 @@ namespace Mids_Reborn.Forms
         private void UpdateColors(bool skipDraw = false)
         {
             //myDataView.DrawVillain = !MidsContext.Character.IsHero();
-            bool draw;
-            draw = I9Picker.ForeColor.R != 96;
+            var draw = I9Picker.ForeColor.R != 96;
             BackColor = Color.FromArgb(0, 0, 0);
             lblATLocked.BackColor = MidsContext.Character.IsHero()
                 ? MidsContext.Config.RtFont.ColorPowerTakenHero
@@ -6227,6 +6226,8 @@ namespace Mids_Reborn.Forms
             {
                 fSalvageHud.UpdateColorTheme();
             }
+
+            myDataView.UpdateColorTheme();
 
             if (!draw)
                 return;

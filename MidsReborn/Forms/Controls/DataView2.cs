@@ -2052,7 +2052,7 @@ namespace Mids_Reborn.Forms.Controls
                         {
                             if (j == 0 & i + setSize + 1 < chunks.Length)
                             {
-                                Root.listSpecialBonuses.SetCellContent("Special: ", "", i, j);
+                                Root.listSpecialBonuses.SetCellContent($"Special #{i + 1}:", "", i, j);
                             }
                             else if (j == 1 & i + setSize + 1 < chunks.Length)
                             {
@@ -2378,6 +2378,26 @@ namespace Mids_Reborn.Forms.Controls
             Tabs.RenderTabs(this);
         }
 
+        public void UpdateColorTheme()
+        {
+            if (_tabControlAdv.SelectedIndex != 0) return;
+
+            if (MidsContext.Character.IsHero())
+            {
+                tabPageAdv1.BackColor = Color.FromArgb(12, 56, 100);
+                tabPageAdv1.TabBackColor = Color.FromArgb(12, 56, 100);
+                _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
+                _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
+            }
+            else
+            {
+                tabPageAdv1.BackColor = Color.FromArgb(100, 12, 20);
+                tabPageAdv1.TabBackColor = Color.FromArgb(100, 12, 20);
+                _tabControlAdv.ActiveTabColor = Color.FromArgb(100, 12, 20);
+                _tabControlAdv.InactiveTabColor = Color.FromArgb(59, 7, 12);
+            }
+        }
+
         private void InitScaler()
         {
             // Scales tab ? DataView2_Load ?
@@ -2409,8 +2429,21 @@ namespace Mids_Reborn.Forms.Controls
             {
                 case 0:
                     // L=39 / L=23
-                    _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
-                    _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
+                    if (MidsContext.Character.IsHero())
+                    {
+                        tabPageAdv1.BackColor = Color.FromArgb(12, 56, 100);
+                        tabPageAdv1.TabBackColor = Color.FromArgb(12, 56, 100);
+                        _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
+                        _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
+                    }
+                    else
+                    {
+                        tabPageAdv1.BackColor = Color.FromArgb(100, 12, 20);
+                        tabPageAdv1.TabBackColor = Color.FromArgb(100, 12, 20);
+                        _tabControlAdv.ActiveTabColor = Color.FromArgb(100, 12, 20);
+                        _tabControlAdv.InactiveTabColor = Color.FromArgb(59, 7, 12);
+                    }
+
                     break;
 
                 case 1:
@@ -2514,11 +2547,6 @@ namespace Mids_Reborn.Forms.Controls
             e.Surface.Canvas.DrawImage(graph, new SKPoint(0, 0));
         }
 
-        private void listInfos_SelectionChanged(object sender, EventArgs e)
-        {
-            listInfos.ClearSelection();
-        }
-
         private void DataView2_Load(object sender, EventArgs e)
         {
             ctlDamageDisplay1.Text = string.Empty;
@@ -2563,6 +2591,12 @@ namespace Mids_Reborn.Forms.Controls
                 Loc = new Point(-1, -1),
                 InfoType = InfoType.Power
             };
+        }
+
+        private void dataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            var target = (DataGridView) sender;
+            target.ClearSelection();
         }
     }
 }

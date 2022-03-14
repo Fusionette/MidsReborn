@@ -245,7 +245,7 @@ namespace Mids_Reborn.Forms.Controls
             this.listInfos.TabIndex = 7;
             this.listInfos.TabStop = false;
             this.listInfos.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseMove);
-            this.listInfos.SelectionChanged += new System.EventHandler(this.listInfos_SelectionChanged);
+            this.listInfos.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
             this.listInfos.MouseLeave += new System.EventHandler(this.dataGridView_MouseLeave);
             // 
             // Column1
@@ -437,6 +437,7 @@ namespace Mids_Reborn.Forms.Controls
             this.listSpecialBonuses.TabIndex = 8;
             this.listSpecialBonuses.TabStop = false;
             this.listSpecialBonuses.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseMove);
+            this.listSpecialBonuses.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
             this.listSpecialBonuses.MouseLeave += new System.EventHandler(this.dataGridView_MouseLeave);
             // 
             // dataGridViewTextBoxColumn17
