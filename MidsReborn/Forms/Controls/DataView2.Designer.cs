@@ -31,36 +31,37 @@ namespace Mids_Reborn.Forms.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabBox = new mrbControls.ctlEnhTabControl();
             this.tabPageAdv1 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.infoTabTitle = new SkiaSharp.Views.Desktop.SKGLControl();
             this.listInfos = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,7 +71,6 @@ namespace Mids_Reborn.Forms.Controls
             this.lblDamage = new System.Windows.Forms.Label();
             this.richInfoLarge = new System.Windows.Forms.RichTextBox();
             this.richInfoSmall = new System.Windows.Forms.RichTextBox();
-            this.infoTabTitle = new System.Windows.Forms.Label();
             this.listSpecialBonuses = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -183,12 +183,12 @@ namespace Mids_Reborn.Forms.Controls
             // tabPageAdv1
             // 
             this.tabPageAdv1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabPageAdv1.Controls.Add(this.infoTabTitle);
             this.tabPageAdv1.Controls.Add(this.listInfos);
             this.tabPageAdv1.Controls.Add(this.ctlDamageDisplay1);
             this.tabPageAdv1.Controls.Add(this.lblDamage);
             this.tabPageAdv1.Controls.Add(this.richInfoLarge);
             this.tabPageAdv1.Controls.Add(this.richInfoSmall);
-            this.tabPageAdv1.Controls.Add(this.infoTabTitle);
             this.tabPageAdv1.Controls.Add(this.listSpecialBonuses);
             this.tabPageAdv1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.tabPageAdv1.ForeColor = System.Drawing.Color.White;
@@ -204,6 +204,17 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv1.TabIndex = 1;
             this.tabPageAdv1.Text = "INFO";
             this.tabPageAdv1.ThemesEnabled = false;
+            // 
+            // infoTabTitle
+            // 
+            this.infoTabTitle.BackColor = System.Drawing.Color.Black;
+            this.infoTabTitle.Location = new System.Drawing.Point(24, 7);
+            this.infoTabTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.infoTabTitle.Name = "infoTabTitle";
+            this.infoTabTitle.Size = new System.Drawing.Size(312, 16);
+            this.infoTabTitle.TabIndex = 9;
+            this.infoTabTitle.VSync = false;
+            this.infoTabTitle.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.infoTabTitle_PaintSurface);
             // 
             // listInfos
             // 
@@ -228,14 +239,14 @@ namespace Mids_Reborn.Forms.Controls
             this.listInfos.Name = "listInfos";
             this.listInfos.ReadOnly = true;
             this.listInfos.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.listInfos.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle33.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.listInfos.RowsDefaultCellStyle = dataGridViewCellStyle33;
             this.listInfos.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.listInfos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.listInfos.ShowCellErrors = false;
@@ -251,14 +262,14 @@ namespace Mids_Reborn.Forms.Controls
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle29.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle29.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle29;
             this.Column1.HeaderText = "Column1";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
@@ -269,14 +280,14 @@ namespace Mids_Reborn.Forms.Controls
             // Column2
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle30.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle30.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle30;
             this.Column2.HeaderText = "Column2";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -286,14 +297,14 @@ namespace Mids_Reborn.Forms.Controls
             // Column3
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle31.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle31.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle31;
             this.Column3.HeaderText = "Column3";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
@@ -303,14 +314,14 @@ namespace Mids_Reborn.Forms.Controls
             // Column4
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle32.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle32;
             this.Column4.HeaderText = "Column4";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
@@ -326,7 +337,7 @@ namespace Mids_Reborn.Forms.Controls
             this.ctlDamageDisplay1.ColorEnhEnd = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ctlDamageDisplay1.ColorEnhStart = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ctlDamageDisplay1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.ctlDamageDisplay1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.ctlDamageDisplay1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(210)))));
             this.ctlDamageDisplay1.GraphType = mrbBase.Enums.eDDGraph.Both;
             this.ctlDamageDisplay1.Location = new System.Drawing.Point(4, 304);
             this.ctlDamageDisplay1.Name = "ctlDamageDisplay1";
@@ -342,7 +353,7 @@ namespace Mids_Reborn.Forms.Controls
             this.ctlDamageDisplay1.TabIndex = 6;
             this.ctlDamageDisplay1.TabStop = false;
             this.ctlDamageDisplay1.TextAlign = mrbBase.Enums.eDDAlign.Center;
-            this.ctlDamageDisplay1.TextColor = System.Drawing.Color.WhiteSmoke;
+            this.ctlDamageDisplay1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(210)))));
             // 
             // lblDamage
             // 
@@ -387,18 +398,6 @@ namespace Mids_Reborn.Forms.Controls
             this.richInfoSmall.TabIndex = 1;
             this.richInfoSmall.Text = "Info small";
             // 
-            // infoTabTitle
-            // 
-            this.infoTabTitle.BackColor = System.Drawing.Color.Black;
-            this.infoTabTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoTabTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.infoTabTitle.Location = new System.Drawing.Point(24, 7);
-            this.infoTabTitle.Name = "infoTabTitle";
-            this.infoTabTitle.Size = new System.Drawing.Size(312, 16);
-            this.infoTabTitle.TabIndex = 0;
-            this.infoTabTitle.Text = "Title";
-            this.infoTabTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // listSpecialBonuses
             // 
             this.listSpecialBonuses.AllowUserToAddRows = false;
@@ -420,14 +419,14 @@ namespace Mids_Reborn.Forms.Controls
             this.listSpecialBonuses.Name = "listSpecialBonuses";
             this.listSpecialBonuses.ReadOnly = true;
             this.listSpecialBonuses.RowHeadersVisible = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.listSpecialBonuses.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle36.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle36.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.listSpecialBonuses.RowsDefaultCellStyle = dataGridViewCellStyle36;
             this.listSpecialBonuses.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.listSpecialBonuses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.listSpecialBonuses.ShowCellErrors = false;
@@ -443,14 +442,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn17
             // 
             this.dataGridViewTextBoxColumn17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn17.DefaultCellStyle = dataGridViewCellStyle34;
             this.dataGridViewTextBoxColumn17.HeaderText = "Column1";
             this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             this.dataGridViewTextBoxColumn17.ReadOnly = true;
@@ -461,14 +460,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn18
             // 
             this.dataGridViewTextBoxColumn18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle35.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn18.DefaultCellStyle = dataGridViewCellStyle35;
             this.dataGridViewTextBoxColumn18.HeaderText = "Column2";
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             this.dataGridViewTextBoxColumn18.ReadOnly = true;
@@ -523,14 +522,14 @@ namespace Mids_Reborn.Forms.Controls
             this.gridEffectsBlock3.Name = "gridEffectsBlock3";
             this.gridEffectsBlock3.ReadOnly = true;
             this.gridEffectsBlock3.RowHeadersVisible = false;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridEffectsBlock3.RowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle41.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridEffectsBlock3.RowsDefaultCellStyle = dataGridViewCellStyle41;
             this.gridEffectsBlock3.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.gridEffectsBlock3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gridEffectsBlock3.ShowCellErrors = false;
@@ -543,14 +542,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn9
             // 
             this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle37.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle37.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle37;
             this.dataGridViewTextBoxColumn9.HeaderText = "Column1";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
@@ -561,14 +560,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn10
             // 
             this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle38.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle38.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle38;
             this.dataGridViewTextBoxColumn10.HeaderText = "Column2";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
@@ -578,14 +577,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn11
             // 
             this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle39.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle39.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle39.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle39;
             this.dataGridViewTextBoxColumn11.HeaderText = "Column3";
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             this.dataGridViewTextBoxColumn11.ReadOnly = true;
@@ -595,14 +594,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn12
             // 
             this.dataGridViewTextBoxColumn12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle40.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle40.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn12.DefaultCellStyle = dataGridViewCellStyle40;
             this.dataGridViewTextBoxColumn12.HeaderText = "Column4";
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
@@ -631,14 +630,14 @@ namespace Mids_Reborn.Forms.Controls
             this.gridEffectsBlock2.Name = "gridEffectsBlock2";
             this.gridEffectsBlock2.ReadOnly = true;
             this.gridEffectsBlock2.RowHeadersVisible = false;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridEffectsBlock2.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle46.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle46.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle46.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle46.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle46.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridEffectsBlock2.RowsDefaultCellStyle = dataGridViewCellStyle46;
             this.gridEffectsBlock2.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.gridEffectsBlock2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gridEffectsBlock2.ShowCellErrors = false;
@@ -651,14 +650,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle42.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle42;
             this.dataGridViewTextBoxColumn5.HeaderText = "Column1";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -669,14 +668,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle43.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle43;
             this.dataGridViewTextBoxColumn6.HeaderText = "Column2";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -686,14 +685,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn7
             // 
             this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle44.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle44;
             this.dataGridViewTextBoxColumn7.HeaderText = "Column3";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
@@ -703,14 +702,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle45.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle45.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle45;
             this.dataGridViewTextBoxColumn8.HeaderText = "Column4";
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
@@ -739,14 +738,14 @@ namespace Mids_Reborn.Forms.Controls
             this.gridEffectsBlock1.Name = "gridEffectsBlock1";
             this.gridEffectsBlock1.ReadOnly = true;
             this.gridEffectsBlock1.RowHeadersVisible = false;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridEffectsBlock1.RowsDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle51.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle51.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle51.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle51.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle51.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridEffectsBlock1.RowsDefaultCellStyle = dataGridViewCellStyle51;
             this.gridEffectsBlock1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.gridEffectsBlock1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gridEffectsBlock1.ShowCellErrors = false;
@@ -759,14 +758,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle47.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle47.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle47;
             this.dataGridViewTextBoxColumn1.HeaderText = "Column1";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
@@ -777,14 +776,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle48.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle48.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle48;
             this.dataGridViewTextBoxColumn2.HeaderText = "Column2";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -794,14 +793,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle49.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle49.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle49.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle49.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle49.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle49;
             this.dataGridViewTextBoxColumn3.HeaderText = "Column3";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
@@ -811,14 +810,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle50.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle50.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle50.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle50.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle50.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle50;
             this.dataGridViewTextBoxColumn4.HeaderText = "Column4";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -915,14 +914,14 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle28.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle56.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle56.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle56.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle56.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle56.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle56.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle56;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView1.ShowCellErrors = false;
@@ -935,14 +934,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn13
             // 
             this.dataGridViewTextBoxColumn13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle52.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle52.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle52.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle52.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle52.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle52.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle52;
             this.dataGridViewTextBoxColumn13.HeaderText = "Column1";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -953,14 +952,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn14
             // 
             this.dataGridViewTextBoxColumn14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle53.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle53.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle53.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle53.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle53.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle53.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle53;
             this.dataGridViewTextBoxColumn14.HeaderText = "Column2";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -970,14 +969,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn15
             // 
             this.dataGridViewTextBoxColumn15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle54.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle54.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle54.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle54.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle54.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle54.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn15.DefaultCellStyle = dataGridViewCellStyle54;
             this.dataGridViewTextBoxColumn15.HeaderText = "Column3";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.ReadOnly = true;
@@ -987,14 +986,14 @@ namespace Mids_Reborn.Forms.Controls
             // dataGridViewTextBoxColumn16
             // 
             this.dataGridViewTextBoxColumn16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn16.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle55.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle55.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle55.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle55.SelectionBackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle55.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle55.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn16.DefaultCellStyle = dataGridViewCellStyle55;
             this.dataGridViewTextBoxColumn16.HeaderText = "Column4";
             this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
             this.dataGridViewTextBoxColumn16.ReadOnly = true;
@@ -1537,7 +1536,6 @@ namespace Mids_Reborn.Forms.Controls
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv2;
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv3;
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv4;
-        private System.Windows.Forms.Label infoTabTitle;
         private System.Windows.Forms.RichTextBox richInfoLarge;
         private System.Windows.Forms.RichTextBox richInfoSmall;
         public mrbControls.ctlDamageDisplay ctlDamageDisplay1;
@@ -1602,5 +1600,6 @@ namespace Mids_Reborn.Forms.Controls
         private DataGridView listSpecialBonuses;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private SkiaSharp.Views.Desktop.SKGLControl infoTabTitle;
     }
 }

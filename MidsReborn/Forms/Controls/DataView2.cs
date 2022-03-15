@@ -776,6 +776,16 @@ namespace Mids_Reborn.Forms.Controls
                     return SKBitmap.Decode(File.ReadAllBytes(enhFile));
                 }
 
+                public static SKBitmap CreateBitmap(Bitmap sourceBitmap)
+                {
+                    return sourceBitmap.ToSKBitmap();
+                }
+
+                public static SKBitmap CreateBitmap(Image sourceImage)
+                {
+                    return CreateBitmap(new Bitmap(sourceImage));
+                }
+
                 private static string RelativeLevelString(Enums.eEnhRelative relativeLevel, bool showZero = false)
                 {
                     return relativeLevel switch
@@ -1393,7 +1403,8 @@ namespace Mids_Reborn.Forms.Controls
             {
                 var columnsLayout = root.LayoutType switch
                 {
-                    InfoType.Enhancement => new[] { 20, 331, 1, 1 }, // Simulate 2 columns layout
+                    InfoType.Enhancement when EnhSlot.Enh > -1 && DatabaseAPI.Database.Enhancements[EnhSlot.Enh].TypeID == Enums.eType.SetO => new[] { 20, 331, 0, 0 }, // Simulate 2 columns layout
+                    InfoType.Enhancement => new[] { 150, 201, 0, 0},
                     _ => new[] { 97, 78, 98, 78 }
                 };
 
@@ -1611,7 +1622,8 @@ namespace Mids_Reborn.Forms.Controls
                     Root.ctlDamageDisplay1.Visible = true;
                     Root.listSpecialBonuses.Visible = false;
 
-                    Root.infoTabTitle.Text = $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level + 1}] " : "")}{_basePower?.DisplayName ?? "Info"}";
+                    //Root.infoTabTitle.Text = $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level + 1}] " : "")}{_basePower?.DisplayName ?? "Info"}";
+                    Root.infoTabTitle.Invalidate();
                     Root.richInfoSmall.Rtf = RTFText.Text2RTF(_basePower?.DescShort ?? "");
                     Root.richInfoLarge.Rtf = RTFText.Text2RTF(_basePower?.DescLong ?? "");
 
@@ -1904,6 +1916,7 @@ namespace Mids_Reborn.Forms.Controls
                     Root.lblDamage.Visible = false;
                     Root.ctlDamageDisplay1.Visible = false;
                     Root.listSpecialBonuses.Visible = true;
+                    Root.listInfos.Rows.Clear();
 
                     var enhDesc = "";
                     var enhName = "";
@@ -1930,7 +1943,8 @@ namespace Mids_Reborn.Forms.Controls
                         enhDesc += $" (Slot Level {EnhLevel + 1})";
                     }
 
-                    Root.infoTabTitle.Text = enhName;
+                    //Root.infoTabTitle.Text = enhName;
+                    Root.infoTabTitle.Invalidate();
                     if (EnhSlot.Enh < 0)
                     {
                         return;
@@ -2002,7 +2016,28 @@ namespace Mids_Reborn.Forms.Controls
                     Root.richInfoLarge.Rtf = $"{RTF.StartRTF()}{RTF.ToRTF(longDescRtf)}{RTF.EndRTF()}";
                     if (typeId != Enums.eType.SetO)
                     {
-                        // Need to blank listInfos' cells
+                        Root.listSpecialBonuses.Rows.Clear();
+                        var enh = DatabaseAPI.Database.Enhancements[EnhSlot.Enh];
+                        var enhEffects = enh.Effect;
+                        for (var i = 0; i < 5; i++)
+                        {
+                            Root.listInfos.Rows.Add();
+                            Root.listInfos.Rows[i].Height = 20;
+                            if (i < enhEffects.Length)
+                            {
+                                Root.listInfos.SetCellContent(
+                                    $"{(enhEffects[i].Enhance.SubID > -1 ? $"{(Enums.eEnhance) enhEffects[i].Enhance.SubID}" : $"{(Enums.eEnhance) enhEffects[i].Enhance.ID}")}",
+                                    Color.FromArgb(0, 255, 0), "", i, 0);
+                                Root.listInfos.SetCellContent(
+                                    $"{100 * EnhSlot.GetEnhancementEffect((Enums.eEnhance)enhEffects[i].Enhance.ID, enhEffects[i].Enhance.SubID, enhEffects[i].BuffMode == Enums.eBuffDebuff.DeBuffOnly ? -1 : 1):##0.###}% (Sched. {enhEffects[i].Schedule})", "", i, 1);
+                            }
+                            else
+                            {
+                                Root.listInfos.SetCellContent(i, 0);
+                                Root.listInfos.SetCellContent(i, 1);
+                            }
+                        }
+
                         return;
                     }
 
@@ -2010,12 +2045,6 @@ namespace Mids_Reborn.Forms.Controls
                     var setSize = dbSet.Bonus.Length;
                     var setInfo = EnhancementSetCollection.GetSetInfoLong(dbEnh.nIDSet);
                     var chunks = setInfo.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
-
-                    /*var specialBonuses = dbSet.SpecialBonus
-                        .Select(b => dbSet.GetEffectString(Array.FindIndex(dbSet.SpecialBonus, e => e.Equals(b)), true))
-                        .Count(b => !string.IsNullOrEmpty(b));
-                    Debug.WriteLine($"Set: {dbSet.DisplayName} - Special set bonuses: {specialBonuses}");
-                    Debug.WriteLine(setInfo);*/
 
                     Root.listInfos.Rows.Clear();
                     for (var i = 0; i < 5; i++)
@@ -2042,6 +2071,9 @@ namespace Mids_Reborn.Forms.Controls
                         }
                     }
 
+                    var activeSpecialBonuses = dbSet.SpecialBonus
+                        .Select(b => dbSet.GetEffectString(Array.FindIndex(dbSet.SpecialBonus, e => e.Equals(b)), true))
+                        .Count(b => !string.IsNullOrEmpty(b));
                     Root.listSpecialBonuses.Rows.Clear();
                     for (var i = 0; i < 4; i++)
                     {
@@ -2052,7 +2084,7 @@ namespace Mids_Reborn.Forms.Controls
                         {
                             if (j == 0 & i + setSize + 1 < chunks.Length)
                             {
-                                Root.listSpecialBonuses.SetCellContent($"Special #{i + 1}:", "", i, j);
+                                Root.listSpecialBonuses.SetCellContent($"Special{(activeSpecialBonuses > 1 ? $" #{i + 1}" : "")}:", "", i, j);
                             }
                             else if (j == 1 & i + setSize + 1 < chunks.Length)
                             {
@@ -2110,7 +2142,9 @@ namespace Mids_Reborn.Forms.Controls
                         Enums.eDamage.AoE
                     };
 
-                    var buffTypes = power.Effects.Where(e => e.EffectType == effectType).Select(e => e.DamageType)
+                    var buffTypes = power.Effects
+                        .Where(e => e.EffectType == effectType)
+                        .Select(e => e.DamageType)
                         .ToList();
 
                     if (effectType == Enums.eEffectType.Defense | effectType == Enums.eEffectType.Elusivity)
@@ -2540,7 +2574,7 @@ namespace Mids_Reborn.Forms.Controls
 
         protected void skglScalesGraph_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
-            var target = (SKGLControl)sender;
+            var target = (SKGLControl) sender;
 
             e.Surface.Canvas.Clear(SKColors.Black);
             var graph = VariableStatsGraph.DrawScalesGraphSurface(HistoryIdx, target.Width, target.Height);
@@ -2549,6 +2583,8 @@ namespace Mids_Reborn.Forms.Controls
 
         private void DataView2_Load(object sender, EventArgs e)
         {
+            richInfoSmall.Text = string.Empty;
+            richInfoLarge.Text = string.Empty;
             ctlDamageDisplay1.Text = string.Empty;
             GridMouseOverEventLoc = new GridViewMouseEventInfo
             {
@@ -2560,7 +2596,7 @@ namespace Mids_Reborn.Forms.Controls
 
         private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var target = (DataGridView)sender;
+            var target = (DataGridView) sender;
             var tooltipTextSource = target.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText;
 
             // Do not set tooltip text when mouse is stationary to reduce tooltip flicker.
@@ -2582,7 +2618,7 @@ namespace Mids_Reborn.Forms.Controls
 
         private void dataGridView_MouseLeave(object sender, EventArgs e)
         {
-            var target = (DataGridView)sender;
+            var target = (DataGridView) sender;
 
             toolTip1.SetToolTip(target, "");
             GridMouseOverEventLoc = new GridViewMouseEventInfo
@@ -2597,6 +2633,100 @@ namespace Mids_Reborn.Forms.Controls
         {
             var target = (DataGridView) sender;
             target.ClearSelection();
+        }
+
+        private void infoTabTitle_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
+        {
+            const int iconSize = 16;
+            const int itemsPadding = 3;
+            const float textSize = 13;
+            string defaultPowerInfoText = "Info";
+
+            var target = (SKGLControl) sender;
+
+            if (LayoutType == InfoType.Enhancement)
+            {
+                var enhName = "";
+                if (EnhSlot.Enh > -1)
+                {
+                    enhName = DatabaseAPI.Database.Enhancements[EnhSlot.Enh].LongName;
+                    if ((enhName.Length > 38) & (EnhLevel > -1))
+                    {
+                        enhName = DatabaseAPI.GetEnhancementNameShortWSet(EnhSlot.Enh);
+                    }
+                }
+                else
+                {
+                    // _basePower may be wrong or undefined
+                    enhName = _basePower != null ? _basePower.DisplayName : "";
+                }
+
+                var textRect = new SKRect(0, 0, 0, 0);
+                using var textPaint = new SKPaint
+                {
+                    Color = SKColors.WhiteSmoke,
+                    TextSize = textSize
+                };
+
+                textPaint.MeasureText(enhName, ref textRect);
+                var maxWidth = target.Width;
+                var totalWidth = (EnhSlot.Enh > -1 ? iconSize + itemsPadding : 0) + textRect.Width;
+                var x = (int) Math.Max(0, Math.Round((maxWidth - totalWidth) / 2));
+
+                e.Surface.Canvas.Clear(SKColors.Black);
+                if (EnhSlot.Enh > -1)
+                {
+                    var enhImg = FlipAnimator.Bitmaps.CreateBitmap(EnhSlot.Enh);
+                    using var enhIcon = new SKBitmap(new SKImageInfo(16, 16));
+                    enhImg.ScalePixels(enhIcon, SKFilterQuality.High);
+                    e.Surface.Canvas.DrawBitmap(enhIcon, new SKRect(0, 0, 16, 16), new SKRect(x, 0, x + 16, 16));
+                }
+
+                e.Surface.Canvas.DrawText(
+                    SKTextBlob.Create(enhName, new SKFont(SKTypeface.Default, textSize)),
+                    x + (EnhSlot.Enh > -1 ? iconSize + itemsPadding : 0), target.Height - 2 - (target.Height - textRect.Height) / 2,
+                    textPaint
+                );
+            }
+            else if (LayoutType == InfoType.Power)
+            {
+                var powerInfo = $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level + 1}] " : "")}{_basePower?.DisplayName ?? defaultPowerInfoText}";
+                var powerNid = BuildPowerEntry?.NIDPower ?? -1;
+                var powersetNid = powerNid == -1
+                    ? -1
+                    : DatabaseAPI.Database.Power[powerNid].GetPowerSet().nID;
+
+                using var textPaint = new SKPaint
+                {
+                    Color = SKColors.WhiteSmoke,
+                    TextSize = textSize
+                };
+
+                var textRect = new SKRect(0, 0, 0, 0);
+                textPaint.MeasureText(powerInfo, ref textRect);
+                var maxWidth = target.Width;
+                var hasIcon = !(powersetNid == -1 | powerInfo == (_basePower?.DisplayName ?? defaultPowerInfoText));
+                var totalWidth = (hasIcon ? iconSize + itemsPadding : 0) + textRect.Width;
+                var x = (int) Math.Max(0, Math.Round((maxWidth - totalWidth) / 2));
+
+                e.Surface.Canvas.Clear(SKColors.Black);
+                if (powersetNid > -1)
+                {
+                    using var powersetImgSrc = I9Gfx.GetPowersetImage(DatabaseAPI.Database.Powersets[powersetNid]);
+                    using var powersetImg = FlipAnimator.Bitmaps.CreateBitmap(powersetImgSrc);
+                    using var powersetIcon = new SKBitmap(new SKImageInfo(16, 16));
+                    powersetImg.ScalePixels(powersetIcon, SKFilterQuality.High);
+                    e.Surface.Canvas.DrawBitmap(powersetIcon, new SKRect(0, 0, 16, 16), new SKRect(x, 0, x + 16, 16));
+                }
+
+                Debug.WriteLine(powerInfo);
+                Debug.WriteLine($"textRect: {textRect.Width}x{textRect.Height}, maxWidth: {maxWidth}, totalWidth: {totalWidth}, x: {x}, hasIcon: {hasIcon}");
+                e.Surface.Canvas.DrawText(
+                    SKTextBlob.Create(powerInfo, new SKFont(SKTypeface.Default, textSize)),
+                    x + (hasIcon ? iconSize + itemsPadding : 0), target.Height - 2 - (target.Height - textRect.Height) / 2,
+                    textPaint
+                );
+            }
         }
     }
 }

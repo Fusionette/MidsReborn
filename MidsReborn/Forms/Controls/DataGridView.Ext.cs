@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Mids_Reborn.Forms.Controls
@@ -37,6 +38,26 @@ namespace Mids_Reborn.Forms.Controls
             if (tooltipText != "")
             {
                 target.Rows[row].Cells[column].ToolTipText = tooltipText;
+            }
+        }
+
+        public static void BlankCells(this DataGridView target, int rows, int rowHeight = 0)
+        {
+            if (rowHeight == 0)
+            {
+                rowHeight = (int) Math.Round(target.Height / (decimal) rows);
+            }
+
+            target.Rows.Clear();
+            for (var i = 0; i < rows; i++)
+            {
+                target.Rows.Add();
+                target.Rows[i].Height = rowHeight;
+
+                for (var j = 0; j < target.Columns.Count; j++)
+                {
+                    target.SetCellContent(i, j);
+                }
             }
         }
     }
