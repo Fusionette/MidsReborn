@@ -805,27 +805,28 @@ namespace Mids_Reborn.Forms.Controls
                 public static SKBitmap CreateBitmap(int enhIndex, int ioLevel = -1,
                     Enums.eEnhRelative relativeLevel = Enums.eEnhRelative.Even)
                 {
-                    var bitmap = new SKBitmap(new SKImageInfo(30, 30, SKColorType.Rgba8888, SKAlphaType.Premul));
+                    const int enhImgSize = 30;
+
+                    var bitmap = new SKBitmap(new SKImageInfo(enhImgSize, enhImgSize, SKColorType.Rgba8888, SKAlphaType.Premul));
                     using var canvas = new SKCanvas(bitmap);
 
                     var imgIdx = DatabaseAPI.Database.Enhancements[enhIndex].ImageIdx;
-                    var enhGrade =
-                        I9Gfx.ToGfxGrade(DatabaseAPI.Database.Enhancements[enhIndex].TypeID); // Enums.eEnhGrade ?
+                    var enhGrade = I9Gfx.ToGfxGrade(DatabaseAPI.Database.Enhancements[enhIndex].TypeID); // Enums.eEnhGrade ?
                     var sourceRect = I9Gfx.GetOverlayRect(enhGrade).ToSKRect();
-                    var destRect = new SKRect(0, 0, 30, 30);
+                    var destRect = new SKRect(0, 0, enhImgSize, enhImgSize);
 
                     // Draw border
                     canvas.DrawBitmap(I9Gfx.Borders.Bitmap.ToSKBitmap(), sourceRect, destRect);
 
                     // Draw enhancement
-                    canvas.DrawBitmap(I9Gfx.Enhancements[imgIdx].ToSKBitmap(), sourceRect, destRect);
+                    canvas.DrawBitmap(I9Gfx.Enhancements[imgIdx].ToSKBitmap(), new SKRect(0, 0, enhImgSize, enhImgSize), destRect);
 
-                    // Draw enhancement level
                     if (ioLevel == -1)
                     {
                         return bitmap;
                     }
 
+                    // Draw enhancement level
                     var levelString = $"{ioLevel}{RelativeLevelString(relativeLevel)}";
                     using var textPaint = new SKPaint
                     {
@@ -2719,8 +2720,6 @@ namespace Mids_Reborn.Forms.Controls
                     e.Surface.Canvas.DrawBitmap(powersetIcon, new SKRect(0, 0, 16, 16), new SKRect(x, 0, x + 16, 16));
                 }
 
-                Debug.WriteLine(powerInfo);
-                Debug.WriteLine($"textRect: {textRect.Width}x{textRect.Height}, maxWidth: {maxWidth}, totalWidth: {totalWidth}, x: {x}, hasIcon: {hasIcon}");
                 e.Surface.Canvas.DrawText(
                     SKTextBlob.Create(powerInfo, new SKFont(SKTypeface.Default, textSize)),
                     x + (hasIcon ? iconSize + itemsPadding : 0), target.Height - 2 - (target.Height - textRect.Height) / 2,
