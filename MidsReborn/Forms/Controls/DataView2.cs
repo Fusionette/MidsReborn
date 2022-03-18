@@ -705,6 +705,16 @@ namespace Mids_Reborn.Forms.Controls
                 Alt
             }
 
+            internal enum IncarnateSlot
+            {
+                Alpha,
+                Judgement,
+                Interface,
+                Destiny,
+                Lore,
+                Hybrid
+            }
+
             private List<SKSlotBitmap> EnhMainBitmaps = new();
             private List<SKSlotBitmap> EnhAltBitmaps = new();
             public bool Active;
@@ -718,6 +728,7 @@ namespace Mids_Reborn.Forms.Controls
 
             public static class Bitmaps
             {
+                private const int EnhImgSize = 30;
                 private static SKPaint GenerateColorFilter(SKSlotBitmap slot)
                 {
                     var validSlotBlendAdd = slot.ValidSlot ? 0 : -0.4f;
@@ -805,21 +816,19 @@ namespace Mids_Reborn.Forms.Controls
                 public static SKBitmap CreateBitmap(int enhIndex, int ioLevel = -1,
                     Enums.eEnhRelative relativeLevel = Enums.eEnhRelative.Even)
                 {
-                    const int enhImgSize = 30;
-
-                    var bitmap = new SKBitmap(new SKImageInfo(enhImgSize, enhImgSize, SKColorType.Rgba8888, SKAlphaType.Premul));
+                    var bitmap = new SKBitmap(new SKImageInfo(EnhImgSize, EnhImgSize, SKColorType.Rgba8888, SKAlphaType.Premul));
                     using var canvas = new SKCanvas(bitmap);
 
                     var imgIdx = DatabaseAPI.Database.Enhancements[enhIndex].ImageIdx;
                     var enhGrade = I9Gfx.ToGfxGrade(DatabaseAPI.Database.Enhancements[enhIndex].TypeID); // Enums.eEnhGrade ?
                     var sourceRect = I9Gfx.GetOverlayRect(enhGrade).ToSKRect();
-                    var destRect = new SKRect(0, 0, enhImgSize, enhImgSize);
+                    var destRect = new SKRect(0, 0, EnhImgSize, EnhImgSize);
 
                     // Draw border
                     canvas.DrawBitmap(I9Gfx.Borders.Bitmap.ToSKBitmap(), sourceRect, destRect);
 
                     // Draw enhancement
-                    canvas.DrawBitmap(I9Gfx.Enhancements[imgIdx].ToSKBitmap(), new SKRect(0, 0, enhImgSize, enhImgSize), destRect);
+                    canvas.DrawBitmap(I9Gfx.Enhancements[imgIdx].ToSKBitmap(), new SKRect(0, 0, EnhImgSize, EnhImgSize), destRect);
 
                     if (ioLevel == -1)
                     {
@@ -858,6 +867,65 @@ namespace Mids_Reborn.Forms.Controls
                     canvas.DrawPath(outlinePath, outlinePaint);
 
                     return bitmap;
+                }
+
+                public static SKBitmap CreateBitmap(IncarnateSlot incarnateSlot)
+                {
+                    var bitmap = new SKBitmap(new SKImageInfo(EnhImgSize, EnhImgSize, SKColorType.Rgba8888, SKAlphaType.Premul));
+                    using var canvas = new SKCanvas(bitmap);
+                    var imgIndex = incarnateSlot switch
+                    {
+                        IncarnateSlot.Alpha => 26,
+                        IncarnateSlot.Destiny => 27,
+                        IncarnateSlot.Hybrid => 28, 
+                        IncarnateSlot.Interface => 29,
+                        IncarnateSlot.Judgement => 30,
+                        IncarnateSlot.Lore => 31
+                    };
+                    var imgSourceRect = I9Gfx.GetImageRect(imgIndex);
+                    var sourceRect = new SKRect(imgSourceRect.Left, imgSourceRect.Top, imgSourceRect.Right, imgSourceRect.Bottom);
+                    var destRect = new SKRect(0, 0, EnhImgSize, EnhImgSize);
+                    canvas.DrawBitmap(I9Gfx.Classes.Bitmap.ToSKBitmap(), sourceRect, destRect);
+
+                    return bitmap;
+                }
+            }
+
+            public static class Utils
+            {
+                public static IncarnateSlot? GetIncarnateSlotFromPowerset(string powerset)
+                {
+                    if (powerset.StartsWith("Incarnate.Alpha"))
+                    {
+                        return IncarnateSlot.Alpha;
+                    }
+
+                    if (powerset.StartsWith("Incarnate.Judgement"))
+                    {
+                        return IncarnateSlot.Judgement;
+                    }
+
+                    if (powerset.StartsWith("Incarnate.Interface"))
+                    {
+                        return IncarnateSlot.Interface;
+                    }
+
+                    if (powerset.StartsWith("Incarnate.Lore"))
+                    {
+                        return IncarnateSlot.Lore;
+                    }
+
+                    if (powerset.StartsWith("Incarnate.Destiny"))
+                    {
+                        return IncarnateSlot.Destiny;
+                    }
+
+                    if (powerset.StartsWith("Incarnate.Hybrid"))
+                    {
+                        return IncarnateSlot.Hybrid;
+                    }
+
+                    return null;
                 }
             }
 
@@ -2524,8 +2592,6 @@ namespace Mids_Reborn.Forms.Controls
             // Display updated infos (???)
         }
 
-        #endregion
-
         protected void skglEnh_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             e.Surface.Canvas.Clear(SKColors.Black);
@@ -2713,8 +2779,19 @@ namespace Mids_Reborn.Forms.Controls
                 e.Surface.Canvas.Clear(SKColors.Black);
                 if (powersetNid > -1)
                 {
-                    using var powersetImgSrc = I9Gfx.GetPowersetImage(DatabaseAPI.Database.Powersets[powersetNid]);
-                    using var powersetImg = FlipAnimator.Bitmaps.CreateBitmap(powersetImgSrc);
+                    var powersetFullName = DatabaseAPI.Database.Powersets[powersetNid].FullName;
+                    using var powersetImg = FlipAnimator.Utils.GetIncarnateSlotFromPowerset(powersetFullName) switch
+                    {
+                        FlipAnimator.IncarnateSlot.Alpha => FlipAnimator.Bitmaps.CreateBitmap(FlipAnimator.IncarnateSlot.Alpha),
+                        FlipAnimator.IncarnateSlot.Judgement => FlipAnimator.Bitmaps.CreateBitmap(FlipAnimator.IncarnateSlot.Judgement),
+                        FlipAnimator.IncarnateSlot.Interface => FlipAnimator.Bitmaps.CreateBitmap(FlipAnimator.IncarnateSlot.Interface),
+                        FlipAnimator.IncarnateSlot.Lore => FlipAnimator.Bitmaps.CreateBitmap(FlipAnimator.IncarnateSlot.Lore),
+                        FlipAnimator.IncarnateSlot.Destiny => FlipAnimator.Bitmaps.CreateBitmap(FlipAnimator.IncarnateSlot.Destiny),
+                        FlipAnimator.IncarnateSlot.Hybrid => FlipAnimator.Bitmaps.CreateBitmap(FlipAnimator.IncarnateSlot.Hybrid),
+                        _ => FlipAnimator.Bitmaps.CreateBitmap(
+                            I9Gfx.GetPowersetImage(DatabaseAPI.Database.Powersets[powersetNid]))
+                    };
+
                     using var powersetIcon = new SKBitmap(new SKImageInfo(16, 16));
                     powersetImg.ScalePixels(powersetIcon, SKFilterQuality.High);
                     e.Surface.Canvas.DrawBitmap(powersetIcon, new SKRect(0, 0, 16, 16), new SKRect(x, 0, x + 16, 16));
@@ -2727,5 +2804,7 @@ namespace Mids_Reborn.Forms.Controls
                 );
             }
         }
+
+        #endregion
     }
 }
