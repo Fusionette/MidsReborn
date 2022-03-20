@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
 using System.Windows.Forms;
 using FastDeepCloner;
@@ -1691,10 +1689,16 @@ namespace Mids_Reborn
         {
             if (powerMath == null) return false;
             if (powerBuffed == null) return false;
-            var nToHit = !powerMath.IgnoreBuff(Enums.eEnhance.ToHit) ? 0.0f : _selfBuffs.Effect[(int)Enums.eStatType.ToHit];
-            var nAcc = !powerMath.IgnoreBuff(Enums.eEnhance.Accuracy) ? 0.0f : _selfBuffs.Effect[(int)Enums.eStatType.BuffAcc];
-            powerBuffed.Accuracy = (float) (powerBuffed.Accuracy * (1.0 + powerMath.Accuracy + nAcc) * (MidsContext.Config.BaseAcc + (double) nToHit));
-            powerBuffed.AccuracyMult = powerBuffed.Accuracy * (1f + powerMath.Accuracy + nAcc);
+            
+            var nToHit = !powerMath.IgnoreBuff(Enums.eEnhance.ToHit) ? 0 : _selfBuffs.Effect[(int)Enums.eStatType.ToHit];
+            var nAcc = !powerMath.IgnoreBuff(Enums.eEnhance.Accuracy) ? 0 : _selfBuffs.Effect[(int)Enums.eStatType.BuffAcc];
+            // Rebase Accuracy to base = 1 as it is in the database
+            powerBuffed.Accuracy = (float) (powerBuffed.Accuracy * (1 + powerMath.Accuracy + nAcc) * (MidsContext.Config.BaseAcc + (double) nToHit) / MidsContext.Config.BaseAcc);
+            
+            // Formula working as intended?
+            // Status unknown.
+            powerBuffed.AccuracyMult = powerBuffed.Accuracy * (1 + powerMath.Accuracy + nAcc);
+
             return true;
         }
 
@@ -1817,7 +1821,10 @@ namespace Mids_Reborn
             if (iPower > -1)
             {
                 if (CurrentBuild.Powers.Count - 1 < iPower || CurrentBuild.Powers[iPower].NIDPower < 0)
+                {
                     return null;
+                }
+
                 nIDPower = CurrentBuild.Powers[iPower].NIDPower;
             }
             else if (nIDPower <= -1 || nIDPower > DatabaseAPI.Database.Power.Length - 1)
@@ -1825,7 +1832,9 @@ namespace Mids_Reborn
                 return null;
             }
 
-            var powerMath = GBPA_SubPass0_AssemblePowerEntry(nIDPower, iPower);
+            return DatabaseAPI.Database.Power[nIDPower];
+
+            /*var powerMath = GBPA_SubPass0_AssemblePowerEntry(nIDPower, iPower);
             for (var index = 0; index <= CurrentBuild.Powers.Count - 1; ++index)
             {
                 if (!((iPower != index) & CurrentBuild.Powers[index].StatInclude &
@@ -1836,7 +1845,7 @@ namespace Mids_Reborn
                 GBPA_ApplyIncarnateEnhancements(ref powerMath, -1, _mathPower[index], false, ref effectType);
             }
 
-            return powerMath;
+            return powerMath;*/
         }
 
         private static int GetClassByName(string iName)

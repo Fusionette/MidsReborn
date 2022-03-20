@@ -2610,22 +2610,23 @@ namespace Mids_Reborn.Forms
             }
 
             DataViewLocked = Lock;
+            // MainModule.MidsController.Toon.GetBasePower(powIndex);
+            var basePower = powerIdx < 0 ? null : DatabaseAPI.Database.Power[powerIdx];
+            var enhancedPower = MainModule.MidsController.Toon.GetEnhancedPower(powIndex);
             if (powIndex > -1)
             {
-                var basePower = MainModule.MidsController.Toon.GetBasePower(powIndex);
-                var enhancedPower = MainModule.MidsController.Toon.GetEnhancedPower(powIndex);
                 if (basePower != null && enhancedPower != null)
                 {
                     myDataView.SetData(enhancedPower, NoLevel, DataViewLocked, powIndex);
                 }
                 else
                 {
-                    myDataView.SetData(MainModule.MidsController.Toon.GetBasePower(powIndex, powerIdx), NoLevel, DataViewLocked, powIndex);
+                    myDataView.SetData(basePower, NoLevel, DataViewLocked, powIndex);
                 }
             }
             else
             {
-                myDataView.SetData(MainModule.MidsController.Toon.GetBasePower(powIndex, powerIdx), NoLevel, DataViewLocked, powIndex);
+                myDataView.SetData(basePower, NoLevel, DataViewLocked, powIndex);
             }
 
             if (!Lock || dvAnchored.Visible)

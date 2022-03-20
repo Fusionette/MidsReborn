@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using FastDeepCloner;
 using mrbBase;
+using mrbBase.Base.Data_Classes;
 using mrbBase.Base.Master_Classes;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
@@ -1449,6 +1450,132 @@ namespace Mids_Reborn.Forms.Controls
 
         #endregion
 
+        #region Power stats sub-class
+
+        private class PowerStats
+        {
+            public enum BuffType
+            {
+                Buff,
+                Debuff,
+                Any,
+                Mez
+            }
+
+            public struct BuffInfo
+            {
+                public float Value;
+                public float ValueAfterED;
+                public Enums.eSchedule Schedule;
+            }
+
+            public struct BuffStat
+            {
+                public Enums.eEnhance Stat;
+                public Enums.eMez Mez;
+                public BuffType BuffType;
+            }
+
+            private Dictionary<BuffStat, BuffInfo> _powerStats;
+
+            public PowerStats()
+            {
+                _powerStats = new Dictionary<BuffStat, BuffInfo>();
+            }
+
+            public void AddUpdate(BuffStat buffKey, BuffInfo buffInfo, bool sum = true)
+            {
+                if (!_powerStats.ContainsKey(buffKey))
+                {
+                    _powerStats.Add(buffKey, buffInfo);
+                }
+                else
+                {
+                    _powerStats[buffKey] = new BuffInfo
+                    {
+                        Schedule = buffInfo.Schedule,
+                        Value = sum ? _powerStats[buffKey].Value + buffInfo.Value : buffInfo.Value,
+                        ValueAfterED = sum ? _powerStats[buffKey].ValueAfterED + buffInfo.ValueAfterED : buffInfo.ValueAfterED
+                    };
+                }
+            }
+
+            public void AddUpdate(BuffStat buffKey, float value, bool sum = true)
+            {
+                if (!_powerStats.ContainsKey(buffKey))
+                {
+                    _powerStats.Add(buffKey, new BuffInfo
+                    {
+                        Schedule = _powerStats[buffKey].Schedule,
+                        Value = value,
+                        ValueAfterED = _powerStats[buffKey].ValueAfterED
+                    });
+                }
+                else
+                {
+                    _powerStats[buffKey] = new BuffInfo
+                    {
+                        Schedule = _powerStats[buffKey].Schedule,
+                        Value = sum ? _powerStats[buffKey].Value + value : value,
+                        ValueAfterED = _powerStats[buffKey].ValueAfterED
+                    };
+                }
+            }
+
+            public void AddUpdate(BuffStat buffKey, float? value, float valueAfterED, bool sum = true)
+            {
+                if (!_powerStats.ContainsKey(buffKey))
+                {
+                    _powerStats.Add(buffKey, new BuffInfo
+                    {
+                        Schedule = _powerStats[buffKey].Schedule,
+                        Value = value ?? _powerStats[buffKey].Value,
+                        ValueAfterED = sum ? _powerStats[buffKey].ValueAfterED + valueAfterED : valueAfterED
+                    });
+                }
+                else
+                {
+                    _powerStats[buffKey] = new BuffInfo
+                    {
+                        Schedule = _powerStats[buffKey].Schedule,
+                        Value = value == null
+                            ? _powerStats[buffKey].Value
+                            : sum
+                                ? _powerStats[buffKey].Value + (float)value
+                                : (float)value,
+                        ValueAfterED = sum ? _powerStats[buffKey].ValueAfterED + valueAfterED : valueAfterED
+                    };
+                }
+            }
+
+            public float? GetValue(Enums.eEnhance stat, Enums.eMez mez, BuffType buffType, bool afterED = true)
+            {
+                var buffKey = new BuffStat
+                {
+                    BuffType = buffType,
+                    Mez = mez,
+                    Stat = stat
+                };
+
+                if (!_powerStats.ContainsKey(buffKey))
+                {
+                    return null;
+                }
+
+                if (afterED & _powerStats[buffKey].Value > 0 & _powerStats[buffKey].ValueAfterED == 0)
+                {
+                    var valueAfterED = Enhancement.ApplyED(_powerStats[buffKey].Schedule, _powerStats[buffKey].Value);
+                    AddUpdate(buffKey, null, valueAfterED, false);
+
+                    return valueAfterED;
+                }
+
+                return afterED ? _powerStats[buffKey].ValueAfterED : _powerStats[buffKey].Value;
+            }
+        }
+
+        #endregion
+
         #region Tab renderers sub-class
 
         private static class Tabs
@@ -1466,6 +1593,47 @@ namespace Mids_Reborn.Forms.Controls
                         (value - valueMin) / (valueMax - valueMin) *
                         (colorRange.UpperBoundColor.B - colorRange.LowerBoundColor.B) + colorRange.LowerBoundColor.B)
                 );
+            }
+
+            public static Dictionary<int, int> SlottedSets()
+            {
+                var ret = new Dictionary<int, int>();
+                if (BuildPowerEntry == null)
+                {
+                    return ret;
+                }
+
+                if (BuildPowerEntry.Power == null)
+                {
+                    return ret;
+                }
+
+                
+                for (var i = 0; i < BuildPowerEntry.Slots.Length; i++)
+                {
+                    if (BuildPowerEntry.Slots[i].Enhancement.Enh < 0)
+                    {
+                        continue;
+                    }
+
+                    var enh = DatabaseAPI.Database.Enhancements[BuildPowerEntry.Slots[i].Enhancement.Enh];
+                    if (enh.TypeID != Enums.eType.SetO)
+                    {
+                        continue;
+                    }
+
+                    var setId = enh.nIDSet;
+                    if (!ret.ContainsKey(setId))
+                    {
+                        ret.Add(setId, 1);
+                    }
+                    else
+                    {
+                        ret[setId]++;
+                    }
+                }
+
+                return ret;
             }
 
             public static void RenderTabs(DataView2 root, bool checkActive = false)
@@ -1671,10 +1839,12 @@ namespace Mids_Reborn.Forms.Controls
             {
                 private static DataView2 Root;
                 private static InfoType LayoutType;
+                private static Dictionary<int, int> SlottedSets;
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
                     Root = root;
                     LayoutType = layoutType;
+                    SlottedSets = SlottedSets();
                     if (layoutType == InfoType.Power)
                     {
                         PowerInfo();
@@ -1687,11 +1857,12 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void PowerInfo()
                 {
+                    var powerStats = GetSlottedEnhancementEffects();
+
                     Root.lblDamage.Visible = true;
                     Root.ctlDamageDisplay1.Visible = true;
                     Root.listSpecialBonuses.Visible = false;
 
-                    //Root.infoTabTitle.Text = $@"{(BuildPowerEntry != null ? $"[{BuildPowerEntry.Level + 1}] " : "")}{_basePower?.DisplayName ?? "Info"}";
                     Root.infoTabTitle.Invalidate();
                     Root.richInfoSmall.Rtf = RTFText.Text2RTF(_basePower?.DescShort ?? "");
                     Root.richInfoLarge.Rtf = RTFText.Text2RTF(_basePower?.DescLong ?? "");
@@ -1737,11 +1908,15 @@ namespace Mids_Reborn.Forms.Controls
                     row++;
                     Root.listInfos.Rows.Add();
                     Root.listInfos.Rows[row].Height = 20;
-                    var accuracyTooltip =
-                        $"Accuracy: {_enhancedPower.Accuracy:P2}\r\nMultiplier: {_enhancedPower.Accuracy / 0.75:##0.0##}x"; // Base accuracy variable ?
+                    var enhancedPowerAcc = _enhancedPower.Accuracy * MidsContext.Config.BaseAcc;
+                    var basePowerAcc = _basePower.Accuracy * MidsContext.Config.BaseAcc;
+                    var totalToHit = MidsContext.Config.BaseAcc + MidsContext.Character.DisplayStats.BuffToHit / 100;
+                    var powerAccuracyBuff = powerStats.GetValue(Enums.eEnhance.Accuracy, Enums.eMez.None, PowerStats.BuffType.Any);
+                    var totalAccuracy = _basePower.AccuracyMult * (1 + (powerAccuracyBuff ?? 0) + MidsContext.Character.DisplayStats.BuffAccuracy / 100);
+                    var accuracyTooltip = $"Chance to Hit: {enhancedPowerAcc:P2}\r\nBase Chance: {basePowerAcc:P2}\r\n\r\nTotal Accuracy: {totalAccuracy:P2}\r\nTotal ToHit: {totalToHit:P2}";
                     Root.listInfos.SetCellContent("Accuracy:", accuracyTooltip, row, 0);
-                    Root.listInfos.SetCellContent($"{_enhancedPower.Accuracy:P2}",
-                        Boosts.GetBoostColor(_basePower.Accuracy, _enhancedPower.Accuracy), accuracyTooltip, row, 1);
+                    Root.listInfos.SetCellContent($"{enhancedPowerAcc:P2}",
+                        Boosts.GetBoostColor(basePowerAcc, enhancedPowerAcc), accuracyTooltip, row, 1);
 
                     // Check if there is a mez effect, display duration in the right column.
                     var hasMez = _basePower.Effects.Any(e => e.EffectType == Enums.eEffectType.Mez);
@@ -2114,6 +2289,9 @@ namespace Mids_Reborn.Forms.Controls
                     var setSize = dbSet.Bonus.Length;
                     var setInfo = EnhancementSetCollection.GetSetInfoLong(dbEnh.nIDSet);
                     var chunks = setInfo.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+                    var slottedForSet = SlottedSets.ContainsKey(dbEnh.nIDSet)
+                        ? SlottedSets[dbEnh.nIDSet]
+                        : 0;
 
                     Root.listInfos.Rows.Clear();
                     for (var i = 0; i < 5; i++)
@@ -2130,8 +2308,15 @@ namespace Mids_Reborn.Forms.Controls
                             else if (j == 1 & i < setSize)
                             {
                                 var fxString = chunks[i + 1].Substring(13);
+                                var fxColor = slottedForSet switch
+                                {
+                                    > 0 when slottedForSet >= i + 2 => Color.FromArgb(0, 255, 0),
+                                    > 0 when slottedForSet < i + 2 => Color.FromArgb(140, 140, 140),
+                                    _ => Color.FromArgb(0, 192, 90)
+                                };
+
                                 Utilities.ModifiedEffectString(ref fxString, 1);
-                                Root.listInfos.SetCellContent($"{fxString}", Color.FromArgb(0, 255, 0), "", i, j);
+                                Root.listInfos.SetCellContent($"{fxString}", fxColor, "", i, j);
                             }
                             else
                             {
@@ -2258,6 +2443,295 @@ namespace Mids_Reborn.Forms.Controls
                         default:
                             return "";
                     }
+                }
+
+                // From clsToonX.PopSlottedEnhInfo()
+                private static PowerStats GetSlottedEnhancementEffects()
+                {
+                    var powerStats = new PowerStats();
+
+                    if (HistoryIdx < 0)
+                    {
+                        return powerStats;
+                    }
+
+                    for (var index1 = 0; index1 < MidsContext.Character.CurrentBuild.Powers[HistoryIdx].SlotCount; index1++)
+                    {
+                        var enhSlot = MidsContext.Character.CurrentBuild.Powers[HistoryIdx].Slots[index1].Enhancement;
+                        var enhId = enhSlot.Enh;
+                        if (enhId <= -1)
+                        {
+                            continue;
+                        }
+
+                        var enh = DatabaseAPI.Database.Enhancements[enhId];
+                        for (var index2 = 0; index2 < enh.Effect.Length; index2++)
+                        {
+                            var effects = enh.Effect;
+                            if (effects[index2].Mode != Enums.eEffMode.Enhancement)
+                            {
+                                continue;
+                            }
+
+                            if (effects[index2].Enhance.ID == (int) Enums.eEnhance.Mez)
+                            {
+                                var mezKey = new PowerStats.BuffStat
+                                {
+                                    Stat = Enums.eEnhance.None,
+                                    Mez = (Enums.eMez) effects[index2].Enhance.SubID,
+                                    BuffType = PowerStats.BuffType.Mez
+                                };
+
+                                powerStats.AddUpdate(mezKey,
+                                    new PowerStats.BuffInfo
+                                    {
+                                        Schedule = Enhancement.GetSchedule(Enums.eEnhance.Mez, effects[index2].Enhance.SubID),
+                                        Value = enhSlot.GetEnhancementEffect(Enums.eEnhance.Mez, effects[index2].Enhance.SubID, 1),
+                                        ValueAfterED = 0
+                                    });
+                            }
+                            else
+                            {
+                                switch (effects[index2].BuffMode)
+                                {
+                                    case Enums.eBuffDebuff.BuffOnly:
+                                        var buffKey = new PowerStats.BuffStat
+                                        {
+                                            Stat = (Enums.eEnhance) effects[index2].Enhance.ID,
+                                            Mez = Enums.eMez.None,
+                                            BuffType = PowerStats.BuffType.Buff
+                                        };
+
+                                        powerStats.AddUpdate(buffKey,
+                                            new PowerStats.BuffInfo
+                                            {
+                                                Schedule = Enhancement.GetSchedule((Enums.eEnhance) effects[index2].Enhance.ID),
+                                                Value = enhSlot.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, 1),
+                                                ValueAfterED = 0
+                                            });
+
+                                        break;
+                                    case Enums.eBuffDebuff.DeBuffOnly:
+                                        if (effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedFlying &
+                                            effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedRunning &
+                                            effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedJumping)
+                                        {
+                                            var debuffKey = new PowerStats.BuffStat
+                                            {
+                                                Stat = (Enums.eEnhance) effects[index2].Enhance.ID,
+                                                Mez = Enums.eMez.None,
+                                                BuffType = PowerStats.BuffType.Debuff
+                                            };
+
+                                            powerStats.AddUpdate(debuffKey, new PowerStats.BuffInfo
+                                            {
+                                                Schedule = Enhancement.GetSchedule((Enums.eEnhance) effects[index2].Enhance.ID),
+                                                Value = enhSlot.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, 1),
+                                                ValueAfterED = 0
+                                            });
+                                        }
+
+                                        break;
+                                    default:
+                                        var buffAnyKey = new PowerStats.BuffStat
+                                        {
+                                            Stat = (Enums.eEnhance) effects[index2].Enhance.ID,
+                                            Mez = Enums.eMez.None,
+                                            BuffType = PowerStats.BuffType.Any
+                                        };
+
+                                        powerStats.AddUpdate(buffAnyKey,
+                                            new PowerStats.BuffInfo
+                                            {
+                                                Schedule = Enhancement.GetSchedule((Enums.eEnhance) effects[index2].Enhance.ID),
+                                                Value = enhSlot.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, 1),
+                                                ValueAfterED = 0
+                                            });
+
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (MidsContext.Config.DisableAlphaPopup) return powerStats;
+                    
+                    foreach (var buildPowerEntry in MidsContext.Character.CurrentBuild.Powers)
+                    {
+                        if (buildPowerEntry.Power == null || !buildPowerEntry.StatInclude)
+                        {
+                            continue;
+                        }
+
+                        IPower power1 = new Power(buildPowerEntry.Power);
+                        power1.AbsorbPetEffects();
+                        power1.ApplyGrantPowerEffects();
+                        foreach (var effect in power1.Effects)
+                        {
+                            if ((power1.PowerType != Enums.ePowerType.GlobalBoost) & (!effect.Absorbed_Effect |
+                                    (effect.Absorbed_PowerType != Enums.ePowerType.GlobalBoost)))
+                            {
+                                continue;
+                            }
+
+                            if (effect.Absorbed_Effect & (effect.Absorbed_Power_nID > -1))
+                            {
+                                power1 = DatabaseAPI.Database.Power[effect.Absorbed_Power_nID];
+                            }
+
+                            var eBuffDebuff = Enums.eBuffDebuff.Any;
+                            var flag = false;
+                            foreach (var str1 in MidsContext.Character.CurrentBuild.Powers[HistoryIdx].Power
+                                         .BoostsAllowed)
+                            {
+                                if (power1.BoostsAllowed.All(str2 => str1 != str2)) continue;
+
+                                if (str1.Contains("Buff"))
+                                {
+                                    eBuffDebuff = Enums.eBuffDebuff.BuffOnly;
+                                }
+
+                                if (str1.Contains("Debuff"))
+                                {
+                                    eBuffDebuff = Enums.eBuffDebuff.DeBuffOnly;
+                                }
+
+                                flag = true;
+                                break;
+                            }
+
+                            if (!flag)
+                            {
+                                continue;
+                            }
+
+                            if (effect.EffectType == Enums.eEffectType.Enhancement)
+                            {
+                                switch (effect.ETModifies)
+                                {
+                                    case Enums.eEffectType.Defense:
+                                        if (effect.DamageType == Enums.eDamage.Smashing)
+                                        {
+                                            var buffKey = new PowerStats.BuffStat
+                                            {
+                                                BuffType = eBuffDebuff switch
+                                                {
+                                                    Enums.eBuffDebuff.BuffOnly => PowerStats.BuffType.Buff,
+                                                    Enums.eBuffDebuff.DeBuffOnly => PowerStats.BuffType.Debuff,
+                                                    _ => PowerStats.BuffType.Any
+                                                },
+                                                Stat = Enums.eEnhance.Defense,
+                                                Mez = Enums.eMez.None
+                                            };
+
+                                            powerStats.AddUpdate(buffKey, effect.Mag * (effect.IgnoreED ? 0 : 1),
+                                                effect.Mag * (effect.IgnoreED ? 1 : 0));
+                                        }
+
+                                        break;
+                                    case Enums.eEffectType.Mez:
+                                        var mezKey = new PowerStats.BuffStat
+                                        {
+                                            BuffType = eBuffDebuff switch
+                                            {
+                                                Enums.eBuffDebuff.BuffOnly => PowerStats.BuffType.Buff,
+                                                Enums.eBuffDebuff.DeBuffOnly => PowerStats.BuffType.Debuff,
+                                                _ => PowerStats.BuffType.Any
+                                            },
+                                            Stat = Enums.eEnhance.None,
+                                            Mez = effect.MezType
+                                        };
+
+                                        powerStats.AddUpdate(mezKey, effect.Mag * (effect.IgnoreED ? 0 : 1),
+                                            effect.Mag * (effect.IgnoreED ? 1 : 0));
+
+                                        break;
+                                    default:
+                                        var index3 = effect.ETModifies != Enums.eEffectType.RechargeTime
+                                            ? (int) Enum.Parse(typeof(Enums.eEnhance), effect.ETModifies.ToString())
+                                            : (int) Enums.eEnhance.RechargeTime;
+
+                                        var fxKey = new PowerStats.BuffStat
+                                        {
+                                            BuffType = PowerStats.BuffType.Any,
+                                            Stat = (Enums.eEnhance) index3,
+                                            Mez = Enums.eMez.None
+                                        };
+
+                                        powerStats.AddUpdate(fxKey, effect.Mag * (effect.IgnoreED ? 0 : 1),
+                                            effect.Mag * (effect.IgnoreED ? 1 : 0));
+
+                                        break;
+                                }
+                            }
+                            else if ((effect.EffectType == Enums.eEffectType.DamageBuff) &
+                                     (effect.DamageType == Enums.eDamage.Smashing))
+                            {
+                                if (effect.IgnoreED)
+                                {
+                                    foreach (var str in power1.BoostsAllowed)
+                                    {
+                                        if (str.StartsWith("Res_Damage"))
+                                        {
+                                            powerStats.AddUpdate(
+                                                new PowerStats.BuffStat
+                                                {
+                                                    BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
+                                                    Stat = Enums.eEnhance.Resistance
+                                                }, null, effect.Mag);
+
+                                            break;
+                                        }
+
+                                        if (!str.StartsWith("Damage"))
+                                        {
+                                            continue;
+                                        }
+
+                                        powerStats.AddUpdate(
+                                            new PowerStats.BuffStat
+                                            {
+                                                BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
+                                                Stat = Enums.eEnhance.Damage
+                                            }, null, effect.Mag);
+
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var str in power1.BoostsAllowed)
+                                    {
+                                        if (str.StartsWith("Res_Damage"))
+                                        {
+                                            powerStats.AddUpdate(
+                                                new PowerStats.BuffStat
+                                                {
+                                                    BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
+                                                    Stat = Enums.eEnhance.Resistance
+                                                }, effect.Mag);
+                                            break;
+                                        }
+
+                                        if (!str.StartsWith("Damage"))
+                                        {
+                                            continue;
+                                        }
+
+                                        powerStats.AddUpdate(
+                                            new PowerStats.BuffStat
+                                            {
+                                                BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
+                                                Stat = Enums.eEnhance.Damage
+                                            }, effect.Mag);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    return powerStats;
                 }
             }
 
