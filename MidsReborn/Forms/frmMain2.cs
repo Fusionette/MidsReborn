@@ -144,13 +144,14 @@ namespace Mids_Reborn.Forms
             dvAnchored.MouseWheel += FrmMain2_MouseWheel;
             dvAnchored.SizeChange += dvAnchored_SizeChange;
             dvAnchored.FloatChange += dvAnchored_Float;
-            dvAnchored.Unlock_Click += dvAnchored_Unlock;
+            
             dvAnchored.SlotUpdate += DataView_SlotUpdate;
             dvAnchored.SlotFlip += DataView_SlotFlip;
             dvAnchored.Moved += dvAnchored_Move;
             dvAnchored.TabChanged += dvAnchored_TabChanged;*/
 
             //var componentResourceManager = new ComponentResourceManager(typeof(FrmMain2));
+            dvAnchored.Unlock += dvAnchored_Unlock;
             Icon = Resources.reborn;
             Name = nameof(FrmMain2);
         }
@@ -6397,7 +6398,10 @@ namespace Mids_Reborn.Forms
             llPrimary.SuspendRedraw = false;
             llSecondary.SuspendRedraw = false;
             if (myDataView != null && (drawing.InterfaceMode == Enums.eInterfaceMode.Normal) & (myDataView.TabIndex == 2))
-                dvAnchored_TabChanged(myDataView.TabIndex);
+            {
+                //dvAnchored_TabChanged(myDataView.TabIndex);
+            }
+
             if (MidsContext.Config.BuildMode == Enums.dmModes.LevelUp)
             {
                 UpdateDMBuffer();

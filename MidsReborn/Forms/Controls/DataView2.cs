@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using FastDeepCloner;
+using FontAwesome.Sharp;
 using mrbBase;
 using mrbBase.Base.Data_Classes;
 using mrbBase.Base.Master_Classes;
@@ -17,6 +18,9 @@ namespace Mids_Reborn.Forms.Controls
 {
     public partial class DataView2 : UserControl
     {
+        public delegate void UnlockEventHandler();
+        public event UnlockEventHandler Unlock;
+
         #region Private enums & structs
 
         private enum BuffEffectType
@@ -96,6 +100,7 @@ namespace Mids_Reborn.Forms.Controls
         private TabsRendered _tabsRendered;
         private GridViewMouseEventInfo GridMouseOverEventLoc;
         private InfoType LayoutType;
+        private bool SmallSize = false;
 
         private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
 
@@ -1940,6 +1945,8 @@ namespace Mids_Reborn.Forms.Controls
                         }
                     }
 
+                    // Add Radius, Arc
+
                     // Misc & special effects (4 max)
                     var effectsHidden = new[]
                     {
@@ -2925,13 +2932,19 @@ namespace Mids_Reborn.Forms.Controls
         public void SetData(IPower enhancedPower = null, bool noLevel = false,
             bool locked = false, int historyIdx = -1)
         {
+            Locked = locked;
+            if (Locked)
+            {
+                ipbLock.Visible = true;
+                return;
+            }
+
             if ((enhancedPower?.PowerIndex ?? -1) == (_enhancedPower?.PowerIndex ?? -1) & LayoutType == InfoType.Power)
             {
                 return;
             }
 
             _enhancedPower = enhancedPower;
-            Locked = locked;
             NoLevel = noLevel;
             HistoryIdx = historyIdx;
             BuildPowerEntry = HistoryIdx > -1
@@ -2947,12 +2960,22 @@ namespace Mids_Reborn.Forms.Controls
         // Set data for enhancement
         public void SetData(I9Slot enh, int level = -1)
         {
-            // Locked ?
+            if (Locked)
+            {
+                return;
+            }
+
             LayoutType = InfoType.Enhancement;
             EnhSlot = enh;
             EnhLevel = level;
 
             Tabs.RenderTabs(this);
+        }
+
+        public void Lock()
+        {
+            Locked = true;
+            ipbLock.Visible = true;
         }
 
         public void UpdateColorTheme()
@@ -3133,6 +3156,8 @@ namespace Mids_Reborn.Forms.Controls
                 Loc = new Point(-1, -1),
                 InfoType = InfoType.Power
             };
+
+            ipbResize.BackColor = Color.Black;
         }
 
         private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
@@ -3277,6 +3302,21 @@ namespace Mids_Reborn.Forms.Controls
                     textPaint
                 );
             }
+        }
+
+        private void ipbLock_Click(object sender, EventArgs e)
+        {
+            Locked = false;
+            ipbLock.Visible = false;
+            Unlock?.Invoke();
+        }
+
+        private void ipbResize_Click(object sender, EventArgs e)
+        {
+            SmallSize = !SmallSize;
+            ipbResize.IconChar = SmallSize
+                ? IconChar.ChevronDown
+                : IconChar.ChevronUp;
         }
 
         #endregion
