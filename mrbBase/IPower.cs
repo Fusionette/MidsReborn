@@ -210,9 +210,9 @@ namespace mrbBase
 
         PowerEntry? GetPowerEntry();
 
-        float FXGetDamageValue();
+        float FXGetDamageValue(bool absorb = false);
 
-        string FXGetDamageString();
+        string FXGetDamageString(bool absorb = false);
 
         int[] GetRankedEffects();
 

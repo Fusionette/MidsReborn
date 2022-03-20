@@ -2115,7 +2115,7 @@ namespace Mids_Reborn.Forms.Controls
                         }
                     }
 
-                    var baseDamage = _basePower.FXGetDamageValue();
+                    var baseDamage = _basePower.FXGetDamageValue(true);
                     var enhancedDamage = _enhancedPower.FXGetDamageValue();
                     var dmgType = "Damage" + MidsContext.Config.DamageMath.ReturnValue switch
                     {
@@ -2145,7 +2145,7 @@ namespace Mids_Reborn.Forms.Controls
                         Root.ctlDamageDisplay1.nHighEnh = Math.Max(414, enhancedDamage); // Maximum graph value
                         Root.ctlDamageDisplay1.Text = Math.Abs(enhancedDamage - baseDamage) > float.Epsilon
                             ? @$"{_enhancedPower.FXGetDamageString()} ({Utilities.FixDP(baseDamage)})"
-                            : _basePower.FXGetDamageString();
+                            : _basePower.FXGetDamageString(true);
                     }
                 }
 
@@ -2163,7 +2163,7 @@ namespace Mids_Reborn.Forms.Controls
                     Root.listInfos.Rows.Clear();
 
                     var enhDesc = "";
-                    var enhName = "";
+                    //var enhName = "";
                     if (EnhSlot.Enh > -1)
                     {
                         enhDesc = DatabaseAPI.Database.Enhancements[EnhSlot.Enh].LongName;
@@ -2172,11 +2172,11 @@ namespace Mids_Reborn.Forms.Controls
                             enhDesc = DatabaseAPI.GetEnhancementNameShortWSet(EnhSlot.Enh);
                         }
 
-                        enhName = enhDesc;
+                        //enhName = enhDesc;
                     }
                     else
                     {
-                        enhName = enhDesc;
+                        //enhName = enhDesc;
                         // _basePower may be wrong or undefined
                         enhDesc = _basePower != null ? _basePower.DisplayName : "";
                         Root.richInfoSmall.Rtf = $"{RTF.StartRTF()}{(_basePower != null ? $"{_basePower.DescShort}\r\n" : "")}{RTF.Color(RTF.ElementID.Faded)}Shift+Click to move slot. Right-Click to place enh.{RTF.EndRTF()}";
