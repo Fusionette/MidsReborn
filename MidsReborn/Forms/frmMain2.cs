@@ -3091,6 +3091,7 @@ namespace Mids_Reborn.Forms
                 petsButton.Enabled = true;
             }
 
+            myDataView.ReInit();
             NewDraw(skipDraw);
             UpdateControls(true);
             SetTitleBar(MidsContext.Character.IsHero());

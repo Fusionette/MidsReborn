@@ -213,6 +213,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbResize
             // 
+            this.ipbResize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
             this.ipbResize.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbResize.IconChar = FontAwesome.Sharp.IconChar.ChevronUp;
             this.ipbResize.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -396,7 +397,7 @@ namespace Mids_Reborn.Forms.Controls
             // lblDamage
             // 
             this.lblDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDamage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblDamage.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblDamage.Location = new System.Drawing.Point(4, 284);
             this.lblDamage.Name = "lblDamage";
             this.lblDamage.Size = new System.Drawing.Size(351, 17);

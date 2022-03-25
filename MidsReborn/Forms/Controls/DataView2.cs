@@ -3083,7 +3083,6 @@ namespace Mids_Reborn.Forms.Controls
         {
             richInfoSmall.Text = string.Empty;
             richInfoLarge.Text = string.Empty;
-            ctlDamageDisplay1.Text = string.Empty;
             GridMouseOverEventLoc = new GridViewMouseEventInfo
             {
                 Target = listInfos,
@@ -3091,7 +3090,30 @@ namespace Mids_Reborn.Forms.Controls
                 InfoType = InfoType.Power
             };
 
+            // BackColor doesn't stick when set in the designer
             ipbResize.BackColor = Color.Black;
+
+            ctlDamageDisplay1.nBaseVal = 0;
+            ctlDamageDisplay1.nMaxEnhVal = 0;
+            ctlDamageDisplay1.nEnhVal = 0;
+            ctlDamageDisplay1.Text = string.Empty;
+        }
+
+        public void ReInit()
+        {
+            richInfoSmall.Text = string.Empty;
+            richInfoLarge.Text = string.Empty;
+            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            {
+                Target = listInfos,
+                Loc = new Point(-1, -1),
+                InfoType = InfoType.Power
+            };
+
+            ctlDamageDisplay1.nBaseVal = 0;
+            ctlDamageDisplay1.nMaxEnhVal = 0;
+            ctlDamageDisplay1.nEnhVal = 0;
+            ctlDamageDisplay1.Text = string.Empty;
         }
 
         private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)

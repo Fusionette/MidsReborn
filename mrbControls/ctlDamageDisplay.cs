@@ -451,7 +451,7 @@ namespace mrbControls
                 {
                     switch (pGraph)
                     {
-                        case (Enums.eDDGraph) 3:
+                        case Enums.eDDGraph.Stacked:
                         {
                             var num = (int) Math.Round(nBase / nHighestEnhanced * rectangle2.Width);
                             var rect2 = new Rectangle(rectangle2.X, rectangle2.Y,
@@ -469,7 +469,7 @@ namespace mrbControls
                             bxBuffer.Graphics.FillRectangle(brush, rect2);
                             break;
                         }
-                        case (Enums.eDDGraph) 2:
+                        case Enums.eDDGraph.Both:
                         {
                             var num2 = (int) Math.Round(rectangle2.Height / 2.0);
                             var num = (int) Math.Round(nBase / nHighestEnhanced * rectangle2.Width);
@@ -479,18 +479,21 @@ namespace mrbControls
 
                             brush = new LinearGradientBrush(rectangle2, pFadeBaseStart, pFadeBaseEnd, 0f);
                             rect2 = new Rectangle(rectangle2.X, rectangle2.Y, num, num2);
-                            if (rect2.Width < 1) rect2.Width = 1;
+                            if (rect2.Width >= 1)
+                            {
+                                bxBuffer.Graphics.FillRectangle(brush, rect2);
+                            }
 
-                            bxBuffer.Graphics.FillRectangle(brush, rect2);
                             var width = (int) Math.Round(nEnhanced / nHighestEnhanced * rectangle2.Width);
                             rect2 = new Rectangle(rectangle2.X, num2 + rectangle2.Y, width, num2);
                             if (rect2.Width < 1) rect2.Width = 1;
 
                             brush = new LinearGradientBrush(rectangle2, pFadeEnhStart, pFadeEnhEnd, 0f);
                             bxBuffer.Graphics.FillRectangle(brush, rect2);
+
                             break;
                         }
-                        case (Enums.eDDGraph) 1:
+                        case Enums.eDDGraph.Enhanced:
                         {
                             var num = (int) Math.Round(nEnhanced / nHighestEnhanced * rectangle2.Width);
                             var rect2 = new Rectangle(rectangle2.X, rectangle2.Y, num, rectangle2.Height);
