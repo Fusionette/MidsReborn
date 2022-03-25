@@ -77,6 +77,14 @@ namespace Mids_Reborn.Forms.Controls
             Enhancement
         }
 
+        private struct CellData
+        {
+            public string Label;
+            public string Value;
+            public Color ValueColor;
+            public string TooltipText;
+        }
+
         #endregion
 
         public enum BoostType
@@ -1850,7 +1858,7 @@ namespace Mids_Reborn.Forms.Controls
                     Root = root;
                     LayoutType = layoutType;
                     SlottedSets = SlottedSets();
-                    if (layoutType == InfoType.Power)
+                    if (LayoutType == InfoType.Power)
                     {
                         PowerInfo();
                     }
@@ -1885,243 +1893,168 @@ namespace Mids_Reborn.Forms.Controls
                         Root.listInfos.SetCellContent(i, 3);
                     }
 
-                    var row = 0;
+                    // Basic power attributes
+                    var cellsData = new List<CellData>();
+                    
+                    var endCost = _enhancedPower.EndCost < float.Epsilon
+                        ? "Free"
+                        : _enhancedPower.PowerType == Enums.ePowerType.Toggle
+                            ? $"{_enhancedPower.EndCost / _enhancedPower.ActivatePeriod:###0.##}/s"
+                            : $"{_enhancedPower.EndCost:###0.##}";
 
-                    //Add basic infos
-                    Root.listInfos.Rows.Add();
-                    Root.listInfos.Rows[row].Height = 20;
-                    Root.listInfos.SetCellContent("End Cost:", "", row, 0);
-                    Root.listInfos.SetCellContent($"{_enhancedPower.EndCost:###0.##}",
-                        Boosts.GetBoostColor(_basePower.EndCost, _enhancedPower.EndCost, true), "", row, 1);
-                    Root.listInfos.SetCellContent("Recharge:", "", row, 2);
-                    Root.listInfos.SetCellContent($"{_enhancedPower.RechargeTime:#####0.##}s",
-                        Boosts.GetBoostColor(_basePower.RechargeTime, _enhancedPower.RechargeTime, true), "", row, 3);
+                    var endCostTooltip = _enhancedPower.PowerType == Enums.ePowerType.Toggle & _enhancedPower.EndCost > 0
+                        ? $"End cost per tick: {_enhancedPower.EndCost:###0.##}\r\nActivation period: {_enhancedPower.ActivatePeriod:#####0.##}s{(_enhancedPower.ActivatePeriod > 0 & Math.Abs(_enhancedPower.ActivatePeriod - 1) > float.Epsilon ? $" ({1 / _enhancedPower.ActivatePeriod:##0.#} ticks/s)" : "")}"
+                        : "";
 
-                    row++;
-                    Root.listInfos.Rows.Add();
-                    Root.listInfos.Rows[row].Height = 20;
-                    Root.listInfos.SetCellContent("Range:", "", row, 0);
-                    Root.listInfos.SetCellContent($"{_enhancedPower.Range:####0.##}ft",
-                        Boosts.GetBoostColor(_basePower.Range, _enhancedPower.Range), "", row, 1);
+                    cellsData.Add(new CellData
+                    {
+                        Label = "End Cost:",
+                        TooltipText = endCostTooltip,
+                        Value = endCost,
+                        ValueColor = Boosts.GetBoostColor(_basePower.EndCost, _enhancedPower.EndCost, true)
+                    });
 
-                    var castTimeTooltip =
-                        $"Cast Time: {_enhancedPower.CastTime:#####0.##}s\r\nArcana Time: {(Math.Ceiling(_enhancedPower.CastTime / 0.132) + 1) * 0.132}s";
-                    Root.listInfos.SetCellContent("Cast Time:", castTimeTooltip, row, 2);
-                    Root.listInfos.SetCellContent($"{_enhancedPower.CastTime:#####0.##}s",
-                        Boosts.GetBoostColor(_basePower.CastTime, _enhancedPower.CastTime, true), castTimeTooltip, row, 3);
-
-                    row++;
-                    Root.listInfos.Rows.Add();
-                    Root.listInfos.Rows[row].Height = 20;
                     var enhancedPowerAcc = _enhancedPower.Accuracy * MidsContext.Config.BaseAcc;
                     var basePowerAcc = _basePower.Accuracy * MidsContext.Config.BaseAcc;
                     var totalToHit = MidsContext.Config.BaseAcc + MidsContext.Character.DisplayStats.BuffToHit / 100;
                     var powerAccuracyBuff = powerStats.GetValue(Enums.eEnhance.Accuracy, Enums.eMez.None, PowerStats.BuffType.Any);
                     var totalAccuracy = _basePower.AccuracyMult * (1 + (powerAccuracyBuff ?? 0) + MidsContext.Character.DisplayStats.BuffAccuracy / 100);
                     var accuracyTooltip = $"Chance to Hit: {enhancedPowerAcc:P2}\r\nBase Chance: {basePowerAcc:P2}\r\n\r\nTotal Accuracy: {totalAccuracy:P2}\r\nTotal ToHit: {totalToHit:P2}";
-                    Root.listInfos.SetCellContent("Accuracy:", accuracyTooltip, row, 0);
-                    Root.listInfos.SetCellContent($"{enhancedPowerAcc:P2}",
-                        Boosts.GetBoostColor(basePowerAcc, enhancedPowerAcc), accuracyTooltip, row, 1);
-
-                    // Check if there is a mez effect, display duration in the right column.
-                    var hasMez = _basePower.Effects.Any(e => e.EffectType == Enums.eEffectType.Mez);
-                    if (hasMez)
+                    cellsData.Add(new CellData
                     {
-                        var baseDuration = _basePower.Effects
-                            .Where(e => e.EffectType == Enums.eEffectType.Mez)
-                            .Select(e => e.Duration)
-                            .Max();
+                        Label = "Accuracy:",
+                        TooltipText = accuracyTooltip,
+                        Value = $"{enhancedPowerAcc:P2}",
+                        ValueColor = Boosts.GetBoostColor(basePowerAcc, enhancedPowerAcc)
+                    });
 
-                        var enhancedDuration = _enhancedPower.Effects
-                            .Where(e => e.EffectType == Enums.eEffectType.Mez)
-                            .Select(e => e.Duration)
-                            .Max();
+                    var castTimeTooltip = $"Cast Time: {_enhancedPower.CastTime:#####0.##}s\r\nArcana Time: {(Math.Ceiling(_enhancedPower.CastTime / 0.132) + 1) * 0.132}s";
+                    cellsData.Add(new CellData
+                    {
+                        Label = "Cast Time:",
+                        TooltipText = castTimeTooltip,
+                        Value = $"{(_enhancedPower.CastTime == 0 ? "Instant" : $"{_enhancedPower.CastTime:#####0.##}s")}",
+                        ValueColor = Boosts.GetBoostColor(_basePower.CastTime, _enhancedPower.CastTime, true)
+                    });
 
-                        if (enhancedDuration > float.Epsilon)
-                        {
-                            Root.listInfos.SetCellContent("Duration:", "", row, 2);
-                            Root.listInfos.SetCellContent($"{enhancedDuration:#####0.##}s",
-                                Boosts.GetBoostColor(baseDuration, enhancedDuration), "", row, 3);
-                        }
+                    cellsData.Add(new CellData
+                    {
+                        Label = "Recharge:",
+                        TooltipText = "",
+                        Value = $"{(_enhancedPower.RechargeTime == 0 ? "Instant" : $"{_enhancedPower.RechargeTime:#####0.##}s")}",
+                        ValueColor = Boosts.GetBoostColor(_basePower.RechargeTime, _enhancedPower.RechargeTime, true)
+                    });
+
+                    var targetType = "";
+                    var targetTypeTooltip = "";
+                    if ((_enhancedPower.EntitiesAffected & Enums.eEntity.Friend) > 0 ||
+                        (_enhancedPower.EntitiesAffected & Enums.eEntity.Teammate) > 0 ||
+                        (_enhancedPower.EntitiesAffected & Enums.eEntity.DeadFriend) > 0 ||
+                        (_enhancedPower.EntitiesAffected & Enums.eEntity.DeadTeammate) > 0)
+                    {
+                        targetType = "Ally";
+                        targetTypeTooltip = "This power buffs allies.";
+                    }
+                    else if ((_enhancedPower.EntitiesAffected & Enums.eEntity.MyPet) > 0 ||
+                             (_enhancedPower.EntitiesAffected & Enums.eEntity.DeadMyPet) > 0)
+                    {
+                        targetType = "Pet";
+                        targetTypeTooltip = "This power affects caster's pets.";
+                    }
+                    else if (_enhancedPower.Effects.All(e => e.ToWho == Enums.eToWho.Self))
+                    {
+                        targetType = "Self";
+                        targetTypeTooltip = "This power affects caster only.";
+                    }
+                    else if (_enhancedPower.Effects.All(e => e.ToWho == Enums.eToWho.Target))
+                    {
+                        targetType = "Foe";
+                        targetTypeTooltip = "This power affects enemies only.";
+                    }
+                    else
+                    {
+                        targetType = "Multi";
+                        targetTypeTooltip = "This power has multiple effects on caster and foes, possibly teammates.\nCheck the Effects tab for details.";
                     }
 
-                    // Add Radius, Arc
-
-                    // Misc & special effects (4 max)
-                    var effectsHidden = new[]
+                    cellsData.Add(new CellData
                     {
-                        Enums.eEffectType.GrantPower,
-                        Enums.eEffectType.RevokePower,
-                        Enums.eEffectType.PowerRedirect,
-                        Enums.eEffectType.Null,
-                        Enums.eEffectType.SetMode,
-                        Enums.eEffectType.EntCreate,
-                        Enums.eEffectType.Damage
-                    };
+                        Label = "Target:",
+                        TooltipText = targetTypeTooltip,
+                        Value = targetType,
+                        ValueColor = Boosts.GetBoostColor(BoostType.Equal)
+                    });
 
-                    var hasBuff = new List<Enums.eEffectType>();
-                    var miscEffectsIndexes =
-                        _enhancedPower.Effects.FindIndexes(e => !effectsHidden.Contains(e.EffectType)).ToList();
-
-                    var k = 0;
-                    for (var i = 0; i < miscEffectsIndexes.Count & k < 4; i++)
+                    if (_enhancedPower.ActivatePeriod > 0)
                     {
-                        // Special effects (from enhancements)
-                        if (miscEffectsIndexes[i] >= _basePower.Effects.Length ||
-                            _basePower.Effects[miscEffectsIndexes[i]].EffectType !=
-                            _enhancedPower.Effects[miscEffectsIndexes[i]].EffectType)
+                        var baseActivatePeriod = _enhancedPower.ActivatePeriod > 0 & _basePower.ActivatePeriod == 0
+                            ? _enhancedPower.ActivatePeriod
+                            : _basePower.ActivatePeriod;
+                        cellsData.Add(new CellData
                         {
-                            var fx = _enhancedPower.Effects[miscEffectsIndexes[i]];
-                            if (fx.PvMode != Enums.ePvX.PvE != MidsContext.Config.Inc.DisablePvE)
-                            {
-                                continue;
-                            }
-
-                            switch (fx.EffectType)
-                            {
-                                case Enums.eEffectType.Resistance:
-                                case Enums.eEffectType.Defense:
-                                case Enums.eEffectType.DamageBuff:
-                                case Enums.eEffectType.Elusivity:
-                                    if (!hasBuff.Contains(fx.EffectType))
-                                    {
-                                        hasBuff.Add(fx.EffectType);
-                                    }
-                                    else
-                                    {
-                                        continue;
-                                    }
-
-                                    break;
-                            }
-
-                            var fxType = fx.EffectType switch
-                            {
-                                Enums.eEffectType.Enhancement => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({AbbreviateNames.AbbreviateFx(fx.ETModifies)})",
-                                Enums.eEffectType.MezResist => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({AbbreviateNames.AbbreviateMez(fx.MezType)})",
-                                Enums.eEffectType.Mez => $"{AbbreviateNames.AbbreviateMez(fx.MezType)}",
-                                Enums.eEffectType.Resistance => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
-                                Enums.eEffectType.Defense => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
-                                Enums.eEffectType.DamageBuff => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
-                                Enums.eEffectType.Elusivity => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
-                                _ => $"{AbbreviateNames.AbbreviateFx(fx.EffectType)}"
-                            };
-
-                            /*var enhValue = fx.EffectType switch
-                            {
-                                Enums.eEffectType.Mez when fx.MezType == Enums.eMez.Knockback | fx.MezType == Enums.eMez.Knockup => fx.BuffedMag,
-                                Enums.eEffectType.Mez => fx.Duration,
-                                _ => fx.BuffedMag
-                            };*/
-
-                            if (k % 2 == 0)
-                            {
-                                row++;
-                                Root.listInfos.Rows.Add();
-                                Root.listInfos.Rows[row].Height = 20;
-                            }
-
-                            var fxTarget = fx.ToWho switch
-                            {
-                                Enums.eToWho.Self => " (Slf)",
-                                Enums.eToWho.Target => " (Tgt)",
-                                _ => ""
-                            };
-
-                            var fxDuration = fx.EffectType == Enums.eEffectType.Mez &
-                                             (fx.MezType == Enums.eMez.Knockback | fx.MezType == Enums.eMez.Knockup)
-                                ? ""
-                                : $", {fx.Duration:#####0.##}s";
-
-                            var mezPrefix = fx.EffectType == Enums.eEffectType.Mez ? "Mag " : "";
-                            var fxTooltip = fx.BuildEffectString();
-
-                            Root.listInfos.SetCellContent($"{fxType}{fxTarget}:", fxTooltip, row, k % 2 == 0 ? 0 : 2);
-                            Root.listInfos.SetCellContent(
-                                $"{(fx.DisplayPercentage ? $"{mezPrefix}{fx.BuffedMag:P2}" : $"{mezPrefix}{fx.BuffedMag:###0.##}")}{fxDuration}",
-                                Boosts.GetBoostColor(fx.isEnhancementEffect ? BoostType.Extra : BoostType.Equal), fxTooltip,
-                                row, k % 2 == 0 ? 1 : 3);
-
-                            k++;
-                        }
-                        else
-                        {
-                            var fxEnh = _enhancedPower.Effects[miscEffectsIndexes[i]];
-                            var fxBase = _basePower.Effects[miscEffectsIndexes[i]];
-
-                            if (fxEnh.PvMode != Enums.ePvX.PvE != MidsContext.Config.Inc.DisablePvE)
-                            {
-                                continue;
-                            }
-
-                            switch (fxEnh.EffectType)
-                            {
-                                case Enums.eEffectType.Resistance:
-                                case Enums.eEffectType.Defense:
-                                case Enums.eEffectType.DamageBuff:
-                                case Enums.eEffectType.Elusivity:
-                                    if (!hasBuff.Contains(fxEnh.EffectType))
-                                    {
-                                        hasBuff.Add(fxEnh.EffectType);
-                                    }
-                                    else
-                                    {
-                                        continue;
-                                    }
-
-                                    break;
-                            }
-
-                            var fxType = fxEnh.EffectType switch
-                            {
-                                Enums.eEffectType.Enhancement => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({AbbreviateNames.AbbreviateFx(fxEnh.ETModifies)})",
-                                Enums.eEffectType.MezResist => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({AbbreviateNames.AbbreviateMez(fxEnh.MezType)})",
-                                Enums.eEffectType.Mez => $"{AbbreviateNames.AbbreviateMez(fxEnh.MezType)}",
-                                Enums.eEffectType.Resistance => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Resistance)})",
-                                Enums.eEffectType.Defense => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Defense)})",
-                                Enums.eEffectType.DamageBuff => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.DamageBuff)})",
-                                Enums.eEffectType.Elusivity => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}({CheckEffectTypeAffects(_enhancedPower, Enums.eEffectType.Elusivity)})",
-                                _ => $"{AbbreviateNames.AbbreviateFx(fxEnh.EffectType)}"
-                            };
-
-                            var enhValue = fxEnh.BuffedMag;
-                            var baseValue = fxBase.BuffedMag;
-
-                            var enhDuration = fxEnh.EffectType == Enums.eEffectType.Mez &
-                                              (fxEnh.MezType == Enums.eMez.Knockback |
-                                               fxEnh.MezType == Enums.eMez.Knockup)
-                                ? ""
-                                : $", {fxEnh.Duration:#####0.##}s";
-
-                            var fxTarget = fxEnh.ToWho switch
-                            {
-                                Enums.eToWho.Self => " (Slf)",
-                                Enums.eToWho.Target => " (Tgt)",
-                                _ => ""
-                            };
-
-                            if (k % 2 == 0)
-                            {
-                                row++;
-                                Root.listInfos.Rows.Add();
-                                Root.listInfos.Rows[row].Height = 20;
-                            }
-
-                            var fxTooltip = fxEnh.BuildEffectString();
-                            Root.listInfos.SetCellContent($"{fxType}{fxTarget}:", fxTooltip, row, k % 2 == 0 ? 0 : 2);
-                            Root.listInfos.SetCellContent(fxEnh.DisplayPercentage
-                                    ? $"{enhValue:P2}"
-                                    : $"{(fxEnh.EffectType == Enums.eEffectType.Mez ? $"Mag {enhValue:#####0.##}{enhDuration}" : $"{enhValue:#####0.##}")}",
-                                fxEnh.isEnhancementEffect
-                                    ? Boosts.GetBoostColor(BoostType.Extra)
-                                    : Boosts.GetBoostColor(baseValue, enhValue),
-                                fxTooltip,
-                                row, k % 2 == 0 ? 1 : 3);
-
-                            k++;
-                        }
+                            Label = "Act. Period:",
+                            TooltipText = $"{(Math.Abs(_enhancedPower.ActivatePeriod - 1) > float.Epsilon ? $"Activation period: {_enhancedPower.ActivatePeriod:#####0.##}s ({1 / _enhancedPower.ActivatePeriod:##0.#} ticks/s)" : "")}",
+                            Value = $"{_enhancedPower.ActivatePeriod:#####0.##}s",
+                            ValueColor = Boosts.GetBoostColor(baseActivatePeriod, _enhancedPower.ActivatePeriod, true)
+                        });
                     }
 
+                    if (_enhancedPower.MaxTargets > 1)
+                    {
+                        var baseMaxTargets = _enhancedPower.MaxTargets > 0 & _basePower.MaxTargets == 0
+                            ? _enhancedPower.MaxTargets
+                            : _basePower.MaxTargets;
+                        cellsData.Add(new CellData
+                        {
+                            Label = "Max Targets:",
+                            TooltipText = "",
+                            Value = $"{_enhancedPower.MaxTargets}",
+                            ValueColor = Boosts.GetBoostColor(baseMaxTargets, _enhancedPower.MaxTargets)
+                        });
+                    }
+
+                    if (_enhancedPower.Range > 0)
+                    {
+                        cellsData.Add(new CellData
+                        {
+                            Label = "Range:",
+                            TooltipText = "",
+                            Value = $"{_enhancedPower.Range:###0.##}ft",
+                            ValueColor = Boosts.GetBoostColor(_basePower.Range, _enhancedPower.Range)
+                        });
+                    }
+
+                    if (_enhancedPower.Radius > 0)
+                    {
+                        cellsData.Add(new CellData
+                        {
+                            Label = "Radius:",
+                            TooltipText = "",
+                            Value = $"{_enhancedPower.Radius:###0.##}ft",
+                            ValueColor = Boosts.GetBoostColor(_basePower.Radius, _enhancedPower.Radius)
+                        });
+                    }
+
+                    if (_enhancedPower.Arc > 0)
+                    {
+                        cellsData.Add(new CellData
+                        {
+                            Label = "Arc:",
+                            TooltipText = "",
+                            Value = $"{_enhancedPower.Arc:##0.##}deg",
+                            ValueColor = Boosts.GetBoostColor(_basePower.Arc, _enhancedPower.Arc)
+                        });
+                    }
+
+                    for (var i = 0; i < cellsData.Count; i++)
+                    {
+                        var colOffset = i % 2 * 2;
+                        var row = (int) Math.Floor((decimal)i / 2);
+                        Root.listInfos.SetCellContent(cellsData[i].Label, cellsData[i].TooltipText, row, colOffset);
+                        Root.listInfos.SetCellContent(cellsData[i].Value, cellsData[i].ValueColor, cellsData[i].TooltipText, row, colOffset + 1);
+                    }
+                    
+                    // Damage graph
                     var baseDamage = _basePower.FXGetDamageValue(true);
                     var enhancedDamage = _enhancedPower.FXGetDamageValue();
                     var dmgType = "Damage" + MidsContext.Config.DamageMath.ReturnValue switch
@@ -2131,13 +2064,14 @@ namespace Mids_Reborn.Forms.Controls
                         _ => ""
                     };
 
-                    dmgType += MidsContext.Config.DataDamageGraphPercentageOnly ? " (% only)" : "";
-                    dmgType += ":";
-
+                    dmgType += $"{(MidsContext.Config.DataDamageGraphPercentageOnly ? " (% only)" : "")}:"; // ???
                     Root.lblDamage.Text = dmgType;
 
-                    if (_basePower.NIDSubPower.Length > 0 & Math.Abs(baseDamage) < float.Epsilon)
+                    // ???
+                    // See ESD Arrow with procs
+                    if (_basePower.NIDSubPower.Length > 0 & Math.Abs(baseDamage) < float.Epsilon & Math.Abs(enhancedDamage) < float.Epsilon)
                     {
+                        Debug.WriteLine($"Set empty damage graph for power {_enhancedPower.FullName}");
                         Root.ctlDamageDisplay1.nBaseVal = 0;
                         Root.ctlDamageDisplay1.nMaxEnhVal = 0;
                         Root.ctlDamageDisplay1.nEnhVal = 0;
