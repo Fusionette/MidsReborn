@@ -69,7 +69,6 @@ namespace Mids_Reborn.Forms.Controls
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ctlDamageDisplay1 = new mrbControls.ctlDamageDisplay();
             this.lblDamage = new System.Windows.Forms.Label();
             this.richInfoLarge = new System.Windows.Forms.RichTextBox();
             this.richInfoSmall = new System.Windows.Forms.RichTextBox();
@@ -129,6 +128,7 @@ namespace Mids_Reborn.Forms.Controls
             this.powerScaler1 = new Mids_Reborn.Forms.Controls.ColorSlider();
             this.richInfoScaleSmall = new System.Windows.Forms.RichTextBox();
             this.scalesTabTitle = new System.Windows.Forms.Label();
+            this.skDamageGraph1 = new SKDamageGraph();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tabBox)).BeginInit();
@@ -153,7 +153,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabBox
             // 
-            this.tabBox.ActiveTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabBox.ActiveTabColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabBox.ActiveTabOutlineColor = System.Drawing.Color.Black;
             this.tabBox.ActiveTabOutlineWidth = 2F;
             this.tabBox.BeforeTouchSize = new System.Drawing.Size(360, 400);
@@ -165,10 +165,10 @@ namespace Mids_Reborn.Forms.Controls
             this.tabBox.Controls.Add(this.tabPageAdv4);
             this.tabBox.Controls.Add(this.tabPageAdv5);
             this.tabBox.EnableOutline = true;
-            this.tabBox.FixedSingleBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabBox.FixedSingleBorderColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabBox.FocusOnTabClick = false;
             this.tabBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tabBox.InactiveTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(33)))), ((int)(((byte)(59)))));
+            this.tabBox.InactiveTabColor = System.Drawing.Color.FromArgb(7, 33, 59);
             this.tabBox.InactiveTabOutlineColor = System.Drawing.Color.Black;
             this.tabBox.InactiveTabOutlineWidth = 2F;
             this.tabBox.ItemSize = new System.Drawing.Size(64, 22);
@@ -186,12 +186,12 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv1
             // 
-            this.tabPageAdv1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabPageAdv1.BackColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabPageAdv1.Controls.Add(this.ipbResize);
             this.tabPageAdv1.Controls.Add(this.ipbLock);
             this.tabPageAdv1.Controls.Add(this.infoTabTitle);
             this.tabPageAdv1.Controls.Add(this.listInfos);
-            this.tabPageAdv1.Controls.Add(this.ctlDamageDisplay1);
+            this.tabPageAdv1.Controls.Add(this.skDamageGraph1);
             this.tabPageAdv1.Controls.Add(this.lblDamage);
             this.tabPageAdv1.Controls.Add(this.richInfoLarge);
             this.tabPageAdv1.Controls.Add(this.richInfoSmall);
@@ -204,7 +204,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv1.Name = "tabPageAdv1";
             this.tabPageAdv1.ShowCloseButton = true;
             this.tabPageAdv1.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv1.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabPageAdv1.TabBackColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabPageAdv1.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv1.TabForeColor = System.Drawing.Color.White;
             this.tabPageAdv1.TabIndex = 1;
@@ -213,7 +213,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbResize
             // 
-            this.ipbResize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.ipbResize.BackColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.ipbResize.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbResize.IconChar = FontAwesome.Sharp.IconChar.ChevronUp;
             this.ipbResize.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -229,7 +229,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbLock
             // 
-            this.ipbLock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ipbLock.BackColor = System.Drawing.Color.FromArgb(170, 0, 0);
             this.ipbLock.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbLock.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.ipbLock.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -272,7 +272,7 @@ namespace Mids_Reborn.Forms.Controls
             this.Column3,
             this.Column4});
             this.listInfos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.listInfos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.listInfos.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.listInfos.Location = new System.Drawing.Point(4, 181);
             this.listInfos.MultiSelect = false;
             this.listInfos.Name = "listInfos";
@@ -366,34 +366,6 @@ namespace Mids_Reborn.Forms.Controls
             this.Column4.ReadOnly = true;
             this.Column4.Width = 78;
             // 
-            // ctlDamageDisplay1
-            // 
-            this.ctlDamageDisplay1.BackColor = System.Drawing.Color.Black;
-            this.ctlDamageDisplay1.ColorBackEnd = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ctlDamageDisplay1.ColorBackStart = System.Drawing.Color.Black;
-            this.ctlDamageDisplay1.ColorBaseEnd = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(222)))), ((int)(((byte)(124)))));
-            this.ctlDamageDisplay1.ColorBaseStart = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(130)))), ((int)(((byte)(32)))));
-            this.ctlDamageDisplay1.ColorEnhEnd = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ctlDamageDisplay1.ColorEnhStart = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ctlDamageDisplay1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.ctlDamageDisplay1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(210)))));
-            this.ctlDamageDisplay1.GraphType = mrbBase.Enums.eDDGraph.Both;
-            this.ctlDamageDisplay1.Location = new System.Drawing.Point(4, 304);
-            this.ctlDamageDisplay1.Name = "ctlDamageDisplay1";
-            this.ctlDamageDisplay1.nBaseVal = 100F;
-            this.ctlDamageDisplay1.nEnhVal = 196F;
-            this.ctlDamageDisplay1.nHighBase = 2000F;
-            this.ctlDamageDisplay1.nHighEnh = 414F;
-            this.ctlDamageDisplay1.nMaxEnhVal = 207F;
-            this.ctlDamageDisplay1.PaddingH = 0;
-            this.ctlDamageDisplay1.PaddingV = 0;
-            this.ctlDamageDisplay1.Size = new System.Drawing.Size(351, 71);
-            this.ctlDamageDisplay1.Style = mrbBase.Enums.eDDStyle.TextUnderGraph;
-            this.ctlDamageDisplay1.TabIndex = 6;
-            this.ctlDamageDisplay1.TabStop = false;
-            this.ctlDamageDisplay1.TextAlign = mrbBase.Enums.eDDAlign.Center;
-            this.ctlDamageDisplay1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(210)))));
-            // 
             // lblDamage
             // 
             this.lblDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -452,7 +424,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18});
             this.listSpecialBonuses.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.listSpecialBonuses.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.listSpecialBonuses.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.listSpecialBonuses.Location = new System.Drawing.Point(4, 284);
             this.listSpecialBonuses.MultiSelect = false;
             this.listSpecialBonuses.Name = "listSpecialBonuses";
@@ -555,7 +527,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12});
             this.gridEffectsBlock3.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridEffectsBlock3.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gridEffectsBlock3.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.gridEffectsBlock3.Location = new System.Drawing.Point(4, 281);
             this.gridEffectsBlock3.MultiSelect = false;
             this.gridEffectsBlock3.Name = "gridEffectsBlock3";
@@ -663,7 +635,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
             this.gridEffectsBlock2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridEffectsBlock2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gridEffectsBlock2.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.gridEffectsBlock2.Location = new System.Drawing.Point(4, 163);
             this.gridEffectsBlock2.MultiSelect = false;
             this.gridEffectsBlock2.Name = "gridEffectsBlock2";
@@ -771,7 +743,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
             this.gridEffectsBlock1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridEffectsBlock1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gridEffectsBlock1.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.gridEffectsBlock1.Location = new System.Drawing.Point(4, 45);
             this.gridEffectsBlock1.MultiSelect = false;
             this.gridEffectsBlock1.Name = "gridEffectsBlock1";
@@ -905,7 +877,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv3
             // 
-            this.tabPageAdv3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.tabPageAdv3.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.tabPageAdv3.Controls.Add(this.dataGridView1);
             this.tabPageAdv3.Controls.Add(this.label8);
             this.tabPageAdv3.Controls.Add(this.label7);
@@ -923,7 +895,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv3.Name = "tabPageAdv3";
             this.tabPageAdv3.ShowCloseButton = true;
             this.tabPageAdv3.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv3.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.tabPageAdv3.TabBackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.tabPageAdv3.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv3.TabForeColor = System.Drawing.Color.White;
             this.tabPageAdv3.TabIndex = 3;
@@ -947,7 +919,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewTextBoxColumn16});
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.dataGridView1.Location = new System.Drawing.Point(4, 275);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -1040,7 +1012,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // label8
             // 
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.label8.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(4, 252);
             this.label8.Name = "label8";
@@ -1051,7 +1023,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // label7
             // 
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.label7.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(4, 144);
             this.label7.Name = "label7";
@@ -1061,7 +1033,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // label6
             // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.label6.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(4, 28);
             this.label6.Name = "label6";
@@ -1084,7 +1056,7 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane2R
             // 
             this.dV2TotalsPane2R.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane2R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(125)))));
+            this.dV2TotalsPane2R.BackgroundColorEnd = System.Drawing.Color.FromArgb(0, 125, 125);
             this.dV2TotalsPane2R.Location = new System.Drawing.Point(180, 164);
             this.dV2TotalsPane2R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2R.Name = "dV2TotalsPane2R";
@@ -1095,7 +1067,7 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane2L
             // 
             this.dV2TotalsPane2L.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane2L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(125)))));
+            this.dV2TotalsPane2L.BackgroundColorEnd = System.Drawing.Color.FromArgb(0, 125, 125);
             this.dV2TotalsPane2L.Location = new System.Drawing.Point(4, 164);
             this.dV2TotalsPane2L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2L.Name = "dV2TotalsPane2L";
@@ -1106,7 +1078,7 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane1R
             // 
             this.dV2TotalsPane1R.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane1R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
+            this.dV2TotalsPane1R.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
             this.dV2TotalsPane1R.Location = new System.Drawing.Point(180, 48);
             this.dV2TotalsPane1R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1R.Name = "dV2TotalsPane1R";
@@ -1117,7 +1089,7 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane1L
             // 
             this.dV2TotalsPane1L.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane1L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
+            this.dV2TotalsPane1L.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
             this.dV2TotalsPane1L.Location = new System.Drawing.Point(4, 48);
             this.dV2TotalsPane1L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1L.Name = "dV2TotalsPane1L";
@@ -1127,7 +1099,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv4
             // 
-            this.tabPageAdv4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
+            this.tabPageAdv4.BackColor = System.Drawing.Color.FromArgb(0, 98, 116);
             this.tabPageAdv4.Controls.Add(this.skglEnhAlt);
             this.tabPageAdv4.Controls.Add(this.skglEnhActive);
             this.tabPageAdv4.Controls.Add(this.richEnhValues);
@@ -1141,7 +1113,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv4.Name = "tabPageAdv4";
             this.tabPageAdv4.ShowCloseButton = true;
             this.tabPageAdv4.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv4.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
+            this.tabPageAdv4.TabBackColor = System.Drawing.Color.FromArgb(0, 98, 116);
             this.tabPageAdv4.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv4.TabForeColor = System.Drawing.Color.White;
             this.tabPageAdv4.TabIndex = 4;
@@ -1211,7 +1183,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv5
             // 
-            this.tabPageAdv5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
+            this.tabPageAdv5.BackColor = System.Drawing.Color.FromArgb(148, 117, 46);
             this.tabPageAdv5.Controls.Add(this.skglScalesGraph);
             this.tabPageAdv5.Controls.Add(this.panelPowerScaler3);
             this.tabPageAdv5.Controls.Add(this.panelPowerScaler2);
@@ -1225,7 +1197,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv5.Name = "tabPageAdv5";
             this.tabPageAdv5.ShowCloseButton = true;
             this.tabPageAdv5.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv5.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
+            this.tabPageAdv5.TabBackColor = System.Drawing.Color.FromArgb(148, 117, 46);
             this.tabPageAdv5.TabIndex = 5;
             this.tabPageAdv5.Text = "SCALES";
             this.tabPageAdv5.ThemesEnabled = false;
@@ -1265,8 +1237,8 @@ namespace Mids_Reborn.Forms.Controls
             // powerScaler3
             // 
             this.powerScaler3.BackColor = System.Drawing.Color.Black;
-            this.powerScaler3.BarPenColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(94)))), ((int)(((byte)(110)))));
-            this.powerScaler3.BarPenColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(74)))));
+            this.powerScaler3.BarPenColorBottom = System.Drawing.Color.FromArgb(87, 94, 110);
+            this.powerScaler3.BarPenColorTop = System.Drawing.Color.FromArgb(55, 60, 74);
             this.powerScaler3.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.powerScaler3.ColorSchema = Mids_Reborn.Forms.Controls.ColorSlider.ColorSchemas.GreenColors;
             this.powerScaler3.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1314,7 +1286,7 @@ namespace Mids_Reborn.Forms.Controls
             0});
             this.powerScaler3.TabIndex = 0;
             this.powerScaler3.ThumbInnerColor = System.Drawing.Color.Green;
-            this.powerScaler3.ThumbPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(80)))), ((int)(((byte)(50)))));
+            this.powerScaler3.ThumbPenColor = System.Drawing.Color.FromArgb(20, 80, 50);
             this.powerScaler3.ThumbRoundRectSize = new System.Drawing.Size(1, 16);
             this.powerScaler3.ThumbSize = new System.Drawing.Size(6, 16);
             this.powerScaler3.TickAdd = 0F;
@@ -1352,8 +1324,8 @@ namespace Mids_Reborn.Forms.Controls
             // powerScaler2
             // 
             this.powerScaler2.BackColor = System.Drawing.Color.Black;
-            this.powerScaler2.BarPenColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(94)))), ((int)(((byte)(110)))));
-            this.powerScaler2.BarPenColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(74)))));
+            this.powerScaler2.BarPenColorBottom = System.Drawing.Color.FromArgb(87, 94, 110);
+            this.powerScaler2.BarPenColorTop = System.Drawing.Color.FromArgb(55, 60, 74);
             this.powerScaler2.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.powerScaler2.ColorSchema = Mids_Reborn.Forms.Controls.ColorSlider.ColorSchemas.GreenColors;
             this.powerScaler2.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1401,7 +1373,7 @@ namespace Mids_Reborn.Forms.Controls
             0});
             this.powerScaler2.TabIndex = 0;
             this.powerScaler2.ThumbInnerColor = System.Drawing.Color.Green;
-            this.powerScaler2.ThumbPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(80)))), ((int)(((byte)(50)))));
+            this.powerScaler2.ThumbPenColor = System.Drawing.Color.FromArgb(20, 80, 50);
             this.powerScaler2.ThumbRoundRectSize = new System.Drawing.Size(1, 16);
             this.powerScaler2.ThumbSize = new System.Drawing.Size(6, 16);
             this.powerScaler2.TickAdd = 0F;
@@ -1438,8 +1410,8 @@ namespace Mids_Reborn.Forms.Controls
             // powerScaler1
             // 
             this.powerScaler1.BackColor = System.Drawing.Color.Black;
-            this.powerScaler1.BarPenColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(94)))), ((int)(((byte)(110)))));
-            this.powerScaler1.BarPenColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(74)))));
+            this.powerScaler1.BarPenColorBottom = System.Drawing.Color.FromArgb(87, 94, 110);
+            this.powerScaler1.BarPenColorTop = System.Drawing.Color.FromArgb(55, 60, 74);
             this.powerScaler1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.powerScaler1.ColorSchema = Mids_Reborn.Forms.Controls.ColorSlider.ColorSchemas.GreenColors;
             this.powerScaler1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1487,7 +1459,7 @@ namespace Mids_Reborn.Forms.Controls
             0});
             this.powerScaler1.TabIndex = 0;
             this.powerScaler1.ThumbInnerColor = System.Drawing.Color.Green;
-            this.powerScaler1.ThumbPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(80)))), ((int)(((byte)(50)))));
+            this.powerScaler1.ThumbPenColor = System.Drawing.Color.FromArgb(20, 80, 50);
             this.powerScaler1.ThumbRoundRectSize = new System.Drawing.Size(1, 16);
             this.powerScaler1.ThumbSize = new System.Drawing.Size(6, 16);
             this.powerScaler1.TickAdd = 0F;
@@ -1529,6 +1501,38 @@ namespace Mids_Reborn.Forms.Controls
             this.scalesTabTitle.Text = "Title";
             this.scalesTabTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // skDamageGraph1
+            // 
+            
+            this.skDamageGraph1.BackColor = System.Drawing.Color.Black;
+            this.skDamageGraph1.ColorBackEnd = System.Drawing.Color.FromArgb(64, 0, 0);
+            this.skDamageGraph1.ColorBackStart = System.Drawing.Color.Black;
+            this.skDamageGraph1.ColorBaseEnd = System.Drawing.Color.FromArgb(51, 222, 124);
+            this.skDamageGraph1.ColorBaseStart = System.Drawing.Color.FromArgb(32, 130, 32);
+            this.skDamageGraph1.ColorEnhEnd = System.Drawing.Color.FromArgb(198, 32, 32);
+            this.skDamageGraph1.ColorEnhStart = System.Drawing.Color.FromArgb(89, 0, 0);
+            this.skDamageGraph1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.skDamageGraph1.ForeColor = System.Drawing.Color.FromArgb(192, 192, 210);
+            this.skDamageGraph1.GraphType = mrbBase.Enums.eDDGraph.Both;
+            this.skDamageGraph1.Location = new System.Drawing.Point(4, 304);
+            this.skDamageGraph1.Name = "skDamageGraph1";
+            this.skDamageGraph1.nBaseVal = 100F;
+            this.skDamageGraph1.nEnhVal = 196F;
+            this.skDamageGraph1.nHighBase = 2000F;
+            this.skDamageGraph1.nHighEnh = 414F;
+            this.skDamageGraph1.nMaxEnhVal = 207F;
+            this.skDamageGraph1.PaddingH = 0;
+            this.skDamageGraph1.PaddingV = 0;
+            this.skDamageGraph1.Size = new System.Drawing.Size(351, 71);
+            this.skDamageGraph1.Style = mrbBase.Enums.eDDStyle.TextUnderGraph;
+            this.skDamageGraph1.TabIndex = 6;
+            this.skDamageGraph1.TabStop = false;
+            this.skDamageGraph1.TextAlign = mrbBase.Enums.eDDAlign.Center;
+            this.skDamageGraph1.TextColor = System.Drawing.Color.FromArgb(192, 192, 210);
+
+
+
+            // 
             // timer1
             // 
             this.timer1.Interval = 1;
@@ -1567,7 +1571,6 @@ namespace Mids_Reborn.Forms.Controls
             this.panelPowerScaler2.ResumeLayout(false);
             this.panelPowerScaler1.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -1579,7 +1582,6 @@ namespace Mids_Reborn.Forms.Controls
         public Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv4;
         private System.Windows.Forms.RichTextBox richInfoLarge;
         private System.Windows.Forms.RichTextBox richInfoSmall;
-        public mrbControls.ctlDamageDisplay ctlDamageDisplay1;
         private System.Windows.Forms.Label lblDamage;
         private System.Windows.Forms.Label lblEffectsBlock3;
         private System.Windows.Forms.Label lblEffectsBlock2;
@@ -1644,5 +1646,6 @@ namespace Mids_Reborn.Forms.Controls
         private SkiaSharp.Views.Desktop.SKGLControl infoTabTitle;
         private FontAwesome.Sharp.IconPictureBox ipbLock;
         private FontAwesome.Sharp.IconPictureBox ipbResize;
+        private SKDamageGraph skDamageGraph1;
     }
 }

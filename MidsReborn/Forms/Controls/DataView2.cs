@@ -1513,54 +1513,6 @@ namespace Mids_Reborn.Forms.Controls
                 }
             }
 
-            public void AddUpdate(BuffStat buffKey, float value, bool sum = true)
-            {
-                if (!_powerStats.ContainsKey(buffKey))
-                {
-                    _powerStats.Add(buffKey, new BuffInfo
-                    {
-                        Schedule = _powerStats[buffKey].Schedule,
-                        Value = value,
-                        ValueAfterED = _powerStats[buffKey].ValueAfterED
-                    });
-                }
-                else
-                {
-                    _powerStats[buffKey] = new BuffInfo
-                    {
-                        Schedule = _powerStats[buffKey].Schedule,
-                        Value = sum ? _powerStats[buffKey].Value + value : value,
-                        ValueAfterED = _powerStats[buffKey].ValueAfterED
-                    };
-                }
-            }
-
-            public void AddUpdate(BuffStat buffKey, float? value, float valueAfterED, bool sum = true)
-            {
-                if (!_powerStats.ContainsKey(buffKey))
-                {
-                    _powerStats.Add(buffKey, new BuffInfo
-                    {
-                        Schedule = _powerStats[buffKey].Schedule,
-                        Value = value ?? _powerStats[buffKey].Value,
-                        ValueAfterED = sum ? _powerStats[buffKey].ValueAfterED + valueAfterED : valueAfterED
-                    });
-                }
-                else
-                {
-                    _powerStats[buffKey] = new BuffInfo
-                    {
-                        Schedule = _powerStats[buffKey].Schedule,
-                        Value = value == null
-                            ? _powerStats[buffKey].Value
-                            : sum
-                                ? _powerStats[buffKey].Value + (float)value
-                                : (float)value,
-                        ValueAfterED = sum ? _powerStats[buffKey].ValueAfterED + valueAfterED : valueAfterED
-                    };
-                }
-            }
-
             public float? GetValue(Enums.eEnhance stat, Enums.eMez mez, BuffType buffType, bool afterED = true)
             {
                 var buffKey = new BuffStat
@@ -1578,9 +1530,16 @@ namespace Mids_Reborn.Forms.Controls
                 if (afterED & _powerStats[buffKey].Value > 0 & _powerStats[buffKey].ValueAfterED == 0)
                 {
                     var valueAfterED = Enhancement.ApplyED(_powerStats[buffKey].Schedule, _powerStats[buffKey].Value);
-                    AddUpdate(buffKey, null, valueAfterED, false);
+                    AddUpdate(buffKey,
+                        new BuffInfo
+                        {
+                            Schedule = _powerStats[buffKey].Schedule,
+                            Value = _powerStats[buffKey].Value,
+                            ValueAfterED = Enhancement.ApplyED(_powerStats[buffKey].Schedule, _powerStats[buffKey].Value)
+                        },
+                        false);
 
-                    return valueAfterED;
+                        return valueAfterED;
                 }
 
                 return afterED ? _powerStats[buffKey].ValueAfterED : _powerStats[buffKey].Value;
@@ -1873,7 +1832,7 @@ namespace Mids_Reborn.Forms.Controls
                     var powerStats = GetSlottedEnhancementEffects();
 
                     Root.lblDamage.Visible = true;
-                    Root.ctlDamageDisplay1.Visible = true;
+                    Root.skDamageGraph1.Visible = true;
                     Root.listSpecialBonuses.Visible = false;
 
                     Root.infoTabTitle.Invalidate();
@@ -2072,21 +2031,25 @@ namespace Mids_Reborn.Forms.Controls
                     if (_basePower.NIDSubPower.Length > 0 & Math.Abs(baseDamage) < float.Epsilon & Math.Abs(enhancedDamage) < float.Epsilon)
                     {
                         Debug.WriteLine($"Set empty damage graph for power {_enhancedPower.FullName}");
-                        Root.ctlDamageDisplay1.nBaseVal = 0;
-                        Root.ctlDamageDisplay1.nMaxEnhVal = 0;
-                        Root.ctlDamageDisplay1.nEnhVal = 0;
-                        Root.ctlDamageDisplay1.Text = string.Empty;
+                        Root.skDamageGraph1.LockDraw();
+                        Root.skDamageGraph1.nBaseVal = 0;
+                        Root.skDamageGraph1.nMaxEnhVal = 0;
+                        Root.skDamageGraph1.nEnhVal = 0;
+                        Root.skDamageGraph1.Text = string.Empty;
+                        Root.skDamageGraph1.UnlockDraw();
                     }
                     else
                     {
                         Debug.WriteLine($"baseDamage: {baseDamage}, maxEnhVal: {baseDamage * (1 + Enhancement.ApplyED(Enums.eSchedule.A, 2.277f))}, enhancedDamage: {enhancedDamage}");
-                        Root.ctlDamageDisplay1.nBaseVal = baseDamage; // Math.Max(0, baseDamage) ? (see Toxins)
-                        Root.ctlDamageDisplay1.nMaxEnhVal = Math.Max(baseDamage * (1 + Enhancement.ApplyED(Enums.eSchedule.A, 2.277f)), enhancedDamage); // ???
-                        Root.ctlDamageDisplay1.nEnhVal = enhancedDamage; // Math.Max(0, enhancedDamage ? (see Toxins)
-                        Root.ctlDamageDisplay1.nHighEnh = Math.Max(414, enhancedDamage); // Maximum graph value
-                        Root.ctlDamageDisplay1.Text = Math.Abs(enhancedDamage - baseDamage) > float.Epsilon
+                        Root.skDamageGraph1.LockDraw();
+                        Root.skDamageGraph1.nBaseVal = baseDamage; // Math.Max(0, baseDamage) ? (see Toxins)
+                        Root.skDamageGraph1.nMaxEnhVal = Math.Max(baseDamage * (1 + Enhancement.ApplyED(Enums.eSchedule.A, 2.277f)), enhancedDamage); // ???
+                        Root.skDamageGraph1.nEnhVal = enhancedDamage; // Math.Max(0, enhancedDamage ? (see Toxins)
+                        Root.skDamageGraph1.nHighEnh = Math.Max(414, enhancedDamage); // Maximum graph value
+                        Root.skDamageGraph1.Text = Math.Abs(enhancedDamage - baseDamage) > float.Epsilon
                             ? @$"{_enhancedPower.FXGetDamageString()} ({Utilities.FixDP(baseDamage)})"
                             : _basePower.FXGetDamageString(true);
+                        Root.skDamageGraph1.UnlockDraw();
                     }
                 }
 
@@ -2099,7 +2062,7 @@ namespace Mids_Reborn.Forms.Controls
                     }
 
                     Root.lblDamage.Visible = false;
-                    Root.ctlDamageDisplay1.Visible = false;
+                    Root.skDamageGraph1.Visible = false;
                     Root.listSpecialBonuses.Visible = true;
                     Root.listInfos.Rows.Clear();
 
@@ -2522,8 +2485,7 @@ namespace Mids_Reborn.Forms.Controls
 
                             var eBuffDebuff = Enums.eBuffDebuff.Any;
                             var flag = false;
-                            foreach (var str1 in MidsContext.Character.CurrentBuild.Powers[HistoryIdx].Power
-                                         .BoostsAllowed)
+                            foreach (var str1 in MidsContext.Character.CurrentBuild.Powers[HistoryIdx].Power.BoostsAllowed)
                             {
                                 if (power1.BoostsAllowed.All(str2 => str1 != str2)) continue;
 
@@ -2565,8 +2527,12 @@ namespace Mids_Reborn.Forms.Controls
                                                 Mez = Enums.eMez.None
                                             };
 
-                                            powerStats.AddUpdate(buffKey, effect.Mag * (effect.IgnoreED ? 0 : 1),
-                                                effect.Mag * (effect.IgnoreED ? 1 : 0));
+                                            powerStats.AddUpdate(buffKey, new PowerStats.BuffInfo
+                                            {
+                                                Schedule = Enhancement.GetSchedule(Enums.eEnhance.Defense),
+                                                Value = effect.Mag * (effect.IgnoreED ? 0 : 1),
+                                                ValueAfterED = effect.Mag * (effect.IgnoreED ? 1 : 0)
+                                            });
                                         }
 
                                         break;
@@ -2583,8 +2549,12 @@ namespace Mids_Reborn.Forms.Controls
                                             Mez = effect.MezType
                                         };
 
-                                        powerStats.AddUpdate(mezKey, effect.Mag * (effect.IgnoreED ? 0 : 1),
-                                            effect.Mag * (effect.IgnoreED ? 1 : 0));
+                                        powerStats.AddUpdate(mezKey, new PowerStats.BuffInfo
+                                        {
+                                            Schedule = Enhancement.GetSchedule(Enums.eEnhance.Mez, (int) effect.MezType),
+                                            Value = effect.Mag * (effect.IgnoreED ? 0 : 1),
+                                            ValueAfterED = effect.Mag * (effect.IgnoreED ? 1 : 0)
+                                        });
 
                                         break;
                                     default:
@@ -2599,8 +2569,12 @@ namespace Mids_Reborn.Forms.Controls
                                             Mez = Enums.eMez.None
                                         };
 
-                                        powerStats.AddUpdate(fxKey, effect.Mag * (effect.IgnoreED ? 0 : 1),
-                                            effect.Mag * (effect.IgnoreED ? 1 : 0));
+                                        powerStats.AddUpdate(fxKey, new PowerStats.BuffInfo
+                                        {
+                                            Schedule = Enhancement.GetSchedule(fxKey.Stat),
+                                            Value = effect.Mag * (effect.IgnoreED ? 0 : 1),
+                                            ValueAfterED = effect.Mag * (effect.IgnoreED ? 1 : 0),
+                                        });
 
                                         break;
                                 }
@@ -2614,12 +2588,17 @@ namespace Mids_Reborn.Forms.Controls
                                     {
                                         if (str.StartsWith("Res_Damage"))
                                         {
-                                            powerStats.AddUpdate(
-                                                new PowerStats.BuffStat
-                                                {
-                                                    BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
-                                                    Stat = Enums.eEnhance.Resistance
-                                                }, null, effect.Mag);
+                                            powerStats.AddUpdate(new PowerStats.BuffStat
+                                            {
+                                                BuffType = PowerStats.BuffType.Any,
+                                                Mez = Enums.eMez.None,
+                                                Stat = Enums.eEnhance.Resistance
+                                            }, new PowerStats.BuffInfo
+                                            {
+                                                Schedule = Enhancement.GetSchedule(Enums.eEnhance.Resistance),
+                                                Value = 0,
+                                                ValueAfterED = effect.Mag
+                                            });
 
                                             break;
                                         }
@@ -2629,12 +2608,17 @@ namespace Mids_Reborn.Forms.Controls
                                             continue;
                                         }
 
-                                        powerStats.AddUpdate(
-                                            new PowerStats.BuffStat
-                                            {
-                                                BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
-                                                Stat = Enums.eEnhance.Damage
-                                            }, null, effect.Mag);
+                                        powerStats.AddUpdate(new PowerStats.BuffStat
+                                        {
+                                            BuffType = PowerStats.BuffType.Any,
+                                            Mez = Enums.eMez.None,
+                                            Stat = Enums.eEnhance.Damage
+                                        }, new PowerStats.BuffInfo
+                                        {
+                                            Schedule = Enhancement.GetSchedule(Enums.eEnhance.Damage),
+                                            Value = 0,
+                                            ValueAfterED = effect.Mag
+                                        });
 
                                         break;
                                     }
@@ -2645,12 +2629,18 @@ namespace Mids_Reborn.Forms.Controls
                                     {
                                         if (str.StartsWith("Res_Damage"))
                                         {
-                                            powerStats.AddUpdate(
-                                                new PowerStats.BuffStat
-                                                {
-                                                    BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
-                                                    Stat = Enums.eEnhance.Resistance
-                                                }, effect.Mag);
+                                            powerStats.AddUpdate(new PowerStats.BuffStat
+                                            {
+                                                BuffType = PowerStats.BuffType.Any,
+                                                Mez = Enums.eMez.None,
+                                                Stat = Enums.eEnhance.Resistance
+                                            }, new PowerStats.BuffInfo
+                                            {
+                                                Schedule = Enhancement.GetSchedule(Enums.eEnhance.Resistance),
+                                                Value = effect.Mag,
+                                                ValueAfterED = 0
+                                            });
+
                                             break;
                                         }
 
@@ -2659,12 +2649,18 @@ namespace Mids_Reborn.Forms.Controls
                                             continue;
                                         }
 
-                                        powerStats.AddUpdate(
-                                            new PowerStats.BuffStat
-                                            {
-                                                BuffType = PowerStats.BuffType.Any, Mez = Enums.eMez.None,
-                                                Stat = Enums.eEnhance.Damage
-                                            }, effect.Mag);
+                                        powerStats.AddUpdate(new PowerStats.BuffStat
+                                        {
+                                            BuffType = PowerStats.BuffType.Any,
+                                            Mez = Enums.eMez.None,
+                                            Stat = Enums.eEnhance.Damage
+                                        }, new PowerStats.BuffInfo
+                                        {
+                                            Schedule = Enhancement.GetSchedule(Enums.eEnhance.Damage),
+                                            Value = effect.Mag,
+                                            ValueAfterED = 0
+                                        });
+
                                         break;
                                     }
                                 }
@@ -3093,10 +3089,12 @@ namespace Mids_Reborn.Forms.Controls
             // BackColor doesn't stick when set in the designer
             ipbResize.BackColor = Color.Black;
 
-            ctlDamageDisplay1.nBaseVal = 0;
-            ctlDamageDisplay1.nMaxEnhVal = 0;
-            ctlDamageDisplay1.nEnhVal = 0;
-            ctlDamageDisplay1.Text = string.Empty;
+            skDamageGraph1.LockDraw();
+            skDamageGraph1.nBaseVal = 0;
+            skDamageGraph1.nMaxEnhVal = 0;
+            skDamageGraph1.nEnhVal = 0;
+            skDamageGraph1.Text = string.Empty;
+            skDamageGraph1.UnlockDraw();
         }
 
         public void ReInit()
@@ -3110,10 +3108,12 @@ namespace Mids_Reborn.Forms.Controls
                 InfoType = InfoType.Power
             };
 
-            ctlDamageDisplay1.nBaseVal = 0;
-            ctlDamageDisplay1.nMaxEnhVal = 0;
-            ctlDamageDisplay1.nEnhVal = 0;
-            ctlDamageDisplay1.Text = string.Empty;
+            skDamageGraph1.LockDraw(); 
+            skDamageGraph1.nBaseVal = 0;
+            skDamageGraph1.nMaxEnhVal = 0;
+            skDamageGraph1.nEnhVal = 0;
+            skDamageGraph1.Text = string.Empty;
+            skDamageGraph1.UnlockDraw();
         }
 
         private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)

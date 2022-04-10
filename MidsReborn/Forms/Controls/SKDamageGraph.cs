@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using mrbBase;
 using SkiaSharp;
@@ -12,22 +14,22 @@ namespace Mids_Reborn.Forms.Controls
         private readonly Enums.eDDText _TextStyle;
         private float _BaseVal;
         private float _EnhancedVal;
-        private float _HighestBase;
-        private float _HighestEnhanced;
-        private float _MaxEnhanced;
-        private Enums.eDDAlign _TextAlign;
+        private float _HighestBase; // Not implemented
+        private float _HighestEnhanced; // Not implemented
+        private float _MaxEnhanced; // Not implemented
+        private Enums.eDDAlign _TextAlign; // Not implemented
         private SKColor _FadeBackEnd;
         private SKColor _FadeBackStart;
         private SKColor _FadeBaseEnd;
         private SKColor _FadeBaseStart;
         private SKColor _FadeEnhEnd;
         private SKColor _FadeEnhStart;
-        private Enums.eDDGraph _Graph;
+        private Enums.eDDGraph _Graph; // Not implemented
         private SKSize _Padding;
         private string _String;
-        private Enums.eDDStyle _GraphStyle;
+        private Enums.eDDStyle _GraphStyle; // Not implemented
         private SKColor _TextColor;
-        private bool _DrawLock = false;
+        private bool _DrawLock;
 
         public SKDamageGraph()
         {
@@ -52,9 +54,9 @@ namespace Mids_Reborn.Forms.Controls
 
             Load += SKDamageGraph_Load;
             Resize += SKDamageGraph_Resize;
-            skglControl1.PaintSurface += skglControl1_PaintSurface;
 
             InitializeComponent();
+            skglControl1.PaintSurface += skglControl1_PaintSurface;
         }
 
         private Color ToColor(SKColor color)
@@ -363,13 +365,14 @@ namespace Mids_Reborn.Forms.Controls
             _DrawLock = true;
         }
 
-        public void UnlockDraw()
+        public void UnlockDraw(bool redraw = true)
         {
             _DrawLock = false;
-        }
+            if (!redraw)
+            {
+                return;
+            }
 
-        public void FullUpdate()
-        {
             Draw();
         }
 
@@ -380,18 +383,136 @@ namespace Mids_Reborn.Forms.Controls
 
         private void SKDamageGraph_Resize(object sender, EventArgs e)
         {
-            FullUpdate();
+            Draw();
+        }
+
+        // https://stackoverflow.com/questions/3961278/word-wrap-a-string-in-multiple-lines
+        // https://dev.to/brianelete/text-wrap-with-skiasharp-5722
+        private static List<string> WrapText(string text, SKCanvas canvas, SKSize canvasSize, SKFont font, SKSize padding)
+        {
+            var wrappedLines = new List<string>();
+            var actualLine = new StringBuilder();
+            var actualWidth = 0f;
+            var words = text.Split(new[] { " " }, StringSplitOptions.None);
+            using var paint = new SKPaint(font)
+            {
+                IsAntialias = true
+            };
+
+            foreach (var word in words)
+            {
+                var wSpace = $"{word} ";
+                var w = paint.MeasureText(wSpace);
+                actualWidth += w;
+
+                if (actualWidth > canvasSize.Width - 2 * padding.Width)
+                {
+                    wrappedLines.Add(actualLine.ToString());
+                    actualLine.Clear();
+                    actualWidth = w;
+                }
+
+                actualLine.Append(wSpace);
+            }
+
+            if (actualLine.Length > 0)
+            {
+                wrappedLines.Add(actualLine.ToString());
+            }
+
+            return wrappedLines;
         }
 
         private void skglControl1_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
+            const int barHeight = 10;
+            const int paddingH = 3;
+            const int paddingV = 3;
+            const float fontSize = 12f;
 
+            e.Surface.Canvas.Clear(SKColors.Black);
+
+            // Draw background
+            // Black to dark red horizontal gradient
+            using var bgPaint = new SKPaint
+            {
+                Shader = SKShader.CreateLinearGradient(
+                new SKPoint(0, 0), new SKPoint(Width, 0),
+                new[] { SKColors.Black, new SKColor(64, 0, 0) },
+                new float[] { 0, 1 },
+                SKShaderTileMode.Clamp
+              )
+            };
+
+            e.Surface.Canvas.DrawRect(new SKRect(0, 0, Width, 2 * barHeight), bgPaint);
+
+            // Draw graph bars
+            var scaleFactor = Math.Abs(_BaseVal - _EnhancedVal) < float.Epsilon
+              ? _EnhancedVal < float.Epsilon
+                ? 1
+                : Width / _EnhancedVal
+              : Width / Math.Max(500, Math.Max(_BaseVal, _EnhancedVal));
+            var baseDmgWidth = (int) Math.Round(_BaseVal * scaleFactor);
+            var enhDmgWidth = (int) Math.Round(_EnhancedVal * scaleFactor);
+            using var baseDmgPaint = new SKPaint
+            {
+                Shader = SKShader.CreateLinearGradient(
+                new SKPoint(0, 0), new SKPoint(baseDmgWidth, 0),
+                new[] { _FadeBaseStart, _FadeBaseEnd },
+                new float[] { 0, 1 },
+                SKShaderTileMode.Clamp
+              )
+            };
+
+            using var enhDmgPaint = new SKPaint
+            {
+                Shader = SKShader.CreateLinearGradient(
+                new SKPoint(0, 0), new SKPoint(enhDmgWidth, 0),
+                new[] { _FadeEnhStart, _FadeEnhEnd },
+                new float[] { 0, 1 },
+                SKShaderTileMode.Clamp
+              )
+            };
+
+            e.Surface.Canvas.DrawRect(new SKRect(0, 0, baseDmgWidth, barHeight), baseDmgPaint);
+            e.Surface.Canvas.DrawRect(new SKRect(0, barHeight, enhDmgWidth, 2 * barHeight), enhDmgPaint);
+
+            // Damage Text
+            using var textFont = new SKFont(SKTypeface.Default, fontSize);
+            using var textPaint = new SKPaint(textFont)
+            {
+                IsAntialias = true,
+                IsStroke = false,
+                Color = SKColors.WhiteSmoke,
+                TextAlign = SKTextAlign.Center
+            };
+
+            var textLines = WrapText(_String,
+              e.Surface.Canvas,
+              new SKSize(Width, Height),
+              textFont,
+              new SKSize(paddingH, paddingV));
+
+            /*var y = 2 * barHeight + paddingV;
+            foreach (var line in textLines)
+            {
+                e.Surface.Canvas.DrawText(line, new SKPoint(Width / 2f, y), textPaint);
+                y += barHeight + lineInterspace;
+            }*/
+
+            var y = barHeight + Height / 2;
+            e.Surface.Canvas.DrawText(string.Join("\r\n", textLines), new SKPoint(Width / 2f, y), textPaint);
         }
 
         // /////////////////////////////////////////
 
         public void Draw()
         {
+            if (_DrawLock)
+            {
+                return;
+            }
+
             skglControl1.Invalidate();
         }
     }
