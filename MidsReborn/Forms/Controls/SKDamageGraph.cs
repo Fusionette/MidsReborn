@@ -27,7 +27,7 @@ namespace Mids_Reborn.Forms.Controls
         private Enums.eDDGraph _Graph; // Not implemented
         private SKSize _Padding;
         private string _String;
-        private Enums.eDDStyle _GraphStyle; // Not implemented
+        private Enums.eDDStyle _GraphStyle;
         private SKColor _TextColor;
         private bool _DrawLock;
 
@@ -429,22 +429,26 @@ namespace Mids_Reborn.Forms.Controls
             const int paddingH = 3;
             const int paddingV = 3;
             const float fontSize = 12f;
+            const float strokeWidth = 5f;
 
-            e.Surface.Canvas.Clear(SKColors.Black);
+            e.Surface.Canvas.Clear(SKColors.DarkCyan);
 
             // Draw background
             // Black to dark red horizontal gradient
-            using var bgPaint = new SKPaint
+            if (_GraphStyle != Enums.eDDStyle.Text)
             {
-                Shader = SKShader.CreateLinearGradient(
-                new SKPoint(0, 0), new SKPoint(Width, 0),
-                new[] { SKColors.Black, new SKColor(64, 0, 0) },
-                new float[] { 0, 1 },
-                SKShaderTileMode.Clamp
-              )
-            };
+                using var bgPaint = new SKPaint
+                {
+                    Shader = SKShader.CreateLinearGradient(
+                        new SKPoint(0, 0), new SKPoint(Width, 0),
+                        new[] { SKColors.Black, new SKColor(64, 0, 0) },
+                        new float[] { 0, 1 },
+                        SKShaderTileMode.Clamp
+                    )
+                };
 
-            e.Surface.Canvas.DrawRect(new SKRect(0, 0, Width, 2 * barHeight), bgPaint);
+                e.Surface.Canvas.DrawRect(new SKRect(0, 0, Width, 2 * barHeight), bgPaint);
+            }
 
             // Draw graph bars
             var scaleFactor = Math.Abs(_BaseVal - _EnhancedVal) < float.Epsilon
@@ -474,8 +478,21 @@ namespace Mids_Reborn.Forms.Controls
               )
             };
 
-            e.Surface.Canvas.DrawRect(new SKRect(0, 0, baseDmgWidth, barHeight), baseDmgPaint);
-            e.Surface.Canvas.DrawRect(new SKRect(0, barHeight, enhDmgWidth, 2 * barHeight), enhDmgPaint);
+            if (_GraphStyle == Enums.eDDStyle.TextUnderGraph)
+            {
+                e.Surface.Canvas.DrawRect(new SKRect(0, 0, baseDmgWidth, barHeight), baseDmgPaint);
+                e.Surface.Canvas.DrawRect(new SKRect(0, barHeight, enhDmgWidth, 2 * barHeight), enhDmgPaint);
+            }
+            else if (_GraphStyle is Enums.eDDStyle.TextOnGraph or Enums.eDDStyle.Graph)
+            {
+                e.Surface.Canvas.DrawRect(new SKRect(0, 0, baseDmgWidth, Height / 2f), baseDmgPaint);
+                e.Surface.Canvas.DrawRect(new SKRect(0, Height / 2f, enhDmgWidth, Height), enhDmgPaint);
+            }
+
+            if (_GraphStyle == Enums.eDDStyle.Graph)
+            {
+                return;
+            }
 
             // Damage Text
             using var textFont = new SKFont(SKTypeface.Default, fontSize);
@@ -493,15 +510,33 @@ namespace Mids_Reborn.Forms.Controls
               textFont,
               new SKSize(paddingH, paddingV));
 
-            /*var y = 2 * barHeight + paddingV;
-            foreach (var line in textLines)
-            {
-                e.Surface.Canvas.DrawText(line, new SKPoint(Width / 2f, y), textPaint);
-                y += barHeight + lineInterspace;
-            }*/
+            var infoText = string.Join("\r\n", textLines);
+            var y = _GraphStyle == Enums.eDDStyle.TextUnderGraph
+                ? barHeight + Height / 2f
+                : Height / 2f;
 
-            var y = barHeight + Height / 2;
-            e.Surface.Canvas.DrawText(string.Join("\r\n", textLines), new SKPoint(Width / 2f, y), textPaint);
+            var textBounds = new SKRect();
+            textPaint.MeasureText(infoText, ref textBounds);
+            
+            using var textPath = textPaint.GetTextPath(infoText, (Width - textBounds.Width - strokeWidth) / 2f, y);
+            using var outlinePath = new SKPath();
+            //textPaint.StrokeWidth = strokeWidth;
+            //textPaint.StrokeCap = SKStrokeCap.Round;
+            //textPaint.StrokeMiter = 0;
+            textPaint.GetFillPath(textPath, outlinePath);
+
+            using var outlinePaint = new SKPaint
+            {
+                StrokeCap = SKStrokeCap.Round,
+                StrokeMiter = 0, /* Avoid spikes artifacts around sharp edges */
+                Style = SKPaintStyle.Stroke,
+                StrokeWidth = strokeWidth,
+                Color = SKColors.Black,
+                TextAlign = SKTextAlign.Center
+            };
+
+            e.Surface.Canvas.DrawPath(outlinePath, outlinePaint);
+            e.Surface.Canvas.DrawText(infoText, new SKPoint(Width / 2f, y), textPaint);
         }
 
         // /////////////////////////////////////////
