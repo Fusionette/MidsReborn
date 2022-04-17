@@ -441,6 +441,12 @@ namespace Mids_Reborn.Forms.Controls
                 };
             }
 
+            public Enums.eToWho GetToWho()
+            {
+                return ToWho;
+            }
+
+
             public BoostType GetBoostType()
             {
                 return BuffedMag switch
@@ -451,7 +457,7 @@ namespace Mids_Reborn.Forms.Controls
                 };
             }
 
-            public string GetStatName()
+            public string GetStatName(bool longFormat = false)
             {
                 if (EffectType == Enums.eEffectType.Enhancement)
                 {
@@ -463,10 +469,10 @@ namespace Mids_Reborn.Forms.Controls
                         case Enums.eEffectType.Resistance:
                         case Enums.eEffectType.Defense:
                         case Enums.eEffectType.Elusivity:
-                            return $"{EffectType} to {SubEffectType}";
+                            return $"{EffectType} to {SubEffectType}{(longFormat ? $" to {ToWho}" : "")}";
 
                         default:
-                            return $"{EffectType} to {ETModifiesString()}";
+                            return $"{EffectType} to {ETModifiesString()}{(longFormat ? $" to {ToWho}" : "")}";
                     }
                 }
 
@@ -474,17 +480,22 @@ namespace Mids_Reborn.Forms.Controls
                 {
                     case Enums.eEffectType.Mez:
                     case Enums.eEffectType.MezResist:
-                        return $"{EffectType}({MezTypesString()}";
+                        return $"{EffectType}({MezTypesString()}){(longFormat ? $" to {ToWho}" : "")}";
 
                     case Enums.eEffectType.DamageBuff:
                     case Enums.eEffectType.Resistance:
                     case Enums.eEffectType.Defense:
                     case Enums.eEffectType.Elusivity:
-                        return $"{EffectType}({DamageTypesString()})";
+                        return $"{EffectType}({DamageTypesString()}){(longFormat ? $" to {ToWho}" : "")}";
 
                     default:
-                        return $"{EffectType}";
+                        return $"{EffectType}{(longFormat ? $" to {ToWho}" : "")}";
                 }
+            }
+
+            public float GetMag()
+            {
+                return BuffedMag;
             }
 
             public string GetMagString()
@@ -1795,15 +1806,24 @@ namespace Mids_Reborn.Forms.Controls
                     }
                 }
 
-                public static Color GetBoostColor(BoostType boostType)
+                public static Color GetBoostColor(BoostType boostType, bool invert = false)
                 {
-                    return boostType switch
+                    switch (boostType)
                     {
-                        BoostType.Reduction => Color.FromArgb(255, 20, 20),
-                        BoostType.Enhancement => Color.FromArgb(0, 240, 80),
-                        BoostType.Extra => Color.FromArgb(0, 220, 220),
-                        _ => Color.WhiteSmoke,
-                    };
+                        case BoostType.Reduction when !invert:
+                        case BoostType.Enhancement when invert:
+                            return Color.FromArgb(255, 20, 20);
+
+                        case BoostType.Enhancement:
+                        case BoostType.Reduction:
+                            return Color.FromArgb(0, 240, 80);
+
+                        case BoostType.Extra:
+                            return Color.FromArgb(0, 220, 220);
+
+                        default:
+                            return Color.WhiteSmoke;
+                    }
                 }
             }
 
@@ -2682,14 +2702,22 @@ namespace Mids_Reborn.Forms.Controls
                     Root = root;
                     LayoutType = layoutType;
 
-                    // Switch layout type mode ?
                     DisplayEffects();
                 }
 
                 private static void DisplayEffects()
                 {
+                    Root.ipbLock2.Visible = Root.Locked;
+                    Root.ipbResize2.IconChar = Root.SmallSize
+                        ? IconChar.ChevronDown
+                        : IconChar.ChevronUp;
+                    Root.effectsTabTitle.Invalidate();
+
                     var effectGroups = EffectsGroupFilter.FromPower(_enhancedPower);
                     var labels = effectGroups.Groups.Keys.ToList();
+                    Root.lblEffectsBlock1.Text = "";
+                    Root.lblEffectsBlock2.Text = "";
+                    Root.lblEffectsBlock3.Text = "";
                     for (var i = 0; i < effectGroups.Groups.Count; i += 2)
                     {
                         if (i < effectGroups.Groups.Count - 1)
@@ -2732,6 +2760,19 @@ namespace Mids_Reborn.Forms.Controls
                     Root.gridEffectsBlock1.Rows.Clear();
                     Root.gridEffectsBlock2.Rows.Clear();
                     Root.gridEffectsBlock3.Rows.Clear();
+                    for (var i = 0; i < 5; i++)
+                    {
+                        Root.gridEffectsBlock1.Rows.Add();
+                        Root.gridEffectsBlock2.Rows.Add();
+                        Root.gridEffectsBlock3.Rows.Add();
+                        for (var j = 0; j < 4; j++)
+                        {
+                            Root.gridEffectsBlock1.SetCellContent(i, j);
+                            Root.gridEffectsBlock2.SetCellContent(i, j);
+                            Root.gridEffectsBlock3.SetCellContent(i, j);
+                        }
+                    }
+
                     for (var i = 0; i < groupedItems.Count; i++)
                     {
                         var target = (int)Math.Floor(i / 2f) switch
@@ -2745,12 +2786,28 @@ namespace Mids_Reborn.Forms.Controls
                         for (var j = 0; j < Math.Min(5, groupedItems[i].Count); j++)
                         {
                             var boostType = groupedItems[i][j].GetBoostType();
-                            var stat = groupedItems[i][j].GetStatName();
+                            var statLong = groupedItems[i][j].GetStatName();
+                            var stat = Utilities.CompactEffectString(statLong, 3);
+                            var statLongTarget = Utilities.CompactEffectString(groupedItems[i][j].GetStatName(true), 3);
                             var mag = groupedItems[i][j].GetMagString();
                             var rowOffset = i % 2 * 2;
+                            var invertBoost = false;
 
-                            target.SetCellContent($"{stat}:", "", j, rowOffset);
-                            target.SetCellContent(mag, Boosts.GetBoostColor(boostType), "", j, rowOffset + 1);
+                            if (groupedItems[i][j].GetMag() < 0)
+                            {
+                                // Effects to target can be either buff or debuff, depending on who or what you cast it...
+                                // As a result, effects to target will never be inverted.
+                                if (groupedItems[i][j].GetToWho() == Enums.eToWho.Self)
+                                {
+                                    if (statLong.StartsWith("Mez("))
+                                    {
+                                        invertBoost = true;
+                                    }
+                                }
+                            }
+
+                            target.SetCellContent($"{stat}:", $"{statLongTarget.Replace(":", "")}", j, rowOffset);
+                            target.SetCellContent(mag, Boosts.GetBoostColor(boostType, invertBoost), "", j, rowOffset + 1);
                         }
                     }
                 }
@@ -3097,25 +3154,6 @@ namespace Mids_Reborn.Forms.Controls
             skDamageGraph1.UnlockDraw();
         }
 
-        public void ReInit()
-        {
-            richInfoSmall.Text = string.Empty;
-            richInfoLarge.Text = string.Empty;
-            GridMouseOverEventLoc = new GridViewMouseEventInfo
-            {
-                Target = listInfos,
-                Loc = new Point(-1, -1),
-                InfoType = InfoType.Power
-            };
-
-            skDamageGraph1.LockDraw(); 
-            skDamageGraph1.nBaseVal = 0;
-            skDamageGraph1.nMaxEnhVal = 0;
-            skDamageGraph1.nEnhVal = 0;
-            skDamageGraph1.Text = string.Empty;
-            skDamageGraph1.UnlockDraw();
-        }
-
         private void dataGridView_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
             var target = (DataGridView) sender;
@@ -3276,5 +3314,24 @@ namespace Mids_Reborn.Forms.Controls
         }
 
         #endregion
+
+        public void ReInit()
+        {
+            richInfoSmall.Text = string.Empty;
+            richInfoLarge.Text = string.Empty;
+            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            {
+                Target = listInfos,
+                Loc = new Point(-1, -1),
+                InfoType = InfoType.Power
+            };
+
+            skDamageGraph1.LockDraw();
+            skDamageGraph1.nBaseVal = 0;
+            skDamageGraph1.nMaxEnhVal = 0;
+            skDamageGraph1.nEnhVal = 0;
+            skDamageGraph1.Text = string.Empty;
+            skDamageGraph1.UnlockDraw();
+        }
     }
 }

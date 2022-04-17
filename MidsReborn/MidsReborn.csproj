@@ -68,6 +68,7 @@
     <Compile Include="Forms\Controls\ColorSlider.Designer.cs">
       <DependentUpon>ColorSlider.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Controls\IDrawLock.cs" />
     <Compile Include="Forms\Controls\SKDamageGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>

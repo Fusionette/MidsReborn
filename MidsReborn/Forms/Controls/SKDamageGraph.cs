@@ -9,7 +9,7 @@ using SkiaSharp.Views.Desktop;
 
 namespace Mids_Reborn.Forms.Controls
 {
-    public partial class SKDamageGraph : UserControl
+    public partial class SKDamageGraph : UserControl, IDrawLock
     {
         private readonly Enums.eDDText _TextStyle;
         private float _BaseVal;
@@ -431,7 +431,7 @@ namespace Mids_Reborn.Forms.Controls
             const float fontSize = 12f;
             const float strokeWidth = 5f;
 
-            e.Surface.Canvas.Clear(SKColors.DarkCyan);
+            e.Surface.Canvas.Clear(SKColors.Black);
 
             // Draw background
             // Black to dark red horizontal gradient
@@ -520,9 +520,6 @@ namespace Mids_Reborn.Forms.Controls
             
             using var textPath = textPaint.GetTextPath(infoText, (Width - textBounds.Width - strokeWidth) / 2f, y);
             using var outlinePath = new SKPath();
-            //textPaint.StrokeWidth = strokeWidth;
-            //textPaint.StrokeCap = SKStrokeCap.Round;
-            //textPaint.StrokeMiter = 0;
             textPaint.GetFillPath(textPath, outlinePath);
 
             using var outlinePaint = new SKPaint
