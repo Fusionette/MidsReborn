@@ -297,11 +297,14 @@ namespace Mids_Reborn.Forms.Controls
             private List<Enums.eDamage> DamageTypes = new();
             private List<Enums.eMez> MezTypes = new();
             private List<Enums.eEffectType> ETModifiesTypes = new();
+            private List<string> GrantPowers = new();
+            private List<string> Summons = new();
             private readonly Enums.eEffectType EffectType;
             private readonly Enums.eEffectType SubEffectType;
             private readonly float BuffedMag;
             private readonly Enums.eToWho ToWho;
             private readonly bool DisplayPercentage;
+            private readonly string Summon;
 
             public GroupedEffect(Enums.eEffectType effectType, float buffedMag, bool displayPercentage,
                 Enums.eToWho toWho)
@@ -311,6 +314,7 @@ namespace Mids_Reborn.Forms.Controls
                 BuffedMag = buffedMag;
                 DisplayPercentage = displayPercentage;
                 ToWho = toWho;
+                Summon = string.Empty;
             }
 
             public GroupedEffect(Enums.eEffectType effectType, Enums.eEffectType subEffectType, float buffedMag,
@@ -321,6 +325,27 @@ namespace Mids_Reborn.Forms.Controls
                 BuffedMag = buffedMag;
                 DisplayPercentage = displayPercentage;
                 ToWho = toWho;
+                Summon = string.Empty;
+            }
+
+            public GroupedEffect(Enums.eEffectType effectType, string summonedEntity, Enums.eToWho toWho)
+            {
+                EffectType = effectType;
+                SubEffectType = Enums.eEffectType.None;
+                BuffedMag = 1;
+                DisplayPercentage = false;
+                ToWho = toWho;
+                Summon = summonedEntity;
+            }
+
+            public void AddGrant(string grantedPower)
+            {
+                GrantPowers.Add(grantedPower);
+            }
+
+            public void AddSummon(string summonedEntity)
+            {
+                Summons.Add(summonedEntity);
             }
 
             public void AddDamageType(Enums.eDamage vector)
@@ -351,6 +376,20 @@ namespace Mids_Reborn.Forms.Controls
             public void SetVectors(List<Enums.eEffectType> vectors)
             {
                 ETModifiesTypes = vectors;
+            }
+
+            public string GetGrants(bool multiLine = false)
+            {
+                return multiLine
+                    ? string.Join("\r\n", GrantPowers)
+                    : string.Join(", ", GrantPowers);
+            }
+
+            public string GetSummons(bool multiLine = false)
+            {
+                return multiLine
+                    ? string.Join("\r\n", Summons)
+                    : string.Join(", ", Summons);
             }
 
             private bool ContainsMulti<T>(IEnumerable<T> items, ICollection<T> baseList)
@@ -446,6 +485,10 @@ namespace Mids_Reborn.Forms.Controls
                 return ToWho;
             }
 
+            public string GetSummon()
+            {
+                return Summon;
+            }
 
             public BoostType GetBoostType()
             {
@@ -583,6 +626,15 @@ namespace Mids_Reborn.Forms.Controls
                 _effectGroups = groups;
             }
 
+            private static string GetSummonPowerName(IEffect fx)
+            {
+                var tPowerId = DatabaseAPI.GetPowerByFullName(fx.Summon);
+                
+                return tPowerId != null
+                    ? tPowerId.DisplayName
+                    : $" {fx.Summon}";
+            }
+
             public static EffectsGroupFilter FromPower(IPower power)
             {
                 var groups = new List<List<GroupedEffect>>();
@@ -661,14 +713,33 @@ namespace Mids_Reborn.Forms.Controls
                                 BuffedMag = fx.BuffedMag
                             }, groups[i].Count);
 
-                            groups[i].Add(fx.EffectType == Enums.eEffectType.Enhancement |
-                                          fx.EffectType == Enums.eEffectType.ResEffect
-                                ? new GroupedEffect(fx.EffectType, fx.ETModifies, fx.BuffedMag, fx.DisplayPercentage,
-                                    fx.ToWho)
-                                : new GroupedEffect(fx.EffectType, fx.BuffedMag, fx.DisplayPercentage, fx.ToWho));
+                            switch (fx.EffectType)
+                            {
+                                case Enums.eEffectType.Enhancement:
+                                case Enums.eEffectType.ResEffect:
+                                    groups[i].Add(new GroupedEffect(fx.EffectType, fx.ETModifies, fx.BuffedMag, fx.DisplayPercentage, fx.ToWho));
+                                    break;
+
+                                case Enums.eEffectType.GrantPower:
+                                case Enums.eEffectType.EntCreate:
+                                    groups[i].Add(new GroupedEffect(fx.EffectType, GetSummonPowerName(fx), fx.ToWho));
+                                    break;
+
+                                default:
+                                    groups[i].Add(new GroupedEffect(fx.EffectType, fx.BuffedMag, fx.DisplayPercentage, fx.ToWho));
+                                    break;
+                            }
 
                             switch (fx.EffectType)
                             {
+                                case Enums.eEffectType.GrantPower:
+                                    groups[i][groups[i].Count - 1].AddGrant(GetSummonPowerName(fx));
+                                    break;
+
+                                case Enums.eEffectType.EntCreate:
+                                    groups[i][groups[i].Count - 1].AddSummon(GetSummonPowerName(fx));
+                                    break;
+
                                 case Enums.eEffectType.Enhancement when fx.ETModifies == Enums.eEffectType.Mez:
                                 case Enums.eEffectType.Mez:
                                 case Enums.eEffectType.MezResist:
@@ -2792,6 +2863,22 @@ namespace Mids_Reborn.Forms.Controls
                             var mag = groupedItems[i][j].GetMagString();
                             var rowOffset = i % 2 * 2;
                             var invertBoost = false;
+
+                            if (statLong.StartsWith("GrantPower"))
+                            {
+                                target.SetCellContent($"{stat}:", $"{statLongTarget.Replace(":", "")}", j, rowOffset);
+                                target.SetCellContent(groupedItems[i][j].GetGrants(), Boosts.GetBoostColor(BoostType.Extra), $"Granted Powers:\r\n{groupedItems[i][j].GetGrants(true)}", j, rowOffset + 1);
+
+                                continue;
+                            }
+
+                            if (statLong.StartsWith("EntCreate"))
+                            {
+                                target.SetCellContent($"{stat}:", $"{statLongTarget.Replace(":", "")}", j, rowOffset);
+                                target.SetCellContent(groupedItems[i][j].GetSummons(), Boosts.GetBoostColor(BoostType.Extra), $"Summoned Entities:\r\n{groupedItems[i][j].GetSummons()}", j, rowOffset + 1);
+
+                                continue;
+                            }
 
                             if (groupedItems[i][j].GetMag() < 0)
                             {
