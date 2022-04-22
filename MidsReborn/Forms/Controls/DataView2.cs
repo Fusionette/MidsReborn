@@ -19,7 +19,10 @@ namespace Mids_Reborn.Forms.Controls
     public partial class DataView2 : UserControl
     {
         public delegate void UnlockEventHandler();
+        public delegate void TabChangedEventHandler(int tabIndex);
+
         public event UnlockEventHandler Unlock;
+        public event TabChangedEventHandler TabChanged;
 
         #region Private enums & structs
 
@@ -2920,25 +2923,36 @@ namespace Mids_Reborn.Forms.Controls
                     Root.dV2TotalsPane1L.ClearItems();
                     Root.dV2TotalsPane1R.ClearItems();
                     var damageVectors = Enum.GetNames(typeof(Enums.eDamage));
+                    var k = 0;
                     for (var i = 1; i < damageVectors.Length; i++)
                     {
-                        if (damageVectors[i] == "Toxic")
+                        if (damageVectors[i] == "Toxic" || damageVectors[i] == "Special" || damageVectors[i].StartsWith("Unique"))
                         {
                             continue;
                         }
 
-                        var target = i < 6 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R;
+                        //var target = k < 6 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, vertically first
+                        var target = k % 2 == 0 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, horizontally first
                         target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.Defense(i),
-                            displayStats.Defense(0), true));
+                            displayStats.Defense(i), true));
+                        k++;
                     }
 
                     Root.dV2TotalsPane2L.ClearItems();
                     Root.dV2TotalsPane2R.ClearItems();
+                    k = 0;
                     for (var i = 1; i < damageVectors.Length; i++)
                     {
-                        var target = i < 6 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
+                        if (damageVectors[i] == "Special" || damageVectors[i].StartsWith("Unique"))
+                        {
+                            continue;
+                        }
+
+                        //var target = k < 6 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
+                        var target = k % 2 == 0 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
                         target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.DamageResistance(i, false),
                             displayStats.DamageResistance(i, true), true));
+                        k++;
                     }
 
                     // Misc effects ??
@@ -3146,6 +3160,7 @@ namespace Mids_Reborn.Forms.Controls
             }
 
             Tabs.RenderTabs(this, true);
+            TabChanged?.Invoke(_tabControlAdv.SelectedIndex);
         }
 
         protected void powerScaler_ValueChanged(object sender, EventArgs e)

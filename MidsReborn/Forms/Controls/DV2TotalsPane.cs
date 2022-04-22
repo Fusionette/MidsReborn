@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SkiaSharp;
@@ -11,7 +12,6 @@ namespace Mids_Reborn.Forms.Controls
     public partial class DV2TotalsPane : UserControl, IDrawLock
     {
         private List<Item> Items = new();
-        private int VisibleItemsCount => Math.Min(Items.Count, MaxItems);
         private const int BarHeight = 10;
         private const float LabelsFontSize = 7;
         private bool _DrawLock;
@@ -173,8 +173,11 @@ namespace Mids_Reborn.Forms.Controls
             using var textPaint = new SKPaint { Color = SKColors.WhiteSmoke };
             using var outlinePaint = new SKPaint { Color = SKColors.Black };
 
-            var xStart = (int) Math.Round(Width / (1 - barWidthFactor)) - 2;
-            for (var i = 0; i < Math.Min(Items.Count, VisibleItemsCount); i++)
+            var xStart = (int) Math.Round(Width * (1 - barWidthFactor)) - 2;
+            Debug.WriteLine($"{Name}<DV2TotalsPane> - items: {Items.Count}, max visible items: {MaxItems}");
+            Debug.WriteLine($"{Name}<DV2TotalsPane> - xStart: {xStart}, width: {Width}, globalMaxValue: {GlobalMaxValue}");
+            var globalMaxValue = GlobalMaxValue < float.Epsilon ? 100 : GlobalMaxValue;
+            for (var i = 0; i < Math.Min(Items.Count, MaxItems); i++)
             {
                 var barGradientPaint = new SKPaint
                 {
@@ -188,21 +191,24 @@ namespace Mids_Reborn.Forms.Controls
 
                 if (EnableUncappedValues)
                 {
-                    var scale = Math.Max(Items[i].Value, Items[i].UncappedValue) / GlobalMaxValue * ((Width - 1) * barWidthFactor);
+                    var scale = ((Width - 1) * barWidthFactor) / globalMaxValue;
                     e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, Width - 2, i * 12 + 12), barBg);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].Value * scale, i * 12 + 12), barGradientPaint);
+                    Debug.WriteLine($"  {Name}<DV2TotalsPane>: scale: {scale}, barUncapped #{i}: [{xStart + 1}, {xStart + 1 + Items[i].UncappedValue * scale}], uncappedValue: {Items[i].UncappedValue}");
+                    Debug.WriteLine($"  {Name}<DV2TotalsPane>: bar #{i}: [{xStart + 1}, {xStart + 1 + Items[i].Value * scale}], value: {Items[i].Value}");
                 }
                 else
                 {
-                    var scale = Items[i].Value / GlobalMaxValue * ((Width - 1) * barWidthFactor);
+                    var scale = ((Width - 1) * barWidthFactor) / globalMaxValue;
                     e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, Width - 2, i * 12 + 12), barBg);
                     //e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].Value * scale, i * 12 + 12), barGradientPaint);
+                    Debug.WriteLine($"  {Name}<DV2TotalsPane>: scale: {scale}, bar #{i}: [{xStart + 1}, {xStart + 1 + Items[i].Value * scale}], value: {Items[i].Value}");
                 }
 
                 //e.Surface.Canvas.DrawText(Items[i].Name, new SKPoint(2, i * 12 + 4), textPaint);
-                DrawOutlineText(e.Surface.Canvas, Items[i].Name, new SKPoint(2, i * 12 + 4), SKColors.WhiteSmoke);
+                DrawOutlineText(e.Surface.Canvas, Items[i].Name, new SKPoint(2 + LabelsFontSize / 2f, i * 12 + 4), SKColors.WhiteSmoke);
             }
         }
 

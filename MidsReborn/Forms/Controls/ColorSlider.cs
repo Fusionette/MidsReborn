@@ -58,7 +58,7 @@ namespace Mids_Reborn.Forms.Controls
     * Added: Ticks display transformations
     * - TickAdd: allow to add a fixed value to the graduations: 
     *       usage: transform K = °C + 273,15, or °F = 1,8°C + 32   K = (°F + 459,67) / 1,8
-    * - TickDivide: allow to diveide by a fixed value the graduations 
+    * - TickDivide: allow to divide by a fixed value the graduations 
     *       usage: divide by 1000 => display graduations in kilograms when in gram
     *       
     *       
@@ -71,7 +71,7 @@ namespace Mids_Reborn.Forms.Controls
     */
 
     /// <summary>
-    /// Encapsulates control that visualy displays certain integer value and allows user to change it within desired range. It imitates <see cref="System.Windows.Forms.TrackBar"/> as far as mouse usage is concerned.
+    /// Encapsulates control that visually displays certain integer value and allows user to change it within desired range. It imitates <see cref="System.Windows.Forms.TrackBar"/> as far as mouse usage is concerned.
     /// </summary>
     [ToolboxBitmap(typeof(TrackBar))]
     [DefaultEvent("Scroll"), DefaultProperty("BarInnerColor")]

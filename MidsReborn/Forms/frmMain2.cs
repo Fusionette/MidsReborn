@@ -152,6 +152,7 @@ namespace Mids_Reborn.Forms
 
             //var componentResourceManager = new ComponentResourceManager(typeof(FrmMain2));
             dvAnchored.Unlock += dvAnchored_Unlock;
+            dvAnchored.TabChanged += dvAnchored_TabChanged;
             Icon = Resources.reborn;
             Name = nameof(FrmMain2);
         }
@@ -4756,14 +4757,17 @@ namespace Mids_Reborn.Forms
                 DoRedraw();
                 //Fix so tips only show once
                 //MidsContext.Config.Tips.Show(Tips.TipType.TotalsTab);
+
+                return;
             }
-            else
+
+            if (drawing.InterfaceMode == Enums.eInterfaceMode.Normal)
             {
-                if (drawing.InterfaceMode == Enums.eInterfaceMode.Normal)
-                    return;
-                drawing.InterfaceMode = Enums.eInterfaceMode.Normal;
-                DoRedraw();
+                return;
             }
+
+            drawing.InterfaceMode = Enums.eInterfaceMode.Normal;
+            DoRedraw();
         }
 
         private void SetFormHeight(bool Force = false)
