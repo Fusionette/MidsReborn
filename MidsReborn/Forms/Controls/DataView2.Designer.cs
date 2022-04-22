@@ -1120,7 +1120,10 @@ namespace Mids_Reborn.Forms.Controls
             // 
             this.dV2TotalsPane1L.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane1L.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
+            this.dV2TotalsPane1L.BarColorMain = System.Drawing.Color.FromArgb(192, 0, 192);
+            this.dV2TotalsPane1L.BarColorUncapped = System.Drawing.Color.FromArgb(192, 0, 192);
             this.dV2TotalsPane1L.GlobalMaxValue = 100;
+            this.dV2TotalsPane1L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane1L.Location = new System.Drawing.Point(4, 48);
             this.dV2TotalsPane1L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1L.MaxItems = 6;
@@ -1133,7 +1136,10 @@ namespace Mids_Reborn.Forms.Controls
             // 
             this.dV2TotalsPane1R.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane1R.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
+            this.dV2TotalsPane1R.BarColorMain = System.Drawing.Color.FromArgb(192, 0, 192);
+            this.dV2TotalsPane1R.BarColorUncapped = System.Drawing.Color.FromArgb(192, 0, 192);
             this.dV2TotalsPane1R.GlobalMaxValue = 100;
+            this.dV2TotalsPane1R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane1R.Location = new System.Drawing.Point(180, 48);
             this.dV2TotalsPane1R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1R.MaxItems = 6;
@@ -1146,8 +1152,11 @@ namespace Mids_Reborn.Forms.Controls
             // 
             this.dV2TotalsPane2L.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane2L.BackgroundColorEnd = System.Drawing.Color.FromArgb(0, 125, 125);
+            this.dV2TotalsPane2L.BarColorMain = System.Drawing.Color.FromArgb(0, 192, 192);
+            this.dV2TotalsPane2L.BarColorUncapped = System.Drawing.Color.FromArgb(255, 128, 128);
             this.dV2TotalsPane2L.EnableUncappedValues = true;
             this.dV2TotalsPane2L.GlobalMaxValue = 100;
+            this.dV2TotalsPane2L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane2L.Location = new System.Drawing.Point(4, 164);
             this.dV2TotalsPane2L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2L.MaxItems = 6;
@@ -1160,8 +1169,11 @@ namespace Mids_Reborn.Forms.Controls
             // 
             this.dV2TotalsPane2R.BackColor = System.Drawing.Color.Black;
             this.dV2TotalsPane2R.BackgroundColorEnd = System.Drawing.Color.FromArgb(0, 125, 125);
+            this.dV2TotalsPane2R.BarColorMain = System.Drawing.Color.FromArgb(0, 192, 192);
+            this.dV2TotalsPane2R.BarColorUncapped = System.Drawing.Color.FromArgb(255, 128, 128);
             this.dV2TotalsPane2R.EnableUncappedValues = true;
             this.dV2TotalsPane2R.GlobalMaxValue = 100;
+            this.dV2TotalsPane2R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane2R.Location = new System.Drawing.Point(180, 164);
             this.dV2TotalsPane2R.MaxItems = 6;
             this.dV2TotalsPane2R.Margin = new System.Windows.Forms.Padding(0);

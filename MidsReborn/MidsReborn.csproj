@@ -399,6 +399,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Controls\DV2TotalsPane.resx">
       <DependentUpon>DV2TotalsPane.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Controls\SKDamageGraph.resx">
       <DependentUpon>SKDamageGraph.cs</DependentUpon>

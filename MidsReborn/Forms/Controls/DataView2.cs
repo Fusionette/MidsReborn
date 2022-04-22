@@ -2933,8 +2933,8 @@ namespace Mids_Reborn.Forms.Controls
 
                         //var target = k < 6 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, vertically first
                         var target = k % 2 == 0 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, horizontally first
-                        target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.Defense(i),
-                            displayStats.Defense(i), true));
+                        target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.Defense(i) / 100f,
+                            displayStats.Defense(i) / 100f, true));
                         k++;
                     }
 
@@ -2943,15 +2943,15 @@ namespace Mids_Reborn.Forms.Controls
                     k = 0;
                     for (var i = 1; i < damageVectors.Length; i++)
                     {
-                        if (damageVectors[i] == "Special" || damageVectors[i].StartsWith("Unique"))
+                        if (damageVectors[i] == "Special" || damageVectors[i] == "Melee" || damageVectors[i] == "Ranged" || damageVectors[i] == "AoE" || damageVectors[i].StartsWith("Unique"))
                         {
                             continue;
                         }
 
                         //var target = k < 6 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
                         var target = k % 2 == 0 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
-                        target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.DamageResistance(i, false),
-                            displayStats.DamageResistance(i, true), true));
+                        target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.DamageResistance(i, false) / 100f,
+                            displayStats.DamageResistance(i, true) / 100f, true));
                         k++;
                     }
 

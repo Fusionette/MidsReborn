@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SkiaSharp;
@@ -14,37 +13,78 @@ namespace Mids_Reborn.Forms.Controls
         private List<Item> Items = new();
         private const int BarHeight = 10;
         private const float LabelsFontSize = 7;
+        private int HoveredBar = -1;
         private bool _DrawLock;
 
-        [Description("Maximum visible items"), Category("Data"),
-         Browsable(true), EditorBrowsable(EditorBrowsableState.Always), Bindable(true),
-         DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public int MaxItems;
+        [Description("Maximum visible items")]
+        [Category("Data")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        [DefaultValue(6)]
+        public int MaxItems { get; set; }
 
-        [Description("Maximum global bar value"), Category("Data"),
-         Browsable(true), EditorBrowsable(EditorBrowsableState.Always), Bindable(true),
-         DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public float GlobalMaxValue;
+        [Description("Maximum global bar value")]
+        [Category("Data")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        [DefaultValue(100)]
+        public float GlobalMaxValue { get; set; }
 
-        [Description("Bars background gradient end color"), Category("Appearance"),
-         Browsable(true), EditorBrowsable(EditorBrowsableState.Always), Bindable(true),
-         DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Color BackgroundColorEnd;
+        [Description("Bars background gradient end color")]
+        [Category("Appearance")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        public Color BackgroundColorEnd { get; set; }
 
-        [Description("Bars color (main value)"), Category("Appearance"),
-         Browsable(true), EditorBrowsable(EditorBrowsableState.Always), Bindable(true),
-         DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Color BarColorMain;
+        [Description("Bars color (main value)")]
+        [Category("Appearance")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        public Color BarColorMain { get; set; }
 
-        [Description("Bars color (uncapped value)"), Category("Appearance"),
-         Browsable(true), EditorBrowsable(EditorBrowsableState.Always), Bindable(true),
-         DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public Color BarColorUncapped;
+        [Description("Bars color (uncapped value)")]
+        [Category("Appearance")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        public Color BarColorUncapped { get; set; }
 
-        [Description("Enable uncapped values (dual bars)"), Category("Data"),
-         Browsable(true), EditorBrowsable(EditorBrowsableState.Always), Bindable(true),
-         DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public bool EnableUncappedValues;
+        [Description("Highlighted item background color")]
+        [Category("Appearance")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        public Color HighlightBackgroundColor { get; set; }
+
+        [Description("Enable uncapped values (dual bars)")]
+        [Category("Data")]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [NotifyParentProperty(true)]
+        public bool EnableUncappedValues { get; set; }
+
+        public delegate void BarHoverEventHandler(int barIndex, string label, float value, float uncappedValue);
+        
+        [Description("Occurs when the mouse pointer is over one of the bars")]
+        public event BarHoverEventHandler BarHover;
 
         public DV2TotalsPane()
         {
@@ -54,7 +94,10 @@ namespace Mids_Reborn.Forms.Controls
             Resize += DV2TotalsPane_Resize;
 
             InitializeComponent();
+            
             skglControl1.PaintSurface += skglControl1_PaintSurface;
+            skglControl1.MouseLeave += skglControl1_MouseLeave;
+            skglControl1.MouseMove += skglControl1_MouseMove;
         }
 
         public void LockDraw()
@@ -152,7 +195,7 @@ namespace Mids_Reborn.Forms.Controls
 
         private void skglControl1_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
-            const float barWidthFactor = 0.333f;
+            const float barWidthFactor = 0.6f;
 
             e.Surface.Canvas.Clear(SKColors.Black);
 
@@ -174,16 +217,15 @@ namespace Mids_Reborn.Forms.Controls
             using var outlinePaint = new SKPaint { Color = SKColors.Black };
 
             var xStart = (int) Math.Round(Width * (1 - barWidthFactor)) - 2;
-            Debug.WriteLine($"{Name}<DV2TotalsPane> - items: {Items.Count}, max visible items: {MaxItems}");
-            Debug.WriteLine($"{Name}<DV2TotalsPane> - xStart: {xStart}, width: {Width}, globalMaxValue: {GlobalMaxValue}");
             var globalMaxValue = GlobalMaxValue < float.Epsilon ? 100 : GlobalMaxValue;
             for (var i = 0; i < Math.Min(Items.Count, MaxItems); i++)
             {
+                var scale = (Width - 1) * barWidthFactor / globalMaxValue;
                 var barGradientPaint = new SKPaint
                 {
                     Shader = SKShader.CreateLinearGradient(
-                        new SKPoint(xStart + 1, 0), new SKPoint(Width, 0),
-                        new[] { new SKColor((byte) Math.Round(BarColorMain.R / 4f), (byte) Math.Round(BarColorMain.G / 4f), (byte) Math.Round(BarColorMain.R / 4f)), FromColor(BarColorMain) }, // ???
+                        new SKPoint(xStart + 1, 0), new SKPoint(xStart + 1 + Items[i].Value * scale, 0),
+                        new[] { new SKColor((byte)Math.Round(BarColorMain.R / 4f), (byte)Math.Round(BarColorMain.G / 4f), (byte)Math.Round(BarColorMain.R / 4f)), FromColor(BarColorMain) },
                         new[] { 0, 1f },
                         SKShaderTileMode.Clamp
                     )
@@ -191,24 +233,19 @@ namespace Mids_Reborn.Forms.Controls
 
                 if (EnableUncappedValues)
                 {
-                    var scale = ((Width - 1) * barWidthFactor) / globalMaxValue;
                     e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, Width - 2, i * 12 + 12), barBg);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].Value * scale, i * 12 + 12), barGradientPaint);
-                    Debug.WriteLine($"  {Name}<DV2TotalsPane>: scale: {scale}, barUncapped #{i}: [{xStart + 1}, {xStart + 1 + Items[i].UncappedValue * scale}], uncappedValue: {Items[i].UncappedValue}");
-                    Debug.WriteLine($"  {Name}<DV2TotalsPane>: bar #{i}: [{xStart + 1}, {xStart + 1 + Items[i].Value * scale}], value: {Items[i].Value}");
                 }
                 else
                 {
-                    var scale = ((Width - 1) * barWidthFactor) / globalMaxValue;
                     e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, Width - 2, i * 12 + 12), barBg);
                     //e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].Value * scale, i * 12 + 12), barGradientPaint);
-                    Debug.WriteLine($"  {Name}<DV2TotalsPane>: scale: {scale}, bar #{i}: [{xStart + 1}, {xStart + 1 + Items[i].Value * scale}], value: {Items[i].Value}");
                 }
 
                 //e.Surface.Canvas.DrawText(Items[i].Name, new SKPoint(2, i * 12 + 4), textPaint);
-                DrawOutlineText(e.Surface.Canvas, Items[i].Name, new SKPoint(2 + LabelsFontSize / 2f, i * 12 + 4), SKColors.WhiteSmoke);
+                DrawOutlineText(e.Surface.Canvas, Items[i].Name, new SKPoint(2, i * 12 + 7 + LabelsFontSize / 2f), SKColors.WhiteSmoke);
             }
         }
 
@@ -234,5 +271,22 @@ namespace Mids_Reborn.Forms.Controls
         }
 
         #endregion
+
+        #region Event handlers
+
+        private void skglControl1_MouseLeave(object sender, EventArgs e)
+        {
+            HoveredBar = -1;
+            skglControl1.Invalidate();
+
+            BarHover?.Invoke(-1, "", 0, 0);
+        }
+
+        #endregion
+
+        private void skglControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            BarHover?.Invoke(HoveredBar, Items[HoveredBar].Name, Items[HoveredBar].Value, Items[HoveredBar].UncappedValue);
+        }
     }
 }
