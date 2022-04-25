@@ -119,7 +119,7 @@ namespace Mids_Reborn.Forms.Controls
         public void ClearItems(bool redraw = false)
         {
             Items.Clear();
-            if (!redraw)
+            if (!redraw | _DrawLock)
             {
                 return;
             }
@@ -130,7 +130,7 @@ namespace Mids_Reborn.Forms.Controls
         public void AddItem(Item item, bool redraw = false)
         {
             Items.Add(item);
-            if (!redraw)
+            if (!redraw | _DrawLock)
             {
                 return;
             }
@@ -212,6 +212,7 @@ namespace Mids_Reborn.Forms.Controls
             e.Surface.Canvas.DrawRect(new SKRect(0, 0, Width, Height), bgGradientPaint);
 
             using var barBg = new SKPaint { Color = SKColors.Black };
+            using var linePaint = new SKPaint { Color = SKColors.DarkRed };
             using var barUncapped = new SKPaint { Color = FromColor(BarColorUncapped) };
             using var textPaint = new SKPaint { Color = SKColors.WhiteSmoke };
             using var outlinePaint = new SKPaint { Color = SKColors.Black };
@@ -233,13 +234,22 @@ namespace Mids_Reborn.Forms.Controls
 
                 if (EnableUncappedValues)
                 {
-                    e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, Width - 2, i * 12 + 12), barBg);
-                    e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
+                    e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, xStart + 2 + Items[i].UncappedValue * scale, i * 12 + 13), barBg);
+                    if (Math.Abs(Items[i].UncappedValue - Items[i].Value) > float.Epsilon)
+                    {
+                        e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
+                    }
+
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].Value * scale, i * 12 + 12), barGradientPaint);
+
+                    if (Math.Abs(Items[i].UncappedValue - Items[i].Value) > float.Epsilon)
+                    {
+                        e.Surface.Canvas.DrawLine(new SKPoint(xStart + 2 + Items[i].Value * scale, i * 12 + 2), new SKPoint(xStart + 2 + Items[i].Value * scale, i * 12 + 13), linePaint);
+                    }
                 }
                 else
                 {
-                    e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, Width - 2, i * 12 + 12), barBg);
+                    e.Surface.Canvas.DrawRect(new SKRect(xStart, i * 12 + 2, xStart + 2 + Items[i].Value * scale, i * 12 + 13), barBg);
                     //e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].UncappedValue * scale, i * 12 + 12), barUncapped);
                     e.Surface.Canvas.DrawRect(new SKRect(xStart + 1, i * 12 + 3, xStart + 1 + Items[i].Value * scale, i * 12 + 12), barGradientPaint);
                 }

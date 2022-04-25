@@ -88,6 +88,14 @@ namespace Mids_Reborn.Forms.Controls
             public string TooltipText;
         }
 
+        private enum TotalsMiscEffectsType
+        {
+            Elusivity,
+            DebuffResistances,
+            MezResistances,
+            MezProtection
+        }
+
         #endregion
 
         public enum BoostType
@@ -107,11 +115,12 @@ namespace Mids_Reborn.Forms.Controls
         private static int EnhLevel;
         private bool FreezeScalerCB;
         private FlipAnimator _flipAnimator;
-        private readonly TabControlAdv _tabControlAdv;
         private TabsRendered _tabsRendered;
         private GridViewMouseEventInfo GridMouseOverEventLoc;
         private InfoType LayoutType;
-        private bool SmallSize = false;
+        private bool SmallSize;
+
+        private readonly TabControlAdv _tabControlAdv;
 
         private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
 
@@ -131,6 +140,130 @@ namespace Mids_Reborn.Forms.Controls
         // Group labels (effects tab)
         private static readonly List<string> GroupLabels = new()
             { "Resistance", "Defense", "Buffs", "Debuffs", "Summons/Grants", "Misc." };
+
+        public DataView2()
+        {
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
+            InitializeComponent();
+
+            _tabControlAdv = tabBox;
+            _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
+
+            _tabsRendered = new TabsRendered();
+            _tabsRendered.Reset();
+        }
+
+        // Set data for power
+        public void SetData(IPower enhancedPower = null, bool noLevel = false,
+            bool locked = false, int historyIdx = -1)
+        {
+            Locked = locked;
+            if (Locked)
+            {
+                ipbLock.Visible = true;
+                return;
+            }
+
+            if ((enhancedPower?.PowerIndex ?? -1) == (_enhancedPower?.PowerIndex ?? -1) & LayoutType == InfoType.Power)
+            {
+                return;
+            }
+
+            _enhancedPower = enhancedPower;
+            NoLevel = noLevel;
+            HistoryIdx = historyIdx;
+            BuildPowerEntry = HistoryIdx > -1
+                ? MidsContext.Character.CurrentBuild.Powers[HistoryIdx]
+                : null;
+            LayoutType = InfoType.Power;
+            _basePower = _enhancedPower == null ? null : DatabaseAPI.Database.Power[enhancedPower.PowerIndex];
+            _flipAnimator = new FlipAnimator(BuildPowerEntry);
+
+            Tabs.RenderTabs(this);
+        }
+
+        // Set data for enhancement
+        public void SetData(I9Slot enh, int level = -1)
+        {
+            if (Locked)
+            {
+                return;
+            }
+
+            LayoutType = InfoType.Enhancement;
+            EnhSlot = enh;
+            EnhLevel = level;
+
+            Tabs.RenderTabs(this);
+        }
+
+        public void Lock()
+        {
+            Locked = true;
+            ipbLock.Visible = true;
+        }
+
+        public void UpdateColorTheme()
+        {
+            if (_tabControlAdv.SelectedIndex != 0) return;
+
+            if (MidsContext.Character.IsHero())
+            {
+                tabPageAdv1.BackColor = Color.FromArgb(12, 56, 100);
+                tabPageAdv1.TabBackColor = Color.FromArgb(12, 56, 100);
+                _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
+                _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
+            }
+            else
+            {
+                tabPageAdv1.BackColor = Color.FromArgb(100, 12, 20);
+                tabPageAdv1.TabBackColor = Color.FromArgb(100, 12, 20);
+                _tabControlAdv.ActiveTabColor = Color.FromArgb(100, 12, 20);
+                _tabControlAdv.InactiveTabColor = Color.FromArgb(59, 7, 12);
+            }
+        }
+
+        private void InitScaler()
+        {
+            // Scales tab ? DataView2_Load ?
+            if (_basePower is { VariableEnabled: true } && HistoryIdx > -1)
+            {
+                FreezeScalerCB = true;
+                labelPowerScaler1.Text = string.IsNullOrWhiteSpace(_basePower.VariableName)
+                    ? "Targets"
+                    : _basePower.VariableName;
+                powerScaler1.Minimum = _basePower.VariableMin;
+                powerScaler1.Maximum = _basePower.VariableMax;
+                powerScaler1.Value = MidsContext.Character.CurrentBuild.Powers[HistoryIdx].VariableValue;
+                // Show range tooltip when mouseover ?
+                // Show current value when moving, mousedown ?
+                FreezeScalerCB = false;
+                panelPowerScaler1.Visible = true;
+            }
+            else
+            {
+                panelPowerScaler1.Visible = false;
+            }
+        }
+
+        public void ReInit()
+        {
+            richInfoSmall.Text = string.Empty;
+            richInfoLarge.Text = string.Empty;
+            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            {
+                Target = listInfos,
+                Loc = new Point(-1, -1),
+                InfoType = InfoType.Power
+            };
+
+            skDamageGraph1.LockDraw();
+            skDamageGraph1.nBaseVal = 0;
+            skDamageGraph1.nMaxEnhVal = 0;
+            skDamageGraph1.nEnhVal = 0;
+            skDamageGraph1.Text = string.Empty;
+            skDamageGraph1.UnlockDraw();
+        }
 
         #region Effect vector type sub-class
 
@@ -970,7 +1103,7 @@ namespace Mids_Reborn.Forms.Controls
 
                 public static SKBitmap CreateBitmap(IncarnateSlot incarnateSlot)
                 {
-                    var bitmap = new SKBitmap(new SKImageInfo(EnhImgSize, EnhImgSize, SKColorType.Rgba8888, SKAlphaType.Premul));
+                    var bitmap = new SKBitmap(new SKImageInfo(EnhImgSize, EnhImgSize)); // SKColorType.Rgba8888, SKAlphaType.Premul
                     using var canvas = new SKCanvas(bitmap);
                     var imgIndex = incarnateSlot switch
                     {
@@ -979,8 +1112,15 @@ namespace Mids_Reborn.Forms.Controls
                         IncarnateSlot.Hybrid => 28, 
                         IncarnateSlot.Interface => 29,
                         IncarnateSlot.Judgement => 30,
-                        IncarnateSlot.Lore => 31
+                        IncarnateSlot.Lore => 31,
+                        _ => 0
                     };
+
+                    if (imgIndex == 0)
+                    {
+                        return bitmap;
+                    }
+
                     var imgSourceRect = I9Gfx.GetImageRect(imgIndex);
                     var sourceRect = new SKRect(imgSourceRect.Left, imgSourceRect.Top, imgSourceRect.Right, imgSourceRect.Bottom);
                     var destRect = new SKRect(0, 0, EnhImgSize, EnhImgSize);
@@ -2907,6 +3047,28 @@ namespace Mids_Reborn.Forms.Controls
             {
                 private static DataView2 Root;
                 private static InfoType LayoutType;
+                private static readonly List<Enums.eMez> MezList = new()
+                {
+                    Enums.eMez.Held, Enums.eMez.Stunned, Enums.eMez.Sleep, Enums.eMez.Immobilized,
+                    Enums.eMez.Knockback, Enums.eMez.Repel, Enums.eMez.Confused, Enums.eMez.Terrorized,
+                    Enums.eMez.Taunt, Enums.eMez.Placate, Enums.eMez.Teleport
+                };
+
+                private static readonly List<Enums.eDamage> ElusivityDamageList = new()
+                {
+                    Enums.eDamage.Smashing, Enums.eDamage.Lethal, Enums.eDamage.Fire, Enums.eDamage.Cold,
+                    Enums.eDamage.Energy, Enums.eDamage.Negative, Enums.eDamage.Psionic, Enums.eDamage.Toxic,
+                    Enums.eDamage.Melee, Enums.eDamage.Ranged, Enums.eDamage.AoE
+                };
+
+                private static readonly List<Enums.eEffectType> DebuffEffectsList = new()
+                {
+                    Enums.eEffectType.Defense, Enums.eEffectType.Endurance, Enums.eEffectType.Recovery,
+                    Enums.eEffectType.PerceptionRadius, Enums.eEffectType.ToHit, Enums.eEffectType.RechargeTime,
+                    Enums.eEffectType.SpeedRunning, Enums.eEffectType.Regeneration
+                };
+
+                public static TotalsMiscEffectsType MiscEffectsType;
 
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
@@ -2916,9 +3078,32 @@ namespace Mids_Reborn.Forms.Controls
                     DisplayTotals();
                 }
 
+                public static void SwitchMiscEffectsType(TotalsMiscEffectsType displayType = TotalsMiscEffectsType.Elusivity)
+                {
+                    MiscEffectsType = displayType;
+
+                    DisplayMiscEffects();
+                }
+
+                public static void SwitchMiscEffectsType(int displayType = 0)
+                {
+                    MiscEffectsType = displayType switch
+                    {
+                        1 => TotalsMiscEffectsType.DebuffResistances,
+                        2 => TotalsMiscEffectsType.MezResistances,
+                        3 => TotalsMiscEffectsType.MezProtection,
+                        _ => TotalsMiscEffectsType.Elusivity
+                    };
+
+                    DisplayMiscEffects();
+                }
+
                 private static void DisplayTotals()
                 {
                     var displayStats = MidsContext.Character.DisplayStats;
+
+                    Root.dV2TotalsPane1L.LockDraw();
+                    Root.dV2TotalsPane1R.LockDraw();
 
                     Root.dV2TotalsPane1L.ClearItems();
                     Root.dV2TotalsPane1R.ClearItems();
@@ -2931,12 +3116,18 @@ namespace Mids_Reborn.Forms.Controls
                             continue;
                         }
 
-                        //var target = k < 6 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, vertically first
+                        //var target = k < Root.dV2TotalsPane1L.MaxItems ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, vertically first
                         var target = k % 2 == 0 ? Root.dV2TotalsPane1L : Root.dV2TotalsPane1R; // Stack, horizontally first
                         target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.Defense(i) / 100f,
                             displayStats.Defense(i) / 100f, true));
                         k++;
                     }
+
+                    Root.dV2TotalsPane1L.UnlockDraw();
+                    Root.dV2TotalsPane1R.UnlockDraw();
+
+                    Root.dV2TotalsPane2L.LockDraw();
+                    Root.dV2TotalsPane2R.LockDraw();
 
                     Root.dV2TotalsPane2L.ClearItems();
                     Root.dV2TotalsPane2R.ClearItems();
@@ -2948,14 +3139,112 @@ namespace Mids_Reborn.Forms.Controls
                             continue;
                         }
 
-                        //var target = k < 6 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
+                        //var target = k < Root.dV2TotalsPane2L.MaxItems ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
                         var target = k % 2 == 0 ? Root.dV2TotalsPane2L : Root.dV2TotalsPane2R;
                         target.AddItem(new DV2TotalsPane.Item(damageVectors[i], displayStats.DamageResistance(i, false) / 100f,
                             displayStats.DamageResistance(i, true) / 100f, true));
                         k++;
                     }
 
-                    // Misc effects ??
+                    Root.dV2TotalsPane2L.UnlockDraw();
+                    Root.dV2TotalsPane2R.UnlockDraw();
+
+                    DisplayMiscEffects();
+                }
+
+                private static void DisplayMiscEffects()
+                {
+                    var headerGroupText = MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => "Debuff Resistances",
+                        TotalsMiscEffectsType.MezResistances => "Mez Resistances",
+                        TotalsMiscEffectsType.MezProtection => "Mez Protection",
+                        _ => "Elusivity"
+                    };
+
+                    Root.label8.Text = $"Misc Effects ({headerGroupText}):";
+                    
+                    var cappedValues = MiscEffectsType switch
+                    {
+                        // Debuff resistances
+                        TotalsMiscEffectsType.DebuffResistances => DebuffEffectsList.Select(e => Math.Min(
+                                e == Enums.eEffectType.Defense
+                                    ? Statistics.MaxDefenseDebuffRes
+                                    : Statistics.MaxGenericDebuffRes,
+                                MidsContext.Character.Totals.DebuffRes[(int)e]))
+                            .ToList(),
+                        
+                        // Status resistances
+                        TotalsMiscEffectsType.MezResistances => MezList.Select(m => MidsContext.Character.Totals.MezRes[(int)m]).ToList(),
+
+                        // Status protection
+                        TotalsMiscEffectsType.MezProtection => MezList.Select(m => -MidsContext.Character.Totals.Mez[(int)m]).ToList(),
+
+                        // Elusivity
+                        _ => ElusivityDamageList.Cast<int>().Select(t => (MidsContext.Character.Totals.Elusivity[t] + (MidsContext.Config.Inc.DisablePvE ? 0.4f : 0)) * 100).ToList()
+                    };
+
+                    var uncappedValues = MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => DebuffEffectsList.Select(e => MidsContext.Character.Totals.DebuffRes[(int) e]).ToList(),
+                        _ => cappedValues
+                    };
+
+                    var labels = MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => DebuffEffectsList.Select(e => e.ToString()).ToList(),
+                        TotalsMiscEffectsType.Elusivity => ElusivityDamageList.Select(e => e.ToString()).ToList(),
+                        _ => MezList.Select(e => e.ToString()).ToList()
+                    };
+
+                    var backgroundColorEnd = MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => Color.FromArgb(0, 127, 127),
+                        TotalsMiscEffectsType.MezResistances => Color.FromArgb(127, 127, 0),
+                        TotalsMiscEffectsType.MezProtection => Color.FromArgb(127, 64, 0),
+                        _ => Color.FromArgb(141, 2, 200)
+                    };
+
+                    var barColorMain = MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => Color.FromArgb(0, 255, 255),
+                        TotalsMiscEffectsType.MezResistances => Color.FromArgb(255, 255, 0),
+                        TotalsMiscEffectsType.MezProtection => Color.FromArgb(255, 128, 0),
+                        _ => Color.FromArgb(163, 1, 231)
+                    };
+
+                    var barColorUncapped = MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => Color.FromArgb(0, 90, 127),
+                        TotalsMiscEffectsType.MezResistances => Color.FromArgb(255, 255, 0),
+                        TotalsMiscEffectsType.MezProtection => Color.FromArgb(255, 128, 0),
+                        _ => Color.FromArgb(163, 1, 231)
+                    };
+
+                    Root.dV2TotalsPane3L.LockDraw();
+                    Root.dV2TotalsPane3R.LockDraw();
+
+                    Root.dV2TotalsPane3L.EnableUncappedValues = MiscEffectsType == TotalsMiscEffectsType.DebuffResistances;
+                    Root.dV2TotalsPane3L.BackgroundColorEnd = backgroundColorEnd;
+                    Root.dV2TotalsPane3L.BarColorMain = barColorMain;
+                    Root.dV2TotalsPane3L.BarColorUncapped = barColorUncapped;
+
+                    Root.dV2TotalsPane3R.EnableUncappedValues = MiscEffectsType == TotalsMiscEffectsType.DebuffResistances;
+                    Root.dV2TotalsPane3R.BackgroundColorEnd = backgroundColorEnd;
+                    Root.dV2TotalsPane3R.BarColorMain = barColorMain;
+                    Root.dV2TotalsPane3R.BarColorUncapped = barColorUncapped;
+
+                    Root.dV2TotalsPane3L.ClearItems();
+                    Root.dV2TotalsPane3R.ClearItems();
+                    for (var i = 0; i < cappedValues.Count; i++)
+                    {
+                        var target = i % 2 == 0 ? Root.dV2TotalsPane3L : Root.dV2TotalsPane3R;
+                        target.AddItem(new DV2TotalsPane.Item(labels[i], cappedValues[i] / 100f,
+                            uncappedValues[i] / 100f, true));
+                    }
+
+                    Root.dV2TotalsPane3L.UnlockDraw();
+                    Root.dV2TotalsPane3R.UnlockDraw();
                 }
             }
 
@@ -3003,111 +3292,6 @@ namespace Mids_Reborn.Forms.Controls
         }
 
         #endregion
-
-        public DataView2()
-        {
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true);
-            InitializeComponent();
-
-            _tabControlAdv = tabBox;
-            _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
-            
-            _tabsRendered = new TabsRendered();
-            _tabsRendered.Reset();
-        }
-
-        // Set data for power
-        public void SetData(IPower enhancedPower = null, bool noLevel = false,
-            bool locked = false, int historyIdx = -1)
-        {
-            Locked = locked;
-            if (Locked)
-            {
-                ipbLock.Visible = true;
-                return;
-            }
-
-            if ((enhancedPower?.PowerIndex ?? -1) == (_enhancedPower?.PowerIndex ?? -1) & LayoutType == InfoType.Power)
-            {
-                return;
-            }
-
-            _enhancedPower = enhancedPower;
-            NoLevel = noLevel;
-            HistoryIdx = historyIdx;
-            BuildPowerEntry = HistoryIdx > -1
-                ? MidsContext.Character.CurrentBuild.Powers[HistoryIdx]
-                : null;
-            LayoutType = InfoType.Power;
-            _basePower = _enhancedPower == null ? null : DatabaseAPI.Database.Power[enhancedPower.PowerIndex];
-            _flipAnimator = new FlipAnimator(BuildPowerEntry);
-
-            Tabs.RenderTabs(this);
-        }
-
-        // Set data for enhancement
-        public void SetData(I9Slot enh, int level = -1)
-        {
-            if (Locked)
-            {
-                return;
-            }
-
-            LayoutType = InfoType.Enhancement;
-            EnhSlot = enh;
-            EnhLevel = level;
-
-            Tabs.RenderTabs(this);
-        }
-
-        public void Lock()
-        {
-            Locked = true;
-            ipbLock.Visible = true;
-        }
-
-        public void UpdateColorTheme()
-        {
-            if (_tabControlAdv.SelectedIndex != 0) return;
-
-            if (MidsContext.Character.IsHero())
-            {
-                tabPageAdv1.BackColor = Color.FromArgb(12, 56, 100);
-                tabPageAdv1.TabBackColor = Color.FromArgb(12, 56, 100);
-                _tabControlAdv.ActiveTabColor = Color.FromArgb(12, 56, 100);
-                _tabControlAdv.InactiveTabColor = Color.FromArgb(7, 33, 59);
-            }
-            else
-            {
-                tabPageAdv1.BackColor = Color.FromArgb(100, 12, 20);
-                tabPageAdv1.TabBackColor = Color.FromArgb(100, 12, 20);
-                _tabControlAdv.ActiveTabColor = Color.FromArgb(100, 12, 20);
-                _tabControlAdv.InactiveTabColor = Color.FromArgb(59, 7, 12);
-            }
-        }
-
-        private void InitScaler()
-        {
-            // Scales tab ? DataView2_Load ?
-            if (_basePower is { VariableEnabled: true } && HistoryIdx > -1)
-            {
-                FreezeScalerCB = true;
-                labelPowerScaler1.Text = string.IsNullOrWhiteSpace(_basePower.VariableName)
-                    ? "Targets"
-                    : _basePower.VariableName;
-                powerScaler1.Minimum = _basePower.VariableMin;
-                powerScaler1.Maximum = _basePower.VariableMax;
-                powerScaler1.Value = MidsContext.Character.CurrentBuild.Powers[HistoryIdx].VariableValue;
-                // Show range tooltip when mouseover ?
-                // Show current value when moving, mousedown ?
-                FreezeScalerCB = false;
-                panelPowerScaler1.Visible = true;
-            }
-            else
-            {
-                panelPowerScaler1.Visible = false;
-            }
-        }
 
         #region Event callbacks
 
@@ -3247,6 +3431,14 @@ namespace Mids_Reborn.Forms.Controls
 
             // BackColor doesn't stick when set in the designer
             ipbResize.BackColor = Color.Black;
+
+            // MaxItems doesn't stick when set in the designer
+            dV2TotalsPane1L.MaxItems = 6;
+            dV2TotalsPane1R.MaxItems = 6;
+            dV2TotalsPane2L.MaxItems = 6;
+            dV2TotalsPane2R.MaxItems = 6;
+            dV2TotalsPane3L.MaxItems = 6;
+            dV2TotalsPane3R.MaxItems = 6;
 
             skDamageGraph1.LockDraw();
             skDamageGraph1.nBaseVal = 0;
@@ -3415,25 +3607,86 @@ namespace Mids_Reborn.Forms.Controls
                 : IconChar.ChevronUp;
         }
 
-        #endregion
-
-        public void ReInit()
+        private void miscEffectsSelectorBtn_MouseEnter(object sender, EventArgs e)
         {
-            richInfoSmall.Text = string.Empty;
-            richInfoLarge.Text = string.Empty;
-            GridMouseOverEventLoc = new GridViewMouseEventInfo
+            var target = (Button) sender;
+            var ret = int.TryParse(target.Tag.ToString(), out var tagValue);
+            if (!ret)
             {
-                Target = listInfos,
-                Loc = new Point(-1, -1),
-                InfoType = InfoType.Power
+                tagValue = -1;
+            }
+
+            if (tagValue == (int) Tabs.Totals.MiscEffectsType)
+            {
+                return;
+            }
+
+            target.BackColor = Color.FromArgb(3, 153, 98);
+            label8.Text = $"[Switch to {target.Text} view]";
+        }
+
+        private void miscEffectsSelectorBtn_MouseLeave(object sender, EventArgs e)
+        {
+            var target = (Button) sender;
+            target.BackColor = Color.FromArgb(1, 41, 26);
+            label8.Text = "Misc effects:";
+        }
+
+        private void miscEffectsSelectorBtn_Click(object sender, EventArgs e)
+        {
+            var target = (Button) sender;
+
+            
+            var ret = int.TryParse(target.Tag.ToString(), out var tagValue);
+            if (!ret)
+            {
+                tagValue = 0;
+            }
+
+            panelMiscTypeSelector.Visible = false;
+            dV2TotalsPane3L.Visible = true;
+            dV2TotalsPane3R.Visible = true;
+            Tabs.Totals.SwitchMiscEffectsType(tagValue);
+        }
+
+        private void panelMiscTypeSelector_Click(object sender, EventArgs e)
+        {
+            panelMiscTypeSelector.Visible = false;
+            dV2TotalsPane3L.Visible = true;
+            dV2TotalsPane3R.Visible = true;
+        }
+
+        private void DvPaneMisc_MouseClick(object sender, MouseEventArgs e)
+        {
+            var target = (DV2TotalsPane) sender;
+            
+            Debug.WriteLine($"DvPaneMisc_MouseClick({target.Name}, {e.Button})");
+
+            if (e.Button != MouseButtons.Right)
+            {
+                return;
+            }
+
+            dV2TotalsPane3L.Visible = false;
+            dV2TotalsPane3R.Visible = false;
+            var targetBtn = Tabs.Totals.MiscEffectsType switch
+            {
+                TotalsMiscEffectsType.DebuffResistances => btnMiscTotals2,
+                TotalsMiscEffectsType.MezResistances => btnMiscTotals3,
+                TotalsMiscEffectsType.MezProtection => btnMiscTotals4,
+                _ => btnMiscTotals1
             };
 
-            skDamageGraph1.LockDraw();
-            skDamageGraph1.nBaseVal = 0;
-            skDamageGraph1.nMaxEnhVal = 0;
-            skDamageGraph1.nEnhVal = 0;
-            skDamageGraph1.Text = string.Empty;
-            skDamageGraph1.UnlockDraw();
+            targetBtn.BackColor = Color.FromArgb(2, 84, 54);
+            panelMiscTypeSelector.Visible = true;
         }
+
+        private void miscEffectsSelectorBtn_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, DisplayRectangle, Color.FromArgb(77, 77, 77), ButtonBorderStyle.Solid);
+        }
+
+        #endregion
+
     }
 }
