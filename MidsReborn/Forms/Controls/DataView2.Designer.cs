@@ -1086,7 +1086,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane3R.Size = new System.Drawing.Size(176, 100);
             this.dV2TotalsPane3R.TabIndex = 3;
             this.dV2TotalsPane3R.TabStop = false;
-            this.dV2TotalsPane3R.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DvPaneMisc_MouseClick);
+            //this.dV2TotalsPane3R.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DvPaneMisc_MouseClick);
             // 
             // dV2TotalsPane3L
             // 
@@ -1106,7 +1106,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane3L.Size = new System.Drawing.Size(176, 100);
             this.dV2TotalsPane3L.TabIndex = 2;
             this.dV2TotalsPane3L.TabStop = false;
-            this.dV2TotalsPane3L.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DvPaneMisc_MouseClick);
+            //this.dV2TotalsPane3L.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DvPaneMisc_MouseClick);
             // 
             // label8
             // 

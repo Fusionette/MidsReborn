@@ -121,6 +121,8 @@ namespace Mids_Reborn.Forms.Controls
         private bool SmallSize;
 
         private readonly TabControlAdv _tabControlAdv;
+        private readonly DV2TotalsPane _dv2TotalsPane3L;
+        private readonly DV2TotalsPane _dv2TotalsPane3R;
 
         private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
 
@@ -148,6 +150,12 @@ namespace Mids_Reborn.Forms.Controls
 
             _tabControlAdv = tabBox;
             _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
+
+            _dv2TotalsPane3L = dV2TotalsPane3L;
+            _dv2TotalsPane3R = dV2TotalsPane3R;
+
+            _dv2TotalsPane3L.MouseClick += DvPaneMisc_MouseClick;
+            _dv2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
 
             _tabsRendered = new TabsRendered();
             _tabsRendered.Reset();
