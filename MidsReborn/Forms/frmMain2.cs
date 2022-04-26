@@ -2641,7 +2641,7 @@ namespace Mids_Reborn.Forms
         private void Info_Power()
         {
             fData?.UpdateData(dvLastPower);
-            myDataView.Update();
+            myDataView.UpdateData();
             FloatingDataForm?.Activate();
         }
 

@@ -176,7 +176,7 @@ namespace Mids_Reborn.Forms.Controls
                 ? MidsContext.Character.CurrentBuild.Powers[HistoryIdx]
                 : null;
             LayoutType = InfoType.Power;
-            _basePower = _enhancedPower == null ? null : DatabaseAPI.Database.Power[enhancedPower.PowerIndex];
+            _basePower = _enhancedPower == null ? null : DatabaseAPI.Database.Power[_enhancedPower.PowerIndex];
             _flipAnimator = new FlipAnimator(BuildPowerEntry);
 
             Tabs.RenderTabs(this);
@@ -197,7 +197,9 @@ namespace Mids_Reborn.Forms.Controls
             Tabs.RenderTabs(this);
         }
 
-        public void Update()
+        // Only update current data
+        // E.g. when clicking on main UI buttons
+        public void UpdateData()
         {
             Tabs.RenderTabs(this);
         }
