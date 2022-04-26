@@ -197,6 +197,11 @@ namespace Mids_Reborn.Forms.Controls
             Tabs.RenderTabs(this);
         }
 
+        public void Update()
+        {
+            Tabs.RenderTabs(this);
+        }
+
         public void Lock()
         {
             Locked = true;

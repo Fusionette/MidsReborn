@@ -2484,7 +2484,7 @@ namespace Mids_Reborn.Forms
         private void ibPvX_ButtonClicked()
         {
             MidsContext.Config.Inc.DisablePvE = ibPvX.Checked;
-            RefreshInfo();
+            RefreshInfo(true);
         }
 
         private void ibRecipe_ButtonClicked()
@@ -2601,8 +2601,7 @@ namespace Mids_Reborn.Forms
             var powIndex = -1;
             if (MainModule.MidsController.Toon.Locked)
             {
-                var num2 = MidsContext.Character.CurrentBuild.Powers.Count - 1;
-                for (var index = 0; index <= num2; ++index)
+                for (var index = 0; index < MidsContext.Character.CurrentBuild.Powers.Count; index++)
                 {
                     if (MidsContext.Character.CurrentBuild.Powers[index].NIDPower != powerIdx)
                         continue;
@@ -2636,7 +2635,14 @@ namespace Mids_Reborn.Forms
                 return;
             }
 
-            FloatingDataForm.Activate();
+            FloatingDataForm?.Activate();
+        }
+
+        private void Info_Power()
+        {
+            fData?.UpdateData(dvLastPower);
+            myDataView.Update();
+            FloatingDataForm?.Activate();
         }
 
         private void info_Totals()
@@ -4670,12 +4676,22 @@ namespace Mids_Reborn.Forms
             lblLockedAncillary.Refresh();
         }
 
-        private void RefreshInfo()
+        private void RefreshInfo(bool minimalUpdate = false)
         {
             info_Totals();
             if (dvLastPower <= -1)
+            {
                 return;
-            Info_Power(dvLastPower, dvLastEnh, dvLastNoLev, DataViewLocked);
+            }
+
+            if (minimalUpdate)
+            {
+                Info_Power();
+            }
+            else
+            {
+                Info_Power(dvLastPower, dvLastEnh, dvLastNoLev, DataViewLocked);
+            }
         }
 
         private void RefreshTabs(int iPower, I9Slot iEnh, int iLevel = -1)

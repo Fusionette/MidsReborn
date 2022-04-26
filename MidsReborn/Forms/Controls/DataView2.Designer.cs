@@ -1082,6 +1082,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane3R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane3R.MaxItems = 0;
             this.dV2TotalsPane3R.Name = "dV2TotalsPane3R";
+            this.dV2TotalsPane3R.ShowNumbers = true;
             this.dV2TotalsPane3R.Size = new System.Drawing.Size(176, 100);
             this.dV2TotalsPane3R.TabIndex = 3;
             this.dV2TotalsPane3R.TabStop = false;
@@ -1101,6 +1102,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane3L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane3L.MaxItems = 0;
             this.dV2TotalsPane3L.Name = "dV2TotalsPane3L";
+            this.dV2TotalsPane3L.ShowNumbers = true;
             this.dV2TotalsPane3L.Size = new System.Drawing.Size(176, 100);
             this.dV2TotalsPane3L.TabIndex = 2;
             this.dV2TotalsPane3L.TabStop = false;
@@ -1162,6 +1164,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane2R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2R.MaxItems = 0;
             this.dV2TotalsPane2R.Name = "dV2TotalsPane2R";
+            this.dV2TotalsPane2R.ShowNumbers = true;
             this.dV2TotalsPane2R.Size = new System.Drawing.Size(176, 88);
             this.dV2TotalsPane2R.TabIndex = 5;
             this.dV2TotalsPane2R.TabStop = false;
@@ -1179,6 +1182,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane2L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2L.MaxItems = 0;
             this.dV2TotalsPane2L.Name = "dV2TotalsPane2L";
+            this.dV2TotalsPane2L.ShowNumbers = true;
             this.dV2TotalsPane2L.Size = new System.Drawing.Size(176, 88);
             this.dV2TotalsPane2L.TabIndex = 4;
             this.dV2TotalsPane2L.TabStop = false;
@@ -1196,6 +1200,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane1R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1R.MaxItems = 0;
             this.dV2TotalsPane1R.Name = "dV2TotalsPane1R";
+            this.dV2TotalsPane1R.ShowNumbers = true;
             this.dV2TotalsPane1R.Size = new System.Drawing.Size(176, 96);
             this.dV2TotalsPane1R.TabIndex = 2;
             this.dV2TotalsPane1R.TabStop = false;
@@ -1213,6 +1218,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane1L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1L.MaxItems = 0;
             this.dV2TotalsPane1L.Name = "dV2TotalsPane1L";
+            this.dV2TotalsPane1L.ShowNumbers = true;
             this.dV2TotalsPane1L.Size = new System.Drawing.Size(176, 96);
             this.dV2TotalsPane1L.TabIndex = 1;
             this.dV2TotalsPane1L.TabStop = false;
