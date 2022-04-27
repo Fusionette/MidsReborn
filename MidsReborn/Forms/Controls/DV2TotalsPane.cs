@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SkiaSharp;
@@ -16,6 +15,8 @@ namespace Mids_Reborn.Forms.Controls
         private const float LabelsFontSize = 7;
         private int HoveredBar = -1;
         private bool _DrawLock;
+
+        #region Custom events
 
         public event EventHandler<bool> PaneVisibilityChanged;
 
@@ -40,6 +41,14 @@ namespace Mids_Reborn.Forms.Controls
             }
         }
 
+        public delegate void BarHoverEventHandler(int barIndex, string label, float value, float uncappedValue);
+
+        [Description("Occurs when the mouse pointer is over one of the bars")]
+        public event BarHoverEventHandler BarHover;
+
+        #endregion
+
+        #region Public fields
 
         [Description("Maximum visible items")]
         [Category("Data")]
@@ -114,10 +123,7 @@ namespace Mids_Reborn.Forms.Controls
         [NotifyParentProperty(true)]
         public bool EnableUncappedValues { get; set; }
 
-        public delegate void BarHoverEventHandler(int barIndex, string label, float value, float uncappedValue);
-        
-        [Description("Occurs when the mouse pointer is over one of the bars")]
-        public event BarHoverEventHandler BarHover;
+        #endregion
 
         public DV2TotalsPane()
         {
@@ -126,7 +132,6 @@ namespace Mids_Reborn.Forms.Controls
             Load += DV2TotalsPane_Load;
             Resize += DV2TotalsPane_Resize;
             PaneVisibilityChanged += OnPaneVisibilityChanged;
-            MouseClick += OnMouseClick;
             InitializeComponent();
             
             skglControl1.PaintSurface += skglControl1_PaintSurface;
@@ -134,15 +139,7 @@ namespace Mids_Reborn.Forms.Controls
             skglControl1.MouseMove += skglControl1_MouseMove;
         }
 
-        private void OnMouseClick(object sender, MouseEventArgs e)
-        {
-            Debug.WriteLine(e.Button.ToString());
-        }
-
-        private void OnPaneVisibilityChanged(object sender, bool e)
-        {
-            Visible = e;
-        }
+        #region IDrawLock implementation
 
         public void LockDraw()
         {
@@ -159,6 +156,10 @@ namespace Mids_Reborn.Forms.Controls
 
             Draw();
         }
+
+        #endregion
+
+        #region Helper methods
 
         public void ClearItems(bool redraw = false)
         {
@@ -233,6 +234,10 @@ namespace Mids_Reborn.Forms.Controls
             canvas.DrawPath(outlinePath, outlinePaint);
             canvas.DrawText(text, location, textPaint);
         }
+
+        #endregion
+
+        #region Event callbacks
 
         private void DV2TotalsPane_Load(object sender, EventArgs e)
         {
@@ -320,6 +325,26 @@ namespace Mids_Reborn.Forms.Controls
             }
         }
 
+        private void skglControl1_MouseLeave(object sender, EventArgs e)
+        {
+            HoveredBar = -1;
+            skglControl1.Invalidate();
+
+            BarHover?.Invoke(-1, "", 0, 0);
+        }
+
+        private void skglControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            BarHover?.Invoke(HoveredBar, Items[HoveredBar].Name, Items[HoveredBar].Value, Items[HoveredBar].UncappedValue);
+        }
+
+        private void OnPaneVisibilityChanged(object sender, bool e)
+        {
+            Visible = e;
+        }
+
+        #endregion
+
         #region Table label sub-class
 
         public class Item
@@ -339,23 +364,6 @@ namespace Mids_Reborn.Forms.Controls
                 _UncappedValue = uncappedValue;
                 DisplayPercentage = displayPercentage;
             }
-        }
-
-        #endregion
-
-        #region Event handlers
-
-        private void skglControl1_MouseLeave(object sender, EventArgs e)
-        {
-            HoveredBar = -1;
-            skglControl1.Invalidate();
-
-            BarHover?.Invoke(-1, "", 0, 0);
-        }
-
-        private void skglControl1_MouseMove(object sender, MouseEventArgs e)
-        {
-            BarHover?.Invoke(HoveredBar, Items[HoveredBar].Name, Items[HoveredBar].Value, Items[HoveredBar].UncappedValue);
         }
 
         #endregion

@@ -158,31 +158,6 @@ namespace Mids_Reborn.Forms.Controls
             dV2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
         }
 
-        private void DvPaneMisc_MouseClick(object sender, MouseEventArgs e)
-        {
-            var target = (SKGLControl)sender;
-
-            if (e.Button != MouseButtons.Right)
-            {
-                return;
-            }
-
-            Debug.WriteLine($"DvPaneMisc_MouseClick({target.Parent.Name}, {e.Button})");
-
-            dV2TotalsPane3L.Visible = false;
-            dV2TotalsPane3R.Visible = false;
-            var targetBtn = Tabs.Totals.MiscEffectsType switch
-            {
-                TotalsMiscEffectsType.DebuffResistances => btnMiscTotals2,
-                TotalsMiscEffectsType.MezResistances => btnMiscTotals3,
-                TotalsMiscEffectsType.MezProtection => btnMiscTotals4,
-                _ => btnMiscTotals1
-            };
-
-            targetBtn.BackColor = Color.FromArgb(2, 84, 54);
-            panelMiscTypeSelector.Visible = true;
-        }
-
         // Set data for power
         public void SetData(IPower enhancedPower = null, bool noLevel = false,
             bool locked = false, int historyIdx = -1)
@@ -3644,6 +3619,36 @@ namespace Mids_Reborn.Forms.Controls
                 : IconChar.ChevronUp;
         }
 
+        private void DvPaneMisc_MouseClick(object sender, MouseEventArgs e)
+        {
+            var target = (SKGLControl) sender;
+
+            if (e.Button != MouseButtons.Right)
+            {
+                return;
+            }
+
+
+            dV2TotalsPane3L.Visible = false;
+            dV2TotalsPane3R.Visible = false;
+            var targetBtn = Tabs.Totals.MiscEffectsType switch
+            {
+                TotalsMiscEffectsType.DebuffResistances => btnMiscTotals2,
+                TotalsMiscEffectsType.MezResistances => btnMiscTotals3,
+                TotalsMiscEffectsType.MezProtection => btnMiscTotals4,
+                _ => btnMiscTotals1
+            };
+
+            // Mark active mode button
+            var modeButtons = new[] { btnMiscTotals1, btnMiscTotals2, btnMiscTotals3, btnMiscTotals4 };
+            foreach (var btn in modeButtons)
+            {
+                btn.BackColor = btn.Name == targetBtn.Name ? Color.FromArgb(2, 81, 58) : Color.FromArgb(1, 41, 26);
+            }
+
+            panelMiscTypeSelector.Visible = true;
+        }
+
         private void miscEffectsSelectorBtn_MouseEnter(object sender, EventArgs e)
         {
             var target = (Button) sender;
@@ -3665,8 +3670,27 @@ namespace Mids_Reborn.Forms.Controls
         private void miscEffectsSelectorBtn_MouseLeave(object sender, EventArgs e)
         {
             var target = (Button) sender;
+            var ret = int.TryParse(target.Tag.ToString(), out var tagValue);
+            if (!ret)
+            {
+                tagValue = -1;
+            }
+
+            if (tagValue == (int)Tabs.Totals.MiscEffectsType)
+            {
+                return;
+            }
+
             target.BackColor = Color.FromArgb(1, 41, 26);
-            label8.Text = "Misc effects:";
+            var headerGroupText = Tabs.Totals.MiscEffectsType switch
+            {
+                TotalsMiscEffectsType.DebuffResistances => "Debuff Resistances",
+                TotalsMiscEffectsType.MezResistances => "Mez Resistances",
+                TotalsMiscEffectsType.MezProtection => "Mez Protection",
+                _ => "Elusivity"
+            };
+
+            label8.Text = $"Misc Effects ({headerGroupText}):";
         }
 
         private void miscEffectsSelectorBtn_Click(object sender, EventArgs e)
