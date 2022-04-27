@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SkiaSharp;
@@ -15,6 +16,30 @@ namespace Mids_Reborn.Forms.Controls
         private const float LabelsFontSize = 7;
         private int HoveredBar = -1;
         private bool _DrawLock;
+
+        public event EventHandler<bool> PaneVisibilityChanged;
+
+
+        public new event MouseEventHandler MouseClick
+        {
+            add
+            {
+                base.MouseClick += value;
+                foreach (Control control in Controls)
+                {
+                    control.MouseClick += value;
+                }
+            }
+            remove
+            {
+                base.MouseClick -= value;
+                foreach (Control control in Controls)
+                {
+                    control.MouseClick -= value;
+                }
+            }
+        }
+
 
         [Description("Maximum visible items")]
         [Category("Data")]
@@ -100,12 +125,23 @@ namespace Mids_Reborn.Forms.Controls
 
             Load += DV2TotalsPane_Load;
             Resize += DV2TotalsPane_Resize;
-
+            PaneVisibilityChanged += OnPaneVisibilityChanged;
+            MouseClick += OnMouseClick;
             InitializeComponent();
             
             skglControl1.PaintSurface += skglControl1_PaintSurface;
             skglControl1.MouseLeave += skglControl1_MouseLeave;
             skglControl1.MouseMove += skglControl1_MouseMove;
+        }
+
+        private void OnMouseClick(object sender, MouseEventArgs e)
+        {
+            Debug.WriteLine(e.Button.ToString());
+        }
+
+        private void OnPaneVisibilityChanged(object sender, bool e)
+        {
+            Visible = e;
         }
 
         public void LockDraw()

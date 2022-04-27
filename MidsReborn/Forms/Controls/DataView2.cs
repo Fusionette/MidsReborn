@@ -23,7 +23,7 @@ namespace Mids_Reborn.Forms.Controls
 
         public event UnlockEventHandler Unlock;
         public event TabChangedEventHandler TabChanged;
-
+        
         #region Private enums & structs
 
         private enum BuffEffectType
@@ -151,14 +151,36 @@ namespace Mids_Reborn.Forms.Controls
             _tabControlAdv = tabBox;
             _tabControlAdv.SelectedIndexChanged += tabBox_TabIndexChanged;
 
-            _dv2TotalsPane3L = dV2TotalsPane3L;
-            _dv2TotalsPane3R = dV2TotalsPane3R;
-
-            _dv2TotalsPane3L.MouseClick += DvPaneMisc_MouseClick;
-            _dv2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
-
             _tabsRendered = new TabsRendered();
             _tabsRendered.Reset();
+
+            dV2TotalsPane3L.MouseClick += DvPaneMisc_MouseClick;
+            dV2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
+        }
+
+        private void DvPaneMisc_MouseClick(object sender, MouseEventArgs e)
+        {
+            var target = (SKGLControl)sender;
+
+            if (e.Button != MouseButtons.Right)
+            {
+                return;
+            }
+
+            Debug.WriteLine($"DvPaneMisc_MouseClick({target.Parent.Name}, {e.Button})");
+
+            dV2TotalsPane3L.Visible = false;
+            dV2TotalsPane3R.Visible = false;
+            var targetBtn = Tabs.Totals.MiscEffectsType switch
+            {
+                TotalsMiscEffectsType.DebuffResistances => btnMiscTotals2,
+                TotalsMiscEffectsType.MezResistances => btnMiscTotals3,
+                TotalsMiscEffectsType.MezProtection => btnMiscTotals4,
+                _ => btnMiscTotals1
+            };
+
+            targetBtn.BackColor = Color.FromArgb(2, 84, 54);
+            panelMiscTypeSelector.Visible = true;
         }
 
         // Set data for power
@@ -3669,31 +3691,6 @@ namespace Mids_Reborn.Forms.Controls
             panelMiscTypeSelector.Visible = false;
             dV2TotalsPane3L.Visible = true;
             dV2TotalsPane3R.Visible = true;
-        }
-
-        private void DvPaneMisc_MouseClick(object sender, MouseEventArgs e)
-        {
-            var target = (DV2TotalsPane) sender;
-            
-            Debug.WriteLine($"DvPaneMisc_MouseClick({target.Name}, {e.Button})");
-
-            if (e.Button != MouseButtons.Right)
-            {
-                return;
-            }
-
-            dV2TotalsPane3L.Visible = false;
-            dV2TotalsPane3R.Visible = false;
-            var targetBtn = Tabs.Totals.MiscEffectsType switch
-            {
-                TotalsMiscEffectsType.DebuffResistances => btnMiscTotals2,
-                TotalsMiscEffectsType.MezResistances => btnMiscTotals3,
-                TotalsMiscEffectsType.MezProtection => btnMiscTotals4,
-                _ => btnMiscTotals1
-            };
-
-            targetBtn.BackColor = Color.FromArgb(2, 84, 54);
-            panelMiscTypeSelector.Visible = true;
         }
 
         private void miscEffectsSelectorBtn_Paint(object sender, PaintEventArgs e)
