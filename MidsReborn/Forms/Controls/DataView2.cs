@@ -74,6 +74,12 @@ namespace Mids_Reborn.Forms.Controls
             public InfoType InfoType;
         }
 
+        private struct TotalsPaneMouseEventInfo
+        {
+            public string ContainerControlName;
+            public Point Loc;
+        }
+
         private enum InfoType
         {
             Power,
@@ -98,6 +104,8 @@ namespace Mids_Reborn.Forms.Controls
 
         #endregion
 
+        #region Public enums & structs
+
         public enum BoostType
         {
             Reduction,
@@ -105,6 +113,8 @@ namespace Mids_Reborn.Forms.Controls
             Enhancement,
             Extra
         }
+
+        #endregion
 
         private static IPower _basePower;
         private static IPower _enhancedPower;
@@ -152,10 +162,15 @@ namespace Mids_Reborn.Forms.Controls
             _tabsRendered = new TabsRendered();
             _tabsRendered.Reset();
 
-            dV2TotalsPane3L.MouseClick += DvPaneMisc_MouseClick;
-            dV2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
+            dV2TotalsPane1L.BarHover += DvPaneMisc_BarHover;
+            dV2TotalsPane1R.BarHover += DvPaneMisc_BarHover;
+            dV2TotalsPane2L.BarHover += DvPaneMisc_BarHover;
+            dV2TotalsPane2R.BarHover += DvPaneMisc_BarHover;
 
+            dV2TotalsPane3L.MouseClick += DvPaneMisc_MouseClick;
             dV2TotalsPane3L.BarHover += DvPaneMisc_BarHover;
+
+            dV2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
             dV2TotalsPane3R.BarHover += DvPaneMisc_BarHover;
         }
 
@@ -277,8 +292,11 @@ namespace Mids_Reborn.Forms.Controls
             skDamageGraph1.Text = string.Empty;
             skDamageGraph1.UnlockDraw();
 
-            Tabs.Totals.TooltipTargetControl = ""; // Move to dedicated struct ?
-            Tabs.Totals.MousePoint = new Point(-1, -1);
+            Tabs.Totals.PaneMouseEventInfo = new TotalsPaneMouseEventInfo
+            {
+                ContainerControlName = "",
+                Loc = new Point(-1, -1)
+            };
         }
 
         #region Effect vector type sub-class
@@ -3061,6 +3079,13 @@ namespace Mids_Reborn.Forms.Controls
 
             public static class Totals
             {
+                public static class Colors
+                {
+                    public static readonly Color ButtonNormalColor = Color.FromArgb(1, 41, 26);
+                    public static readonly Color ButtonSelectedColor = Color.FromArgb(2, 81, 58);
+                    public static readonly Color ButtonHighlightColor = Color.FromArgb(3, 153, 98);
+                }
+
                 private static DataView2 Root;
                 private static InfoType LayoutType;
                 private static readonly List<Enums.eMez> MezList = new()
@@ -3085,8 +3110,12 @@ namespace Mids_Reborn.Forms.Controls
                 };
 
                 public static TotalsMiscEffectsType MiscEffectsType;
-                public static Point MousePoint = new(-1, -1);
-                public static string TooltipTargetControl = "";
+
+                public static TotalsPaneMouseEventInfo PaneMouseEventInfo = new()
+                {
+                    Loc = new Point(-1, -1),
+                    ContainerControlName = ""
+                };
 
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
@@ -3649,7 +3678,7 @@ namespace Mids_Reborn.Forms.Controls
             var modeButtons = new[] { btnMiscTotals1, btnMiscTotals2, btnMiscTotals3, btnMiscTotals4 };
             foreach (var btn in modeButtons)
             {
-                btn.BackColor = btn.Name == targetBtn.Name ? Color.FromArgb(2, 81, 58) : Color.FromArgb(1, 41, 26); // Move to Tabs.Totals
+                btn.BackColor = btn.Name == targetBtn.Name ? Tabs.Totals.Colors.ButtonSelectedColor : Tabs.Totals.Colors.ButtonNormalColor;
             }
 
             panelMiscTypeSelector.Visible = true;
@@ -3666,27 +3695,46 @@ namespace Mids_Reborn.Forms.Controls
                 return;
             }
 
-            if (containerControlName == Tabs.Totals.TooltipTargetControl & mouseLoc.Equals(Tabs.Totals.MousePoint))
+            if (containerControlName == Tabs.Totals.PaneMouseEventInfo.ContainerControlName & mouseLoc.Equals(Tabs.Totals.PaneMouseEventInfo.Loc))
             {
                 return;
             }
 
-            Tabs.Totals.TooltipTargetControl = containerControlName;
-            Tabs.Totals.MousePoint = new Point(mouseLoc.X, mouseLoc.Y);
-
-            label = Tabs.Totals.MiscEffectsType switch
+            Tabs.Totals.PaneMouseEventInfo = new TotalsPaneMouseEventInfo
             {
-                TotalsMiscEffectsType.DebuffResistances => $"Resistance to {label} Debuff",
-                TotalsMiscEffectsType.MezResistances => $"Resistance to {label}",
-                TotalsMiscEffectsType.MezProtection => $"Protection against {label}",
-                _ => $"Elusivity({label})"
+                ContainerControlName = containerControlName,
+                Loc = mouseLoc
             };
 
-            var displayPercentage = Tabs.Totals.MiscEffectsType != TotalsMiscEffectsType.MezProtection;
+            switch (containerControlName)
+            {
+                case "dV2TotalsPane1L":
+                case "dV2TotalsPane1R":
+                    label = $"Defense to {label}";
+                    break;
 
-            toolTip1.SetToolTip(target, Math.Abs(value - uncappedValue) < float.Epsilon
+                case "dV2TotalsPane2L":
+                case "dV2TotalsPane2R":
+                    label = $"Resistance to {label}";
+                    break;
+
+                case "dV2TotalsPane3L":
+                case "dV2TotalsPane3R":
+                    label = Tabs.Totals.MiscEffectsType switch
+                    {
+                        TotalsMiscEffectsType.DebuffResistances => $"Resistance to {label} Debuff",
+                        TotalsMiscEffectsType.MezResistances => $"Resistance to {label}",
+                        TotalsMiscEffectsType.MezProtection => $"Protection against {label}",
+                        _ => $"Elusivity({label})"
+                    };
+                    break;
+            }
+
+            var displayPercentage = !(containerControlName == "dV2TotalsPane3L" | containerControlName == "dV2TotalsPane3R") || Tabs.Totals.MiscEffectsType != TotalsMiscEffectsType.MezProtection;
+
+            toolTip1.SetToolTip(target, Math.Abs(value - uncappedValue) < 0.01
                 ? $"{label}: {value:###0.##}{(displayPercentage ? "%" : "")}"
-                : $"{label}:\r\n Value: {uncappedValue}{(displayPercentage ? "%" : "")}\r\n Capped at {value}{(displayPercentage ? "%" : "")}");
+                : $"{label}:\r\n Value: {uncappedValue:###0.##}{(displayPercentage ? "%" : "")}\r\n Capped at {value:###0.##}{(displayPercentage ? "%" : "")}");
         }
 
         private void miscEffectsSelectorBtn_MouseEnter(object sender, EventArgs e)
@@ -3703,7 +3751,7 @@ namespace Mids_Reborn.Forms.Controls
                 return;
             }
 
-            target.BackColor = Color.FromArgb(3, 153, 98); // Move to Tabs.Totals
+            target.BackColor = Tabs.Totals.Colors.ButtonHighlightColor;
             label8.Text = $"[Switch to {target.Text} view]";
         }
 
@@ -3721,7 +3769,7 @@ namespace Mids_Reborn.Forms.Controls
                 return;
             }
 
-            target.BackColor = Color.FromArgb(1, 41, 26); // Move to Tabs.Totals
+            target.BackColor = Tabs.Totals.Colors.ButtonNormalColor;
             var headerGroupText = Tabs.Totals.MiscEffectsType switch // Move to Tabs.Totals
             {
                 TotalsMiscEffectsType.DebuffResistances => "Debuff Resistances",

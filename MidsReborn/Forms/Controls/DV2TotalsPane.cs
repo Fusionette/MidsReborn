@@ -285,7 +285,7 @@ namespace Mids_Reborn.Forms.Controls
                 {
                     Shader = SKShader.CreateLinearGradient(
                         new SKPoint(xStart + 1, 0), new SKPoint(xStart + 1 + Items[i].Value * scale, 0),
-                        new[] { new SKColor((byte) Math.Round(BarColorMain.R / 4f), (byte) Math.Round(BarColorMain.G / 4f), (byte) Math.Round(BarColorMain.R / 4f)), new SKColor().FromColor(BarColorMain) },
+                        new[] { new SKColor().FromColor(BarColorMain).Multiply(0.25f), new SKColor().FromColor(BarColorMain) },
                         new[] { 0, 1f },
                         SKShaderTileMode.Clamp
                     )
