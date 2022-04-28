@@ -41,7 +41,7 @@ namespace Mids_Reborn.Forms.Controls
             }
         }
 
-        public delegate void BarHoverEventHandler(int barIndex, string label, float value, float uncappedValue);
+        public delegate void BarHoverEventHandler(object sender, string containerControlName, Point mouseLoc, int barIndex, string label, float value, float uncappedValue);
 
         [Description("Occurs when the mouse pointer is over one of the bars")]
         public event BarHoverEventHandler BarHover;
@@ -183,11 +183,6 @@ namespace Mids_Reborn.Forms.Controls
             Draw();
         }
 
-        private static SKColor FromColor(Color c)
-        {
-            return new SKColor(c.R, c.G, c.B);
-        }
-
         public void Draw()
         {
             if (_DrawLock)
@@ -260,7 +255,7 @@ namespace Mids_Reborn.Forms.Controls
             {
                 Shader = SKShader.CreateLinearGradient(
                     new SKPoint(0, 0), new SKPoint(Width, 0),
-                    new[] { SKColors.Black, SKColors.Black, FromColor(BackgroundColorEnd) },
+                    new[] { SKColors.Black, SKColors.Black, new SKColor().FromColor(BackgroundColorEnd) },
                     new[] { 0, 1 - barWidthFactor, 1 },
                     SKShaderTileMode.Clamp
                 )
@@ -270,12 +265,19 @@ namespace Mids_Reborn.Forms.Controls
 
             using var barBg = new SKPaint { Color = SKColors.Black };
             using var linePaint = new SKPaint { Color = SKColors.Black };
-            using var barUncapped = new SKPaint { Color = FromColor(BarColorUncapped) };
+            using var barUncapped = new SKPaint { Color = new SKColor().FromColor(BarColorUncapped) };
             using var textPaint = new SKPaint { Color = SKColors.WhiteSmoke };
             using var outlinePaint = new SKPaint { Color = SKColors.Black };
+            using var barHighlightBg = new SKPaint { Color = new SKColor().AddAlpha(HighlightBackgroundColor, 171) }; // 66% opacity
 
             var xStart = (int) Math.Round(Width * (1 - barWidthFactor)) - 2;
             var globalMaxValue = GlobalMaxValue < float.Epsilon ? 100 : GlobalMaxValue;
+
+            if (HoveredBar > -1 & HoveredBar < Math.Min(Items.Count, MaxItems))
+            {
+                e.Surface.Canvas.DrawRect(new SKRect(1, HoveredBar * 12 + 2, Width - 1, HoveredBar * 12 + 13), barHighlightBg);
+            }
+
             for (var i = 0; i < Math.Min(Items.Count, MaxItems); i++)
             {
                 var scale = (Width - 1) * barWidthFactor / globalMaxValue;
@@ -283,7 +285,7 @@ namespace Mids_Reborn.Forms.Controls
                 {
                     Shader = SKShader.CreateLinearGradient(
                         new SKPoint(xStart + 1, 0), new SKPoint(xStart + 1 + Items[i].Value * scale, 0),
-                        new[] { new SKColor((byte)Math.Round(BarColorMain.R / 4f), (byte)Math.Round(BarColorMain.G / 4f), (byte)Math.Round(BarColorMain.R / 4f)), FromColor(BarColorMain) },
+                        new[] { new SKColor((byte) Math.Round(BarColorMain.R / 4f), (byte) Math.Round(BarColorMain.G / 4f), (byte) Math.Round(BarColorMain.R / 4f)), new SKColor().FromColor(BarColorMain) },
                         new[] { 0, 1f },
                         SKShaderTileMode.Clamp
                     )
@@ -330,12 +332,40 @@ namespace Mids_Reborn.Forms.Controls
             HoveredBar = -1;
             skglControl1.Invalidate();
 
-            BarHover?.Invoke(-1, "", 0, 0);
+            BarHover?.Invoke(skglControl1, Name, new Point(-1, -1), -1, "", 0, 0);
         }
 
         private void skglControl1_MouseMove(object sender, MouseEventArgs e)
         {
-            BarHover?.Invoke(HoveredBar, Items[HoveredBar].Name, Items[HoveredBar].Value, Items[HoveredBar].UncappedValue);
+            const float outerGrow = 1f;
+
+            // y in [barIndex * 12 + 2 - outerGrow, barIndex * 12 + 13 + outerGrow]
+            // y >= barIndex * 12 + 2 - outerGrow & y <= barIndex * 12 + 13 + outerGrow]
+            // y - 2 + outerGrow >= barIndex * 12 & y - 13 - outerGrow <= barIndex * 12  
+            // (y - 2 + outerGrow) / 12 >= barIndex & (y - 13 - outerGrow) / 12 <= barIndex
+
+            var indexLower = (int) Math.Floor((e.Y - 2 + outerGrow) / 12);
+            var indexUpper = (int) Math.Ceiling((e.Y - 13 - outerGrow) / 12);
+            var visibleItems = Math.Min(Items.Count, MaxItems);
+
+            if (indexLower < 0 ||
+                indexUpper < 0 ||
+                indexLower >= visibleItems ||
+                indexUpper >= visibleItems ||
+                indexLower != indexUpper)
+            {
+                HoveredBar = -1;
+                skglControl1.Invalidate();
+
+                BarHover?.Invoke(skglControl1, Name, e.Location, -1, "", 0, 0);
+
+                return;
+            }
+
+            HoveredBar = indexLower;
+            skglControl1.Invalidate();
+
+            BarHover?.Invoke(skglControl1, Name, e.Location, HoveredBar, Items[HoveredBar].Name, Items[HoveredBar].Value, Items[HoveredBar].UncappedValue);
         }
 
         private void OnPaneVisibilityChanged(object sender, bool e)
@@ -367,6 +397,5 @@ namespace Mids_Reborn.Forms.Controls
         }
 
         #endregion
-
     }
 }

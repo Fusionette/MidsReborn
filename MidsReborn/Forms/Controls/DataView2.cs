@@ -121,8 +121,6 @@ namespace Mids_Reborn.Forms.Controls
         private bool SmallSize;
 
         private readonly TabControlAdv _tabControlAdv;
-        private readonly DV2TotalsPane _dv2TotalsPane3L;
-        private readonly DV2TotalsPane _dv2TotalsPane3R;
 
         private static readonly SKBitmap NewSlotBitmap = FlipAnimator.Bitmaps.CreateBitmap(@"Images\Newslot.png"); // ???
 
@@ -156,6 +154,9 @@ namespace Mids_Reborn.Forms.Controls
 
             dV2TotalsPane3L.MouseClick += DvPaneMisc_MouseClick;
             dV2TotalsPane3R.MouseClick += DvPaneMisc_MouseClick;
+
+            dV2TotalsPane3L.BarHover += DvPaneMisc_BarHover;
+            dV2TotalsPane3R.BarHover += DvPaneMisc_BarHover;
         }
 
         // Set data for power
@@ -275,6 +276,9 @@ namespace Mids_Reborn.Forms.Controls
             skDamageGraph1.nEnhVal = 0;
             skDamageGraph1.Text = string.Empty;
             skDamageGraph1.UnlockDraw();
+
+            Tabs.Totals.TooltipTargetControl = ""; // Move to dedicated struct ?
+            Tabs.Totals.MousePoint = new Point(-1, -1);
         }
 
         #region Effect vector type sub-class
@@ -3081,6 +3085,8 @@ namespace Mids_Reborn.Forms.Controls
                 };
 
                 public static TotalsMiscEffectsType MiscEffectsType;
+                public static Point MousePoint = new(-1, -1);
+                public static string TooltipTargetControl = "";
 
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
@@ -3643,10 +3649,44 @@ namespace Mids_Reborn.Forms.Controls
             var modeButtons = new[] { btnMiscTotals1, btnMiscTotals2, btnMiscTotals3, btnMiscTotals4 };
             foreach (var btn in modeButtons)
             {
-                btn.BackColor = btn.Name == targetBtn.Name ? Color.FromArgb(2, 81, 58) : Color.FromArgb(1, 41, 26);
+                btn.BackColor = btn.Name == targetBtn.Name ? Color.FromArgb(2, 81, 58) : Color.FromArgb(1, 41, 26); // Move to Tabs.Totals
             }
 
             panelMiscTypeSelector.Visible = true;
+        }
+
+        private void DvPaneMisc_BarHover(object sender, string containerControlName, Point mouseLoc, int barIndex, string label, float value, float uncappedValue)
+        {
+            var target = (SKGLControl) sender;
+
+            if (barIndex < 0)
+            {
+                toolTip1.SetToolTip(target, "");
+
+                return;
+            }
+
+            if (containerControlName == Tabs.Totals.TooltipTargetControl & mouseLoc.Equals(Tabs.Totals.MousePoint))
+            {
+                return;
+            }
+
+            Tabs.Totals.TooltipTargetControl = containerControlName;
+            Tabs.Totals.MousePoint = new Point(mouseLoc.X, mouseLoc.Y);
+
+            label = Tabs.Totals.MiscEffectsType switch
+            {
+                TotalsMiscEffectsType.DebuffResistances => $"Resistance to {label} Debuff",
+                TotalsMiscEffectsType.MezResistances => $"Resistance to {label}",
+                TotalsMiscEffectsType.MezProtection => $"Protection against {label}",
+                _ => $"Elusivity({label})"
+            };
+
+            var displayPercentage = Tabs.Totals.MiscEffectsType != TotalsMiscEffectsType.MezProtection;
+
+            toolTip1.SetToolTip(target, Math.Abs(value - uncappedValue) < float.Epsilon
+                ? $"{label}: {value:###0.##}{(displayPercentage ? "%" : "")}"
+                : $"{label}:\r\n Value: {uncappedValue}{(displayPercentage ? "%" : "")}\r\n Capped at {value}{(displayPercentage ? "%" : "")}");
         }
 
         private void miscEffectsSelectorBtn_MouseEnter(object sender, EventArgs e)
@@ -3663,7 +3703,7 @@ namespace Mids_Reborn.Forms.Controls
                 return;
             }
 
-            target.BackColor = Color.FromArgb(3, 153, 98);
+            target.BackColor = Color.FromArgb(3, 153, 98); // Move to Tabs.Totals
             label8.Text = $"[Switch to {target.Text} view]";
         }
 
@@ -3681,8 +3721,8 @@ namespace Mids_Reborn.Forms.Controls
                 return;
             }
 
-            target.BackColor = Color.FromArgb(1, 41, 26);
-            var headerGroupText = Tabs.Totals.MiscEffectsType switch
+            target.BackColor = Color.FromArgb(1, 41, 26); // Move to Tabs.Totals
+            var headerGroupText = Tabs.Totals.MiscEffectsType switch // Move to Tabs.Totals
             {
                 TotalsMiscEffectsType.DebuffResistances => "Debuff Resistances",
                 TotalsMiscEffectsType.MezResistances => "Mez Resistances",
