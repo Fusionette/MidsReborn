@@ -1228,7 +1228,7 @@ namespace mrbBase
 
         public static class EDFigures
         {
-            // Imperted and improved from DataView.cs
+            // Imported and improved from DataView.cs
             public enum EDStrength
             {
                 None,
@@ -1267,9 +1267,9 @@ namespace mrbBase
 
             private static EDValueSettings BuildEDItem(float value, Enums.eSchedule schedule, string name, float afterED, bool useRtf = false)
             {
-                var flag1 = value > (double)DatabaseAPI.Database.MultED[(int)schedule][0];
-                var flag2 = value > (double)DatabaseAPI.Database.MultED[(int)schedule][1];
-                var specialCase = value > (double)DatabaseAPI.Database.MultED[(int)schedule][2];
+                var flag1 = value > (double) DatabaseAPI.Database.MultED[(int) schedule][0];
+                var flag2 = value > (double) DatabaseAPI.Database.MultED[(int) schedule][1];
+                var specialCase = value > (double) DatabaseAPI.Database.MultED[(int) schedule][2];
 
                 var ret = new EDValueSettings
                 {
@@ -1291,7 +1291,7 @@ namespace mrbBase
                 var valuePercent = value * 100;
                 var valuePercentAfterED = Enhancement.ApplyED(schedule, value) * 100;
                 var postEDValue = valuePercentAfterED + afterED * 100;
-                var valueDiff = (float)Math.Round(valuePercent - valuePercentAfterED, 3);
+                var valueDiff = (float) Math.Round(valuePercent - valuePercentAfterED, 3);
                 var preEDValue = valuePercent + afterED * 100;
 
                 var totalEffectStr = $"Total Effect: {preEDValue:P2}\r\nWith ED Applied: {postEDValue:P2}\r\n\r\n";
@@ -1424,19 +1424,25 @@ namespace mrbBase
 
                 for (var i = 0; i < eEnhs; i++)
                 {
-                    buffValues[i] = 0;
-                    debuffValues[i] = 0;
-                    buffDebuffValues[i] = 0;
-                    buffSchedules[i] = Enhancement.GetSchedule((Enums.eEnhance)i);
-                    debuffSchedules[i] = buffSchedules[i];
-                    buffDebuffSchedules[i] = buffSchedules[i];
+                    buffValues.Add(0);
+                    debuffValues.Add(0);
+                    buffDebuffValues.Add(0);
+                    
+                    buffSchedules.Add(Enhancement.GetSchedule((Enums.eEnhance)i));
+                    debuffSchedules.Add(buffSchedules[i]);
+                    buffDebuffSchedules.Add(buffSchedules[i]);
+                    
+                    buffValuesAfterED.Add(0);
+                    debuffValuesAfterED.Add(0);
+                    buffDebuffValuesAfterED.Add(0);
                 }
 
-                debuffSchedules[(int)Enums.eEnhance.Defense] = Enums.eSchedule.A; // 3
+                debuffSchedules[(int) Enums.eEnhance.Defense] = Enums.eSchedule.A; // 3
                 for (var tSub = 0; tSub < eMezzes; tSub++)
                 {
-                    mezValues[tSub] = 0;
-                    mezSchedules[tSub] = Enhancement.GetSchedule(Enums.eEnhance.Mez, tSub);
+                    mezValues.Add(0);
+                    mezSchedules.Add(Enhancement.GetSchedule(Enums.eEnhance.Mez, tSub));
+                    mezValuesAfterED.Add(0);
                 }
 
                 var refPower = MidsContext.Character.CurrentBuild.Powers[historyIdx];
@@ -1454,7 +1460,7 @@ namespace mrbBase
                             continue;
                         }
 
-                        if (effects[index2].Enhance.ID == (int)Enums.eEnhance.Mez) // 12
+                        if (effects[index2].Enhance.ID == (int) Enums.eEnhance.Mez) // 12
                         {
                             mezValues[effects[index2].Enhance.SubID] += slot.Enhancement.GetEnhancementEffect(Enums.eEnhance.Mez, effects[index2].Enhance.SubID, 1);
                         }
@@ -1466,9 +1472,9 @@ namespace mrbBase
                                     buffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, 1);
                                     break;
                                 case Enums.eBuffDebuff.DeBuffOnly:
-                                    if ((effects[index2].Enhance.ID != (int)Enums.eEnhance.SpeedFlying) &
-                                        (effects[index2].Enhance.ID != (int)Enums.eEnhance.SpeedRunning) &
-                                        (effects[index2].Enhance.ID != (int)Enums.eEnhance.SpeedJumping)) // 6, 19, 11
+                                    if ((effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedFlying) &
+                                        (effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedRunning) &
+                                        (effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedJumping)) // 6, 19, 11
                                     {
                                         debuffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, -1);
                                     }
@@ -1544,13 +1550,13 @@ namespace mrbBase
                                             switch (eBuffDebuff)
                                             {
                                                 case Enums.eBuffDebuff.BuffOnly:
-                                                    buffValuesAfterED[(int)Enums.eEnhance.Defense] += effect.BuffedMag; // 3
+                                                    buffValuesAfterED[(int) Enums.eEnhance.Defense] += effect.BuffedMag; // 3
                                                     break;
                                                 case Enums.eBuffDebuff.DeBuffOnly:
-                                                    debuffValuesAfterED[(int)Enums.eEnhance.Defense] += effect.BuffedMag; // 3
+                                                    debuffValuesAfterED[(int) Enums.eEnhance.Defense] += effect.BuffedMag; // 3
                                                     break;
                                                 default:
-                                                    buffDebuffValuesAfterED[(int)Enums.eEnhance.Defense] += effect.BuffedMag; // 3
+                                                    buffDebuffValuesAfterED[(int) Enums.eEnhance.Defense] += effect.BuffedMag; // 3
                                                     break;
                                             }
                                         }
@@ -1559,13 +1565,13 @@ namespace mrbBase
                                             switch (eBuffDebuff)
                                             {
                                                 case Enums.eBuffDebuff.BuffOnly:
-                                                    buffValues[(int)Enums.eEnhance.Defense] += effect.BuffedMag; // 3
+                                                    buffValues[(int) Enums.eEnhance.Defense] += effect.BuffedMag; // 3
                                                     break;
                                                 case Enums.eBuffDebuff.DeBuffOnly:
-                                                    debuffValues[(int)Enums.eEnhance.Defense] += effect.BuffedMag; // 3
+                                                    debuffValues[(int) Enums.eEnhance.Defense] += effect.BuffedMag; // 3
                                                     break;
                                                 default:
-                                                    buffDebuffValues[(int)Enums.eEnhance.Defense] += effect.BuffedMag; // 3
+                                                    buffDebuffValues[(int) Enums.eEnhance.Defense] += effect.BuffedMag; // 3
                                                     break;
                                             }
                                         }
@@ -1575,16 +1581,16 @@ namespace mrbBase
                                 case Enums.eEffectType.Mez:
                                     if (effect.IgnoreED)
                                     {
-                                        mezValuesAfterED[(int)effect.MezType] += effect.BuffedMag;
+                                        mezValuesAfterED[(int) effect.MezType] += effect.BuffedMag;
                                         break;
                                     }
 
-                                    mezValues[(int)effect.MezType] += effect.BuffedMag;
+                                    mezValues[(int) effect.MezType] += effect.BuffedMag;
                                     break;
                                 default:
                                     var index2 = effect.ETModifies != Enums.eEffectType.RechargeTime
                                         ? Convert.ToInt32(Enum.Parse(typeof(Enums.eEnhance), effect.ETModifies.ToString()))
-                                        : (int)Enums.eEnhance.RechargeTime; // 14
+                                        : (int) Enums.eEnhance.RechargeTime; // 14
                                     if (effect.IgnoreED)
                                     {
                                         buffDebuffValuesAfterED[index2] += effect.BuffedMag;
@@ -1603,7 +1609,7 @@ namespace mrbBase
                                 {
                                     if (str.StartsWith("Res_Damage"))
                                     {
-                                        buffDebuffValuesAfterED[(int)Enums.eEnhance.Resistance] += effect.BuffedMag; // 18
+                                        buffDebuffValuesAfterED[(int) Enums.eEnhance.Resistance] += effect.BuffedMag; // 18
                                         break;
                                     }
 
@@ -1612,7 +1618,7 @@ namespace mrbBase
                                         continue;
                                     }
 
-                                    buffDebuffValuesAfterED[(int)Enums.eEnhance.Damage] += effect.BuffedMag; // 2
+                                    buffDebuffValuesAfterED[(int) Enums.eEnhance.Damage] += effect.BuffedMag; // 2
                                     break;
                                 }
                             }
@@ -1622,7 +1628,7 @@ namespace mrbBase
                                 {
                                     if (str.StartsWith("Res_Damage"))
                                     {
-                                        buffDebuffValues[(int)Enums.eEnhance.Resistance] += effect.BuffedMag; // 18
+                                        buffDebuffValues[(int) Enums.eEnhance.Resistance] += effect.BuffedMag; // 18
                                         break;
                                     }
 
@@ -1631,7 +1637,7 @@ namespace mrbBase
                                         continue;
                                     }
 
-                                    buffDebuffValues[(int)Enums.eEnhance.Damage] += effect.BuffedMag; // 2
+                                    buffDebuffValues[(int) Enums.eEnhance.Damage] += effect.BuffedMag; // 2
                                     break;
                                 }
                             }
@@ -1639,17 +1645,17 @@ namespace mrbBase
                     }
                 }
 
-                buffValues[(int)Enums.eEnhance.HitPoints] = 0; // 8
-                debuffValues[(int)Enums.eEnhance.HitPoints] = 0; // 8
-                buffDebuffValues[(int)Enums.eEnhance.HitPoints] = 0; // 8
+                buffValues[(int) Enums.eEnhance.HitPoints] = 0; // 8
+                debuffValues[(int) Enums.eEnhance.HitPoints] = 0; // 8
+                buffDebuffValues[(int) Enums.eEnhance.HitPoints] = 0; // 8
 
-                buffValues[(int)Enums.eEnhance.Regeneration] = 0; // 17
-                debuffValues[(int)Enums.eEnhance.Regeneration] = 0; // 17
-                buffDebuffValues[(int)Enums.eEnhance.Regeneration] = 0; // 17
+                buffValues[(int) Enums.eEnhance.Regeneration] = 0; // 17
+                debuffValues[(int) Enums.eEnhance.Regeneration] = 0; // 17
+                buffDebuffValues[(int) Enums.eEnhance.Regeneration] = 0; // 17
 
-                buffValues[(int)Enums.eEnhance.Recovery] = 0; // 16
-                debuffValues[(int)Enums.eEnhance.Recovery] = 0; // 16
-                buffDebuffValues[(int)Enums.eEnhance.Recovery] = 0; // 16
+                buffValues[(int) Enums.eEnhance.Recovery] = 0; // 16
+                debuffValues[(int) Enums.eEnhance.Recovery] = 0; // 16
+                buffDebuffValues[(int) Enums.eEnhance.Recovery] = 0; // 16
 
                 var statNames = Enum.GetNames(typeof(Enums.eEnhance));
                 for (var i = 0; i < eEnhs; i++)

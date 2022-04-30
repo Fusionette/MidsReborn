@@ -3730,11 +3730,14 @@ namespace Mids_Reborn.Forms.Controls
                     break;
             }
 
-            var displayPercentage = !(containerControlName == "dV2TotalsPane3L" | containerControlName == "dV2TotalsPane3R") || Tabs.Totals.MiscEffectsType != TotalsMiscEffectsType.MezProtection;
+            var percentage = !(containerControlName == "dV2TotalsPane3L" | containerControlName == "dV2TotalsPane3R") ||
+                             Tabs.Totals.MiscEffectsType != TotalsMiscEffectsType.MezProtection
+                ? "%"
+                : "";
 
             toolTip1.SetToolTip(target, Math.Abs(value - uncappedValue) < 0.01
-                ? $"{label}: {value:###0.##}{(displayPercentage ? "%" : "")}"
-                : $"{label}:\r\n Value: {uncappedValue:###0.##}{(displayPercentage ? "%" : "")}\r\n Capped at {value:###0.##}{(displayPercentage ? "%" : "")}");
+                ? $"{label}: {value:###0.##}{percentage}"
+                : $"{label}: {uncappedValue:###0.##}{percentage}\r\n Capped at {value:###0.##}{percentage}");
         }
 
         private void miscEffectsSelectorBtn_MouseEnter(object sender, EventArgs e)
@@ -3764,13 +3767,13 @@ namespace Mids_Reborn.Forms.Controls
                 tagValue = -1;
             }
 
-            if (tagValue == (int)Tabs.Totals.MiscEffectsType)
+            if (tagValue == (int) Tabs.Totals.MiscEffectsType)
             {
                 return;
             }
 
             target.BackColor = Tabs.Totals.Colors.ButtonNormalColor;
-            var headerGroupText = Tabs.Totals.MiscEffectsType switch // Move to Tabs.Totals
+            var headerGroupText = Tabs.Totals.MiscEffectsType switch
             {
                 TotalsMiscEffectsType.DebuffResistances => "Debuff Resistances",
                 TotalsMiscEffectsType.MezResistances => "Mez Resistances",
