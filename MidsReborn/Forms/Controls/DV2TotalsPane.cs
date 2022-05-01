@@ -193,43 +193,6 @@ namespace Mids_Reborn.Forms.Controls
             skglControl1.Invalidate();
         }
 
-        private void DrawOutlineText(SKCanvas canvas, string text, SKPoint location, SKColor textColor, SKTextAlign textAlign = SKTextAlign.Left, byte opacity = 0xFF, float fontSize = 12f, float strokeWidth = 5f)
-        {
-            using var textFont = new SKFont(SKTypeface.Default, fontSize);
-            using var textPaint = new SKPaint(textFont)
-            {
-                IsAntialias = true,
-                IsStroke = false,
-                Color = new SKColor(textColor.Red, textColor.Green, textColor.Blue, opacity),
-                TextAlign = textAlign,
-            };
-
-            var textBounds = new SKRect();
-            textPaint.MeasureText(text, ref textBounds);
-
-            using var textPath = textAlign switch // ???
-            {
-                SKTextAlign.Center => textPaint.GetTextPath(text, location.X - textBounds.Width / 2f, location.Y), // location.Y - textBounds.Height / 2f ?
-                SKTextAlign.Right => textPaint.GetTextPath(text, location.X - textBounds.Width - 0.5f, location.Y),
-                _ => textPaint.GetTextPath(text, location.X, location.Y)
-            };
-
-            using var outlinePath = new SKPath();
-            textPaint.GetFillPath(textPath, outlinePath);
-
-            using var outlinePaint = new SKPaint
-            {
-                StrokeCap = SKStrokeCap.Round,
-                StrokeMiter = 0, /* Avoid spikes artifacts around sharp edges */
-                Style = SKPaintStyle.Stroke,
-                StrokeWidth = strokeWidth,
-                Color = new SKColor(0, 0, 0, opacity)
-            };
-
-            canvas.DrawPath(outlinePath, outlinePaint);
-            canvas.DrawText(text, location, textPaint);
-        }
-
         #endregion
 
         #region Event callbacks
@@ -315,11 +278,11 @@ namespace Mids_Reborn.Forms.Controls
 
                 // Bar label
                 //e.Surface.Canvas.DrawText(Items[i].Name, new SKPoint(2, i * 12 + 4), textPaint);
-                DrawOutlineText(e.Surface.Canvas, Items[i].Name, new SKPoint(2, i * 12 + 7 + LabelsFontSize / 2f), SKColors.WhiteSmoke);
+                e.Surface.Canvas.DrawOutlineText(Items[i].Name, new SKPoint(2, i * 12 + 7 + LabelsFontSize / 2f), SKColors.WhiteSmoke);
 
                 if (ShowNumbers)
                 {
-                    DrawOutlineText(e.Surface.Canvas, $"{Items[i].Value:##0.##}%",
+                    e.Surface.Canvas.DrawOutlineText($"{Items[i].Value:##0.##}%",
                         new SKPoint(Width - 2, i * 12 + 7 + LabelsFontSize / 2f),
                         Items[i].UncappedValue - Items[i].Value >= 0.01 ? SKColors.Cyan : SKColors.WhiteSmoke,
                         SKTextAlign.Right, valueOpacity);
