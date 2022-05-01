@@ -181,7 +181,8 @@ namespace Mids_Reborn.Forms.Controls
             Locked = locked;
             if (Locked)
             {
-                ipbLock.Visible = true;
+                SetLockStatus();
+
                 return;
             }
 
@@ -228,7 +229,7 @@ namespace Mids_Reborn.Forms.Controls
         public void Lock()
         {
             Locked = true;
-            ipbLock.Visible = true;
+            SetLockStatus();
         }
 
         public void UpdateColorTheme()
@@ -248,6 +249,30 @@ namespace Mids_Reborn.Forms.Controls
                 tabPageAdv1.TabBackColor = Color.FromArgb(100, 12, 20);
                 _tabControlAdv.ActiveTabColor = Color.FromArgb(100, 12, 20);
                 _tabControlAdv.InactiveTabColor = Color.FromArgb(59, 7, 12);
+            }
+        }
+
+        private void SetLockStatus()
+        {
+            if (_tabsRendered.Effects)
+            {
+                ipbLock2.Visible = true;
+            }
+            else if (_tabsRendered.Totals)
+            {
+                ipbLock3.Visible = true;
+            }
+            else if (_tabsRendered.Enhance)
+            {
+                ipbLock4.Visible = true;
+            }
+            else if (_tabsRendered.Scales)
+            {
+                ipbLock5.Visible = true;
+            }
+            else
+            {
+                ipbLock.Visible = true;
             }
         }
 
@@ -2054,6 +2079,11 @@ namespace Mids_Reborn.Forms.Controls
                     Root = root;
                     LayoutType = layoutType;
                     SlottedSets = SlottedSets();
+                    Root.ipbLock.Visible = Root.Locked;
+                    Root.ipbResize.IconChar = Root.SmallSize
+                        ? IconChar.ChevronDown
+                        : IconChar.ChevronUp;
+
                     if (LayoutType == InfoType.Power)
                     {
                         PowerInfo();
@@ -3116,6 +3146,11 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void DisplayTotals()
                 {
+                    Root.ipbLock3.Visible = Root.Locked;
+                    Root.ipbResize3.IconChar = Root.SmallSize
+                        ? IconChar.ChevronDown
+                        : IconChar.ChevronUp;
+
                     var displayStats = MidsContext.Character.DisplayStats;
 
                     Root.dV2TotalsPane1L.LockDraw();
@@ -3279,7 +3314,11 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void DisplayEnhance()
                 {
-                    // ???
+                    Root.ipbLock4.Visible = Root.Locked;
+                    Root.ipbResize4.IconChar = Root.SmallSize
+                        ? IconChar.ChevronDown
+                        : IconChar.ChevronUp;
+
                     Root.skglEnhActive.Invalidate();
                     Root.skglEnhAlt.Invalidate();
 
@@ -3302,6 +3341,11 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void DisplayScales()
                 {
+                    Root.ipbLock5.Visible = Root.Locked;
+                    Root.ipbResize5.IconChar = Root.SmallSize
+                        ? IconChar.ChevronDown
+                        : IconChar.ChevronUp;
+
                     Root.skglScalesGraph.Invalidate();
                 }
             }
