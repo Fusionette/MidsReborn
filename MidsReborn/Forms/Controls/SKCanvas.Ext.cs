@@ -31,6 +31,7 @@ namespace Mids_Reborn.Forms.Controls
 
             using var outlinePaint = new SKPaint
             {
+                IsAntialias = true,
                 StrokeCap = SKStrokeCap.Round,
                 StrokeMiter = 0, /* Avoid spikes artifacts around sharp edges */
                 Style = SKPaintStyle.Stroke,

@@ -2074,6 +2074,7 @@ namespace Mids_Reborn.Forms.Controls
                 private static DataView2 Root;
                 private static InfoType LayoutType;
                 private static Dictionary<int, int> SlottedSets;
+
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
                     Root = root;
@@ -2084,6 +2085,27 @@ namespace Mids_Reborn.Forms.Controls
                         ? IconChar.ChevronDown
                         : IconChar.ChevronUp;
 
+                    // Damage graph colors don't stick in the designer.
+                    // Set them here instead.
+                    // Note: these colors are not updated when the options panel is closed.
+
+                    // Test color set:
+                    // var baseDamageColor = Color.FromArgb(51, 221, 122);
+                    // var enhDamageColor = Color.FromArgb(197, 32, 32);
+                    const float darkLumFactor = 0.45f;
+                    var baseDamageColor = MidsContext.Config.RtFont.ColorDamageBarBase;
+                    var enhDamageColor = MidsContext.Config.RtFont.ColorDamageBarEnh;
+                    var baseDamageColorDark = MultiplyLum(baseDamageColor, darkLumFactor);
+                    var enhDamageColorDark = MultiplyLum(enhDamageColor, darkLumFactor);
+                    Root.skDamageGraph1.LockDraw();
+                    Root.skDamageGraph1.ColorBackStart = Color.Black;
+                    Root.skDamageGraph1.ColorBackEnd = Color.FromArgb(64, 0, 0); // Move to config ?
+                    Root.skDamageGraph1.ColorBaseStart = baseDamageColorDark;
+                    Root.skDamageGraph1.ColorBaseEnd = baseDamageColor;
+                    Root.skDamageGraph1.ColorEnhStart = enhDamageColorDark;
+                    Root.skDamageGraph1.ColorEnhEnd = enhDamageColor;
+                    Root.skDamageGraph1.UnlockDraw();
+
                     if (LayoutType == InfoType.Power)
                     {
                         PowerInfo();
@@ -2092,6 +2114,18 @@ namespace Mids_Reborn.Forms.Controls
                     {
                         EnhancementInfo();
                     }
+                }
+
+                // Change color luminosity
+                private static Color MultiplyLum(Color c, float factor)
+                {
+                    var skc = c.ToSKColor();
+                    skc.ToHsl(out var h, out var s, out var l);
+                    l *= factor;
+
+                    var ret = SKColor.FromHsl(h, s, l);
+
+                    return Color.FromArgb(c.A, ret.Red, ret.Green, ret.Blue);
                 }
 
                 private static void PowerInfo()
