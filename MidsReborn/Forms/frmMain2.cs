@@ -5523,21 +5523,24 @@ namespace Mids_Reborn.Forms
             {
                 var serializer = Serializer.GetSerializer();
                 MidsContext.Config.SaveConfig(serializer);
+                myDataView?.UpdateDamageGraphSettings();
                 UpdateControls();
                 UpdateOtherFormsFonts();
             }
 
             frmCalcOpt.Dispose();
-            tsIODefault.Text = "Default (" + (MidsContext.Config.I9.DefaultIOLevel + 1) + ")";
+            tsIODefault.Text = $"Default ({MidsContext.Config.I9.DefaultIOLevel + 1})";
             FloatTop(true);
-            if (DbChangeRequested)
+            if (!DbChangeRequested)
             {
-                using var iFrm = new frmBusy();
-                _frmBusy = iFrm;
-                _frmBusy.SetTitle(@"Database Change Requested");
-                _frmBusy.Show();
-                await MainModule.MidsController.ChangeDatabase(_frmBusy);
+                return;
             }
+
+            using var iFrm = new frmBusy();
+            _frmBusy = iFrm;
+            _frmBusy.SetTitle(@"Database Change Requested");
+            _frmBusy.Show();
+            await MainModule.MidsController.ChangeDatabase(_frmBusy);
         }
 
         private void tsKoFi_Click(object sender, EventArgs e)
@@ -6414,6 +6417,7 @@ namespace Mids_Reborn.Forms
                     e.Bold = MidsContext.Config.RtFont.PowersSelectBold;
                 }
             }
+
             heroVillain.Checked = !MidsContext.Character.IsHero();
             //dvAnchored.SetLocation(new Point(llPrimary.Left, llPrimary.Top + raGreater(llPrimary.SizeNormal.Height, llSecondary.SizeNormal.Height) + 5), ForceComplete);
             llPrimary.SuspendRedraw = false;

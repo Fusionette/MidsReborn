@@ -324,6 +324,11 @@ namespace Mids_Reborn.Forms.Controls
             };
         }
 
+        public void UpdateDamageGraphSettings()
+        {
+            Tabs.Info.UpdateDamageGraphSettings();
+        }
+
         #region Effect vector type sub-class
 
         private class EffectVectorType
@@ -2085,9 +2090,21 @@ namespace Mids_Reborn.Forms.Controls
                         ? IconChar.ChevronDown
                         : IconChar.ChevronUp;
 
+                    UpdateDamageGraphSettings();
+                    if (LayoutType == InfoType.Power)
+                    {
+                        PowerInfo();
+                    }
+                    else if (layoutType == InfoType.Enhancement)
+                    {
+                        EnhancementInfo();
+                    }
+                }
+
+                public static void UpdateDamageGraphSettings()
+                {
                     // Damage graph colors don't stick in the designer.
                     // Set them here instead.
-                    // Note: these colors are not updated when the options panel is closed.
 
                     // Test color set:
                     // var baseDamageColor = Color.FromArgb(51, 221, 122);
@@ -2097,6 +2114,7 @@ namespace Mids_Reborn.Forms.Controls
                     var enhDamageColor = MidsContext.Config.RtFont.ColorDamageBarEnh;
                     var baseDamageColorDark = MultiplyLum(baseDamageColor, darkLumFactor);
                     var enhDamageColorDark = MultiplyLum(enhDamageColor, darkLumFactor);
+
                     Root.skDamageGraph1.LockDraw();
                     Root.skDamageGraph1.ColorBackStart = Color.Black;
                     Root.skDamageGraph1.ColorBackEnd = Color.FromArgb(64, 0, 0); // Move to config ?
@@ -2105,15 +2123,6 @@ namespace Mids_Reborn.Forms.Controls
                     Root.skDamageGraph1.ColorEnhStart = enhDamageColorDark;
                     Root.skDamageGraph1.ColorEnhEnd = enhDamageColor;
                     Root.skDamageGraph1.UnlockDraw();
-
-                    if (LayoutType == InfoType.Power)
-                    {
-                        PowerInfo();
-                    }
-                    else if (layoutType == InfoType.Enhancement)
-                    {
-                        EnhancementInfo();
-                    }
                 }
 
                 // Change color luminosity
