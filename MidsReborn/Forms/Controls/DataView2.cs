@@ -3366,6 +3366,55 @@ namespace Mids_Reborn.Forms.Controls
                     Root.skglEnhAlt.Invalidate();
 
                     var edFiguresBuffs = Build.EDFigures.GetBuffsForBuildPower(HistoryIdx);
+
+                    // richEnhValues
+                    var edRtfText = RTF.StartRTF() + RTF.Color(RTF.ElementID.Text);
+                    edRtfText += DisplayEDFiguresForGroup(edFiguresBuffs.Buffs, "Buffs:");
+                    edRtfText += DisplayEDFiguresForGroup(edFiguresBuffs.Debuffs, "Debuffs:");
+                    edRtfText += DisplayEDFiguresForGroup(edFiguresBuffs.BuffDebuffs, "Buffs/Debuffs:");
+                    edRtfText += RTF.Color(RTF.ElementID.Text) + RTF.EndRTF();
+
+                    Root.richEnhValues.Rtf = edRtfText;
+                }
+
+                private static string DisplayEDFiguresForGroup(IReadOnlyList<Build.EDFigures.EDWeightedItem> buffDebuffs,
+                    string header = "", bool endBlankLine = true)
+                {
+                    var edRtfText = "";
+
+                    if (header != "" & buffDebuffs.Count > 0)
+                    {
+                        edRtfText += $"{RTF.Color(RTF.ElementID.Invention)}{header}{RTF.Color(RTF.ElementID.Text)}{RTF.Crlf()}";
+                    }
+
+                    var indent = header != "" ? "   " : "";
+
+                    for (var i = 0; i < buffDebuffs.Count; i++)
+                    {
+                        if (i > 0)
+                        {
+                            edRtfText += RTF.Crlf();
+                        }
+                        
+                        edRtfText += buffDebuffs[i].EDStrength switch
+                        {
+                            Build.EDFigures.EDStrength.Light => RTF.Color(RTF.ElementID.Enhancement),
+                            Build.EDFigures.EDStrength.Medium => RTF.Color(RTF.ElementID.Alert),
+                            Build.EDFigures.EDStrength.Strong => RTF.Color(RTF.ElementID.Warning),
+                            _ => RTF.Color(RTF.ElementID.Text)
+                        };
+
+                        edRtfText += $"{indent}{buffDebuffs[i].StatName}: {buffDebuffs[i].PostEDValue * 100:##0.##}% (Pre-ED: {buffDebuffs[i].Value * 100:##0.##}%)";
+                    }
+
+                    if (!endBlankLine)
+                    {
+                        return edRtfText;
+                    }
+
+                    edRtfText += buffDebuffs.Count > 0 ? $"{RTF.Color(RTF.ElementID.Text)}{RTF.Crlf()}{RTF.Crlf()}" : "";
+
+                    return edRtfText;
                 }
             }
 
@@ -3708,7 +3757,27 @@ namespace Mids_Reborn.Forms.Controls
         private void ipbLock_Click(object sender, EventArgs e)
         {
             Locked = false;
-            ipbLock.Visible = false;
+            if (_tabsRendered.Effects)
+            {
+                ipbLock2.Visible = false;
+            }
+            else if (_tabsRendered.Totals)
+            {
+                ipbLock3.Visible = false;
+            }
+            else if (_tabsRendered.Enhance)
+            {
+                ipbLock4.Visible = false;
+            }
+            else if (_tabsRendered.Scales)
+            {
+                ipbLock5.Visible = false;
+            }
+            else
+            {
+                ipbLock.Visible = false;
+            }
+
             Unlock?.Invoke();
         }
 

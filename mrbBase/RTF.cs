@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Text;
 using mrbBase.Base.Master_Classes;
 
@@ -8,15 +9,49 @@ namespace mrbBase
     {
         public enum ElementID
         {
+            /// <summary>
+            /// Black
+            /// </summary>
+            [Description("Black")]
             Black,
+            
+            /// <summary>
+            /// Green
+            /// </summary>
+            [Description("Green")]
             Enhancement,
+
+            /// <summary>
+            /// Gray
+            /// </summary>
+            [Description("Gray")]
             Faded,
+
+            /// <summary>
+            /// Cyan
+            /// </summary>
+            [Description("Cyan")]
             Invention,
             InventionInvert,
+
+            /// <summary>
+            /// White
+            /// </summary>
+            [Description("White")]
             Text,
+
+            /// <summary>
+            /// Red
+            /// </summary>
+            [Description("Red")]
             Warning,
             BackgroundHero,
             BackgroundVillain,
+            
+            /// <summary>
+            /// Yellow
+            /// </summary>
+            [Description("Yellow")]
             Alert
         }
 

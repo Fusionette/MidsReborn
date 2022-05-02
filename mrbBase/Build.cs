@@ -1311,17 +1311,17 @@ namespace mrbBase
 
                     if (specialCase)
                     {
-                        tooltipText += $" The highest level of ED reduction is being applied.\r\nThreshold: {DatabaseAPI.Database.MultED[(int)schedule][2] * 100:P2}\r\n";
+                        tooltipText += $" The highest level of ED reduction is being applied.\r\nThreshold: {DatabaseAPI.Database.MultED[(int) schedule][2] * 100:P2}\r\n";
                         edStrength = EDStrength.Strong;
                     }
                     else if (flag2)
                     {
-                        tooltipText += $" The middle level of ED reduction is being applied.\r\nThreshold: {(DatabaseAPI.Database.MultED[(int)schedule][1] * 100):P2}\r\n";
+                        tooltipText += $" The middle level of ED reduction is being applied.\r\nThreshold: {(DatabaseAPI.Database.MultED[(int) schedule][1] * 100):P2}\r\n";
                         edStrength = EDStrength.Medium;
                     }
                     else if (flag1)
                     {
-                        tooltipText += $" The lowest level of ED reduction is being applied.\r\nThreshold: {(DatabaseAPI.Database.MultED[(int)schedule][0] * 100):P2}\r\n";
+                        tooltipText += $" The lowest level of ED reduction is being applied.\r\nThreshold: {(DatabaseAPI.Database.MultED[(int) schedule][0] * 100):P2}\r\n";
                         edStrength = EDStrength.Light;
                     }
 
@@ -1409,7 +1409,7 @@ namespace mrbBase
                 var buffValues = new List<float>(eEnhs);
                 var buffSchedules = new List<Enums.eSchedule>(eEnhs);
                 var buffValuesAfterED = new List<float>(eEnhs);
-                
+
                 var debuffValues = new List<float>(eEnhs);
                 var debuffSchedules = new List<Enums.eSchedule>(eEnhs);
                 var debuffValuesAfterED = new List<float>(eEnhs);
@@ -1427,11 +1427,11 @@ namespace mrbBase
                     buffValues.Add(0);
                     debuffValues.Add(0);
                     buffDebuffValues.Add(0);
-                    
-                    buffSchedules.Add(Enhancement.GetSchedule((Enums.eEnhance)i));
+
+                    buffSchedules.Add(Enhancement.GetSchedule((Enums.eEnhance) i));
                     debuffSchedules.Add(buffSchedules[i]);
                     buffDebuffSchedules.Add(buffSchedules[i]);
-                    
+
                     buffValuesAfterED.Add(0);
                     debuffValuesAfterED.Add(0);
                     buffDebuffValuesAfterED.Add(0);
@@ -1469,19 +1469,19 @@ namespace mrbBase
                             switch (enh.Effect[index2].BuffMode)
                             {
                                 case Enums.eBuffDebuff.BuffOnly:
-                                    buffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, 1);
+                                    buffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance) effects[index2].Enhance.ID, -1, 1);
                                     break;
                                 case Enums.eBuffDebuff.DeBuffOnly:
                                     if ((effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedFlying) &
                                         (effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedRunning) &
                                         (effects[index2].Enhance.ID != (int) Enums.eEnhance.SpeedJumping)) // 6, 19, 11
                                     {
-                                        debuffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, -1);
+                                        debuffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance) effects[index2].Enhance.ID, -1, -1);
                                     }
 
                                     break;
                                 default:
-                                    buffDebuffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance)effects[index2].Enhance.ID, -1, 1f);
+                                    buffDebuffValues[effects[index2].Enhance.ID] += slot.Enhancement.GetEnhancementEffect((Enums.eEnhance) effects[index2].Enhance.ID, -1, 1f);
                                     break;
                             }
                         }
@@ -1662,69 +1662,56 @@ namespace mrbBase
                 {
                     if (Math.Abs(buffValues[i]) > float.Epsilon)
                     {
-                        var edSettings = BuildEDItem(buffValues[i], buffSchedules[i], statNames[i], buffValuesAfterED[i]);
-                        ret.Buffs.Add(new EDWeightedItem
-                        {
-                            StatName = statNames[i],
-                            Value = buffValues[i],
-                            Schedule = buffSchedules[i],
-                            PostEDValue = buffValuesAfterED[i],
-                            EDStrength = edSettings.EDStrength,
-                            EDSettings = edSettings
-                        });
+                        ret.Buffs.Add(BuildEDWeightedItem(buffValues[i], buffSchedules[i], statNames[i], buffValuesAfterED[i]));
                     }
 
                     if (Math.Abs(debuffValues[i]) > float.Epsilon)
                     {
-                        var edSettings = BuildEDItem(debuffValues[i], debuffSchedules[i], statNames[i], debuffValuesAfterED[i]);
-                        ret.Debuffs.Add(new EDWeightedItem
-                        {
-                            StatName = statNames[i],
-                            Value = debuffValues[i],
-                            Schedule = debuffSchedules[i],
-                            PostEDValue = debuffValuesAfterED[i],
-                            EDStrength = edSettings.EDStrength,
-                            EDSettings = edSettings
-                        });
+                        ret.Debuffs.Add(BuildEDWeightedItem(debuffValues[i], debuffSchedules[i], statNames[i], debuffValuesAfterED[i]));
                     }
 
                     if (Math.Abs(buffDebuffValues[i]) > float.Epsilon)
                     {
-                        var edSettings = BuildEDItem(buffDebuffValues[i], buffDebuffSchedules[i], statNames[i], buffDebuffValuesAfterED[i]);
-                        ret.BuffDebuffs.Add(new EDWeightedItem
-                        {
-                            StatName = statNames[i],
-                            Value = buffDebuffValues[i],
-                            Schedule = buffDebuffSchedules[i],
-                            PostEDValue = buffDebuffValuesAfterED[i],
-                            EDStrength = edSettings.EDStrength,
-                            EDSettings = edSettings
-                        });
+                        ret.BuffDebuffs.Add(BuildEDWeightedItem(buffDebuffValues[i], buffDebuffSchedules[i], statNames[i], buffDebuffValuesAfterED[i]));
                     }
                 }
 
                 statNames = Enum.GetNames(typeof(Enums.eMez));
                 for (var i = 0; i < eMezzes; i++)
                 {
-                    if (Math.Abs(mezValues[i]) > float.Epsilon)
+                    if (Math.Abs(mezValues[i]) < float.Epsilon)
                     {
-                        var edSettings = BuildEDItem(mezValues[i], mezSchedules[i], statNames[i], mezValuesAfterED[i]);
-                        ret.Mez.Add(new EDWeightedItem
-                        {
-                            StatName = statNames[i],
-                            Value = mezValues[i],
-                            Schedule = mezSchedules[i],
-                            PostEDValue = mezValuesAfterED[i],
-                            EDStrength = edSettings.EDStrength,
-                            EDSettings = edSettings
-                        });
+                        continue;
                     }
+
+                    ret.Mez.Add(BuildEDWeightedItem(mezValues[i], mezSchedules[i], statNames[i], mezValuesAfterED[i]));
                 }
 
                 return ret;
             }
+
+            private static EDWeightedItem BuildEDWeightedItem(float value, Enums.eSchedule schedule, string statName,
+                float valueAfterEd)
+            {
+                
+                if (Math.Abs(valueAfterEd) < float.Epsilon)
+                {
+                    valueAfterEd = Enhancement.ApplyED(schedule, value);
+                }
+
+                var edSettings = BuildEDItem(value, schedule, statName, valueAfterEd);
+                return new EDWeightedItem
+                {
+                    StatName = statName,
+                    Value = value,
+                    Schedule = schedule,
+                    PostEDValue = valueAfterEd,
+                    EDStrength = edSettings.EDStrength,
+                    EDSettings = edSettings
+                };
+            }
         }
-        
+
         #endregion
     }
 }
