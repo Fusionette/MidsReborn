@@ -3428,7 +3428,6 @@ namespace Mids_Reborn.Forms.Controls
                         }
                     }
 
-                    var headerSet = false;
                     var enhSetsIdx = new Dictionary<int, List<int>>();
                     if (slotCount > 0)
                     {
@@ -3461,7 +3460,8 @@ namespace Mids_Reborn.Forms.Controls
                         return "";
                     }
 
-                    ret += $"{RTF.Color(RTF.ElementID.Faded)}{RTF.Bold("Active Enhancement Sets:")}{RTF.Crlf()}";
+                    ret += $"{RTF.Color(RTF.ElementID.Faded)}{RTF.Bold($"{(tray == Tray.Main ? "Active" : "Alt.")} Enhancement Sets:")}{RTF.Crlf()}";
+                    const string bonusIndent = "  ";
                     foreach (var enhSetData in enhSetsIdx)
                     {
                         var enhancementSet = DatabaseAPI.Database.EnhancementSets[enhSetData.Key];
@@ -3474,19 +3474,19 @@ namespace Mids_Reborn.Forms.Controls
                                  ((enhancementSet.Bonus[bonusIdx].PvMode == Enums.ePvX.PvE) & !MidsContext.Config.Inc.DisablePvE) |
                                  (enhancementSet.Bonus[bonusIdx].PvMode == Enums.ePvX.Any)))
                             {
-                                var enhString = enhancementSet.GetEffectString(bonusIdx, false, true, true, true);
+                                var enhString = enhancementSet.GetEffectString(bonusIdx, false, false, true, true);
                                 if (string.IsNullOrWhiteSpace(enhString))
                                 {
                                     continue;
                                 }
 
-                                ret += $"{RTF.Color(RTF.ElementID.Enhancement)}  {enhString.Replace(", ", "\n")}{RTF.Crlf()}";
+                                ret += $"{RTF.Color(RTF.ElementID.Enhancement)}{bonusIndent}{enhString.Replace(", ", $"{RTF.Crlf()}{bonusIndent}")}{RTF.Crlf()}";
                             }
                         }
 
                         for (var specialBonusIdx = 0; specialBonusIdx < enhancementSet.SpecialBonus.Length; specialBonusIdx++)
                         {
-                            var enhString = enhancementSet.GetEffectString(specialBonusIdx, true, true, true, true);
+                            var enhString = enhancementSet.GetEffectString(specialBonusIdx, true, false, true, true);
                             if (string.IsNullOrWhiteSpace(enhString))
                             {
                                 continue;
@@ -3497,7 +3497,7 @@ namespace Mids_Reborn.Forms.Controls
                                 continue;
                             }
 
-                            ret += $"{RTF.Color(RTF.ElementID.Invention)}  {enhString.Replace(", ", "\n")}{RTF.Crlf()}";
+                            ret += $"{RTF.Color(RTF.ElementID.Invention)}{bonusIndent}{enhString.Replace(", ", $"{RTF.Crlf()}{bonusIndent}")}{RTF.Crlf()}";
                         }
                     }
 
@@ -3540,7 +3540,7 @@ namespace Mids_Reborn.Forms.Controls
                             Root.rtSetsCompareMain.Rtf = FillSetBonuses(Tray.Main);
                             Root.rtSetsCompareAlt.Rtf = FillSetBonuses(Tray.Alt);
 
-                            Root.label11.Text = "Enhancement Values | Compare set bonuses";
+                            Root.label11.Text = "Enhancement Values | Compare Set Bonuses";
 
                             break;
 
@@ -3559,7 +3559,7 @@ namespace Mids_Reborn.Forms.Controls
                             Root.rtSetsCompareMain.Rtf = FillSetBonuses(Tray.Main);
                             Root.rtSetsCompareAlt.Rtf = FillSetBonuses(Tray.Alt);
 
-                            Root.label11.Text = "Compare set bonuses";
+                            Root.label11.Text = "Compare Set Bonuses";
 
                             break;
                     }
