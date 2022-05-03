@@ -113,6 +113,8 @@ namespace Mids_Reborn.Forms.Controls
             this.dV2TotalsPane1R = new Mids_Reborn.Forms.Controls.DV2TotalsPane();
             this.dV2TotalsPane1L = new Mids_Reborn.Forms.Controls.DV2TotalsPane();
             this.tabPageAdv4 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.rtSetsCompareAlt = new System.Windows.Forms.RichTextBox();
+            this.rtSetsCompareMain = new System.Windows.Forms.RichTextBox();
             this.ipbResize4 = new FontAwesome.Sharp.IconPictureBox();
             this.ipbLock4 = new FontAwesome.Sharp.IconPictureBox();
             this.skglEnhAlt = new SkiaSharp.Views.Desktop.SKGLControl();
@@ -194,7 +196,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabBox.TabIndex = 0;
             this.tabBox.TabPanelBackColor = System.Drawing.Color.Black;
             this.tabBox.TabStyle = typeof(Syncfusion.Windows.Forms.Tools.TabRenderer2D);
-            this.tabBox.Text = "INFO";
+            this.tabBox.Text = "ENHANCE";
             this.tabBox.ThemeName = "TabRenderer2D";
             this.tabBox.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabBox.UseMnemonic = false;
@@ -1274,6 +1276,8 @@ namespace Mids_Reborn.Forms.Controls
             // tabPageAdv4
             // 
             this.tabPageAdv4.BackColor = System.Drawing.Color.FromArgb(0, 98, 116);
+            this.tabPageAdv4.Controls.Add(this.rtSetsCompareAlt);
+            this.tabPageAdv4.Controls.Add(this.rtSetsCompareMain);
             this.tabPageAdv4.Controls.Add(this.ipbResize4);
             this.tabPageAdv4.Controls.Add(this.ipbLock4);
             this.tabPageAdv4.Controls.Add(this.skglEnhAlt);
@@ -1295,6 +1299,44 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv4.TabIndex = 4;
             this.tabPageAdv4.Text = "ENHANCE";
             this.tabPageAdv4.ThemesEnabled = false;
+            // 
+            // rtSetsCompareAlt
+            // 
+            this.rtSetsCompareAlt.BackColor = System.Drawing.Color.Black;
+            this.rtSetsCompareAlt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtSetsCompareAlt.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.rtSetsCompareAlt.DetectUrls = false;
+            this.rtSetsCompareAlt.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.rtSetsCompareAlt.Location = new System.Drawing.Point(182, 167);
+            this.rtSetsCompareAlt.Name = "rtSetsCompareAlt";
+            this.rtSetsCompareAlt.ReadOnly = true;
+            this.rtSetsCompareAlt.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtSetsCompareAlt.ShortcutsEnabled = false;
+            this.rtSetsCompareAlt.Size = new System.Drawing.Size(175, 117);
+            this.rtSetsCompareAlt.TabIndex = 17;
+            this.rtSetsCompareAlt.TabStop = false;
+            this.rtSetsCompareAlt.Text = "";
+            this.rtSetsCompareAlt.Click += new System.EventHandler(this.enhanceRt_Click);
+            this.rtSetsCompareAlt.Enter += new System.EventHandler(this.enhanceRt_Enter);
+            // 
+            // rtSetsCompareMain
+            // 
+            this.rtSetsCompareMain.BackColor = System.Drawing.Color.Black;
+            this.rtSetsCompareMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtSetsCompareMain.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.rtSetsCompareMain.DetectUrls = false;
+            this.rtSetsCompareMain.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.rtSetsCompareMain.Location = new System.Drawing.Point(4, 167);
+            this.rtSetsCompareMain.Name = "rtSetsCompareMain";
+            this.rtSetsCompareMain.ReadOnly = true;
+            this.rtSetsCompareMain.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtSetsCompareMain.ShortcutsEnabled = false;
+            this.rtSetsCompareMain.Size = new System.Drawing.Size(175, 117);
+            this.rtSetsCompareMain.TabIndex = 16;
+            this.rtSetsCompareMain.TabStop = false;
+            this.rtSetsCompareMain.Text = "";
+            this.rtSetsCompareMain.Click += new System.EventHandler(this.enhanceRt_Click);
+            this.rtSetsCompareMain.Enter += new System.EventHandler(this.enhanceRt_Enter);
             // 
             // ipbResize4
             // 
@@ -1358,15 +1400,19 @@ namespace Mids_Reborn.Forms.Controls
             this.richEnhValues.BackColor = System.Drawing.Color.Black;
             this.richEnhValues.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richEnhValues.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.richEnhValues.DetectUrls = false;
             this.richEnhValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richEnhValues.ForeColor = System.Drawing.Color.White;
             this.richEnhValues.Location = new System.Drawing.Point(4, 48);
             this.richEnhValues.Name = "richEnhValues";
             this.richEnhValues.ReadOnly = true;
-            this.richEnhValues.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richEnhValues.Size = new System.Drawing.Size(353, 236);
+            this.richEnhValues.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richEnhValues.ShortcutsEnabled = false;
+            this.richEnhValues.Size = new System.Drawing.Size(353, 116);
             this.richEnhValues.TabIndex = 2;
             this.richEnhValues.Text = "";
+            this.richEnhValues.Click += new System.EventHandler(this.enhanceRt_Click);
+            this.richEnhValues.Enter += new System.EventHandler(this.enhanceRt_Enter);
             // 
             // label11
             // 
@@ -1885,5 +1931,7 @@ namespace Mids_Reborn.Forms.Controls
         private FontAwesome.Sharp.IconPictureBox ipbResize3;
         private FontAwesome.Sharp.IconPictureBox ipbResize4;
         private FontAwesome.Sharp.IconPictureBox ipbResize5;
+        private RichTextBox rtSetsCompareAlt;
+        private RichTextBox rtSetsCompareMain;
     }
 }

@@ -102,6 +102,12 @@ namespace Mids_Reborn.Forms.Controls
             MezProtection
         }
 
+        private enum Tray
+        {
+            Main,
+            Alt
+        }
+
         #endregion
 
         #region Public enums & structs
@@ -995,12 +1001,6 @@ namespace Mids_Reborn.Forms.Controls
                 public Enums.eEnhGrade EnhType;
             }
 
-            internal enum Tray
-            {
-                Main,
-                Alt
-            }
-
             internal enum IncarnateSlot
             {
                 Alpha,
@@ -1823,6 +1823,16 @@ namespace Mids_Reborn.Forms.Controls
                         (value - valueMin) / (valueMax - valueMin) *
                         (colorRange.UpperBoundColor.B - colorRange.LowerBoundColor.B) + colorRange.LowerBoundColor.B)
                 );
+            }
+
+            private static void SetTextBoxVScrollVisibility(RichTextBox textBox)
+            {
+                // https://stackoverflow.com/a/28068722
+                var textBoxRect = TextRenderer.MeasureText(textBox.Text, textBox.Font, new Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
+
+                textBox.ScrollBars = textBoxRect.Height > textBox.Height
+                    ? RichTextBoxScrollBars.Vertical
+                    : RichTextBoxScrollBars.None;
             }
 
             public static Dictionary<int, int> SlottedSets()
@@ -3346,12 +3356,12 @@ namespace Mids_Reborn.Forms.Controls
             {
                 private static DataView2 Root;
                 private static InfoType LayoutType;
+                private static MultiStateFlag ViewMode = new(2, 0, MultiStateFlag.Mode.RampUp);
 
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
                     Root = root;
                     LayoutType = layoutType;
-
                     DisplayEnhance();
                 }
 
@@ -3362,12 +3372,16 @@ namespace Mids_Reborn.Forms.Controls
                         ? IconChar.ChevronDown
                         : IconChar.ChevronUp;
 
+                    SetViewMode();
+
                     Root.skglEnhActive.Invalidate();
                     Root.skglEnhAlt.Invalidate();
+                }
 
+                private static void FillEDFigures()
+                {
                     var edFiguresBuffs = Build.EDFigures.GetBuffsForBuildPower(HistoryIdx);
 
-                    // richEnhValues
                     var edRtfText = RTF.StartRTF() + RTF.Color(RTF.ElementID.Text);
                     edRtfText += DisplayEDFiguresForGroup(edFiguresBuffs.Buffs, "Buffs:");
                     edRtfText += DisplayEDFiguresForGroup(edFiguresBuffs.Debuffs, "Debuffs:");
@@ -3375,6 +3389,190 @@ namespace Mids_Reborn.Forms.Controls
                     edRtfText += RTF.Color(RTF.ElementID.Text) + RTF.EndRTF();
 
                     Root.richEnhValues.Rtf = edRtfText;
+                }
+
+                private static string FillSetBonuses(Tray tray)
+                {
+                    var hasEnhEffect = false;
+                    if (MidsContext.Character.CurrentBuild.Powers == null)
+                    {
+                        return "";
+                    }
+
+                    if (MidsContext.Character.CurrentBuild.Powers[HistoryIdx] == null)
+                    {
+                        return "";
+                    }
+
+                    var ret = RTF.StartRTF();
+
+                    var powerEntry = MidsContext.Character.CurrentBuild.Powers[HistoryIdx];
+                    var slotCount = powerEntry.Slots.Length;
+                    if (slotCount > 0)
+                    {
+                        for (var slotIdx = 0; slotIdx < slotCount; slotIdx++)
+                        {
+                            var enh = tray == Tray.Main
+                                ? powerEntry.Slots[slotIdx].Enhancement.Enh
+                                : powerEntry.Slots[slotIdx].FlippedEnhancement.Enh;
+
+                            if (enh > -1 && DatabaseAPI.Database.Enhancements[enh].HasEnhEffect)
+                            {
+                                hasEnhEffect = true;
+                            }
+                        }
+
+                        if (hasEnhEffect)
+                        {
+                            //popupData.Sections[index1] = PopSlottedEnhInfo(HistoryIdx);
+                        }
+                    }
+
+                    var headerSet = false;
+                    var enhSetsIdx = new Dictionary<int, List<int>>();
+                    if (slotCount > 0)
+                    {
+                        for (var slotIdx = 0; slotIdx < slotCount; slotIdx++)
+                        {
+                            var enh = tray == Tray.Main
+                                ? powerEntry.Slots[slotIdx].Enhancement.Enh
+                                : powerEntry.Slots[slotIdx].FlippedEnhancement.Enh;
+
+                            if (enh > -1 && enh < DatabaseAPI.Database.Enhancements.Length)
+                            {
+                                var enhData = DatabaseAPI.Database.Enhancements[enh];
+                                if (enhData.nIDSet <= -1)
+                                {
+                                    continue;
+                                }
+
+                                if (!enhSetsIdx.ContainsKey(enhData.nIDSet))
+                                {
+                                    enhSetsIdx.Add(enhData.nIDSet, new List<int>());
+                                }
+
+                                enhSetsIdx[enhData.nIDSet].Add(enh);
+                            }
+                        }
+                    }
+
+                    if (enhSetsIdx.Count <= 0)
+                    {
+                        return "";
+                    }
+
+                    ret += $"{RTF.Color(RTF.ElementID.Faded)}{RTF.Bold("Active Enhancement Sets:")}{RTF.Crlf()}";
+                    foreach (var enhSetData in enhSetsIdx)
+                    {
+                        var enhancementSet = DatabaseAPI.Database.EnhancementSets[enhSetData.Key];
+                        ret += $"{RTF.Color(RTF.ElementID.Text)}{enhancementSet.DisplayName} ({enhSetData.Value.Count}/{enhancementSet.Enhancements.Length}){RTF.Crlf()}";
+
+                        for (var bonusIdx = 0; bonusIdx < enhancementSet.Bonus.Length; bonusIdx++)
+                        {
+                            if ((enhSetData.Value.Count >= enhancementSet.Bonus[bonusIdx].Slotted) &
+                                (((enhancementSet.Bonus[bonusIdx].PvMode == Enums.ePvX.PvP) & MidsContext.Config.Inc.DisablePvE) |
+                                 ((enhancementSet.Bonus[bonusIdx].PvMode == Enums.ePvX.PvE) & !MidsContext.Config.Inc.DisablePvE) |
+                                 (enhancementSet.Bonus[bonusIdx].PvMode == Enums.ePvX.Any)))
+                            {
+                                var enhString = enhancementSet.GetEffectString(bonusIdx, false, true, true, true);
+                                if (string.IsNullOrWhiteSpace(enhString))
+                                {
+                                    continue;
+                                }
+
+                                ret += $"{RTF.Color(RTF.ElementID.Enhancement)}  {enhString.Replace(", ", "\n")}{RTF.Crlf()}";
+                            }
+                        }
+
+                        for (var specialBonusIdx = 0; specialBonusIdx < enhancementSet.SpecialBonus.Length; specialBonusIdx++)
+                        {
+                            var enhString = enhancementSet.GetEffectString(specialBonusIdx, true, true, true, true);
+                            if (string.IsNullOrWhiteSpace(enhString))
+                            {
+                                continue;
+                            }
+
+                            if (!enhSetData.Value.Contains(enhancementSet.Enhancements[specialBonusIdx]))
+                            {
+                                continue;
+                            }
+
+                            ret += $"{RTF.Color(RTF.ElementID.Invention)}  {enhString.Replace(", ", "\n")}{RTF.Crlf()}";
+                        }
+                    }
+
+                    ret += RTF.EndRTF();
+
+                    return ret;
+                }
+
+                private static void SetViewMode()
+                {
+                    switch (ViewMode.Current)
+                    {
+                        // Enhancement values/ED Figures only
+                        case 0:
+                            Root.richEnhValues.Size = new Size(353, 236);
+                            Root.richEnhValues.Visible = true;
+                            FillEDFigures();
+
+                            Root.rtSetsCompareMain.Visible = false;
+                            Root.rtSetsCompareAlt.Visible = false;
+
+                            Root.label11.Text = "Enhancement Values";
+
+                            break;
+
+                        // Enhancement values/ED Figures vs Sets Compare (vertical halves)
+                        case 1:
+                            Root.richEnhValues.Size = new Size(353, 116);
+                            Root.richEnhValues.Visible = true;
+                            FillEDFigures();
+
+                            Root.rtSetsCompareMain.Location = new Point(4, 167);
+                            Root.rtSetsCompareMain.Size = new Size(175, 117);
+                            Root.rtSetsCompareMain.Visible = true;
+
+                            Root.rtSetsCompareAlt.Location = new Point(182, 167);
+                            Root.rtSetsCompareAlt.Size = new Size(175, 117);
+                            Root.rtSetsCompareAlt.Visible = true;
+
+                            Root.rtSetsCompareMain.Rtf = FillSetBonuses(Tray.Main);
+                            Root.rtSetsCompareAlt.Rtf = FillSetBonuses(Tray.Alt);
+
+                            Root.label11.Text = "Enhancement Values | Compare set bonuses";
+
+                            break;
+
+                        // Sets Compare only
+                        case 2:
+                            Root.richEnhValues.Visible = false;
+
+                            Root.rtSetsCompareMain.Location = new Point(4, 48);
+                            Root.rtSetsCompareMain.Size = new Size(175, 236);
+                            Root.rtSetsCompareMain.Visible = true;
+
+                            Root.rtSetsCompareAlt.Location = new Point(182, 48);
+                            Root.rtSetsCompareAlt.Size = new Size(175, 236);
+                            Root.rtSetsCompareAlt.Visible = true;
+
+                            Root.rtSetsCompareMain.Rtf = FillSetBonuses(Tray.Main);
+                            Root.rtSetsCompareAlt.Rtf = FillSetBonuses(Tray.Alt);
+
+                            Root.label11.Text = "Compare set bonuses";
+
+                            break;
+                    }
+
+                    SetTextBoxVScrollVisibility(Root.richEnhValues);
+                    SetTextBoxVScrollVisibility(Root.rtSetsCompareMain);
+                    SetTextBoxVScrollVisibility(Root.rtSetsCompareAlt);
+                }
+
+                public static void NextViewMode()
+                {
+                    ViewMode.Next();
+                    SetViewMode();
                 }
 
                 private static string DisplayEDFiguresForGroup(IReadOnlyList<Build.EDFigures.EDWeightedItem> buffDebuffs,
@@ -3530,8 +3728,8 @@ namespace Mids_Reborn.Forms.Controls
             var nbSlots = target.Name == "skglEnhActive" ? _flipAnimator.NbEnhMain : _flipAnimator.NbEnhAlt;
             for (var i = 0; i < nbMaxSlots; i++)
             {
-                var mainBitmap = _flipAnimator.GetBitmap(FlipAnimator.Tray.Main, i);
-                var altBitmap = _flipAnimator.GetBitmap(FlipAnimator.Tray.Alt, i);
+                var mainBitmap = _flipAnimator.GetBitmap(Tray.Main, i);
+                var altBitmap = _flipAnimator.GetBitmap(Tray.Alt, i);
 
                 var skImage = FlipAnimator.Bitmaps.DrawSingle(
                     target.Name == "skglEnhActive" ? mainBitmap : altBitmap,
@@ -3943,6 +4141,17 @@ namespace Mids_Reborn.Forms.Controls
         private void miscEffectsSelectorBtn_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, DisplayRectangle, Color.FromArgb(77, 77, 77), ButtonBorderStyle.Solid);
+        }
+
+        private void enhanceRt_Click(object sender, EventArgs e)
+        {
+            Tabs.Enhance.NextViewMode();
+        }
+
+        private void enhanceRt_Enter(object sender, EventArgs e)
+        {
+            // [user32.dll].HideCaret() doesn't work.
+            tabPageAdv4.Focus();
         }
 
         #endregion
