@@ -1813,13 +1813,13 @@ namespace Mids_Reborn.Forms.Controls
             public static Color InterpolateColor(decimal value, decimal valueMin, decimal valueMax, ColorRange colorRange)
             {
                 return Color.FromArgb(
-                    (int)Math.Round(
+                    (int) Math.Round(
                         (value - valueMin) / (valueMax - valueMin) *
                         (colorRange.UpperBoundColor.R - colorRange.LowerBoundColor.R) + colorRange.LowerBoundColor.R),
-                    (int)Math.Round(
+                    (int) Math.Round(
                         (value - valueMin) / (valueMax - valueMin) *
                         (colorRange.UpperBoundColor.G - colorRange.LowerBoundColor.G) + colorRange.LowerBoundColor.G),
-                    (int)Math.Round(
+                    (int) Math.Round(
                         (value - valueMin) / (valueMax - valueMin) *
                         (colorRange.UpperBoundColor.B - colorRange.LowerBoundColor.B) + colorRange.LowerBoundColor.B)
                 );
@@ -1830,7 +1830,7 @@ namespace Mids_Reborn.Forms.Controls
                 // https://stackoverflow.com/a/28068722
                 var textBoxRect = TextRenderer.MeasureText(textBox.Text, textBox.Font, new Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
 
-                textBox.ScrollBars = textBoxRect.Height > textBox.Height
+                textBox.ScrollBars = textBoxRect.Height - textBox.Font.Size > textBox.Height
                     ? RichTextBoxScrollBars.Vertical
                     : RichTextBoxScrollBars.None;
             }
@@ -3358,6 +3358,14 @@ namespace Mids_Reborn.Forms.Controls
                 private static InfoType LayoutType;
                 private static MultiStateFlag ViewMode = new(2, 0, MultiStateFlag.Mode.RampUp);
 
+                /* Flip:
+                MainModule.MidsController.Toon.FlipSlots(iPowerIndex);
+                for (var index = 0; index < CurrentBuild.Powers[iPowerSlot].SlotCount; index++)
+                {
+                    CurrentBuild.Powers[iPowerSlot].Slots[index].Flip();
+                }
+                */
+
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
                     Root = root;
@@ -3399,13 +3407,17 @@ namespace Mids_Reborn.Forms.Controls
                         return "";
                     }
 
+                    if (HistoryIdx < 0 || HistoryIdx >= MidsContext.Character.CurrentBuild.Powers.Count)
+                    {
+                        return "";
+                    }
+
                     if (MidsContext.Character.CurrentBuild.Powers[HistoryIdx] == null)
                     {
                         return "";
                     }
 
                     var ret = RTF.StartRTF();
-
                     var powerEntry = MidsContext.Character.CurrentBuild.Powers[HistoryIdx];
                     var slotCount = powerEntry.Slots.Length;
                     if (slotCount > 0)

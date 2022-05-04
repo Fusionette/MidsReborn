@@ -5,7 +5,7 @@ namespace Mids_Reborn.Forms.Controls
     public static class SKCanvasExt
     {
         public static void DrawOutlineText(this SKCanvas canvas, string text, SKPoint location, SKColor textColor,
-            SKTextAlign textAlign = SKTextAlign.Left, byte opacity = 0xFF, float fontSize = 12f, float strokeWidth = 5f)
+            SKTextAlign textAlign = SKTextAlign.Left, byte opacity = 0xFF, float fontSize = 12f, float strokeWidth = 3f)
         {
             using var textFont = new SKFont(SKTypeface.Default, fontSize);
             using var textPaint = new SKPaint(textFont)

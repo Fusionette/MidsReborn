@@ -312,10 +312,14 @@ namespace Mids_Reborn
         public void FlipSlots(int iPowerSlot)
         {
             if (iPowerSlot < 0)
+            {
                 return;
-            var num = CurrentBuild.Powers[iPowerSlot].SlotCount - 1;
-            for (var index = 0; index <= num; ++index)
+            }
+
+            for (var index = 0; index < CurrentBuild.Powers[iPowerSlot].SlotCount; index++)
+            {
                 CurrentBuild.Powers[iPowerSlot].Slots[index].Flip();
+            }
         }
 
         private void RemoveGrantEffectIndirect(ref IPower[] basePower, IPower targetPower, string summon)
