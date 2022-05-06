@@ -3382,6 +3382,7 @@ namespace Mids_Reborn.Forms.Controls
 
                     SetViewMode();
 
+                    Root.enhanceTabTitle.Invalidate();
                     Root.skglEnhActive.Invalidate();
                     Root.skglEnhAlt.Invalidate();
                 }
@@ -3648,6 +3649,7 @@ namespace Mids_Reborn.Forms.Controls
                         ? IconChar.ChevronDown
                         : IconChar.ChevronUp;
 
+                    Root.scalesTabTitle.Invalidate();
                     Root.skglScalesGraph.Invalidate();
                 }
             }
@@ -3861,7 +3863,7 @@ namespace Mids_Reborn.Forms.Controls
             target.ClearSelection();
         }
 
-        private void infoTabTitle_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
+        private void tabTitle_PaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
         {
             const int iconSize = 16;
             const int itemsPadding = 3;
