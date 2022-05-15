@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using FastDeepCloner;
 using FontAwesome.Sharp;
@@ -408,13 +409,13 @@ namespace Mids_Reborn.Forms.Controls
 
         private static readonly List<List<EffectVectorType>> EffectVectorsGroups = new()
         {
-            // +Defenses to Self
+            // +Resistances to Self
             new List<EffectVectorType>
             {
                 new(Enums.eEffectType.Resistance, BuffEffectType.Buff, Enums.eToWho.Self)
             },
 
-            // +Resistances to Self
+            // +Defenses to Self
             new List<EffectVectorType>
             {
                 new(Enums.eEffectType.Defense, BuffEffectType.Buff, Enums.eToWho.Self)
@@ -423,7 +424,6 @@ namespace Mids_Reborn.Forms.Controls
             // Buffs
             new List<EffectVectorType>
             {
-                // Need to add any other effect here ?
                 new(Enums.eEffectType.Resistance, BuffEffectType.Buff, Enums.eToWho.Target),
                 new(Enums.eEffectType.Defense, BuffEffectType.Buff, Enums.eToWho.Target),
                 new(Enums.eEffectType.Recovery, BuffEffectType.Buff),
@@ -436,13 +436,11 @@ namespace Mids_Reborn.Forms.Controls
                 new(Enums.eEffectType.StealthRadiusPlayer, BuffEffectType.Buff),
                 new(Enums.eEffectType.HitPoints, BuffEffectType.Buff),
                 new(Enums.eEffectType.Elusivity, BuffEffectType.Buff)
-
             },
 
             // Debuffs
             new List<EffectVectorType>
             {
-                // Need to add any other effect here ?
                 new(Enums.eEffectType.Resistance, BuffEffectType.Debuff),
                 new(Enums.eEffectType.Defense, BuffEffectType.Debuff),
                 new(Enums.eEffectType.Recovery, BuffEffectType.Debuff),
@@ -609,8 +607,10 @@ namespace Mids_Reborn.Forms.Controls
 
             private bool ContainsMultiOnly<T>(IEnumerable<T> items, IEnumerable<T> baseList)
             {
-                // return new HashSet<T>(items).SetEquals(baseList);
-                return baseList.Except(items).Any();
+                var refList = baseList.ToList();
+                var itemsList = items.ToList();
+
+                return itemsList.Count == refList.Count && refList.Except(itemsList).Any();
             }
 
             private string MezTypesString()
@@ -654,19 +654,15 @@ namespace Mids_Reborn.Forms.Controls
                         {
                             return "All Dmg";
                         }
-                        else if (ContainsMultiOnly(damageTypes.GetRange(8, 3), DamageTypes))
+
+                        if (ContainsMultiOnly(damageTypes.GetRange(8, 3), DamageTypes))
                         {
                             return "All Pos";
                         }
-                        else if (ContainsMultiOnly(damageTypes.GetRange(0, 7).Union(damageTypes.GetRange(8, 3)),
-                                     DamageTypes))
-                        {
-                            return "All";
-                        }
-                        else
-                        {
-                            return string.Join(", ", DamageTypes);
-                        }
+
+                        return ContainsMultiOnly(damageTypes.GetRange(0, 7).Union(damageTypes.GetRange(8, 3)), DamageTypes)
+                            ? "All"
+                            : string.Join(", ", DamageTypes);
 
                     default:
                         return ContainsMultiOnly(damageTypes.GetRange(0, 8), DamageTypes)
@@ -993,7 +989,7 @@ namespace Mids_Reborn.Forms.Controls
 
         #endregion
 
-        #region Flip animator sub-class
+        #region Flip animator sub-class (enhance tab)
 
         private class FlipAnimator
         {
@@ -1223,7 +1219,7 @@ namespace Mids_Reborn.Forms.Controls
                     {
                         Bitmap = slotBitmap,
                         IsEmpty = emptySlot,
-                        ValidSlot = true, // To be done later
+                        ValidSlot = true,
                         EnhType = enhSlot.Grade
                     });
 
@@ -1236,7 +1232,7 @@ namespace Mids_Reborn.Forms.Controls
                     {
                         Bitmap = slotBitmap,
                         IsEmpty = emptySlot,
-                        ValidSlot = true, // To be done later
+                        ValidSlot = true,
                         EnhType = enhSlot.Grade
                     });
                 }
@@ -1831,7 +1827,6 @@ namespace Mids_Reborn.Forms.Controls
 
             private static void SetTextBoxVScrollVisibility(RichTextBox textBox)
             {
-                // https://stackoverflow.com/a/28068722
                 var textBoxRect = TextRenderer.MeasureText(textBox.Text, textBox.Font, new Size(textBox.Width, int.MaxValue), TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
 
                 textBox.ScrollBars = textBoxRect.Height - textBox.Font.Size > textBox.Height
@@ -2379,7 +2374,6 @@ namespace Mids_Reborn.Forms.Controls
 
                 private static void EnhancementInfo()
                 {
-                    // ???
                     if (Root.Locked || EnhLevel < 0)
                     {
                         return;
@@ -2652,21 +2646,21 @@ namespace Mids_Reborn.Forms.Controls
                             {
                                 return "All pos.";
                             }
-                            else if (buffTypes.Count == dmgVectors.Count &
-                                     buffTypes.Intersect(dmgVectors).Count() == dmgVectors.Count)
+
+                            if (buffTypes.Count == dmgVectors.Count &
+                                buffTypes.Intersect(dmgVectors).Count() == dmgVectors.Count)
                             {
                                 return "All dmg";
                             }
-                            else if (buffTypes.Count == allVectors.Count &
-                                     buffTypes.Intersect(allVectors).Count() == allVectors.Count)
+
+                            if (buffTypes.Count == allVectors.Count &
+                                buffTypes.Intersect(allVectors).Count() == allVectors.Count)
                             {
                                 return "All";
                             }
-                            else
-                            {
-                                //return string.Join(", ", buffTypes);
-                                return buffTypes.Count == 1 ? $"{buffTypes[0]}" : "Multi";
-                            }
+
+                            //return string.Join(", ", buffTypes);
+                            return buffTypes.Count == 1 ? $"{buffTypes[0]}" : "Multi";
 
                         default:
                             return "";
@@ -3077,6 +3071,8 @@ namespace Mids_Reborn.Forms.Controls
                         }
                     }
 
+                    var rSingleMez = new Regex(@"^Mez\(([A-Za-z\-]+)\)$", RegexOptions.CultureInvariant);
+                    var rGenericSubEffects = new Regex(@"^([A-Za-z\-_]+)\(([A-Za-z\-\,\s]+)\)$", RegexOptions.CultureInvariant);
                     for (var i = 0; i < groupedItems.Count; i++)
                     {
                         var target = (int)Math.Floor(i / 2f) switch
@@ -3126,6 +3122,19 @@ namespace Mids_Reborn.Forms.Controls
                                 }
                             }
 
+                            if (rSingleMez.IsMatch(stat))
+                            {
+                                // E.g. Mez(Stunned) --> Stunned
+                                var m = rSingleMez.Match(stat);
+                                stat = m.Groups[1].Value;
+                            }
+                            else if (rGenericSubEffects.IsMatch(stat))
+                            {
+                                // E.g. Defense(Smash) --> Defense
+                                var m = rGenericSubEffects.Match(stat);
+                                stat = m.Groups[1].Value;
+                            }
+                            
                             target.SetCellContent($"{stat}:", $"{statLongTarget.Replace(":", "")}", j, rowOffset);
                             target.SetCellContent(mag, Boosts.GetBoostColor(boostType, invertBoost), "", j, rowOffset + 1);
                         }

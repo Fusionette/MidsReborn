@@ -1616,9 +1616,6 @@ namespace Mids_Reborn.Forms
             Info_Power(dvLastPower, dvLastEnh, dvLastNoLev, DataViewLocked);
         }
 
-        //dvAnchored.FileModified += dvAnchored_FileModified;
-        //dvAnchored.RefreshInfo += dvAnchored_RefreshInfo;
-
         private void dvAnchored_FileModified()
         {
             FileModified = true;
