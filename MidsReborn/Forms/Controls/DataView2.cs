@@ -20,9 +20,13 @@ namespace Mids_Reborn.Forms.Controls
     {
         public delegate void UnlockEventHandler();
         public delegate void TabChangedEventHandler(int tabIndex);
+        public delegate void FileModifiedEventHandler();
+        public delegate void RefreshInfoEventHandler();
 
         public event UnlockEventHandler Unlock;
         public event TabChangedEventHandler TabChanged;
+        public event FileModifiedEventHandler FileModified;
+        public event RefreshInfoEventHandler RefreshInfo;
         
         #region Private enums & structs
 
@@ -3358,14 +3362,6 @@ namespace Mids_Reborn.Forms.Controls
                 private static InfoType LayoutType;
                 private static MultiStateFlag ViewMode = new(2, 0, MultiStateFlag.Mode.RampUp);
 
-                /* Flip:
-                MainModule.MidsController.Toon.FlipSlots(iPowerIndex);
-                for (var index = 0; index < CurrentBuild.Powers[iPowerSlot].SlotCount; index++)
-                {
-                    CurrentBuild.Powers[iPowerSlot].Slots[index].Flip();
-                }
-                */
-
                 public static void Render(DataView2 root, InfoType layoutType)
                 {
                     Root = root;
@@ -3756,6 +3752,7 @@ namespace Mids_Reborn.Forms.Controls
 
         protected void timer1_Tick(object sender, EventArgs e)
         {
+            // Rotation seem slower first time it's run.
             if (_flipAnimator.Angle >= _flipAnimator.FullCycleAngle)
             {
                 timer1.Stop();
@@ -3763,6 +3760,11 @@ namespace Mids_Reborn.Forms.Controls
                 _flipAnimator.SwapSets();
                 _flipAnimator.Angle = 0;
                 _flipAnimator.Active = false;
+
+                MainModule.MidsController.Toon.FlipSlots(HistoryIdx);
+                UpdateData();
+                FileModified?.Invoke();
+                RefreshInfo?.Invoke();
             }
             else
             {
@@ -3775,6 +3777,11 @@ namespace Mids_Reborn.Forms.Controls
         protected void skglControl_Click(object sender, EventArgs e)
         {
             if (_flipAnimator.Active)
+            {
+                return;
+            }
+
+            if (HistoryIdx <= 1 || MidsContext.Character.CurrentBuild.Powers[HistoryIdx].Slots.Length == 0)
             {
                 return;
             }
@@ -3805,6 +3812,10 @@ namespace Mids_Reborn.Forms.Controls
 
             // BackColor doesn't stick when set in the designer
             ipbResize.BackColor = Color.Black;
+            ipbResize2.BackColor = Color.Black;
+            ipbResize3.BackColor = Color.Black;
+            ipbResize4.BackColor = Color.Black;
+            ipbResize5.BackColor = Color.Black;
 
             // MaxItems doesn't stick when set in the designer
             dV2TotalsPane1L.MaxItems = 6;

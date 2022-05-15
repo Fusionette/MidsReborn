@@ -170,7 +170,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabBox
             // 
-            this.tabBox.ActiveTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabBox.ActiveTabColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabBox.ActiveTabOutlineColor = System.Drawing.Color.Black;
             this.tabBox.ActiveTabOutlineWidth = 2F;
             this.tabBox.BeforeTouchSize = new System.Drawing.Size(360, 400);
@@ -182,10 +182,10 @@ namespace Mids_Reborn.Forms.Controls
             this.tabBox.Controls.Add(this.tabPageAdv4);
             this.tabBox.Controls.Add(this.tabPageAdv5);
             this.tabBox.EnableOutline = true;
-            this.tabBox.FixedSingleBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabBox.FixedSingleBorderColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabBox.FocusOnTabClick = false;
             this.tabBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.tabBox.InactiveTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(33)))), ((int)(((byte)(59)))));
+            this.tabBox.InactiveTabColor = System.Drawing.Color.FromArgb(7, 33, 59);
             this.tabBox.InactiveTabOutlineColor = System.Drawing.Color.Black;
             this.tabBox.InactiveTabOutlineWidth = 2F;
             this.tabBox.ItemSize = new System.Drawing.Size(64, 22);
@@ -203,7 +203,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv1
             // 
-            this.tabPageAdv1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabPageAdv1.BackColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabPageAdv1.Controls.Add(this.ipbResize);
             this.tabPageAdv1.Controls.Add(this.ipbLock);
             this.tabPageAdv1.Controls.Add(this.infoTabTitle);
@@ -221,7 +221,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv1.Name = "tabPageAdv1";
             this.tabPageAdv1.ShowCloseButton = true;
             this.tabPageAdv1.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv1.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.tabPageAdv1.TabBackColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.tabPageAdv1.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv1.TabForeColor = System.Drawing.Color.White;
             this.tabPageAdv1.TabIndex = 1;
@@ -230,7 +230,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbResize
             // 
-            this.ipbResize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(56)))), ((int)(((byte)(100)))));
+            this.ipbResize.BackColor = System.Drawing.Color.FromArgb(12, 56, 100);
             this.ipbResize.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbResize.IconChar = FontAwesome.Sharp.IconChar.ChevronUp;
             this.ipbResize.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -246,7 +246,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbLock
             // 
-            this.ipbLock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ipbLock.BackColor = System.Drawing.Color.FromArgb(170, 0, 0);
             this.ipbLock.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbLock.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.ipbLock.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -289,7 +289,7 @@ namespace Mids_Reborn.Forms.Controls
             this.Column3,
             this.Column4});
             this.listInfos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.listInfos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.listInfos.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.listInfos.Location = new System.Drawing.Point(4, 181);
             this.listInfos.MultiSelect = false;
             this.listInfos.Name = "listInfos";
@@ -386,14 +386,14 @@ namespace Mids_Reborn.Forms.Controls
             // skDamageGraph1
             // 
             this.skDamageGraph1.BackColor = System.Drawing.Color.Black;
-            this.skDamageGraph1.ColorBackEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.skDamageGraph1.ColorBackStart = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.skDamageGraph1.ColorBaseEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.skDamageGraph1.ColorBaseStart = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.skDamageGraph1.ColorEnhEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.skDamageGraph1.ColorEnhStart = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.skDamageGraph1.ColorBackEnd = System.Drawing.Color.FromArgb(0, 0, 0);
+            this.skDamageGraph1.ColorBackStart = System.Drawing.Color.FromArgb(0, 0, 0);
+            this.skDamageGraph1.ColorBaseEnd = System.Drawing.Color.FromArgb(0, 0, 0);
+            this.skDamageGraph1.ColorBaseStart = System.Drawing.Color.FromArgb(0, 0, 0);
+            this.skDamageGraph1.ColorEnhEnd = System.Drawing.Color.FromArgb(0, 0, 0);
+            this.skDamageGraph1.ColorEnhStart = System.Drawing.Color.FromArgb(0, 0, 0);
             this.skDamageGraph1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.skDamageGraph1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(210)))));
+            this.skDamageGraph1.ForeColor = System.Drawing.Color.FromArgb(192, 192, 210);
             this.skDamageGraph1.GraphType = mrbBase.Enums.eDDGraph.Both;
             this.skDamageGraph1.Location = new System.Drawing.Point(4, 304);
             this.skDamageGraph1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -410,7 +410,7 @@ namespace Mids_Reborn.Forms.Controls
             this.skDamageGraph1.TabIndex = 6;
             this.skDamageGraph1.TabStop = false;
             this.skDamageGraph1.TextAlign = mrbBase.Enums.eDDAlign.Center;
-            this.skDamageGraph1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.skDamageGraph1.TextColor = System.Drawing.Color.FromArgb(0, 0, 0);
             // 
             // lblDamage
             // 
@@ -470,7 +470,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18});
             this.listSpecialBonuses.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.listSpecialBonuses.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.listSpecialBonuses.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.listSpecialBonuses.Location = new System.Drawing.Point(4, 284);
             this.listSpecialBonuses.MultiSelect = false;
             this.listSpecialBonuses.Name = "listSpecialBonuses";
@@ -571,7 +571,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbLock2
             // 
-            this.ipbLock2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ipbLock2.BackColor = System.Drawing.Color.FromArgb(170, 0, 0);
             this.ipbLock2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbLock2.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.ipbLock2.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -619,7 +619,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12});
             this.gridEffectsBlock3.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridEffectsBlock3.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gridEffectsBlock3.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.gridEffectsBlock3.Location = new System.Drawing.Point(4, 281);
             this.gridEffectsBlock3.MultiSelect = false;
             this.gridEffectsBlock3.Name = "gridEffectsBlock3";
@@ -729,7 +729,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
             this.gridEffectsBlock2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridEffectsBlock2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gridEffectsBlock2.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.gridEffectsBlock2.Location = new System.Drawing.Point(4, 163);
             this.gridEffectsBlock2.MultiSelect = false;
             this.gridEffectsBlock2.Name = "gridEffectsBlock2";
@@ -839,7 +839,7 @@ namespace Mids_Reborn.Forms.Controls
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
             this.gridEffectsBlock1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.gridEffectsBlock1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.gridEffectsBlock1.GridColor = System.Drawing.Color.FromArgb(64, 64, 64);
             this.gridEffectsBlock1.Location = new System.Drawing.Point(4, 45);
             this.gridEffectsBlock1.MultiSelect = false;
             this.gridEffectsBlock1.Name = "gridEffectsBlock1";
@@ -967,7 +967,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv3
             // 
-            this.tabPageAdv3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.tabPageAdv3.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.tabPageAdv3.Controls.Add(this.ipbResize3);
             this.tabPageAdv3.Controls.Add(this.ipbLock3);
             this.tabPageAdv3.Controls.Add(this.panelMiscTypeSelector);
@@ -988,7 +988,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv3.Name = "tabPageAdv3";
             this.tabPageAdv3.ShowCloseButton = true;
             this.tabPageAdv3.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv3.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.tabPageAdv3.TabBackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.tabPageAdv3.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv3.TabForeColor = System.Drawing.Color.White;
             this.tabPageAdv3.TabIndex = 3;
@@ -997,7 +997,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbResize3
             // 
-            this.ipbResize3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.ipbResize3.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.ipbResize3.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbResize3.IconChar = FontAwesome.Sharp.IconChar.ChevronUp;
             this.ipbResize3.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -1013,7 +1013,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbLock3
             // 
-            this.ipbLock3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ipbLock3.BackColor = System.Drawing.Color.FromArgb(170, 0, 0);
             this.ipbLock3.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbLock3.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.ipbLock3.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -1044,7 +1044,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // btnMiscTotals4
             // 
-            this.btnMiscTotals4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(41)))), ((int)(((byte)(26)))));
+            this.btnMiscTotals4.BackColor = System.Drawing.Color.FromArgb(1, 41, 26);
             this.btnMiscTotals4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMiscTotals4.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnMiscTotals4.Location = new System.Drawing.Point(201, 59);
@@ -1061,7 +1061,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // btnMiscTotals3
             // 
-            this.btnMiscTotals3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(41)))), ((int)(((byte)(26)))));
+            this.btnMiscTotals3.BackColor = System.Drawing.Color.FromArgb(1, 41, 26);
             this.btnMiscTotals3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMiscTotals3.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnMiscTotals3.Location = new System.Drawing.Point(201, 18);
@@ -1078,7 +1078,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // btnMiscTotals2
             // 
-            this.btnMiscTotals2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(41)))), ((int)(((byte)(26)))));
+            this.btnMiscTotals2.BackColor = System.Drawing.Color.FromArgb(1, 41, 26);
             this.btnMiscTotals2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMiscTotals2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnMiscTotals2.Location = new System.Drawing.Point(24, 59);
@@ -1095,7 +1095,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // btnMiscTotals1
             // 
-            this.btnMiscTotals1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(41)))), ((int)(((byte)(26)))));
+            this.btnMiscTotals1.BackColor = System.Drawing.Color.FromArgb(1, 41, 26);
             this.btnMiscTotals1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMiscTotals1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnMiscTotals1.Location = new System.Drawing.Point(24, 18);
@@ -1123,13 +1123,13 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane3R
             // 
             this.dV2TotalsPane3R.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane3R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane3R.BarColorMain = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.dV2TotalsPane3R.BarColorUncapped = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.dV2TotalsPane3R.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
+            this.dV2TotalsPane3R.BarColorMain = System.Drawing.Color.FromArgb(192, 0, 192);
+            this.dV2TotalsPane3R.BarColorUncapped = System.Drawing.Color.FromArgb(192, 0, 192);
             this.dV2TotalsPane3R.Dock = System.Windows.Forms.DockStyle.Right;
             this.dV2TotalsPane3R.EnableUncappedValues = false;
             this.dV2TotalsPane3R.GlobalMaxValue = 100F;
-            this.dV2TotalsPane3R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dV2TotalsPane3R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane3R.Location = new System.Drawing.Point(175, 0);
             this.dV2TotalsPane3R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane3R.MaxItems = 0;
@@ -1142,13 +1142,13 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane3L
             // 
             this.dV2TotalsPane3L.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane3L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane3L.BarColorMain = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.dV2TotalsPane3L.BarColorUncapped = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.dV2TotalsPane3L.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
+            this.dV2TotalsPane3L.BarColorMain = System.Drawing.Color.FromArgb(192, 0, 192);
+            this.dV2TotalsPane3L.BarColorUncapped = System.Drawing.Color.FromArgb(192, 0, 192);
             this.dV2TotalsPane3L.Dock = System.Windows.Forms.DockStyle.Left;
             this.dV2TotalsPane3L.EnableUncappedValues = false;
             this.dV2TotalsPane3L.GlobalMaxValue = 100F;
-            this.dV2TotalsPane3L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dV2TotalsPane3L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane3L.Location = new System.Drawing.Point(0, 0);
             this.dV2TotalsPane3L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane3L.MaxItems = 0;
@@ -1160,7 +1160,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // label8
             // 
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.label8.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(4, 252);
             this.label8.Name = "label8";
@@ -1171,7 +1171,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // label7
             // 
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.label7.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(4, 144);
             this.label7.Name = "label7";
@@ -1181,7 +1181,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // label6
             // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(85)))), ((int)(((byte)(55)))));
+            this.label6.BackColor = System.Drawing.Color.FromArgb(2, 85, 55);
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(4, 28);
             this.label6.Name = "label6";
@@ -1204,12 +1204,12 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane2R
             // 
             this.dV2TotalsPane2R.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane2R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane2R.BarColorMain = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.dV2TotalsPane2R.BarColorUncapped = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.dV2TotalsPane2R.BackgroundColorEnd = System.Drawing.Color.FromArgb(0, 125, 125);
+            this.dV2TotalsPane2R.BarColorMain = System.Drawing.Color.FromArgb(0, 192, 192);
+            this.dV2TotalsPane2R.BarColorUncapped = System.Drawing.Color.FromArgb(255, 128, 128);
             this.dV2TotalsPane2R.EnableUncappedValues = true;
             this.dV2TotalsPane2R.GlobalMaxValue = 100F;
-            this.dV2TotalsPane2R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dV2TotalsPane2R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane2R.Location = new System.Drawing.Point(180, 164);
             this.dV2TotalsPane2R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2R.MaxItems = 0;
@@ -1222,12 +1222,12 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane2L
             // 
             this.dV2TotalsPane2L.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane2L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane2L.BarColorMain = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.dV2TotalsPane2L.BarColorUncapped = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.dV2TotalsPane2L.BackgroundColorEnd = System.Drawing.Color.FromArgb(0, 125, 125);
+            this.dV2TotalsPane2L.BarColorMain = System.Drawing.Color.FromArgb(0, 192, 192);
+            this.dV2TotalsPane2L.BarColorUncapped = System.Drawing.Color.FromArgb(255, 128, 128);
             this.dV2TotalsPane2L.EnableUncappedValues = true;
             this.dV2TotalsPane2L.GlobalMaxValue = 100F;
-            this.dV2TotalsPane2L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dV2TotalsPane2L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane2L.Location = new System.Drawing.Point(4, 164);
             this.dV2TotalsPane2L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane2L.MaxItems = 0;
@@ -1240,12 +1240,12 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane1R
             // 
             this.dV2TotalsPane1R.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane1R.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane1R.BarColorMain = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.dV2TotalsPane1R.BarColorUncapped = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.dV2TotalsPane1R.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
+            this.dV2TotalsPane1R.BarColorMain = System.Drawing.Color.FromArgb(192, 0, 192);
+            this.dV2TotalsPane1R.BarColorUncapped = System.Drawing.Color.FromArgb(192, 0, 192);
             this.dV2TotalsPane1R.EnableUncappedValues = false;
             this.dV2TotalsPane1R.GlobalMaxValue = 100F;
-            this.dV2TotalsPane1R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dV2TotalsPane1R.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane1R.Location = new System.Drawing.Point(180, 48);
             this.dV2TotalsPane1R.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1R.MaxItems = 0;
@@ -1258,12 +1258,12 @@ namespace Mids_Reborn.Forms.Controls
             // dV2TotalsPane1L
             // 
             this.dV2TotalsPane1L.BackColor = System.Drawing.Color.Black;
-            this.dV2TotalsPane1L.BackgroundColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(0)))), ((int)(((byte)(125)))));
-            this.dV2TotalsPane1L.BarColorMain = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.dV2TotalsPane1L.BarColorUncapped = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.dV2TotalsPane1L.BackgroundColorEnd = System.Drawing.Color.FromArgb(125, 0, 125);
+            this.dV2TotalsPane1L.BarColorMain = System.Drawing.Color.FromArgb(192, 0, 192);
+            this.dV2TotalsPane1L.BarColorUncapped = System.Drawing.Color.FromArgb(192, 0, 192);
             this.dV2TotalsPane1L.EnableUncappedValues = false;
             this.dV2TotalsPane1L.GlobalMaxValue = 100F;
-            this.dV2TotalsPane1L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dV2TotalsPane1L.HighlightBackgroundColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dV2TotalsPane1L.Location = new System.Drawing.Point(4, 48);
             this.dV2TotalsPane1L.Margin = new System.Windows.Forms.Padding(0);
             this.dV2TotalsPane1L.MaxItems = 0;
@@ -1275,7 +1275,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv4
             // 
-            this.tabPageAdv4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
+            this.tabPageAdv4.BackColor = System.Drawing.Color.FromArgb(0, 98, 116);
             this.tabPageAdv4.Controls.Add(this.enhanceTabTitle);
             this.tabPageAdv4.Controls.Add(this.rtSetsCompareAlt);
             this.tabPageAdv4.Controls.Add(this.rtSetsCompareMain);
@@ -1293,7 +1293,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv4.Name = "tabPageAdv4";
             this.tabPageAdv4.ShowCloseButton = true;
             this.tabPageAdv4.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv4.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
+            this.tabPageAdv4.TabBackColor = System.Drawing.Color.FromArgb(0, 98, 116);
             this.tabPageAdv4.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPageAdv4.TabForeColor = System.Drawing.Color.White;
             this.tabPageAdv4.TabIndex = 4;
@@ -1351,7 +1351,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbResize4
             // 
-            this.ipbResize4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(98)))), ((int)(((byte)(116)))));
+            this.ipbResize4.BackColor = System.Drawing.Color.FromArgb(0, 98, 116);
             this.ipbResize4.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbResize4.IconChar = FontAwesome.Sharp.IconChar.ChevronUp;
             this.ipbResize4.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -1367,7 +1367,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbLock4
             // 
-            this.ipbLock4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ipbLock4.BackColor = System.Drawing.Color.FromArgb(170, 0, 0);
             this.ipbLock4.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbLock4.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.ipbLock4.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -1439,7 +1439,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // tabPageAdv5
             // 
-            this.tabPageAdv5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
+            this.tabPageAdv5.BackColor = System.Drawing.Color.FromArgb(148, 117, 46);
             this.tabPageAdv5.Controls.Add(this.scalesTabTitle);
             this.tabPageAdv5.Controls.Add(this.ipbResize5);
             this.tabPageAdv5.Controls.Add(this.ipbLock5);
@@ -1455,7 +1455,7 @@ namespace Mids_Reborn.Forms.Controls
             this.tabPageAdv5.Name = "tabPageAdv5";
             this.tabPageAdv5.ShowCloseButton = true;
             this.tabPageAdv5.Size = new System.Drawing.Size(360, 379);
-            this.tabPageAdv5.TabBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
+            this.tabPageAdv5.TabBackColor = System.Drawing.Color.FromArgb(148, 117, 46);
             this.tabPageAdv5.TabIndex = 5;
             this.tabPageAdv5.Text = "SCALES";
             this.tabPageAdv5.ThemesEnabled = false;
@@ -1473,7 +1473,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbResize5
             // 
-            this.ipbResize5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(117)))), ((int)(((byte)(46)))));
+            this.ipbResize5.BackColor = System.Drawing.Color.FromArgb(148, 117, 46);
             this.ipbResize5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbResize5.IconChar = FontAwesome.Sharp.IconChar.ChevronUp;
             this.ipbResize5.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -1489,7 +1489,7 @@ namespace Mids_Reborn.Forms.Controls
             // 
             // ipbLock5
             // 
-            this.ipbLock5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ipbLock5.BackColor = System.Drawing.Color.FromArgb(170, 0, 0);
             this.ipbLock5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.ipbLock5.IconChar = FontAwesome.Sharp.IconChar.Lock;
             this.ipbLock5.IconColor = System.Drawing.Color.WhiteSmoke;
@@ -1540,8 +1540,8 @@ namespace Mids_Reborn.Forms.Controls
             // powerScaler3
             // 
             this.powerScaler3.BackColor = System.Drawing.Color.Black;
-            this.powerScaler3.BarPenColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(94)))), ((int)(((byte)(110)))));
-            this.powerScaler3.BarPenColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(74)))));
+            this.powerScaler3.BarPenColorBottom = System.Drawing.Color.FromArgb(87, 94, 110);
+            this.powerScaler3.BarPenColorTop = System.Drawing.Color.FromArgb(55, 60, 74);
             this.powerScaler3.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.powerScaler3.ColorSchema = Mids_Reborn.Forms.Controls.ColorSlider.ColorSchemas.GreenColors;
             this.powerScaler3.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1589,7 +1589,7 @@ namespace Mids_Reborn.Forms.Controls
             0});
             this.powerScaler3.TabIndex = 0;
             this.powerScaler3.ThumbInnerColor = System.Drawing.Color.Green;
-            this.powerScaler3.ThumbPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(80)))), ((int)(((byte)(50)))));
+            this.powerScaler3.ThumbPenColor = System.Drawing.Color.FromArgb(20, 80, 50);
             this.powerScaler3.ThumbRoundRectSize = new System.Drawing.Size(1, 16);
             this.powerScaler3.ThumbSize = new System.Drawing.Size(6, 16);
             this.powerScaler3.TickAdd = 0F;
@@ -1628,8 +1628,8 @@ namespace Mids_Reborn.Forms.Controls
             // powerScaler2
             // 
             this.powerScaler2.BackColor = System.Drawing.Color.Black;
-            this.powerScaler2.BarPenColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(94)))), ((int)(((byte)(110)))));
-            this.powerScaler2.BarPenColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(74)))));
+            this.powerScaler2.BarPenColorBottom = System.Drawing.Color.FromArgb(87, 94, 110);
+            this.powerScaler2.BarPenColorTop = System.Drawing.Color.FromArgb(55, 60, 74);
             this.powerScaler2.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.powerScaler2.ColorSchema = Mids_Reborn.Forms.Controls.ColorSlider.ColorSchemas.GreenColors;
             this.powerScaler2.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1677,7 +1677,7 @@ namespace Mids_Reborn.Forms.Controls
             0});
             this.powerScaler2.TabIndex = 0;
             this.powerScaler2.ThumbInnerColor = System.Drawing.Color.Green;
-            this.powerScaler2.ThumbPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(80)))), ((int)(((byte)(50)))));
+            this.powerScaler2.ThumbPenColor = System.Drawing.Color.FromArgb(20, 80, 50);
             this.powerScaler2.ThumbRoundRectSize = new System.Drawing.Size(1, 16);
             this.powerScaler2.ThumbSize = new System.Drawing.Size(6, 16);
             this.powerScaler2.TickAdd = 0F;
@@ -1715,8 +1715,8 @@ namespace Mids_Reborn.Forms.Controls
             // powerScaler1
             // 
             this.powerScaler1.BackColor = System.Drawing.Color.Black;
-            this.powerScaler1.BarPenColorBottom = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(94)))), ((int)(((byte)(110)))));
-            this.powerScaler1.BarPenColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(74)))));
+            this.powerScaler1.BarPenColorBottom = System.Drawing.Color.FromArgb(87, 94, 110);
+            this.powerScaler1.BarPenColorTop = System.Drawing.Color.FromArgb(55, 60, 74);
             this.powerScaler1.BorderRoundRectSize = new System.Drawing.Size(8, 8);
             this.powerScaler1.ColorSchema = Mids_Reborn.Forms.Controls.ColorSlider.ColorSchemas.GreenColors;
             this.powerScaler1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1764,7 +1764,7 @@ namespace Mids_Reborn.Forms.Controls
             0});
             this.powerScaler1.TabIndex = 0;
             this.powerScaler1.ThumbInnerColor = System.Drawing.Color.Green;
-            this.powerScaler1.ThumbPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(80)))), ((int)(((byte)(50)))));
+            this.powerScaler1.ThumbPenColor = System.Drawing.Color.FromArgb(20, 80, 50);
             this.powerScaler1.ThumbRoundRectSize = new System.Drawing.Size(1, 16);
             this.powerScaler1.ThumbSize = new System.Drawing.Size(6, 16);
             this.powerScaler1.TickAdd = 0F;

@@ -153,6 +153,8 @@ namespace Mids_Reborn.Forms
             //var componentResourceManager = new ComponentResourceManager(typeof(FrmMain2));
             dvAnchored.Unlock += dvAnchored_Unlock;
             dvAnchored.TabChanged += dvAnchored_TabChanged;
+            dvAnchored.FileModified += dvAnchored_FileModified;
+            dvAnchored.RefreshInfo += dvAnchored_RefreshInfo;
             Icon = Resources.reborn;
             Name = nameof(FrmMain2);
         }
@@ -1612,6 +1614,21 @@ namespace Mids_Reborn.Forms
             if (dvLastPower <= -1)
                 return;
             Info_Power(dvLastPower, dvLastEnh, dvLastNoLev, DataViewLocked);
+        }
+
+        //dvAnchored.FileModified += dvAnchored_FileModified;
+        //dvAnchored.RefreshInfo += dvAnchored_RefreshInfo;
+
+        private void dvAnchored_FileModified()
+        {
+            FileModified = true;
+        }
+
+        private void dvAnchored_RefreshInfo()
+        {
+            // RefreshInfo() call not needed.
+            // Done internally in the DataView with UpdateData().
+            DoRedraw();
         }
 
         private bool EditAccoladesOrTemps(int hIDPower)
