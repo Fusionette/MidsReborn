@@ -17,6 +17,44 @@ namespace Mids_Reborn
         public static string MenuName { get; set; } = "MRBTest";
         public const string MenuExt = "mnu";
 
+        public static void GenerateJson()
+        {
+            MidsJsonCharacter jc = new MidsJsonCharacter();
+            jc.Name = MidsContext.Character.Name;
+            jc.Class = MidsContext.Character.Archetype.ClassName;
+            jc.Origin = MidsContext.Character.Archetype.Origin[MidsContext.Character.Origin];
+            jc.Level = MidsContext.Character.Level;
+
+            foreach (var p in MidsContext.Character.CurrentBuild.Powers)
+            {
+                if (p.Power == null) continue;
+
+                if (jc.Powers == null) jc.Powers = new List<MidsJsonPower>();
+                MidsJsonPower jp = new MidsJsonPower();
+
+                jp.CategoryName = p.PowerSet.GroupName;
+                jp.PowerSetName = p.Power.SetName;
+                jp.PowerName = p.Power.PowerName;
+                jp.PowerLevelBought = p.Level;
+
+                for (var j = 0; j < p.Slots.Length; j++)
+                {
+                    if (p.Slots[j].Enhancement.Enh < 0) continue;
+                    if (jp.Boosts == null) jp.Boosts = new List<MidsJsonBoost>();
+
+                    MidsJsonBoost jb = new MidsJsonBoost();
+                    var enhData = DatabaseAPI.Database.Enhancements[p.Slots[j].Enhancement.Enh];
+                    jb.BoostName = enhData.UID;
+                    jb.Level = enhData.LevelMax;
+                    jp.Boosts.Add(jb);
+                }
+
+                jc.Powers.Add(jp);
+            }
+
+            Clipboard.SetDataObject(jc.ToString(), true);
+        }
+
         private static List<List<string>> GenerateBoostChunks()
         {
             var k = 0;

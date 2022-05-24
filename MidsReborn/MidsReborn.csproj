@@ -345,6 +345,7 @@
       <DependentUpon>frmBusy.cs</DependentUpon>
     </Compile>
     <Compile Include="clsConvertibleUnitValue.cs" />
+    <Compile Include="MidsJsonFormat.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

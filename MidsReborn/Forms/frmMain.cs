@@ -5757,6 +5757,7 @@ namespace Mids_Reborn.Forms
         void tsGenFreebies_Click(object sender, EventArgs e)
         {
             if (MainModule.MidsController.Toon == null) return;
+            clsGenFreebies.GenerateJson();
             FloatTop(false);
             // Zed:
             // Rev. 2: use a folder picker instead of a file picker so the data folder
