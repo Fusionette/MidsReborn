@@ -12,19 +12,17 @@ namespace Mids_Reborn
         [JsonProperty("p")]
         public string BoostName;
         [JsonProperty("l")]
-        public int Level;
+        public int? Level;
+        [JsonProperty("c")]
+        public int? NumCombines;
     }
 
     public class MidsJsonPower
     {
-        [JsonProperty("c")]
-        public string CategoryName;
-        [JsonProperty("s")]
-        public string PowerSetName;
-        [JsonProperty("p")]
-        public string PowerName;
+        [JsonProperty("f")]
+        public string PowerFullName;
         [JsonProperty("l")]
-        public int PowerLevelBought;
+        public int? PowerLevelBought;
         [JsonProperty("b")]
         public List<MidsJsonBoost> Boosts;
     }
@@ -38,7 +36,7 @@ namespace Mids_Reborn
         [JsonProperty("o")]
         public string Origin;
         [JsonProperty("l")]
-        public int Level;
+        public int? Level;
         [JsonProperty("p")]
         public List<MidsJsonPower> Powers;
 
@@ -46,21 +44,26 @@ namespace Mids_Reborn
         {
             if (!text.StartsWith("MxDj")) return null;
 
-            byte[] gZipBuffer = Convert.FromBase64String(text.Substring(4));
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
-                memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
-
-                var buffer = new byte[dataLength];
-
-                memoryStream.Position = 0;
-                using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+                byte[] gZipBuffer = Convert.FromBase64String(text.Substring(4));
+                using (var memoryStream = new MemoryStream())
                 {
-                    gZipStream.Read(buffer, 0, buffer.Length);
+                    int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
+                    memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
+
+                    var buffer = new byte[dataLength];
+
+                    memoryStream.Position = 0;
+                    using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+                    {
+                        gZipStream.Read(buffer, 0, buffer.Length);
+                    }
+                    return JsonConvert.DeserializeObject<MidsJsonCharacter>(Encoding.UTF8.GetString(buffer));
                 }
-                return JsonConvert.DeserializeObject<MidsJsonCharacter>(Encoding.UTF8.GetString(buffer));
             }
+            catch { }
+            return null;
         }
 
         override public string ToString()

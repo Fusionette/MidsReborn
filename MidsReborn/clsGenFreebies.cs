@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using mrbBase;
 using mrbBase.Base.Master_Classes;
+using Newtonsoft.Json;
 
 namespace Mids_Reborn
 {
@@ -23,7 +24,22 @@ namespace Mids_Reborn
             jc.Name = MidsContext.Character.Name;
             jc.Class = MidsContext.Character.Archetype.ClassName;
             jc.Origin = MidsContext.Character.Archetype.Origin[MidsContext.Character.Origin];
-            jc.Level = MidsContext.Character.Level;
+
+            // For any integers in the JSON we use nullable ints and avoid populating them if zero,
+            // this makes the export blob slightly smaller.
+            if (MidsContext.Character.Level > 0) jc.Level = MidsContext.Character.Level;
+
+            // Some of the internal power names in Mids' database are wrong, so we need to use a dictionary
+            // to translate them to the correct ones, rather than deal with the Mids database itself.
+            Dictionary<string, string> PowerTranslations = new Dictionary<string, string>();
+            try
+            {
+                // This is being loaded from a JSON file every time a character is exported
+                // in order to let testers live-edit the file, but obviously not for a live release.
+                string pt = File.ReadAllText(OS.GetDefaultSaveFolder() + "PowerTranslations.txt");
+                PowerTranslations = JsonConvert.DeserializeObject<Dictionary<string, string>>(pt);
+            }
+            catch { }
 
             foreach (var p in MidsContext.Character.CurrentBuild.Powers)
             {
@@ -32,10 +48,19 @@ namespace Mids_Reborn
                 if (jc.Powers == null) jc.Powers = new List<MidsJsonPower>();
                 MidsJsonPower jp = new MidsJsonPower();
 
-                jp.CategoryName = p.PowerSet.GroupName;
-                jp.PowerSetName = p.Power.SetName;
-                jp.PowerName = p.Power.PowerName;
-                jp.PowerLevelBought = p.Level;
+                // Use the power name from PowerTranslations if it exists;
+                // again this is intended for beta testing only,
+                // a live release shouldn't have to do this.
+                if (PowerTranslations.ContainsKey(p.Power.FullName))
+                {
+                    jp.PowerFullName = PowerTranslations[p.Power.FullName];
+                }
+                else
+                {
+                    jp.PowerFullName = p.Power.FullName;
+                }
+
+                if (p.Level > 0) jp.PowerLevelBought = p.Level;
 
                 for (var j = 0; j < p.Slots.Length; j++)
                 {
@@ -43,9 +68,38 @@ namespace Mids_Reborn
                     if (jp.Boosts == null) jp.Boosts = new List<MidsJsonBoost>();
 
                     MidsJsonBoost jb = new MidsJsonBoost();
-                    var enhData = DatabaseAPI.Database.Enhancements[p.Slots[j].Enhancement.Enh];
-                    jb.BoostName = enhData.UID;
-                    jb.Level = enhData.LevelMax;
+                    var boost = p.Slots[j].Enhancement;
+                    jb.BoostName = DatabaseAPI.Database.Enhancements[boost.Enh].UID;
+
+                    // The RelativeLevel field is used to set the level of standard enhancements
+                    // and as the value of NumCombines in crafted enhancements.
+                    int rl = boost.RelativeLevel switch
+                    {
+                        Enums.eEnhRelative.MinusThree => -3,
+                        Enums.eEnhRelative.MinusTwo => -2,
+                        Enums.eEnhRelative.MinusOne => -1,
+                        Enums.eEnhRelative.PlusOne => 1,
+                        Enums.eEnhRelative.PlusTwo => 2,
+                        Enums.eEnhRelative.PlusThree => 3,
+                        Enums.eEnhRelative.PlusFour => 4,
+                        Enums.eEnhRelative.PlusFive => 5,
+                        _ => 0
+                    };
+
+                    // FIXME: boost.Grade is an Enums.eEnhGrade but that doesn't contain IOs.
+                    // I just assume it's an IO if there's an IOLevel.
+                    if (boost.IOLevel > 0)
+                    {
+                        // This is a crafted enhancement. Use the relative level as NumCombines.
+                        jb.Level = boost.IOLevel;
+                        if (rl > 0) jb.NumCombines = rl;
+                    }
+                    else
+                    {
+                        // This is a standard enhancement. Set the level to the character level + boost relative level.
+                        if (jc.Level + rl > 0) jb.Level = jc.Level + rl;
+                    }
+
                     jp.Boosts.Add(jb);
                 }
 
