@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using mrbBase.Base.Master_Classes;
 
@@ -46,7 +45,7 @@ namespace mrbBase
             return Path.Combine(sPath, JsonFileConfigSP);
         }
 
-        public static string FDefaultPath => Path.Combine(Path.Combine(GetAssemblyLoc(), RoamingFolder), "Homecoming\\");
+        public static string FDefaultPath => Path.Combine(Path.Combine(GetAssemblyLoc(), RoamingFolder), "Cryptic\\");
 
         private static string FNameConfig => Path.Combine(Path.Combine(GetAssemblyLoc(), RoamingFolder), MxdbFileConfig);
 
