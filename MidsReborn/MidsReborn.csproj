@@ -408,10 +408,10 @@
     <Content Include="Images\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\AttribMod.json">
+    <Content Include="Data\Cryptic\AttribMod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\GlobalMods.mhd">
+    <Content Include="Data\Cryptic\GlobalMods.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Forms\frmBuildSalvageHud.resx">
@@ -439,13 +439,13 @@
     <EmbeddedResource Include="UIv2\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="Data\Homecoming\NLevels.mhd">
+    <Content Include="Data\Cryptic\NLevels.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\RLevels.mhd">
+    <Content Include="Data\Cryptic\RLevels.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Data\Homecoming\PowersReplTable.mhd">
+    <None Include="Data\Cryptic\PowersReplTable.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\enhData.png" />
@@ -791,37 +791,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Homecoming\bbcode.mhd">
+    <Content Include="Data\Cryptic\bbcode.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\Compare.mhd">
+    <Content Include="Data\Cryptic\Compare.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\EClasses.mhd">
+    <Content Include="Data\Cryptic\EClasses.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\EnhDB.mhd">
+    <Content Include="Data\Cryptic\EnhDB.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\I12.mhd">
+    <Content Include="Data\Cryptic\I12.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\I9.mhd">
+    <Content Include="Data\Cryptic\I9.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\Maths.mhd">
+    <Content Include="Data\Cryptic\Maths.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\Origins.mhd">
+    <Content Include="Data\Cryptic\Origins.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\Recipe.mhd">
+    <Content Include="Data\Cryptic\Recipe.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\Salvage.mhd">
+    <Content Include="Data\Cryptic\Salvage.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Homecoming\SetTypes.mhd">
+    <Content Include="Data\Cryptic\SetTypes.mhd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />

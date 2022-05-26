@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{78125AD1-C9F8-4FE9-9BDB-5033D5FA76CC}</ProjectGuid>
@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Base\Extensions\PanelExt.cs" />
     <Compile Include="Base\Extensions\ListviewExt.cs" />
+    <Compile Include="CrypticReplTable.cs" />
     <Compile Include="ExpressionParser.cs" />
     <Compile Include="PowersReplTable.cs" />
     <Compile Include="clsRewardCurrency.cs" />

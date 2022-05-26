@@ -207,7 +207,7 @@ namespace mrbBase
                 se => string.Equals(se.UID, uidEntity, StringComparison.OrdinalIgnoreCase));
         }
 
-        private static int[] NidSets(PowersetGroup? group, int nIDClass, Enums.ePowerSetType nType) // clsI12Lookup.vb
+        private static int[] NidSets(PowersetGroup? group, int nIDClass, Enums.ePowerSetType nType)
         {
             if ((nType == Enums.ePowerSetType.Inherent || nType == Enums.ePowerSetType.Pool) && nIDClass > -1 && !Database.Classes[nIDClass].Playable)
                 return Array.Empty<int>();
@@ -2189,6 +2189,21 @@ namespace mrbBase
                 MessageBox.Show($"Message: {ex.Message}\r\nTrace: {ex.StackTrace}");
                 writer.Close();
                 fileStream.Close();
+            }
+        }
+
+        public static void LoadCrypticReplacementTable()
+        {
+            try
+            {
+                CrypticReplTable.Initialize();
+                Database.CrypticReplTable = CrypticReplTable.Current;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"An error occurred loading the cryptic replacement table.\r\nYou may experience faulty imports.\r\n\r\n{ex.Message}",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

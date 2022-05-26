@@ -20,60 +20,46 @@ namespace Mids_Reborn
 
         public static void GenerateJson()
         {
-            MidsJsonCharacter jc = new MidsJsonCharacter();
-            jc.Name = MidsContext.Character.Name;
-            jc.Class = MidsContext.Character.Archetype.ClassName;
-            jc.Origin = MidsContext.Character.Archetype.Origin[MidsContext.Character.Origin];
+            var jc = new MidsJsonCharacter
+            {
+                Name = MidsContext.Character.Name,
+                Class = MidsContext.Character.Archetype.ClassName,
+                Origin = MidsContext.Character.Archetype.Origin[MidsContext.Character.Origin]
+            };
 
             // For any integers in the JSON we use nullable ints and avoid populating them if zero,
             // this makes the export blob slightly smaller.
             if (MidsContext.Character.Level > 0) jc.Level = MidsContext.Character.Level;
-
-            // Some of the internal power names in Mids' database are wrong, so we need to use a dictionary
-            // to translate them to the correct ones, rather than deal with the Mids database itself.
-            Dictionary<string, string> PowerTranslations = new Dictionary<string, string>();
-            try
-            {
-                // This is being loaded from a JSON file every time a character is exported
-                // in order to let testers live-edit the file, but obviously not for a live release.
-                string pt = File.ReadAllText(MidsContext.Config.GetSaveFolder() + "PowerTranslations.txt");
-                PowerTranslations = JsonConvert.DeserializeObject<Dictionary<string, string>>(pt);
-            }
-            catch { }
 
             foreach (var p in MidsContext.Character.CurrentBuild.Powers)
             {
                 if (p.Power == null) continue;
 
                 if (jc.Powers == null) jc.Powers = new List<MidsJsonPower>();
-                MidsJsonPower jp = new MidsJsonPower();
-
-                // Use the power name from PowerTranslations if it exists;
-                // again this is intended for beta testing only,
-                // a live release shouldn't have to do this.
-                if (PowerTranslations.ContainsKey(p.Power.FullName))
+                var jp = new MidsJsonPower
                 {
-                    jp.PowerFullName = PowerTranslations[p.Power.FullName];
-                }
-                else
-                {
-                    jp.PowerFullName = p.Power.FullName;
-                }
+                    // a live release shouldn't have to do this.
+                    // again this is intended for beta testing only,
+                    // Use the power name from PowerTranslations if it exists;
+                    PowerFullName = DatabaseAPI.Database.CrypticReplTable.KeyExists(p.Power.FullName)
+                        ? DatabaseAPI.Database.CrypticReplTable.FetchAlternate(p.Power.FullName)
+                        : p.Power.FullName
+                };
 
                 if (p.Level > 0) jp.PowerLevelBought = p.Level;
 
                 for (var j = 0; j < p.Slots.Length; j++)
                 {
                     if (p.Slots[j].Enhancement.Enh < 0) continue;
-                    if (jp.Boosts == null) jp.Boosts = new List<MidsJsonBoost>();
+                    jp.Boosts ??= new List<MidsJsonBoost>();
 
-                    MidsJsonBoost jb = new MidsJsonBoost();
+                    var jb = new MidsJsonBoost();
                     var boost = p.Slots[j].Enhancement;
                     jb.BoostName = DatabaseAPI.Database.Enhancements[boost.Enh].UID;
 
                     // The RelativeLevel field is used to set the level of standard enhancements
                     // and as the value of NumCombines in crafted enhancements.
-                    int rl = boost.RelativeLevel switch
+                    var rl = boost.RelativeLevel switch
                     {
                         Enums.eEnhRelative.MinusThree => -3,
                         Enums.eEnhRelative.MinusTwo => -2,

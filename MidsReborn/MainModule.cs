@@ -106,6 +106,8 @@ namespace Mids_Reborn
                     iFrm?.SetMessage("Loading Powers Replacement Table...");
                     DatabaseAPI.LoadReplacementTable();
 
+                    iFrm?.SetMessage("Loading Cryptic-specific power names translation table");
+
                     iFrm?.SetMessage("Loading Graphics...");
                     var taskArray = new Task[9];
                     taskArray[0] = Task.Run(I9Gfx.LoadOriginImages);

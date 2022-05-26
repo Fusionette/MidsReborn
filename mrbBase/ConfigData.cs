@@ -189,7 +189,7 @@ namespace mrbBase
         public bool FirstRun { get; set; } = true;
         public string SourceDataPath { get; set; }
         public string ConversionDataPath { get; set; }
-        public string DataPath { get; set; } = Path.Combine(Files.GetAssemblyLoc(), "Data\\Homecoming\\");
+        public string DataPath { get; set; } = Path.Combine(Files.GetAssemblyLoc(), "Data\\Cryptic\\");
 
         public Enums.RewardCurrency PreferredCurrency = Enums.RewardCurrency.RewardMerit;
 

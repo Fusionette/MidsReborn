@@ -1,0 +1,25 @@
+# Mids' Reborn powers replacement table for Cryptic server
+# Ensure old power names are unique.
+
+# Version: 1.0
+# Revision date: 05/26/22
+# Realm: Cryptic
+
+Blaster_Support.Tactical_Arrow.Gymnastics, Blaster_Support.Tactical_Arrow.Quickness
+Epic.Sentinel_Elec_Mastery.Chain_Fences, Epic.Sentinel_Electricity_Mastery.Chain_Fences
+Epic.Sentinel_Elec_Mastery.Havoc_Punch, Epic.Sentinel_Electricity_Mastery.Havok_Punch
+Epic.Sentinel_Elec_Mastery.Lightning_Field, Epic.Sentinel_Electricity_Mastery.Lightning_Field
+Epic.Sentinel_Elec_Mastery.Paralyzing_Jolt, Epic.Sentinel_Electricity_Mastery.Paralyzing_Jolt
+Epic.Sentinel_Elec_Mastery.Rehabilitating_Circuit, Epic.Sentinel_Electricity_Mastery.Rehabilitating_Circuit
+Epic.Sentinel_Lev_Mastery.Chum_Spray, Epic.Sentinel_Leviathan_Mastery.Arctic_Breath
+Epic.Sentinel_Lev_Mastery.Knockout_Blow, Epic.Sentinel_Leviathan_Mastery.Knockout_Blow
+Epic.Sentinel_Lev_Mastery.School_of_Sharks, Epic.Sentinel_Leviathan_Mastery.School_of_Sharks
+Epic.Sentinel_Lev_Mastery.Spirit_Shark_Jaws, Epic.Sentinel_Leviathan_Mastery.Spirit_Shark_Jaws
+Epic.Sentinel_Lev_Mastery.Summon_Coralax, Epic.Sentinel_Leviathan_Mastery.Summon_Coralax
+Epic.Sentinel_Psi_Mastery.Dominate, Epic.Sentinel_Psionic_Mastery.Dominate
+Epic.Sentinel_Psi_Mastery.Link_Minds, Epic.Sentinel_Psionic_Mastery.Link_Minds
+Epic.Sentinel_Psi_Mastery.Mass_Hypnosis, Epic.Sentinel_Psionic_Mastery.Mass_Hypnosis
+Epic.Sentinel_Psi_Mastery.Mind_Probe, Epic.Sentinel_Psionic_Mastery.Mind_Probe
+Epic.Sentinel_Psi_Mastery.Psychic_Shockwave, Epic.Sentinel_Psionic_Mastery.Psychic_Shockwave
+Pool.Flight.Evasive_Maneuvers, Pool.Flight.Afterburner
+Sentinel_Defense.Invulnerability.Unyielding, Sentinel_Defense.Invulnerability.Unyeilding

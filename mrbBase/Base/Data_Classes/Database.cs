@@ -53,6 +53,8 @@ namespace mrbBase.Base.Data_Classes
 
         public PowersReplTable ReplTable { get; set; }
 
+        public CrypticReplTable CrypticReplTable { get; set; }
+
         public List<Origin> Origins { get; set; }
 
         public IDictionary<string, PowersetGroup> PowersetGroups { get; set; }

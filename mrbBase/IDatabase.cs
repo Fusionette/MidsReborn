@@ -69,6 +69,8 @@ namespace mrbBase
 
         PowersReplTable ReplTable { get; set; }
 
+        CrypticReplTable CrypticReplTable { get; set; }
+
         List<Origin> Origins { get; set; }
 
         float VersionEnhDb { get; set; }

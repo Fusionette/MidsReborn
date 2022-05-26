@@ -31,7 +31,7 @@ namespace Mids_Reborn
             "Sorcery.Translocation", "Experimentation.Jaunt", "Force_of_Will.Stomp"
         };
 
-        protected Dictionary<int, int> OldFitnessPoolIDs { get; } = new Dictionary<int, int>
+        protected Dictionary<int, int> OldFitnessPoolIDs { get; } = new()
         {
             [2553] = 1521,
             [2554] = 1523,
@@ -230,6 +230,12 @@ namespace Mids_Reborn
         // Some power internal names differs from game
         private string CheckForAliases(string fullName)
         {
+            if (DatabaseAPI.Database.CrypticReplTable.KeyExists(fullName))
+            {
+                fullName = DatabaseAPI.Database.CrypticReplTable.FetchSource(fullName);
+            }
+
+            // Obsolete ?
             return fullName.ToLowerInvariant() switch
             {
                 "pool.flight.afterburner" => "Pool.Flight.Evasive_Maneuvers",

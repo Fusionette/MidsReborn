@@ -33,6 +33,7 @@ namespace mrbBase
         private const string JsonFileConfig = "Config.json";
         private const string JsonFileConfigSP = "ConfigSP.json";
         private const string MxdbPowersReplTable = "PowersReplTable.mhd";
+        private const string MxdbCrypticReplTable = "CrypticPowerNames.mhd";
 
         public const string RoamingFolder = "Data\\";
         public static string FileData = string.Empty;
@@ -50,6 +51,8 @@ namespace mrbBase
         private static string FNameConfig => Path.Combine(Path.Combine(GetAssemblyLoc(), RoamingFolder), MxdbFileConfig);
 
         public static string FNamePowersRepl => Path.Combine(FPathAppData, MxdbPowersReplTable);
+
+        public static string CNamePowersRepl => Path.Combine(FPathAppData, MxdbCrypticReplTable);
 
         private static string FPathAppData => MidsContext.Config != null ? MidsContext.Config.DataPath : FDefaultPath;
 
