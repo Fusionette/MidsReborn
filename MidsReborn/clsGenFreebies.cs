@@ -36,7 +36,7 @@ namespace Mids_Reborn
             {
                 // This is being loaded from a JSON file every time a character is exported
                 // in order to let testers live-edit the file, but obviously not for a live release.
-                string pt = File.ReadAllText(OS.GetDefaultSaveFolder() + "PowerTranslations.txt");
+                string pt = File.ReadAllText(MidsContext.Config.GetSaveFolder() + "PowerTranslations.txt");
                 PowerTranslations = JsonConvert.DeserializeObject<Dictionary<string, string>>(pt);
             }
             catch { }
